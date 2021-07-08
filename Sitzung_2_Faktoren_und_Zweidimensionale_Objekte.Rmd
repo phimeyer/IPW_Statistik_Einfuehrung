@@ -1,0 +1,475 @@
+---
+title: "Politikwissenschaftliche Methoden mit R - Sitzung 2: Faktoren und Zweidimensionale Objekte"
+author: "Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover"
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Nachdem die vergangene Sitzung einen breit angelegten Einstieg in `R` als Programm der statistischen Datenanalyse gegeben hat, wollen wir von dieser Sitzung an auf die Arbeit mit Datensätzen einschwenken. Dazu werden wir in der nächsten Sitzung die Datensätze, mit denen wir die Analysen durchführen werden, kennenlernen und in `R` nutzbar machen. Zuvor wollen wir uns in dieser Sitzung einen Überblick über die zweidimensionalen Objektklassen verschaffen, in denen Datensätze üblicherweise in `R` vorliegen. Außerdem lernen wir mit Faktoren eine weiteren eindimensionale Objektklasse kennen.
+
+# 1. `matrix`
+
+Matrizen sind Vektoren mit einer Besonderheit: Sie haben zwei Dimensionen (Vektoren besitzen nur eine). Daten in Form von Matrizen sind also in Zeilen und Spalten geordnet, genau wie bei einer klassischen Tabelle. Das hat zur Folge, dass innerhalb einer Matrix jede Zeile, genauso wie jede Spalte, gleich lang sein muss. Wäre eine Spalte oder Zeile länger oder kürzer, käme es zu leeren Zellen innerhalb der Matrix und damit könnte `R` nicht umgehen.
+
+Ansonsten verhalten sich Matrizen so wie Vektoren. Das bezieht sich insbesondere darauf, dass sie nur eine Klasse von Objekten gleichzeitig beinhalten können. Die Elemente einer Matrix können also z.B. entweder nur *character*-Vektoren oder nur numerisch sein.
+
+## 1.1 eine Matrix erstellen
+
+Wir bilden eine Matrix in `R` so:
+
+```{r}
+m <- matrix(data = 1:6, nrow = 2, ncol = 3)
+m
+```
+
+Die Funktion `matrix()` beinhaltet die Argumente `data`, mit dem die Daten innerhalb der Matrix spezifiziert werden, `nrow` (für "number of rows"), mit dem die Anzahl der Zeilen, und `ncol` ("number of columns"), mit dem die Anzahl der Spalten bestimmt werden. Bei sechs Elementen und zwei Zeilen folgt logisch, dass  die Matrix drei Spalten haben muss. Deshalb kann man sich das letzte Argument auch sparen:
+
+```{r}
+m <- matrix(data = 1:6, nrow = 2)
+m
+```
+
+Wir sehen, dass `R` die Matrix Spalte für Spalte mit Werten versehen hat: 1 und 2 stehen in der ersten Spalte, 3 und 4 in der zweiten Spalte und 5 und 6 in der dritten Spalte. Die Art und Weise, wie `R` beim "Füllen" der Matrix vorgeht, lässt sich über das Argument `byrow` bestimmen, dessen default (Standardeinstellung) `FALSE` ist. Wir setzen `byrow` auf `TRUE`.
+
+```{r}
+m <- matrix(1:6, nrow = 2, byrow = TRUE)
+m
+```
+
+Nun füllt `R` die Matrix zeilenweise mit Werten, sodass 1, 2 und 3 in der ersten und 4, 5 und 6 in der zweiten Zeile stehen.
+
+## 1.2 `cbind()` und `rbind()`
+
+Anders als zuvor, können Matrizen auch erzeugt werden, indem Vektoren "zusammengebunden" werden. Dazu verwenden wir `cbind()` ("column bind", Spalten verbinden) und `rbind()` ("row bind", Zeilen verbinden).
+
+```{r}
+abc <- c("a", "b", "c")   # Bilden eines character vector "abc", der die Buchstaben "a", "b" und "c" enthält
+def <- c("d", "e", "f")   # Bilden eines zweiten character vector "def", der die Buchstaben "d", "e" und "f" enthält
+bind <- cbind(abc, def)     # "Zusammenbinden" der Vektoren a und b als Spalten
+bind
+```
+
+Das funktioniert natürlich genauso (und findet in der Praxis häufiger Anwendung) für numerische Vektoren:
+
+```{r}
+x <- 6:9                # Bilden eines numerischen Vektors
+y <- 20:23              # Bilden eines zweiten numerischen Vektors
+cbind(x, y)             # Zusammenbinden als Spalten
+rbind(x, y)             # Zusammenbinden als Zeilen
+```
+
+Wie wir im Output sehen, bleiben die Namen der Vektoren `x` und `y` als Zeilen- bzw. Spaltennamen in der Matrix erhalten. Mithilfe von `rownames()` und `colnames()` können wir die Zeilen- und Spaltennamen verändern.
+
+```{r}
+z <- cbind(x, y)        # Erstellen der Matrix z aus den Vektoren x und y (als Spalten)
+colnames(z) <- c("einstellig", "zweistellig")   # Zuweisen der Spaltennamen
+z                       # Ausgeben von z um zu prüfen, ob es geklappt hat
+rownames(z) <- c("erste", "zweite", "dritte", "vierte") # Zuweisen der Zeilennamen
+z                       # nochmal ausgeben
+```
+
+`rbind()` und `cbind()` können in gleicher Weise verwendet werden, um Dataframes zu verbinden oder zu erweitern. Worum es sich dabei handelt, erfahren wir jetzt.
+
+# 2. `data frame`
+
+Dataframes sind die übliche Form, in der tabellarische Daten in `R` gespeichert werden und damit ein wichtiger Typ von Objekten. Wenn wir in der nächsten Sitzung die Datensätze, die wir in diesem Kurs untersuchen wollen, einlesen, werden sie in Form von Dataframes vorliegen. Während wir diese Dataframes mit Funktionen zum Einladen von extern verfügbaren Datensätzen erstellen werden (insbesondere `read.csv`, dazu mehr in der nächsten Sitzung), können wir Dataframes auch direkt mithilfe der Funktion `data.frame()` bilden.
+
+## 2.1 Dataframes händisch erstellen
+
+Genau wie bei Matrizen müssen auch bei Dataframes alle Zeilen und Spalten die gleiche Länge aufweisen. Im Gegensatz zur Matrix ist es bei Dataframes allerdings möglich, Elemente unterschiedlicher Klassen miteinander zu kombinieren. Dataframes werden gebildet, indem wir in den Klammern der Funktion `data.frame()` die in ihnen zusammengefassten Spalten (Variablen) nacheinander mit ihrem Namen und Inhalt nennen. In diesem Beispiel für die Variablen `a` und `b`: 
+
+```{r}
+df <- data.frame(a = 1:4, b = c(TRUE, TRUE, FALSE, FALSE))
+df
+```
+
+Wenn wir `df` abschicken, zeigt der Output die Variablennamen `a` und `b` oben und eine automatische Nummerierung der Spalten links.
+
+In einem etwas größeren Beispiel liegt uns ein Auszug aus (fiktiven) Daten eines Experiments vor. Der hier gebildete Dataframe fasst Information zu einer Identifikationsnummer ("id"), dazu, ob es sich um die Experimental- oder Kontrollgruppe handelt ("bedingung"), zur Soziodemografie ("geschlecht", "alter"), sowie zu den Ergebnissen des Experiments zu zwei unterschiedlichen Zeitpunkten ("wert_t1", "wert_t2") für sechs teilnehmende Personen zusammen.
+
+```{r}
+df <- data.frame(id = 1:6,
+                 bedingung = c("E", "E", "C", "C", "C", "E"),
+                 geschlecht = c("M", "M", "W", "M", "W", "W"),
+                 alter = c(17,  19,  22,  18,  16,  21),
+                 wert_t1 = c(8.0, 6.0, 7.5, 6.8, 8.0, 6.4),
+                 wert_t2 = c(8.3, 6.4, 7.7, 6.3, 7.5, 6.4))
+df
+```
+
+Nun wird der Vorzug von Dataframes ersichtlich: Sie ermöglichen es, dass wir Information unterschiedlicher Skalenniveaus kombinieren. Für jede Beobachtung steht also jede Form von Information zur Verfügung, die benötigt wird.
+
+## 2.2 Dataframes und Matrizen umwandeln
+
+In einer Matrix wäre das nicht möglich. Anstatt dessen werden alle enthaltenen Elemente mittels implicit coercion zu character Strings (wenn die Funktion `as.matrix()` verwendet wird) oder numerischen Werten (wenn die Funktion `data.matrix()` verwendet wird) umgewandelt:
+
+```{r}
+dfm <- as.matrix(df) # Umwandlung des Dataframe df in eine Matrix dfm auf die "klassiche" Art und Weise mit as.matrix(): Umwandlung in Characters
+dfm
+dfm <- data.matrix(df) # "intelligentere" Variante: Umwandlung in numerische Werte.
+dfm
+```
+
+Wie wir sehen, kam es bei der Umwandlung in eine Matrix zu dem typischen Informationsverlust durch implicit coercion. Sinnvoller (da nicht mit Informationsverlust verbunden) ist die Umwandlung von Matrizen in Dataframes mit der Funktion `as.data.frame()`:
+
+```{r}
+dfz <- as.data.frame(z) # Matrix "z" (siehe oben) wird zu einem Dataframe umgewandelt und als neues Objekt "dfz" gespeichert
+dfz
+```
+
+## 2.3 Variablen- und Zeilennamen abfragen und verändern
+
+Häufig ist es sinnvoll, sich die in einem Datensatz enthaltenen Variablen anzuschauen, zumindest dann, wenn es sich (anders als hier) um einen fremden Datensatz handelt. Die Namen der Variablen (also der Spalten eines Dataframes) können wir uns mit `names()` anzeigen lassen.
+
+```{r}
+names(df)
+```
+
+Genauso können wir die Variablennamen mittels `names()` verändern. Erscheint uns beispielsweise die Bezeichnung "id" als zu wenig informativ, sodass wir einen aussagekräftigeren Variablennamen wünschen, können wir sie folgendermaßen anpassen:
+
+```{r}
+names(df)[1] <- "identifikation" # Die erste Spalte des Dataframes "df" durch die "1" in den eckigen Klammern identifiziert
+df
+```
+
+Die Zeilennamen von Dataframes können mit der Funktion `row.names()` ausgegeben und verändert werden.
+
+```{r}
+row.names(df)
+```
+
+Da Zeilennamen bei Dataframes jedoch regelmäßig laufende Nummern (Zeilennummern) sind, die uns die Orientierung im Datenstatz erleichtern, sollten sie in der Regel nicht verändert werden. Der Vollständigkeit halber ein Beispiel für eine (nicht sinnvolle) Veränderung der Zeilennamen:
+
+```{r}
+beispiel <- df  # Dataframe "df" wird als "beispiel" gespeichert
+row.names(beispiel) <- 7:12 # Veränderung der Zeilennamen zu den Ziffern sieben bis 12
+beispiel  # Zeilennummern nun von sieben bis 12
+```
+
+# 3. Zeilen, Spalten und Zellen auswählen
+
+Häufig benötigt man einen Datensatz nicht in seiner Gänze, sondern möchte bestimmte Zeilen oder Spalten bzw. einzelne Zellen auswählen. Wir können einzelne Elemente innerhalb von mehrdimensionalen Objekten auf unterschiedliche Arten auswählen.
+
+## 3.1 Auswählen mithilfe der eckigen Klammern `[]`
+
+Beim Output von Matrizen (solange wir die Spalten-/Zeilennamen nicht angepasst haben) konnten wir sehen, dass links von den Zeilen und oben über den Spalten die eckigen Klammern `[]` zu sehen sind.
+
+```{r}
+m
+```
+
+Mithilfe der eckigen Klammern werden in `R` Zeilen (Zahl vor dem Komma) und Spalten (Zahl nach dem Komma) identifiziert. Mithilfe der Identifizierung von Reihen und Spalten in den eckigen Klammern können Elemente innerhalb von Matrizen ausgegeben werden. Wenn wir z. B. die erste Spalte der oben erstellten Matrix `m` ausgeben möchten, schreiben wir
+
+```{r}
+m[, 1]
+```
+
+und für die erste Zeile entsprechend
+
+```{r}
+m[1, ]
+```
+
+Wenn wir an einer bestimmten Zelle innerhalb der Matrix interessiert sind (hier an der Zelle in der zweiten Zeile der ersten Spalte), schreiben wir
+
+```{r}
+m[2, 1]
+```
+
+Diese Form der Auswahl gilt analog für Dataframes. Auch Zeilen und Spalten sowie Zellen des Dataframes `df` können so ausgegeben werden:
+
+```{r}
+df[, 3] # dritte Spalte
+df[, -1] # jede Spalte außer der ersten
+df[4, ] # vierte Zeile
+df[2, 5]  # Zelle in der zweiten Reihe und vierten Spalte
+df[, c(1, 4)] # erste und vierte Spalte (nur die Variablen "identifikation" und "alter")
+df[4:6, ]  # Zeilen 4 bis 6 (die letzten drei Beobachtungen)
+```
+
+Wenn Zeilen-/Spaltennamen vorliegen und wir das Zählen leid sind, können wir genauso diese Namen zur Indizierung mithilfe der eckigen Klammern verwenden.
+
+```{r}
+z[, "einstellig"] # Spalte mit Namen "einstellig"
+df[, c("bedingung", "geschlecht")]  # Variablen "bedingung" und "geschlecht"
+```
+
+## 3.2. Auswählen mithilfe des Dollarzeichens `$`
+
+Nur für Dataframes (nicht für Matrizen) empfiehlt sich die Verwendung des Dollarzeichens `$`. Dabei wird ganz einfach der Variablenname mit dem Dollarzeichen an den Datensatz angehängt.
+
+```{r}
+df$alter
+df$wert_t1
+```
+
+Die Verwendung des Dollarzeichens ist weniger fehleranfällig, da wir den Namen der ausgewählten Variable (Spalte) explizit nennen müssen. Dabei hilft uns `RStudio`, indem es die Variablennamen automatisch vervollständigt. Unser Code wird durch Nennung der Variablennamen außerdem anschaulicher und verständlicher (zumindest, solange wir aussagekräftige Variablennamen verwenden).
+
+## 3.3 Auswählen mit logischen Vektoren und Werten
+
+Neben der Identifizierung von Zeilen und Spalten können wir auch einzelne Werte innerhalb einer Spalte bzw. Variable auswählen. Häufig ist von Interesse, bei welchen Beobachtungen eine Variable einen bestimmten Wert annimmt. Wir können also beim Auswählen noch detaillierter vorgehen, als zuvor gezeigt. Und zwar können wir inhaltliche Information (die Merkmalsausprägungen) bei der Auswahl miteinbeziehen. Wenn uns besipielsweise interessiert, welche Probanden des Experiments der Experimentalgruppe angehören, gehen wir folgendermaßen vor.
+
+(1) Wir bilden einen logischen Vektor (Sitzung 1), der eine Aussage darüber trifft, für welche Beobachtungen unter "bedingung" ein "E" eingetragen wurde (technisch: Wann ist die Aussage, dass "bedingung" gleich "E" ist, wahr?).
+
+```{r}
+df$bedingung == "E"
+```
+Ergebnis: Die Variable "bedingung" nimmt in der ersten, zweiten und sechsten Zeile den Wert "E" an.
+
+(2) Diesen logischen Vektor wenden wir auf den Datensatz `df` an indem wir ihn in die eckigen Klammern **vor** das Komma schreiben. Also dorthin, wo Information zu den Zeilen abgerufen wird. Die Anweisung an `R` lautet dann: Nenne mir die Zeilen, für die die Aussage, dass "bedingung" gleich "E" ist, zutrifft.
+
+```{r}
+df[df$bedingung == "E", ]
+```
+
+Genauso könnten uns nur die Probanden interessieren, die (1) der Experimentalgruppe angehören und, die (2) einen "wert_t1" aufweisen, der größer als 6,0 ist. Wir formulieren also zwei Bedingungen.
+
+```{r}
+df[df$bedingung == "E" & df$wert_t1 > 6.0, ]
+```
+
+Wenn wir wissen wollten, welche Probanden der Experimentalgruppe männlich sind, formulieren wir genauso zwei Bedingungen:
+
+```{r}
+df[df$bedingung == "E" & df$geschlecht == "M", ]
+```
+
+In diesen Beispielen beziehen wir die Identifizierung von Zeilen, die ausgewählt werden sollen, jeweils auf den gesamten Datensatz (vor der eckigen Klammer steht "df"). Wir können die Identifizierung jedoch genauso nur auf einzelne Spalten/Variablen beziehen (also nicht nur "df", sondern zusätzlich einen Variablennamen vor die eckigen Klammern schreiben). Wenn wir ein Element einer Variable auswählen möchten, haben wir es wieder mit einem eindimensionalen Objekt zu tun, denn einzelne Variablen/Spalten haben nur eine Dimension. Deshalb gehen wir genauso vor wie in Sitzung 1 bei der Auswahl von Elementen innerhalb von Vektoren. D.h., das Komma in der eckigen Klammer entfällt.
+
+```{r}
+df$geschlecht[df$bedingung == "E"]
+```
+
+Auswählen von Zeilen, Spalten und Zellen kann informativen Zwecken dienen, jedoch wollen wir häufig einen Datensatz anhand bestimmter Auswahlkriterien zuschneiden. Genauer gesagt, wollen wir nun die Erstellung von Subsets behandeln.
+
+## 3.4 Subsets erstellen
+
+Die gute Nachricht vorweg: Das Anspruchsvollste beim Erstellen von Subsets (Teilmengen) ist das Auswählen von Elementen und das haben wir schon behandelt. Nun geht es lediglich darum, die so definierten Subsets als für sich genommene Objekte zu speichern. Auch das Erstellen neuer Objekte haben wir schon kennengelernt. Dazu verwenden wir den Operator `<-` .
+
+### 3.4.1 Subsetten mithilfe logischer Vektoren
+
+Wenn wir also einen Teildatensatz erstellen möchten, der nur die Experimentalgruppe enthält, schreiben wir:
+
+```{r}
+subset <- df[df$bedingung == "E", ]
+subset
+```
+
+`subset` ist nun das Objekt, in dem der verkürzte Datensatz gespeichert wurde. Oder aber es interessieren uns nur die Erwachsenen Probanden:
+
+```{r}
+subset <- df[df$alter >= 18, ]
+subset
+```
+
+Diese Subsets sind durch die inhaltliche Merkmalsausprägung der Variablen "bedingung" und "alter" bestimmt. Natürlich können wir auch einfach einzelne Spalten oder Zeilen auswählen (s.o.):
+
+```{r}
+subset <- df$alter # Subset nur der Variable "alter"
+subset
+subset <- df[4:6, ] # Subset der vierten bis sechsten Zeile   
+subset
+subset <- df[, c(1, 3)] # Subset der ersten und der dritten Spalte
+subset
+subset <- df[, c("identifikation", "geschlecht", "alter")]  # Subset der Variablen "identifikation", "geschlecht", und "alter"
+subset
+```
+
+### 3.4.2 `subset()`
+
+Eine zweite gute Nachricht: Wir können uns das aufwendige Subsetten mittels eckiger Klammern vereinfachen. base-`R` besitzt nämlich eine eigenständige Funktion zum Erstellen von Subsets mit der naheliegenden Bezeichnung `subset()`. `subset()` ermöglicht die Reduktion eines Datensatzes auf ausgewählte Zeilen mit dem Argument `subset` und auf bestimmte Variablen (Spalten) mit dem Argument `select`.
+
+```{r}
+?subset
+```
+
+Wir verkürzen den Datensatz auf die Variable "alter":
+
+```{r}
+subset <- subset(df, select = alter)
+subset
+```
+
+... auf die Variablen "identifikation", "geschlecht" und "alter":
+
+```{r}
+subset <- subset(df, select = c(identifikation, geschlecht, alter))
+subset
+```
+
+... auf die Zeilen vier bis sechs:
+
+```{r}
+subset <- subset(df, subset = identifikation >= 4)
+subset
+```
+
+... auf die Minderjährigen:
+
+```{r}
+subset <- subset(df, alter < 18) # hier wird das Argument "subset" nicht ausdrücklich genannt
+subset
+```
+
+Das Argument `select` benötigt eine Indizierung der Variablen, während das Argument `subset` inhaltliche Information zu den Merkmalsausprägungen benötigt (">= 4", "< 18").
+
+# 4. Faktoren
+
+Abschließend möchten wir mit den Faktoren einen wichtigen eindimensionalen Objekttyp behandeln.
+Das Besondere bei Faktoren ist, dass sie Labels verwenden. Mithilfe 
+beschreibender Labels wird unsere Datenanalyse anschaulicher: Eine Variable, 
+die die Labels "klein", "mittel" und "groß" verwendet, ist intuitiv 
+verständlicher als eine Variable, die anstatt dessen nur die Werte 1, 2 und 3 
+verwendet. Dadurch bekommen wir eine Beschreibung zu den Daten.
+
+Faktoren erstellen wir mit der Funktion `factor()`. Unser Faktor 
+`x` soll einmal den Wert "klein", zweimal den Wert "mittel" und dreimal den 
+Wert "groß" beinhalten. Wir nutzen `c()` und zählen die Werte des Faktors auf.
+
+```{r}
+x <- factor(c("klein", "mittel", "mittel", "groß", "groß", "groß"))
+x
+```
+
+Nachdem wir uns `x` haben ausgeben lassen, sehen wir im Output, dass 
+tatsächlich "klein" einmal, "mittel" zweimal und "groß" dreimal vorkommt. Die 
+Levels werden außerdem noch einmal ausgegeben.
+
+Das Besondere bei Faktoren ist, dass sich hinter den Labels ("klein", 
+"mittel" & "groß") numerische Werte verbergen. Sie ermöglichen mathematische 
+Operationen, obwohl das mit den Labels an sich (die keine Zahlen sind)
+eigentlich nicht möglich wäre. Die zugrunde liegenden numerischen Werte können
+wir uns mithilfe von `unclass(x)` ausgeben lassen.
+
+```{r}
+unclass(x)
+x
+```
+
+Wenn wir den Output von `unclass(x)` und `x` vergleichen, stellen wir fest, 
+dass 
+"klein" der Wert 2, "mittel" der Wert 3 und "groß" der Wert 1 zugewiesen wurde.
+Das liegt daran, dass `R` sich bei der Zuordnung der Werte an der 
+alphabetischen Reihung orientiert. Demnach käme erst G, dann M und dann K, 
+was einer inhaltlich sinnvollen Ordnung unserer Levels widerspricht. Deshalb 
+werden wir `x` nun so ordnen, dass "klein" < "mittel" < "groß". Dazu verwenden 
+wir das Argument `levels =` innerhalb der Funktion `factor()` und spezifizieren
+dort mithilfe der Funktion `c()` die Levels in der richtigen Ordnung. 
+
+```{r}
+x <- factor(c("klein", "mittel", "mittel", "groß", "groß", "groß"),
+            levels = c("klein", "mittel", "groß"))
+unclass(x)
+x
+```
+
+Jetzt entsprechen sich interne Werte und externe Labels.
+
+Da Dataframes Variablen unterschiedlicher Klassen enthalten können, können Variablen
+auch als Faktoren vorliegen. Mit `as.factor()` können wir Vektoren zu Faktoren umwandeln. Das gilt auch für Variablen innerhalb
+von Dataframes. Innerhalb des Dataframes `df` ist das nur
+für die *character*-Variablen `bedingung` und `geschlecht` sinnvoll, da deren Inhalt
+als Labels interpretiert werden kann.
+
+```{r}
+df$geschlecht <- as.factor(df$geschlecht)
+df$geschlecht
+unclass(df$geschlecht)
+df
+```
+
+# 4. Zusammenfassung
+
+Matrizen und Dataframes sind nützliche zweidimensionale Objekte in `R`. Zeilen und Spalten müssen bei beiden Objekttypen jeweils gleich lang sein. Matrizen können wie Vektoren nur Elemente derselben Klasse beinhalten. In Dataframes können Variablen unterschiedlicher Klassen abgespeichert werden. Wissenschaftliche Datensätze liegen üblicherweise in Form von Dataframes vor. Wir können mehrdimensionale Objekte aus eindimensionalen Vektoren bilden, indem wir sie "zusammenbinden". Elemente innerhalb von Matrizen und Dataframes können mit eckigen Klammern, Elemente von Dataframes mit dem Dollarzeichen sowie mit Vergleichen und logischen Operatoren ausgewählt werden. Anhand ausgewählter Objekte können Subsets mithilfe der klassischen Identifizierung oder der Funktion `subset()` gebildet werden. Faktoren stellen eine weitere Klasse eindimensionaler Objekte dar. Faktoren vergeben zugrunde liegenden Werten Labels.
+
+# 5. Aufgaben
+
+1. Erstellen Sie zwei Matrizen, die beliebige 12 Werte beinhalten: a) mit drei Zeilen und Spalte für Spalte mit Werten versehen; b) mit zwei Spalten und Zeile für Zeile mit Werten versehen. Schreiben Sie effizienten Code, indem Sie jeweils nur die notwendigen Argumente erwähnen.
+2. Erstellen Sie einen character-Vektor "p", der die Namen der im 19. Deutschen Bundestag vertretenen Parteien enthält. Ordnen Sie den Vektor nach dem Mandatsanteil der Parteien beginnend mit dem größten Anteil. Erstellen Sie außerdem einen numerischen Vektor "a", der die Mandatsanteile (gerundet auf eine Nachkommastelle) der Parteien enthält. Orientieren Sie sich an der Ordnung von "p". Erstellen Sie eine Matrix, indem Sie beide Vektoren als Spalten verbinden. Inspizieren Sie die erstellte Matrix. Information finden Sie hier: <https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf>
+3. Wandeln Sie die unter 2. erstellte Matrix in einen Dataframe um. Prüfen Sie die Klasse der beiden Variablen des Dataframe. wandeln Sie sie ggf. in ein angemessenes Datenformat um. Geben Sie beiden Variablen sinnvolle Namen.
+4. Erstellen Sie Subsets für die folgenden potenziellen Koalitionen und speichern Sie sie in Objekten mit den angegbenen Namen: CDU/CSU-SPD -> "groko", CDU/CSU-FDP-Grüne -> "jamaika". Summieren Sie jeweils den Mandatsanteil der möglichen Koalitionen (Tipp: im Tutorial zu Sitzung 1 finden Sie die entsprechende Funktion für das Summieren).
+5. Erstellen Sie ein Subset aller Parteien, die mehr als 10 Prozent der Mandate auf sich vereinigen. Erstellen Sie dieses Subset einmal mithilfe eckiger Klammern und einmal mithilfe der Funktion `subset()`. Erstellen Sie außerdem ein Subset mit allen Parteien, die weniger Mandate auf sich vereinigen als die SPD. (Tipp: für Letzteres benötigen Sie einen logischen Vektor, selbst wenn Sie `subset()` verwenden.)
+6. Erstellen Sie einen Faktor mit den Kategorien "Handy", "Tablet", "Laptop", 
+"PC". Handys sollen zweimal, Tablets viermal, Laptops dreimal und PCs fünfmal 
+vorkommen. Ordnen Sie den Faktor nach der Größe der Geräte von klein nach groß.
+Lassen Sie sich die `table()`und die `summary()` des Faktors ausgeben. Wandeln 
+Sie den Faktor in einen numeric-Vektor um. Lassen Sie sich die `table()`und die
+`summary()` des Vektors ausgeben. Was hat sich im Output dieser Funktionen 
+verändert?
+
+# 6. Lösungen
+
+1.
+a)
+```{r}
+matrix(data = 10:21, nrow = 3)
+```
+b)
+```{r}
+matrix(data = 10:21, ncol = 2, byrow = TRUE)
+```
+oder:
+```{r}
+matrix(data = 10:21, nrow = 6, byrow = TRUE)
+```
+
+2. (möglicherweise aktualisiert)
+```{r}
+p <- c("CDU/CSU", "SPD", "AfD", "FDP", "Linke", "Grüne")
+a <- c(32.9, 20.5, 12.6, 10.7, 9.2, 8.9)
+pa <- cbind(p, a)
+```
+
+3.
+```{r}
+padf <- as.data.frame(pa)
+class(padf$p)
+class(padf$a)
+padf$a <- as.numeric(padf$a)
+padf
+names(padf)[1] <- "parteien"
+names(padf)[2] <- "anteile"
+padf
+```
+
+4.
+```{r}
+groko <- subset(padf, subset = parteien == "CDU/CSU" | parteien == "SPD")
+sum(groko$anteile)
+
+jamaika <- subset(padf, subset = parteien == "CDU/CSU" | parteien == "Grüne" |
+                        parteien == "FDP")
+sum(jamaika$anteile)
+```
+
+5.
+```{r}
+padf[padf$anteile > 10, ]
+subset(padf, subset = anteile > 10)
+subset(padf, subset = anteile < padf$anteile[padf$parteien == "SPD"])
+```
+
+6.
+```{r}
+geraete <- factor(c("Handy","Handy", "Tablet", "Tablet", "Tablet", "Tablet",
+                   "Laptop", "Laptop", "Laptop", "PC", "PC", "PC", "PC", "PC"),
+                 levels = c("Handy", "Tablet", "Laptop", "PC"))
+
+table(geraete)
+summary(geraete)
+
+geraete <- as.numeric(geraete)
+
+table(geraete)
+summary(geraete)
+```
