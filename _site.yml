@@ -1,9 +1,9 @@
 name: "personal-website"
 output_dir: "."
 navbar:
-  title: "Personal Website"
+  title: "IPW Test"
   left:
-    - text: "Sitzung_1_Einführung"
-      href: Sitzung_1_Einführung.html
+    - text: "Sitzung_1_Einfuehrung"
+      href: Sitzung_1_Einfuehrung.html
     - text: "Sitzung_2_Faktoren_und_Zweidimensionale_Objekte"
       href: Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html
