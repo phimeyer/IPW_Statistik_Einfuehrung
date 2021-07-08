@@ -357,7 +357,7 @@ div.tocify {
 <p>Die Pakete werden nicht etwa von einer zentralen Software-Firma entwickelt, sondern von einer Vielzahl von Usern auf der ganzen Welt. Damit profitiert <code>R</code> von der Schwarmintelligenz, während die <code>R Core Group</code> die Qualitätssicherung übernimmt, indem sie neue Pakete prüft und zulässt. Genauso kann man sich die Schwarmintelligenz auf einer Vielzahl von Hilfeforen wie <a href="https://stackoverflow.com/">stackoverflow</a> zu Nutze machen, wo Hilfestellung und Lösungen bereitgestellt werden. Auch eine Google-Suche hilft häufig weiter.</p>
 <p>Ein weiterer Vorteil (nicht zuletzt für Studierende) liegt darin, dass <code>R</code> als open source-Programm kostenlos zur Verfügung steht. Es wird durch die R Foundation for Statistical Computing über die Webseite des CRAN (Comprehensive R Archive Network, <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>) zum Download angeboten. Mittlerweile steht mit <code>RStudio</code> außerdem ein professionelles Interface, das die Bedienung deutlich vereinfacht, kostenlos zur Verfügung.</p>
 <p>Allerdings kommen diese Vorteile nicht ohne einige Nachteile: R-Code gilt als recht anspruchsvoll und Vieles wirkt auf den ersten Blick nicht sonderlich intuitiv. Außerdem ist <code>R</code> case-sensitive (unterscheidet Groß- und Kleinschreibung) und verzeiht keine Tippfehler. Ist etwas nicht (exakt) richtig geschrieben, kommt es zu einer Fehlermeldung oder (schlimmer) ungewollten oder unbemerkten Datenmanipulationen. Das hat damit zu tun, dass <code>R</code> auf der Programmiersprache S beruht. Damit ist das Erlernen des Umgangs mit <code>R</code> durch eine steile Lernkurve gekennzeichnet. Das heißt auch: Es ist ganz normal, wenn Sie etwas nicht auf Anhieb verstehen. Geben Sie nicht auf, es wird besser!</p>
-<p>Ziel dieses Kurses ist, einen grundständigen Einblick in <code>R</code> sowie alle für das Studium relevanten Anwendungen der statistischen Datenanalyse zu erhalten. Den Code den Sie dabei kennenlernen, können Sie also für Ihre eigenen Arbeiten übernehmen (ich vermeide es hier, “kopieren” zu sagen). Ein grundständiges Verständnis des Codes bzw. wie und weshalb man ihn verwendet, ist dazu allerdings unerlässlich. Darauf soll insbesondere zu Anfang der Fokus liegen.</p>
+<p>Ziel dieses Kurses ist, einen grundständigen Einblick in <code>R</code> sowie alle für das Studium relevanten Anwendungen der statistischen Datenanalyse zu erhalten. Den Code den Sie dabei kennenlernen, können Sie also für Ihre eigenen Arbeiten übernehmen (ich vermeide es hier, &quot;kopieren&quot; zu sagen). Ein grundständiges Verständnis des Codes bzw. wie und weshalb man ihn verwendet, ist dazu allerdings unerlässlich. Darauf soll insbesondere zu Anfang der Fokus liegen.</p>
 </div>
 <div id="installation-und-grundlagen-der-bedienung" class="section level1">
 <h1>2. Installation und Grundlagen der Bedienung</h1>
@@ -366,7 +366,7 @@ div.tocify {
 <h2>2.1 Die <code>Console</code></h2>
 <p>Nun können wir <code>RStudio</code> öffnen, wodurch <code>R</code> im Hintergrund ebenfalls geöffnet, allerdings mit der vereinfachten Anwenderansicht versehen wird. Code-Input kann links in der <code>Console</code> ausgeführt werden. Geben Sie als Beispiel</p>
 <pre class="r"><code>Sys.time()</code></pre>
-<pre><code>## [1] &quot;2021-07-08 09:47:35 CEST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-07-08 10:12:34 CEST&quot;</code></pre>
 <p>in die <code>Console</code> ein und bestätigen Sie mit Enter, wodurch Datum und Zeit des Systems ausgegeben werden. (Wie Sie vielleicht bemerken, ist die Funktion möglichst intuitiv gehalten. Tipp: Versuchen Sie stets die Intention hinter der Bezeichnung von Funktionen zu erahnen.)</p>
 <p>Haben Sie bemerkt, dass <code>RStudio</code> Ihnen Code-Vorschläge gemacht hat? (Wenn nicht, tippen Sie nochmal <code>Sys.</code> ein und schauen Sie mal, welche Informationen zum System Sie sonst noch abrufen können). Wenn wir nur Teile von Funktionen eingeben, versucht <code>RStudio</code> sie zu vervollständigen. <code>R</code> hätte uns in seiner klassischen Version dabei nicht weitergeholfen.</p>
 <p>Nun wollen wir selbst kreativ werden und weisen Objekten Inhalt in Form von Werten oder Strings (Zeichen oder Zeichenabfolgen) zu. Zentral ist dabei der <code>&lt;-</code>-Operator, den Sie jetzt kennenlernen und am besten nie wieder vergessen. Es ist eigentlich ganz einfach: Was rechts von <code>&lt;-</code> steht, wird dem, das links davon steht, zugewiesen (Stichwort: intuitiv). Schreiben Sie in die <code>Console</code></p>
@@ -410,27 +410,27 @@ y</code></pre>
 </div>
 <div id="hilfe-und-weiteres" class="section level2">
 <h2>2.4 Hilfe und Weiteres</h2>
-<p>Neben dem <code>R Script</code> (oben links), der <code>Console</code> (unten links) und dem <code>Global Environment</code> bzw. der <code>History</code> (oben rechts) gibt es unten rechts noch ein viertes, bisher nicht erwähntes Fenster. Wichtig in der Anwendung sind hier die Reiter <code>Plots</code>, <code>Packages</code> und <code>Help</code>. Unter <code>Plots</code> werden in <code>R</code> erstellte Abbildungen angezeigt (dazu mehr unter 4. und in Sitzungen 6 und 8). Unter <code>Packages</code> erhalten wir einen Überblick über installierte und geladenen Pakete (dazu mehr unter 4.). Schließlich können wir unter <code>Help</code> auf die Reference Manuals (“Bedienungshandbücher”) für einzelne Funktionen zugreifen. Dazu brauchen wir lediglich den Namen einer Funktion (ohne Klammern) in die Suchleiste einzugeben. Alternativ können wir ein Fragezeichen <code>?</code> zusammen mit der Funktion in die <code>Console</code> eingeben (oder natürlich über das Skript abschicken):</p>
+<p>Neben dem <code>R Script</code> (oben links), der <code>Console</code> (unten links) und dem <code>Global Environment</code> bzw. der <code>History</code> (oben rechts) gibt es unten rechts noch ein viertes, bisher nicht erwähntes Fenster. Wichtig in der Anwendung sind hier die Reiter <code>Plots</code>, <code>Packages</code> und <code>Help</code>. Unter <code>Plots</code> werden in <code>R</code> erstellte Abbildungen angezeigt (dazu mehr unter 4. und in Sitzungen 6 und 8). Unter <code>Packages</code> erhalten wir einen Überblick über installierte und geladenen Pakete (dazu mehr unter 4.). Schließlich können wir unter <code>Help</code> auf die Reference Manuals (&quot;Bedienungshandbücher&quot;) für einzelne Funktionen zugreifen. Dazu brauchen wir lediglich den Namen einer Funktion (ohne Klammern) in die Suchleiste einzugeben. Alternativ können wir ein Fragezeichen <code>?</code> zusammen mit der Funktion in die <code>Console</code> eingeben (oder natürlich über das Skript abschicken):</p>
 <pre class="r"><code>?table</code></pre>
-<p>Schauen Sie sich den Hilfe-Eintrag zu der Funktion <code>table()</code> an, der Ihnen nun angezeigt wird. Die <code>R</code>-Reference Manuals sind in der Regel wie dieser Eintrag aufgebaut mit den Punkten Description, Usage, Arguments usw. Hilfreich ist häufig die Information zu den Argumenten der Funktion (dazu mehr unter 4.), “See Also” zu verwandten oder alternativen Funktionen sowie insbesondere die “Examples”. Diese Anwendungsbeispiele helfen sehr dabei, <code>R</code>-Funktionen und ihre Verwendung zu verstehen.</p>
+<p>Schauen Sie sich den Hilfe-Eintrag zu der Funktion <code>table()</code> an, der Ihnen nun angezeigt wird. Die <code>R</code>-Reference Manuals sind in der Regel wie dieser Eintrag aufgebaut mit den Punkten Description, Usage, Arguments usw. Hilfreich ist häufig die Information zu den Argumenten der Funktion (dazu mehr unter 4.), &quot;See Also&quot; zu verwandten oder alternativen Funktionen sowie insbesondere die &quot;Examples&quot;. Diese Anwendungsbeispiele helfen sehr dabei, <code>R</code>-Funktionen und ihre Verwendung zu verstehen.</p>
 </div>
 </div>
 <div id="objektklassen" class="section level1">
 <h1>3. Objektklassen</h1>
-<p>Wir wollen nun einen ersten Einblick in das Kodieren mit <code>R</code> bekommen. Dafür ist es essentiell, die “Klassen” zu kennen, in denen Objekte vorliegen können. <code>R</code> unterscheidet fünf einfache (sog. <code>atomic</code>) Objektklassen: <em>character</em>, <em>numeric</em>, <em>integer</em>, <em>complex</em> und <em>logical</em>. Vier davon sind für uns unmittelbar relevant und werden im Folgenden näher betrachtet. Welcher “Klasse” die Objekte jeweils angehören, können wir dabei mit der Funktion <code>class()</code> ausgeben lassen.</p>
-<p><em>characters</em> sind Zeichen und Zeichenfolgen und <code>R</code>’s Darstellungsform von Strings. Sie sind durch doppelte Anführungszeichen <code>&quot;&quot;</code> gekennzeichnet:</p>
+<p>Wir wollen nun einen ersten Einblick in das Kodieren mit <code>R</code> bekommen. Dafür ist es essentiell, die &quot;Klassen&quot; zu kennen, in denen Objekte vorliegen können. <code>R</code> unterscheidet fünf einfache (sog. <code>atomic</code>) Objektklassen: <em>character</em>, <em>numeric</em>, <em>integer</em>, <em>complex</em> und <em>logical</em>. Vier davon sind für uns unmittelbar relevant und werden im Folgenden näher betrachtet. Welcher &quot;Klasse&quot; die Objekte jeweils angehören, können wir dabei mit der Funktion <code>class()</code> ausgeben lassen.</p>
+<p><em>characters</em> sind Zeichen und Zeichenfolgen und <code>R</code>'s Darstellungsform von Strings. Sie sind durch doppelte Anführungszeichen <code>&quot;&quot;</code> gekennzeichnet:</p>
 <pre class="r"><code>class(&quot;abc&quot;)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p><em>integers</em> sind ganze Zahlen auf einem diskreten Zahlenstrahl wie 1, 2, 3,… Zwischen 1 und 2 z.B. gibt es nichts. Um sie von kontinuierlichen Zahlen zu unterscheiden, müssen wir ein <code>L</code> indizieren.</p>
+<p><em>integers</em> sind ganze Zahlen auf einem diskreten Zahlenstrahl wie 1, 2, 3,... Zwischen 1 und 2 z.B. gibt es nichts. Um sie von kontinuierlichen Zahlen zu unterscheiden, müssen wir ein <code>L</code> indizieren.</p>
 <pre class="r"><code>class(1L)</code></pre>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<p><em>numerics</em> repräsentieren den kontinuierlichen Zahlenstrahl mit wie 1, 1,5, 2,6345,… Zahlen werden in der Regel als <em>numerics</em> gespeichert.</p>
+<p><em>numerics</em> repräsentieren den kontinuierlichen Zahlenstrahl mit wie 1, 1,5, 2,6345,... Zahlen werden in der Regel als <em>numerics</em> gespeichert.</p>
 <pre class="r"><code>class(1)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p><em>logicals</em> bezeichnen die logischen wahr-/unwahr-Aussagen <code>TRUE</code> und <code>FALSE</code>.</p>
 <pre class="r"><code>class(TRUE)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<p>Mittels <em>explicit coercion</em> (etwa “expliziter Zwang”) können wir die Klasse der Objekte absichtlich verändern. Klassen können nur dann verändert werden, wenn ausreichend Information vorhanden ist, um die Objekte in anderen Klassen sinnvoll zu definieren. In der Praxis ist Coercion in der Regel nur für <em>characters</em>, <em>numerics</em> und <em>logicals</em> relevant, weshalb hier nur diese drei Klassen behandelt werden.</p>
+<p>Mittels <em>explicit coercion</em> (etwa &quot;expliziter Zwang&quot;) können wir die Klasse der Objekte absichtlich verändern. Klassen können nur dann verändert werden, wenn ausreichend Information vorhanden ist, um die Objekte in anderen Klassen sinnvoll zu definieren. In der Praxis ist Coercion in der Regel nur für <em>characters</em>, <em>numerics</em> und <em>logicals</em> relevant, weshalb hier nur diese drei Klassen behandelt werden.</p>
 <p>Ein Objekt der Klasse <em>logical</em> können wir sinnvoll als <em>numeric</em></p>
 <pre class="r"><code>as.numeric(TRUE)</code></pre>
 <pre><code>## [1] 1</code></pre>
@@ -447,14 +447,14 @@ y</code></pre>
 <pre><code>## [1] &quot;1&quot;</code></pre>
 <pre class="r"><code>as.character(15)</code></pre>
 <pre><code>## [1] &quot;15&quot;</code></pre>
-<p>Wir können auch <em>numerics</em> zu <em>logicals</em> umwandeln. Allerdings geht damit ein Informationsverlust einher, weil jede positive und negative Zahl zu <code>TRUE</code> und 0 zu <code>FALSE</code> “gezwungen” wird.</p>
+<p>Wir können auch <em>numerics</em> zu <em>logicals</em> umwandeln. Allerdings geht damit ein Informationsverlust einher, weil jede positive und negative Zahl zu <code>TRUE</code> und 0 zu <code>FALSE</code> &quot;gezwungen&quot; wird.</p>
 <pre class="r"><code>as.logical(1)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>as.logical(0)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>as.logical(-15)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>Schließlich können wir auch <em>character</em>-Objekte zu <em>numeric</em> umwandeln, wenn es sich dabei um Zahlen handelt. Sequenzen von oder mit Buchstaben sind hingegen nicht sinnvoll numerisch zu interpretieren. Entsprechend wird ein <code>NA</code> (“not available”) produziert.</p>
+<p>Schließlich können wir auch <em>character</em>-Objekte zu <em>numeric</em> umwandeln, wenn es sich dabei um Zahlen handelt. Sequenzen von oder mit Buchstaben sind hingegen nicht sinnvoll numerisch zu interpretieren. Entsprechend wird ein <code>NA</code> (&quot;not available&quot;) produziert.</p>
 <pre class="r"><code>as.numeric(&quot;1&quot;)</code></pre>
 <pre><code>## [1] 1</code></pre>
 <pre class="r"><code>as.numeric(&quot;1a&quot;)</code></pre>
@@ -478,12 +478,12 @@ y</code></pre>
 <pre class="r"><code>x &lt;- 2
 x</code></pre>
 <pre><code>## [1] 2</code></pre>
-<p>Die eckigen Klammern <code>[1]</code> kennzeichnen den Output von Vektoren und geben an, dass 2 der erste (und einzige) Wert innerhalb des Vektors <code>x</code> ist. Vektoren können darüber hinaus mehrere Elemente beinhalten. Der Doppelpunkt <code>:</code> bedeutet “bis”.</p>
+<p>Die eckigen Klammern <code>[1]</code> kennzeichnen den Output von Vektoren und geben an, dass 2 der erste (und einzige) Wert innerhalb des Vektors <code>x</code> ist. Vektoren können darüber hinaus mehrere Elemente beinhalten. Der Doppelpunkt <code>:</code> bedeutet &quot;bis&quot;.</p>
 <pre class="r"><code>x &lt;- 4:38     # Vektor `x` beinhaltet Zahlen 4 bis 38
 x</code></pre>
-<pre><code>##  [1]  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
-## [31] 34 35 36 37 38</code></pre>
-<p>Anhand der eckigen Klammern im Output erkennen wir, dass 4 das erste und 29 das 26. Element innerhalb des Vektors <code>x</code> ist. 31 ist entsprechend das 28. Element. Um Vektoren zu bilden und in ihnen mehrere Elemente zusammenzufassen, bietet sich die Funktion <code>c()</code> (für “combine oder”concatinate&quot;) an. Dabei nehmen Vektoren immer die Klasse der Objekte an, die in ihnen gespeichert werden:</p>
+<pre><code>##  [1]  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28
+## [26] 29 30 31 32 33 34 35 36 37 38</code></pre>
+<p>Anhand der eckigen Klammern im Output erkennen wir, dass 4 das erste und 29 das 26. Element innerhalb des Vektors <code>x</code> ist. 31 ist entsprechend das 28. Element. Um Vektoren zu bilden und in ihnen mehrere Elemente zusammenzufassen, bietet sich die Funktion <code>c()</code> (für &quot;combine oder &quot;concatinate&quot;) an. Dabei nehmen Vektoren immer die Klasse der Objekte an, die in ihnen gespeichert werden:</p>
 <pre class="r"><code>x &lt;- c(1, 2, 3)
 class(x)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
@@ -505,7 +505,7 @@ class(x)</code></pre>
 <pre class="r"><code>x &lt;- c(&quot;a&quot;, TRUE)
 class(x)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>Dieser Prozess nennt sich <em>implicit coercion</em> (“impliziter Zwang”) und ist tückisch, weil <code>R</code> keine Fehlermeldung über die Veränderung der Klasse ausgibt, obwohl es zu einem Infromationsverlust kommt. Wir müssen also wissen, was wir tun. Deshalb ist es wichtig, über die Klassen der Objekte Bescheid zu wissen.</p>
+<p>Dieser Prozess nennt sich <em>implicit coercion</em> (&quot;impliziter Zwang&quot;) und ist tückisch, weil <code>R</code> keine Fehlermeldung über die Veränderung der Klasse ausgibt, obwohl es zu einem Infromationsverlust kommt. Wir müssen also wissen, was wir tun. Deshalb ist es wichtig, über die Klassen der Objekte Bescheid zu wissen.</p>
 </div>
 <div id="auswählen-von-elementen-in-vektoren" class="section level2">
 <h2>4.2 Auswählen von Elementen in Vektoren</h2>
@@ -515,7 +515,7 @@ x[3]          # Auswählen des dritten Elements</code></pre>
 <pre><code>## [1] &quot;c&quot;</code></pre>
 <pre class="r"><code>x[4:7]        # Auswählen des vierten bis siebten Elements</code></pre>
 <pre><code>## [1] &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot;</code></pre>
-<p>Der Befehl <code>c()</code> (“combine”, “concatinate”) lässt sich auch hier verwenden:</p>
+<p>Der Befehl <code>c()</code> (&quot;combine&quot;, &quot;concatinate&quot;) lässt sich auch hier verwenden:</p>
 <pre class="r"><code>x[c(2, 5)]    # Auswählen des zweiten und des fünften Elements</code></pre>
 <pre><code>## [1] &quot;b&quot; &quot;e&quot;</code></pre>
 <pre class="r"><code>x[c(5, 5, 5)] # dreimal das fünfte Element auswählen</code></pre>
@@ -529,12 +529,12 @@ x[3]          # Auswählen des dritten Elements</code></pre>
 <pre class="r"><code>x[c(TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE)]</code></pre>
 <pre><code>## [1] &quot;a&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;h&quot;</code></pre>
 <p>Hier wurde acht mal eine wahr-/unwahr-Aussage getroffen, genauso viele Elemente beinhaltet <code>x</code>. Damit gibt es für jedes der Elemente in <code>x</code> eine entsprechende Aussage.</p>
-<p>Diese Form des Auwählens ist viel zu kompliziert, um sie in der Praxis zu verwenden. Allerdings hilft uns dieses Beispiel zu verstehen, wie logische Vergleiche in <code>R</code> funktionieren. Wenn wir z.B. eine Liste von Namen hätten und wissen wollten, ob “Christoph” darauf steht, antwortet uns <code>R</code> in Form eines logischen Vektors:</p>
+<p>Diese Form des Auwählens ist viel zu kompliziert, um sie in der Praxis zu verwenden. Allerdings hilft uns dieses Beispiel zu verstehen, wie logische Vergleiche in <code>R</code> funktionieren. Wenn wir z.B. eine Liste von Namen hätten und wissen wollten, ob &quot;Christoph&quot; darauf steht, antwortet uns <code>R</code> in Form eines logischen Vektors:</p>
 <pre class="r"><code>namen &lt;- c(&quot;Helena&quot;, &quot;Philipp&quot;, &quot;Jakob&quot;, &quot;Julia&quot;, &quot;Christoph&quot;, &quot;Johannes&quot;, &quot;Nicole&quot;, &quot;Kerstin&quot;)
 namen == &quot;Christoph&quot;</code></pre>
 <pre><code>## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</code></pre>
-<p>Wie der logische Vektor, den <code>R</code> als Output erzeugt, zeigt, ist innerhalb des Vektors <code>namen</code> die Aussage, dass <code>namen</code> gleich “Christoph” ist, an fünfter Stelle “wahr”. An jeder anderen Stelle ist sie unwahr.</p>
-<p>Noch ergiebiger sind solche Vergleiche anhand von numerischen Daten. Wenn wir einen Vektor hätten, in dem unterschiedliche Jahre gespeichert sind, könnten wir genauso prüfen, ob das Jahr 2010 darin enthalten ist. Darüber hinaus könnten wir mithilfe Vergleichszeichen prüfen, ob frühere oder spätere Jahre enthalten sind. Wir verwenden <code>==</code> “gleich”,<code>!=</code> “ungleich”,<code>&lt;</code> “kleiner”, <code>&gt;</code> “größer”, <code>&lt;=</code> “kleiner gleich” und <code>&gt;=</code> “größer gleich”.</p>
+<p>Wie der logische Vektor, den <code>R</code> als Output erzeugt, zeigt, ist innerhalb des Vektors <code>namen</code> die Aussage, dass <code>namen</code> gleich &quot;Christoph&quot; ist, an fünfter Stelle &quot;wahr&quot;. An jeder anderen Stelle ist sie unwahr.</p>
+<p>Noch ergiebiger sind solche Vergleiche anhand von numerischen Daten. Wenn wir einen Vektor hätten, in dem unterschiedliche Jahre gespeichert sind, könnten wir genauso prüfen, ob das Jahr 2010 darin enthalten ist. Darüber hinaus könnten wir mithilfe Vergleichszeichen prüfen, ob frühere oder spätere Jahre enthalten sind. Wir verwenden <code>==</code> &quot;gleich&quot;,<code>!=</code> &quot;ungleich&quot;,<code>&lt;</code> &quot;kleiner&quot;, <code>&gt;</code> &quot;größer&quot;, <code>&lt;=</code> &quot;kleiner gleich&quot; und <code>&gt;=</code> &quot;größer gleich&quot;.</p>
 <pre class="r"><code>jahre &lt;- c(2013, 2005, 1995, 2017, 2021, 1989, 2010, 2018)
 jahre == 2010 # Welche Elemente sind gleich dem (sind das) Jahr 2010?</code></pre>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
@@ -552,17 +552,17 @@ jahre[auswahl]</code></pre>
 <pre class="r"><code>jahre[jahre &gt;= 2010]</code></pre>
 <pre><code>## [1] 2013 2017 2021 2010 2018</code></pre>
 <p>Technisch passiert in beiden Fällen das: <code>R</code> wendet den logischen Vektor, der in eckigen Klammern steht, auf den Vektor <code>jahre</code> an und gibt die Elemente von <code>jahre</code> aus, die der logische Vektor als <code>TRUE</code> identifiziert. Elemente, die als <code>FALSE</code> identifiziert werden, werden ignoriert. Damit haben wir ein Subset (eine Teilmenge) von <code>jahre</code> definiert.</p>
-<p>Bei <em>character</em>-Strings sind solche Größer-Kleiner-Vergleiche nicht sinnvoll interpretierbar (kein Name ist größer oder kleiner als ein anderer). Wenn wir mehrere Elemente innerhalb eines <em>character</em>-Vektors auswählen möchten, bieten sich die <em>logischen Operatoren</em> <code>|</code> (<code>Alt+7</code> bzw. <code>option+7</code>) für “oder” und <code>&amp;</code> für “und” an.</p>
+<p>Bei <em>character</em>-Strings sind solche Größer-Kleiner-Vergleiche nicht sinnvoll interpretierbar (kein Name ist größer oder kleiner als ein anderer). Wenn wir mehrere Elemente innerhalb eines <em>character</em>-Vektors auswählen möchten, bieten sich die <em>logischen Operatoren</em> <code>|</code> (<code>Alt+7</code> bzw. <code>option+7</code>) für &quot;oder&quot; und <code>&amp;</code> für &quot;und&quot; an.</p>
 <pre class="r"><code>namen[namen == &quot;Helena&quot; | namen == &quot;Nicole&quot;]</code></pre>
 <pre><code>## [1] &quot;Helena&quot; &quot;Nicole&quot;</code></pre>
 <pre class="r"><code>namen[namen == &quot;Helena&quot; &amp; namen == &quot;Nicole&quot;]</code></pre>
 <pre><code>## character(0)</code></pre>
 <pre class="r"><code>namen[namen != &quot;Helena&quot; | namen != &quot;Nicole&quot;]</code></pre>
-<pre><code>## [1] &quot;Helena&quot;    &quot;Philipp&quot;   &quot;Jakob&quot;     &quot;Julia&quot;     &quot;Christoph&quot; &quot;Johannes&quot;  &quot;Nicole&quot;   
-## [8] &quot;Kerstin&quot;</code></pre>
+<pre><code>## [1] &quot;Helena&quot;    &quot;Philipp&quot;   &quot;Jakob&quot;     &quot;Julia&quot;     &quot;Christoph&quot; &quot;Johannes&quot; 
+## [7] &quot;Nicole&quot;    &quot;Kerstin&quot;</code></pre>
 <pre class="r"><code>namen[namen != &quot;Helena&quot; &amp; namen != &quot;Nicole&quot;]</code></pre>
 <pre><code>## [1] &quot;Philipp&quot;   &quot;Jakob&quot;     &quot;Julia&quot;     &quot;Christoph&quot; &quot;Johannes&quot;  &quot;Kerstin&quot;</code></pre>
-<p>Die erste Zeile Code fragt, ob ein Element in <code>namen</code> entweder gleich “Helena” oder gleich “Nicole” ist. Das trifft für “Helena” und “Nicole” zu. Die zweite Zeile fragt, ob ein Element in <code>namen</code> sowohl gleich “Helena” als auch gleich “Nicole” ist. Da jedes Element nur ein Name ist, trifft das für kein Element zu. Die dritte Zeile fragt, ob ein Element entweder nicht “Helena” oder nicht “Nicole” ist. Weil kein Element beides sein kann, trifft das bei jedem Element zu. Schließlich fragt Zeile 4, ob ein Element sowohl nicht “Helena” als auch nicht “Nicole” ist. Das trifft für alle Elemente außer “Helena” und “Nicole” zu. Wenn wir also eine Liste aller Namen, außer Helena und Nicole haben möchten, geht das so:</p>
+<p>Die erste Zeile Code fragt, ob ein Element in <code>namen</code> entweder gleich &quot;Helena&quot; oder gleich &quot;Nicole&quot; ist. Das trifft für &quot;Helena&quot; und &quot;Nicole&quot; zu. Die zweite Zeile fragt, ob ein Element in <code>namen</code> sowohl gleich &quot;Helena&quot; als auch gleich &quot;Nicole&quot; ist. Da jedes Element nur ein Name ist, trifft das für kein Element zu. Die dritte Zeile fragt, ob ein Element entweder nicht &quot;Helena&quot; oder nicht &quot;Nicole&quot; ist. Weil kein Element beides sein kann, trifft das bei jedem Element zu. Schließlich fragt Zeile 4, ob ein Element sowohl nicht &quot;Helena&quot; als auch nicht &quot;Nicole&quot; ist. Das trifft für alle Elemente außer &quot;Helena&quot; und &quot;Nicole&quot; zu. Wenn wir also eine Liste aller Namen, außer Helena und Nicole haben möchten, geht das so:</p>
 <pre class="r"><code>andere &lt;- namen[namen != &quot;Helena&quot; &amp; namen != &quot;Nicole&quot;]
 andere</code></pre>
 <pre><code>## [1] &quot;Philipp&quot;   &quot;Jakob&quot;     &quot;Julia&quot;     &quot;Christoph&quot; &quot;Johannes&quot;  &quot;Kerstin&quot;</code></pre>
@@ -603,7 +603,7 @@ x * y</code></pre>
 <p>Die Funktion <code>summary()</code> gehört demnach zum Paket <code>base</code>. <code>base</code> ist das Ursprungspaket von <code>R</code> und wird gemeinsam mit <code>R</code> installiert. Es beinhaltet grundsätzliche Funktionen, ohne die eine Datenanalyse nicht erfolgreich ablaufen kann. Für spezialisiertere Anwendungen müssen wir allerdings spezialisierte Pakete installieren.</p>
 <p>Funktionen besitzen Argumente, die wir spezifizieren können bzw. zum Teil müssen. Dadurch bestimmen wir, worauf <code>R</code> die Funktion beziehen und wie genau sie ausgeführt werden sollen. Argumente stehen innerhalb der Klammern <code>()</code> hinter dem Namen der Funktion und werden mithilfe des (einfachen) Gleichheitszeichens <code>=</code> auf einen bestimmten Wert festgesetzt oder mit Inhalt versehen. In etwa so:</p>
 <p><code>Funktion(Argument1 = a, Argument2 = b)</code>.</p>
-<p>Manche Argumente müssen explizit spezifiziert werden, während andere mit einer Standardeinstellung (dem “default”) versehen sind. <code>R</code> erzeugt eine Fehlermeldung, wenn obligatorische Argumente nicht bestimmt wurden.</p>
+<p>Manche Argumente müssen explizit spezifiziert werden, während andere mit einer Standardeinstellung (dem &quot;default&quot;) versehen sind. <code>R</code> erzeugt eine Fehlermeldung, wenn obligatorische Argumente nicht bestimmt wurden.</p>
 <pre class="r"><code>summary(object = )        # Argument &quot;object =&quot; nicht spezifiziert</code></pre>
 <pre class="r"><code>summary(object = jahre)   # jetzt funktioniert es</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -621,7 +621,7 @@ x * y</code></pre>
 <p>Nun ist <code>ggplot2</code> auf unserem Computer installiert. Prüfen Sie mal im Fenster rechts unten unter <code>Packages</code>, ob Sie es finden. Damit wir es auch verwenden können, müssen wir es außerdem laden. Mit <code>library()</code> holen wir es, wenn man so will, aus der Bibliothek hervor (tatsächlich finden Sie rechts unten unter <code>Packages</code> die Bezeichnung <code>System Library</code> für den Ort, an dem alle Pakete gespeichert sind).</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <p>Nun ist das Paket geladen und wir können auf seine Funktionen zugreifen. Wenn Sie es nochmal unter <code>Packages</code> suchen, werden Sie feststellen, dass sich in dem Kästchen links neben dem Paket nun ein Haken befindet. Alternativ hätten wir das Paket auch laden können, indem wir den Haken per Mausklick setzen.</p>
-<p>Als nächstes möchten wir eine Funktion aus dem Paket <code>ggplot2</code> verwenden. Mit <code>qplot()</code> (für “qick plot”) lassen sich recht einfach ansehnliche Grafiken erstellen. Dazu verwenden wir den Datensatz <code>mpg</code> zum Benzinverbrauch von Automodellen, den <code>ggplot2</code> zu Veranschaulichungszwecken gleich mitliefert (Näheres unter <code>?mpg</code>). <code>mpg</code> beinhaltet unter anderem Information dazu, wie viele Meilen ein bestimmtes Modell mit einer Gallone (US-Maßeinheit für Flüssigkeiten) Benzin zurücklegen kann, und zwar die Variablen <code>cty</code> für Meilen in der City und <code>hwy</code> für Meilen auf dem Highway. Um herauszufinden, ob sich ein stärkerer Verbrauch in der Stadt wie auf dem Land gleichermaßen niederschlägt, können wir einen Scatterplot dieser beiden Variablen zeichnen.</p>
+<p>Als nächstes möchten wir eine Funktion aus dem Paket <code>ggplot2</code> verwenden. Mit <code>qplot()</code> (für &quot;qick plot&quot;) lassen sich recht einfach ansehnliche Grafiken erstellen. Dazu verwenden wir den Datensatz <code>mpg</code> zum Benzinverbrauch von Automodellen, den <code>ggplot2</code> zu Veranschaulichungszwecken gleich mitliefert (Näheres unter <code>?mpg</code>). <code>mpg</code> beinhaltet unter anderem Information dazu, wie viele Meilen ein bestimmtes Modell mit einer Gallone (US-Maßeinheit für Flüssigkeiten) Benzin zurücklegen kann, und zwar die Variablen <code>cty</code> für Meilen in der City und <code>hwy</code> für Meilen auf dem Highway. Um herauszufinden, ob sich ein stärkerer Verbrauch in der Stadt wie auf dem Land gleichermaßen niederschlägt, können wir einen Scatterplot dieser beiden Variablen zeichnen.</p>
 <p>Um den Scatterplot zu zeichnen, müssen wir (mindestens) die Argumente <code>x</code> - mit dem wir definieren, welche Variable auf der X-Achse abgebildet sein soll, <code>y</code> - mit dem wir die Y-Achse definieren, und <code>data</code> - mit dem wir den verwendeten Datensatz definieren - bestimmen. Wir möchten den Verbrauch in der Stadt <code>cty</code> auf der X-Achse abbilden, den Verbrauch auf dem Highway <code>hwy</code> auf der Y-Achse abbilden und verwenden den Datensatz <code>mpg</code>.</p>
 <pre class="r"><code>qplot(x = cty, y = hwy, data = mpg)</code></pre>
 <p><img src="Sitzung_1_Einf%C3%BChrung_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
@@ -663,7 +663,8 @@ a + b</code></pre>
 konsonanten &lt;- alphabet[alphabet != &quot;a&quot; &amp; alphabet != &quot;e&quot; &amp; alphabet != &quot;i&quot; &amp;
                           alphabet != &quot;o&quot; &amp; alphabet != &quot;u&quot;]
 konsonanten</code></pre>
-<pre><code>##  [1] &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+<pre><code>##  [1] &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot;
+## [20] &quot;y&quot; &quot;z&quot;</code></pre>
 </div>
 
 
