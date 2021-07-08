@@ -1,7 +1,7 @@
 name: "ipw-statistik"
 output_dir: "."
 navbar:
-  title: "IPW Statistik"
+  title: "Politikwissenschaftliche Methoden mit R"
   left:
     - text: "Einleitung"
       href: index.html

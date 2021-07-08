@@ -1,6 +1,5 @@
 ---
-title: "Politikwissenschaftliche Methoden mit R - Sitzung 1: Einleitung und Grundlagen"
-author: "Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover"
+title: "Sitzung 1: Einleitung und Grundlagen"
 date: ""
 output:
   html_document:

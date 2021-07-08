@@ -1,5 +1,6 @@
 ---
-title: "IPW Test"
+title: "Politikwissenschaftliche Methoden mit R"
+author: "Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover"
 ---
 
 Hier muss ein guter Text rein. 

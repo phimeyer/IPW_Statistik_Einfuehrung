@@ -1,6 +1,5 @@
 ---
-title: "Politikwissenschaftliche Methoden mit R - Sitzung 2: Faktoren und Zweidimensionale Objekte"
-author: "Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover"
+title: "Sitzung 2: Faktoren und Zweidimensionale Objekte"
 date: ""
 output:
   html_document:
