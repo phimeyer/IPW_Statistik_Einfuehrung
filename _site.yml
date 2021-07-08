@@ -1,9 +1,9 @@
-name: "ipw-test"
+name: "ipw-statistik"
 output_dir: "."
 navbar:
-  title: "IPW Test"
+  title: "IPW Statistik"
   left:
-    - text: "Home"
+    - text: "Einleitung"
       href: index.html
     - text: "Einführung"
       href: Sitzung_1_Einfuehrung.html
