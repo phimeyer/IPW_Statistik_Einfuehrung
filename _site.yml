@@ -1,8 +1,10 @@
-name: "Ipw-test"
+name: "ipw-test"
 output_dir: "."
 navbar:
   title: "IPW Test"
   left:
+    - text: "Home"
+      href: index.html
     - text: "Sitzung_1_Einfuehrung"
       href: Sitzung_1_Einfuehrung.html
     - text: "Sitzung_2_Faktoren_und_Zweidimensionale_Objekte"
