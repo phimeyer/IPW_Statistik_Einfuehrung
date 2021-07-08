@@ -313,12 +313,15 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Personal Website</a>
+      <a class="navbar-brand" href="index.html">IPW Test</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="Sitzung_1_Einführung.html">Sitzung_1_Einführung</a>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Sitzung_1_Einfuehrung</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Sitzung_2_Faktoren_und_Zweidimensionale_Objekte</a>
@@ -366,7 +369,7 @@ div.tocify {
 <h2>2.1 Die <code>Console</code></h2>
 <p>Nun können wir <code>RStudio</code> öffnen, wodurch <code>R</code> im Hintergrund ebenfalls geöffnet, allerdings mit der vereinfachten Anwenderansicht versehen wird. Code-Input kann links in der <code>Console</code> ausgeführt werden. Geben Sie als Beispiel</p>
 <pre class="r"><code>Sys.time()</code></pre>
-<pre><code>## [1] &quot;2021-07-08 10:12:34 CEST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-07-08 10:34:33 CEST&quot;</code></pre>
 <p>in die <code>Console</code> ein und bestätigen Sie mit Enter, wodurch Datum und Zeit des Systems ausgegeben werden. (Wie Sie vielleicht bemerken, ist die Funktion möglichst intuitiv gehalten. Tipp: Versuchen Sie stets die Intention hinter der Bezeichnung von Funktionen zu erahnen.)</p>
 <p>Haben Sie bemerkt, dass <code>RStudio</code> Ihnen Code-Vorschläge gemacht hat? (Wenn nicht, tippen Sie nochmal <code>Sys.</code> ein und schauen Sie mal, welche Informationen zum System Sie sonst noch abrufen können). Wenn wir nur Teile von Funktionen eingeben, versucht <code>RStudio</code> sie zu vervollständigen. <code>R</code> hätte uns in seiner klassischen Version dabei nicht weitergeholfen.</p>
 <p>Nun wollen wir selbst kreativ werden und weisen Objekten Inhalt in Form von Werten oder Strings (Zeichen oder Zeichenabfolgen) zu. Zentral ist dabei der <code>&lt;-</code>-Operator, den Sie jetzt kennenlernen und am besten nie wieder vergessen. Es ist eigentlich ganz einfach: Was rechts von <code>&lt;-</code> steht, wird dem, das links davon steht, zugewiesen (Stichwort: intuitiv). Schreiben Sie in die <code>Console</code></p>
@@ -624,10 +627,10 @@ x * y</code></pre>
 <p>Als nächstes möchten wir eine Funktion aus dem Paket <code>ggplot2</code> verwenden. Mit <code>qplot()</code> (für &quot;qick plot&quot;) lassen sich recht einfach ansehnliche Grafiken erstellen. Dazu verwenden wir den Datensatz <code>mpg</code> zum Benzinverbrauch von Automodellen, den <code>ggplot2</code> zu Veranschaulichungszwecken gleich mitliefert (Näheres unter <code>?mpg</code>). <code>mpg</code> beinhaltet unter anderem Information dazu, wie viele Meilen ein bestimmtes Modell mit einer Gallone (US-Maßeinheit für Flüssigkeiten) Benzin zurücklegen kann, und zwar die Variablen <code>cty</code> für Meilen in der City und <code>hwy</code> für Meilen auf dem Highway. Um herauszufinden, ob sich ein stärkerer Verbrauch in der Stadt wie auf dem Land gleichermaßen niederschlägt, können wir einen Scatterplot dieser beiden Variablen zeichnen.</p>
 <p>Um den Scatterplot zu zeichnen, müssen wir (mindestens) die Argumente <code>x</code> - mit dem wir definieren, welche Variable auf der X-Achse abgebildet sein soll, <code>y</code> - mit dem wir die Y-Achse definieren, und <code>data</code> - mit dem wir den verwendeten Datensatz definieren - bestimmen. Wir möchten den Verbrauch in der Stadt <code>cty</code> auf der X-Achse abbilden, den Verbrauch auf dem Highway <code>hwy</code> auf der Y-Achse abbilden und verwenden den Datensatz <code>mpg</code>.</p>
 <pre class="r"><code>qplot(x = cty, y = hwy, data = mpg)</code></pre>
-<p><img src="Sitzung_1_Einf%C3%BChrung_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="Sitzung_1_Einfuehrung_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>Da die Reihenfolge für die ersten beiden Argumente festgelegt ist, müssen wir diese Argumente nicht ausdrücklich nennen (siehe Reihenfolge der Argumente unter <code>?qplot</code>). Dadurch, dass ab der dritten Stelle weitere Argumente (<code>...</code>) möglich sind, ist danach die Reihenfolge aufgehoben sodass wir <code>data</code> explizit nennen müssen.</p>
 <pre class="r"><code>qplot(cty, hwy, data = mpg)</code></pre>
-<p><img src="Sitzung_1_Einf%C3%BChrung_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="Sitzung_1_Einfuehrung_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>Wie wir sehen, gibt es einen (erwartbaren) eindeutigen Zusammenhang des Verbrauchs in der Stadt und des Verbrauchs auf dem Lande. Jedoch ist keine ganz eindeutige Vorhersage des Verbrauchs auf dem Highway anhand eines Werts für den Verbrauch in der Stadt möglich: Unterschiedliche Modelle mit dem gleichen Verbrauch innerorts variieren in Hinblick auf den Verbrauch außerorts um bis zu 8 Meilen pro Gallone (siehe cty == 15).</p>
 </div>
 </div>
