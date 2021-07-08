@@ -5,7 +5,7 @@ navbar:
   left:
     - text: "Einleitung"
       href: index.html
-    - text: "Einführung"
+    - text: "Einleitung und Grundlagen"
       href: Sitzung_1_Einfuehrung.html
     - text: "Faktoren und zweidimensionale Objekte"
       href: Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html
