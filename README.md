@@ -1,1 +1,1 @@
-# test
+Das ist das Repository für die Website "Politikwissenschaftlichen Statistik mit R" (gefördert durch das Niedersächsische Ministerium für Wissenschaft und Kultur im Rahmen des Projekts "DIGITALISIERUNG IN EINER MASSENVERANSTALTUNG (MWK)"). 
