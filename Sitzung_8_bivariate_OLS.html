@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 8: Bivariate lineare Regression (OLS)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 8: Bivariate lineare Regression (OLS)</h1>
+
+</div>
+
+
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
+<p>In diesem Tutorial werden wir uns mit einer bivariaten OLS (<em>ordinary least squares</em> - Regression der kleinsten Quadrate) Regression beschäftigen. Regressionen dienen dazu, den Zusammenhang zwischen Variablen rechnerisch zu testen. Die OLS Regression ist eine sogenannte lineare Regression, welche für stetige Variablen verwendet wird. Lineare Regressionen sind vor allem bei Querschnittsdaten, die zu einem einzigen Zeitpunkt erhoben wurden, gut geeignet.</p>
+<p>Die OLS nimmt an, dass sich die abhängige Variable als lineare Funktion einer unabhängigen Variable beschreiben lässt. Eine Veränderung um eine Einheit bei der unabhängigen Variable führt zu einer entsprechenden Veränderung bei der abhängigen Variable.</p>
+<p>Im folgenden werden wir eine lineare bivariate Regression durchführen. Beispielhaft werden wir den Zusammenhang zwischen der effektiven Parteienanzahl (ENP) - <strong>enpp4510</strong> - und dem Gallagher-Index - <strong>disprop4510</strong> - berechnen.</p>
+</div>
+<div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
+<h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
+<p>Wie immer laden wir in einem ersten Schritt die zusätzlichen Pakete die wir für dieses Tutorial brauchen. Anschließend laden wir den Datensatz (in diesem Fall den Lijphart-Datensatz) und transformieren einige Variablen, damit diese der von uns gewünschten Klasse (numerische Variablen) angehören.</p>
+<pre class="r"><code># Pakete laden
+library(broom)   # Das Paket wird in Punkt 4 dieses Tutorials verwendet
+library(ggplot2) # Das Paket wird in Punkt 4 dieses Tutorials verwendet
+
+library(psych) # Das Paket benötigen wir um schöne Korrelationstabellen zu erstellen
+library(data.table) # Das Paket benötigen wir um schöne Korrelationstabellen zu erstellen
+
+# Datensatz laden</code></pre>
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre class="r"><code># Variablenklassen umwandeln
+
+# ENPP
+lijphart$enpp4510 &lt;- as.numeric(lijphart$enpp4510)
+
+# Gallagher
+lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
+
+# Bikameralismus
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# Cabinet Type
+lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
+
+# Cabinet Duration
+lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)
+
+# Pluralism
+lijphart$inter_gr_plural4510 &lt;- as.numeric(lijphart$inter_gr_plural4510)
+
+# Federalism
+lijphart$federal4510 &lt;- as.numeric(lijphart$federal4510)
+
+# Bikameralism
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# Constitutional Rigidity
+lijphart$const_rigid4510 &lt;- as.numeric(lijphart$const_rigid4510)
+
+# Judicial review
+lijphart$judic_rev4510 &lt;- as.numeric(lijphart$judic_rev4510)
+
+# Central bank independence
+lijphart$cen_bank_indep4594 &lt;- as.numeric(lijphart$cen_bank_indep4594)
+
+# Datensatz: Lijphart 1945-2010. Dieser Datensatz wird unsere spätere Analyse  erleichtern
+
+lijphart4510 &lt;- data.frame(lijphart$Country, lijphart$enpp4510
+                           , lijphart$minwin_one_part4510, lijphart$exe_dom4510
+                           , lijphart$disprop4510, lijphart$inter_gr_plural4510
+                           , lijphart$federal4510, lijphart$bicam4510
+                           , lijphart$const_rigid4510
+                           , lijphart$judic_rev4510, lijphart$cen_bank_indep4594)</code></pre>
+</div>
+<div id="bivariate-lineare-regression" class="section level1">
+<h1>3. Bivariate lineare Regression</h1>
+<p>In Sitzung 5 haben wir uns mit den Ähnlichkeitsmaßen und mit der Streuung einiger Variablen des Lijphart-Datensatzes auseinandergesetzt. Für dieses Beispiel berechnen wir den Zusammenhang zwischen der effektiven Parteienanzahl (<strong>enpp4510</strong>) - unserer abhängigen Variable - und dem Gallagher-Index (<strong>disprop4510</strong>) - unserer unabhängigen Variable.</p>
+<div id="korrelation" class="section level2">
+<h2>3.1. Korrelation</h2>
+<p>Der erste Schritt einer Regressionsanalyse ist die Betrachtung der Korrealtionsmatrix. Diese hilft uns dabei, einen ersten Eindruck über die Zusammenhänge der uns interessierenden Variablen zu bekommen. Typische Korrelationsmetriken sind die Pearson und die Spearman's-R Korrelation. Um die Korrelationskoeffizienten zu errechnen gibt es viele unterschiedliche Herangehensweisen. In dem folgenden Beispiel werden wir die Korrelation mit der <code>cor</code>-Funktion errechnen und in dem neuen Objekt <code>lijphart_cor</code> speichern.</p>
+<p>Obwohl wir uns in den nachfolgenden Schritten auf den Zusammenhang zwischen ENPP und Gallagher fokussieren, werden wir hier eine Korrelation zwischen den zwei uns interessierenden Variablen darstellen.</p>
+<p>Wie in Sitzung 7 prüfen wir den Zusammenhang zwischen der ENPP und dem Gallagher-Index zunächst mit der Korrelationsmaßen:</p>
+<pre class="r"><code>lijphart_cor_pear &lt;- cor(lijphart$enpp4510, lijphart$disprop4510, method = &quot;pearson&quot;) # Pearson Korrelation
+lijphart_cor_pear</code></pre>
+<pre><code>## [1] -0.5679062</code></pre>
+<pre class="r"><code>lijphart_cor_spear &lt;- cor(lijphart$enpp4510, lijphart$disprop4510, method = &quot;spearman&quot;) # Spearman&#39;s-R Korrelation zum Vergleich
+lijphart_cor_spear</code></pre>
+<pre><code>## [1] -0.5771285</code></pre>
+<p>Anscheinend haben die beiden Variablen einen negativen Zusammenhang. Lässt sich das auch in der linearen Regression bestätigen?</p>
+</div>
+<div id="regression" class="section level2">
+<h2>3.2. Regression</h2>
+<p>Um eine bivariate lineare Regression durchzuführen, verwenden wir die Funktion <code>lm()</code> (kurz für lineare Modelle). Wir müssen die abhängige Variable, die unabhängige Variable und den Datensatz angeben. In unserem Beispiel geben wir <code>enpp4510</code> als abhängige Variable und <code>disprop4510</code> als unabhängige Variable an und beziehen diese Variablen aus dem Datensatz <code>lijphart</code>. In einer OLS wird die abhängige Variable als lineare Funktion der unabhängigen Variable angenommen. Zur Berechnung einer solchen Funktion nutzen wir das tilde-Symbol <code>~</code> (<code>Alt+N</code> oder <code>Option+N</code>). Die Regressionseregbnisse speichern wir in dem Objekt <code>lm_lijphart</code>.</p>
+<pre class="r"><code>lm_lijphart &lt;- lm(enpp4510 ~ disprop4510, data = lijphart)</code></pre>
+<p>Wenn wir <code>lm_lijphart</code> eingeben, werden uns der Intercept (der Schnittpunkt der Regressionsgeraden mit der Y-Achse) und die Koeffizienten des Modells ausgegeben.</p>
+<pre class="r"><code>lm_lijphart</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = enpp4510 ~ disprop4510, data = lijphart)
+## 
+## Coefficients:
+## (Intercept)  disprop4510  
+##      4.0921      -0.1054</code></pre>
+<p>Wir sehen hier, dass der Intercept 4,09 beträgt und der Koeffizient mit -0.10 angegeben wird. Steigt der Wert des Gallagher-Index (wird also das Wahlsystem eher disproportional) um eine Einheit, dann verändert sich der ENP-Wert um -0,10. Wir hier also einem negativen Zusammenhang zwischen Parteienanzahl und Wahlsystemdisproportionalität, der sich mit den Ergebnissen von Lijphart deckt.</p>
+<p>Intercept und Koeffizient alleine reichen aber nicht aus, um die Ergebnisse der linearen Regression vollständig zu beurteilen. Hierfür benötigen wir zusätzlich auch Informationen über den Standardfehler (SE), den p-Wert und weitere Modellstatistiken. Diese Informationen erhalten wir, wenn wir die <code>summary()</code> Funktion auf unser Objekt mit der linearen Regression (<code>lm_lijphart</code>) anwenden.</p>
+<pre class="r"><code>summary(lm_lijphart)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = enpp4510 ~ disprop4510, data = lijphart)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.8840 -0.7336 -0.2241  0.9471  1.7194 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  4.09206    0.27417  14.925  &lt; 2e-16 ***
+## disprop4510 -0.10536    0.02619  -4.023 0.000303 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9503 on 34 degrees of freedom
+## Multiple R-squared:  0.3225, Adjusted R-squared:  0.3026 
+## F-statistic: 16.19 on 1 and 34 DF,  p-value: 0.000303</code></pre>
+<p>Wir sehen hier, dass die Schätzung für <code>disprop4510</code> negativ und statistisch signifikant ist. Je dispropotionaler ein Wahlsystem ist, desto niedriger die effektive Anzahl der Parteien. Weiterhin sehen wir, dass das R-Quadrat 0,30 beträgt. Das bedeutet, dass 30% der Varianz der Parteienanzahl durch unsere unabhängige Variable erklärt wird.</p>
+<p>Mit diesen wenigen Code-Zeilen haben wir jetzt eine bivariate lineare Regression gerechnet und uns die Ergebnisse anzeigen lassen.</p>
+</div>
+</div>
+<div id="regressionsmodell-komponenten-extrahieren" class="section level1">
+<h1>4. Regressionsmodell-Komponenten extrahieren</h1>
+<p>Im Grunde könnt ihr mit dem oben gezeigten Code alle notwendigen Informationen für eure Analyse generieren. Mittels ein paar zusätzlicher Operationen lassen sich die Modellkomponenten einzeln speichern und für weitere Analyseschritte wie z.B. eine Visualisierung nutzen.</p>
+<p>Zuerst nutzen wir das <code>broom</code> Paket und die <code>tidy</code>-Funktion und konvertieren das Modell in einen Datensatz, in dem wir unsere Modellschätzungen und Teststatistiken speichern. Die <code>tidy</code>-Funktion fasst Informationen über Regressionsmodell-Komponenten zusammen. Wir speichern den neuen Datensatz in dem Objekt <code>lm_fit_lijphart</code>:</p>
+<pre class="r"><code>lm_fit_lijphart &lt;- tidy(lm_lijphart)
+lm_fit_lijphart</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)    4.09     0.274      14.9  1.72e-16
+## 2 disprop4510   -0.105    0.0262     -4.02 3.03e- 4</code></pre>
+<p>Die Konfidenzintervalle extrahieren wir mit <code>conf.int = TRUE</code>. Konfidenzintervalle geben Auskunft über die Präzision unseres Modells.</p>
+<pre class="r"><code>lm_fit_lijphart &lt;- tidy(lm_lijphart, conf.int = TRUE)
+lm_fit_lijphart</code></pre>
+<pre><code>## # A tibble: 2 x 7
+##   term        estimate std.error statistic  p.value conf.low conf.high
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)    4.09     0.274      14.9  1.72e-16    3.53     4.65  
+## 2 disprop4510   -0.105    0.0262     -4.02 3.03e- 4   -0.159   -0.0521</code></pre>
+<p>Die Maße zur Interpretation der Modellgüte, wie z.B. das R-Quadrat, können wir uns mittels der <code>glance</code>-Funktion in ein zusätzliches Objekt speichern.</p>
+<pre class="r"><code>lm_glance_lijphart &lt;- glance(lm_lijphart)
+lm_glance_lijphart</code></pre>
+<pre><code>## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.323         0.303 0.950      16.2 0.000303     1  -48.2  102.  107.
+## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<p>Zusätzlich können wir auch Modellvorhersagen und Residuen speichern. Dazu verwenden wir die <code>augment()</code>-Funktion und speichern die Informationen in dem neuen Objekt <code>lm_aug_lijphart</code>.</p>
+<pre class="r"><code>lm_aug_lijphart &lt;- augment(lm_lijphart)
+lm_aug_lijphart</code></pre>
+<pre><code>## # A tibble: 36 x 8
+##    enpp4510 disprop4510 .fitted  .resid   .hat .sigma  .cooksd .std.resid
+##       &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1     3.15       18.0     2.20  0.952  0.0954  0.949 0.0585        1.05 
+##  2     2.22        9.44    3.10 -0.877  0.0284  0.952 0.0128       -0.937
+##  3     2.68        2.51    3.83 -1.15   0.0554  0.942 0.0453       -1.24 
+##  4     1.69       16.5     2.36 -0.666  0.0756  0.957 0.0217       -0.729
+##  5     1.68       17.3     2.27 -0.593  0.0856  0.958 0.0199       -0.652
+##  6     4.72        3.35    3.74  0.981  0.0483  0.949 0.0284        1.06 
+##  7     1.38       14.6     2.55 -1.17   0.0557  0.941 0.0476       -1.27 
+##  8     2.52       11.6     2.87 -0.354  0.0347  0.962 0.00258      -0.379
+##  9     2.67       14.4     2.58  0.0930 0.0536  0.964 0.000287      0.101
+## 10     4.57        1.71    3.91  0.658  0.0633  0.957 0.0173        0.716
+## # … with 26 more rows</code></pre>
+<p>Diesen neuen Datensatz können wir zur Visualisierung unserer linearen Regression und den Residuen (die wir mit rot hervorheben) nutzen. Die Visualisierung realisieren wir mit dem <code>ggplot2</code>-Paket, welches wir Bereits aus der 6. Sitzung kennen und das wir nochmals in der neunten Sitzung genauer besprechen.</p>
+<pre class="r"><code>ggplot(lm_aug_lijphart, aes(x = disprop4510, y = enpp4510)) +
+  geom_segment(aes(xend = disprop4510, y = enpp4510, yend = .fitted),
+               colour = &quot;red&quot;) +
+  geom_point() +
+  geom_line(aes(x = disprop4510, y = .fitted)) +
+  xlab(&quot;Disproportionalität des Wahlsystems (Gallagher-Index)&quot;) + ylab(&quot;Effektive Parteienanzahl (ENP)&quot;)</code></pre>
+<p><img src="Sitzung_8_bivariate_OLS_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Im kommenden Tutorial werden wir weitere Visualisierungen von bivariaten Zusammenhängen besprechen und noch etwas tiefer in die Funktionen von <code>ggplot2</code> eintauchen.</p>
+</div>
+<div id="aufgaben" class="section level1">
+<h1>5. Aufgaben</h1>
+<p>Bearbeitet bitte die folgenden Aufgaben bis zu kommenden Sitzung:</p>
+<ol style="list-style-type: decimal">
+<li>Untersucht den Zusammenhang zwischen Kabinettstyp - <strong>bicam4510</strong> - und Regierungsdauer - <strong>exe_dom4510</strong>. Bitte berechnet die Korrelation und eine bivariate lineare Regressionsanalyse.</li>
+<li>Interepretiert die Korrelationskoeffizizenten, die Effektstärke und die Regressionskoeffizienten. Welche Schlüsse lassen sich ziehen?</li>
+</ol>
+</div>
+<div id="lösungen" class="section level1">
+<h1>6. Lösungen</h1>
+<pre class="r"><code># Korrelation
+lijphart_cor_pear &lt;- cor(lijphart$bicam4510, lijphart$exe_dom4510, method = &quot;pearson&quot;)  
+
+lijphart_cor_spear &lt;- cor(lijphart$bicam4510, lijphart$exe_dom4510, method = &quot;spearman&quot;)  
+
+# Bivariate lineare Regression
+lm_lijphart &lt;- lm(bicam4510 ~ exe_dom4510, data = lijphart)</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

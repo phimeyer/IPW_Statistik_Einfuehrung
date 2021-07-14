@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 10: Logistische Regression</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 10: Logistische Regression</h1>
+
+</div>
+
+
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
+<p>In der 8. und 10. Sitzung haben wir eine lineare Regressionen gerechnet. Lineare Regressionen sind in bei einer stetigen abhängigen Variablen angemessen.</p>
+<p>Problematisch wird es jedoch, wenn wir eine dichotom kodierte abhängige Variable haben (mit den Werten 0 und 1). In einem solchen Fall gelten die Grundannahmen von linearen Regressionsmodellen (wie z.B. die Normalverteilung der Residuen oder die Varianzhomogenität) nicht. Eine sehr gängige Möglichkeit sind logistische Regressionsmodelle, die darauf abzielen, die Wahrscheinlichkeiten der Ausprägung (0 oder 1) zu schätzen.</p>
+<p>Im Gegensatz zu Regressionskoeffizienten linearer Regressionsmodelle sind solche von logistischen Regressionsmodellen schwierig zu interpretieren. Aus diesem Grund nutzen wir die Effektkoeffizienten (<strong>Logits</strong> oder <strong>Log odds</strong>), um so die Wahrscheinlichkeit der Veränderung der abhängigen Variable vorherzusagen, wenn die unabhängigen Variablen um eine Einheit erhöht werden. Diese sogenannten <em>predicted probabilities</em> helfen bei der Interpretation der Koeffizienten und werden mit dem Oberbegriff der <em>quantities of interest</em> überschrieben.</p>
+<p>In diesem Tutorial werden wir lernen, wie man eine logistische Regression mit einer binären abhängigen Variable in <code>R</code> berechnet und wie man in einem zweiten Schritt die <em>predicted probabilities</em> berechnet und visualisiert.</p>
+</div>
+<div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
+<h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
+<p>Wir laden in einem ersten Schritt die Pakete, die wir für dieses Tutorial brauchen. Anschließend laden wir den GLES-Datensatz und transformieren einige Variablen.</p>
+<pre class="r"><code># Pakete laden
+library(ggplot2) # für die Visualisierung
+
+library(ggeffects) # für predicted probabilities</code></pre>
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre class="r"><code># GLES
+# Alter
+q2c_num &lt;- as.numeric(as.character(gles$q2c))
+gles$alter &lt;- 2017 - q2c_num
+
+# Geschlecht
+names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
+
+# Einkommen kategorial
+gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
+                     gles$q192 == &quot;500 bis unter 750 Euro&quot; |
+                     gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;
+gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
+                     gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
+                     gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
+gles$einkommen_cat[gles$q192 == &quot;2000 bis unter 2500 Euro&quot; |
+                     gles$q192 == &quot;2500 bis unter 3000 Euro&quot;] &lt;- &quot;2000 bis 2999&quot;
+gles$einkommen_cat[gles$q192 == &quot;3000 bis unter 4000 Euro&quot;] &lt;- &quot;3000 bis 3999&quot;
+gles$einkommen_cat[gles$q192 == &quot;4000 bis unter 5000 Euro&quot;] &lt;- &quot;4000 bis 4999&quot;
+gles$einkommen_cat[gles$q192 == &quot;5000 bis unter 7500 Euro&quot;] &lt;- &quot;5000 bis 7499&quot;
+gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
+                     gles$q192 == &quot;10000 Euro und mehr&quot;] &lt;- &quot;7500 und mehr&quot;
+
+gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
+                                levels = c(&quot;weniger als 1000&quot;,
+                                           &quot;1000 bis 1999&quot;,
+                                           &quot;2000 bis 2999&quot;,
+                                           &quot;3000 bis 3999&quot;,
+                                           &quot;4000 bis 4999&quot;,
+                                           &quot;5000 bis 7499&quot;,
+                                           &quot;7500 und mehr&quot;))
+
+# Einkommen numerisch
+gles$einkommen_num[gles$einkommen_cat == &quot;weniger als 1000&quot;] &lt;- 1
+gles$einkommen_num[gles$einkommen_cat == &quot;1000 bis 1999&quot;] &lt;- 2
+gles$einkommen_num[gles$einkommen_cat == &quot;2000 bis 2999&quot;] &lt;- 3
+gles$einkommen_num[gles$einkommen_cat == &quot;3000 bis 3999&quot;] &lt;- 4
+gles$einkommen_num[gles$einkommen_cat == &quot;4000 bis 4999&quot;] &lt;- 5
+gles$einkommen_num[gles$einkommen_cat == &quot;5000 bis 7499&quot;] &lt;- 6
+gles$einkommen_num[gles$einkommen_cat == &quot;7500 und mehr&quot;] &lt;- 7
+
+# Wohnort
+gles$wohnort[gles$q197 == &quot;Grossstadt&quot;] &lt;- &quot;Großstadt&quot;
+gles$wohnort[gles$q197 == &quot;kleine oder mittelgrosse Stadt&quot;] &lt;- &quot;Kleinstadt&quot;
+gles$wohnort[gles$q197 == &quot;laendliche Gegend oder Dorf&quot;] &lt;- &quot;Land&quot;
+gles$wohnort[gles$q197 == &quot;Vorstadt/ Vorort einer Grossstadt&quot;] &lt;- &quot;Vorstadt&quot;
+
+# Links-Rechts-Selbsteinstufung
+gles$LiRe &lt;- as.character(gles$q32)
+gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
+gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
+gles$LiRe &lt;- as.numeric(gles$LiRe)
+
+# Links-Rechts-Selbsteinstufung aggregiert
+gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
+                gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
+                gles$LiRe &lt;= 4] &lt;- &quot;moderat links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 5 &amp;
+                gles$LiRe &lt;= 7] &lt;- &quot;mittig&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 8 &amp;
+                gles$LiRe &lt;= 9] &lt;- &quot;moderat rechts&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 10 &amp;
+                gles$LiRe &lt;= 11] &lt;- &quot;rechts&quot;
+
+gles$LiRe_cat &lt;- factor(gles$LiRe_cat,
+                                levels = c(&quot;links&quot;,
+                                           &quot;moderat links&quot;,
+                                           &quot;mittig&quot;,
+                                           &quot;moderat rechts&quot;,
+                                           &quot;rechts&quot;))
+
+# AfD-Wahl
+gles$AfD.Wahl[gles$q19ba == &quot;AfD&quot;] &lt;- 1
+gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0</code></pre>
+</div>
+<div id="binäre-logistische-regression" class="section level1">
+<h1>3. Binäre logistische Regression</h1>
+<p>Für unsere binäre logistische Regression werden wir die Variable <code>AfD.Wahl</code> nutzen. Diese von uns dichotom kodierte Variable gibt an, ob die befragten Personen die AfD gewählt haben oder nicht. Als unabhängige Variable werden wir die Selbsteinstufung der Befragten auf einer Lins-Rechts-Skala (<code>LiRe_cat</code>) verwenden, die wir oben als kategorische Variable umkodiert haben. Als ad-hoc Arbeitshypothese nehmen wir Folgendens an: Je eher sich eine befragte Person als politisch rechts einstuft, desto eher wählt diese Person die AfD.</p>
+<div id="das-modell" class="section level3">
+<h3>3.1. Das Modell</h3>
+<p>In <code>R</code> rechnen wir eine logistische Regression mit der <code>glm()</code>-Funktion.</p>
+<p>Um ein einfaches logistisches Regressionsmodell zu schätzen, modellieren wir unsere abhängige Variable und unsere unabhängige Variable. Als Datensatz verwenden wir <code>gles</code>. Wir speichern das Modell in dem Objekt <code>afd_logit</code>. Zusätzlich teilen wir <code>R</code> mit, dass wir eine binomiale logistischen Regression durchführen möchten, indem wir das Argument <code>family</code> auf <code>&quot;binomial&quot;</code> setzen.</p>
+<pre class="r"><code>afd_logit &lt;- glm(AfD.Wahl ~ LiRe_cat
+                 , data = gles, family = &quot;binomial&quot;)</code></pre>
+<p>Wir nutzen <code>summary()</code> um die Ergenisse zu betrachten.</p>
+<pre class="r"><code>summary(afd_logit)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = AfD.Wahl ~ LiRe_cat, family = &quot;binomial&quot;, data = gles)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.1774  -0.4411  -0.4411  -0.1661   2.9293  
+## 
+## Coefficients:
+##                        Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)             -3.2426     0.4559  -7.113 1.13e-12 ***
+## LiRe_catmoderat links   -1.0341     0.6138  -1.685   0.0921 .  
+## LiRe_catmittig           0.9615     0.4707   2.043   0.0411 *  
+## LiRe_catmoderat rechts   2.5284     0.4894   5.166 2.39e-07 ***
+## LiRe_catrechts           3.2426     0.5841   5.552 2.83e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1010.6  on 1606  degrees of freedom
+## Residual deviance:  861.6  on 1602  degrees of freedom
+##   (505 observations deleted due to missingness)
+## AIC: 871.6
+## 
+## Number of Fisher Scoring iterations: 7</code></pre>
+<p>Wie schon bei der multiplen linearen Regression werden die Koeffizienten bei der kategorialen Variable <code>LiRe_cat</code> jeweils im Vergleich zur nicht gezeigten Refferenzkategorie &quot;links&quot; berechnet. Im Output sehen wir, dass z.B. im Vergleich zu Personen, die sich als links einstufen, Personen die sich als rechts einstufen eine deutlich höhere Wahrscheinlichkeit aufweisen, die AfD zu wählen. Der zugehörige Koeffizient ist positiv und der p-Wert zeigt, dass der Zusammenhang statistisch hochsignifikant ist (0,00000000283). Dementsprechend können wir daraus schließen, dass die Wahrscheinlichkeit, dass Befragte die AfD wählen, höher ist, wenn sich diese selbst als politisch rechts stehend einstufen. Allerdings können wir die so berechneten Logit-Koeffizienten aufgrund der zugrunde liegenden Logarithmierung nicht bezüglich der Stärke des Zusammenhangs interpretieren.</p>
+</div>
+<div id="predicted-probabilities" class="section level2">
+<h2>3.2. Predicted Probabilities</h2>
+<p>Um diese Aussagen zur Stärke des Zusammenhangs treffen zu können, bietet es sich an, auf Grundlage unserer Modellergebnisse vorhergesagte Wahrscheinlichkeiten (<em>predicted probabilities</em>) zu berechnen. Dazu wandeln wir die Logit-Koeffizienten in Quoten und dann in Wahrscheinlichkeiten um. Der einfachste Weg ist die Verwendung der Funktion <code>plogis()</code>. Hierfür verwenden wir die Schätzung des Intercept (Achsenschnittpunkt) des Modells, -3.2426, und setzen diesen in <code>plogis()</code> ein:</p>
+<pre class="r"><code>plogis(-3.2426)</code></pre>
+<pre><code>## [1] 0.03759371</code></pre>
+<p>Da unsere unabhängige Variable <code>LiRe_cat</code> eine kategoriale Variable ist, bildet die erste Kategorie dieser Variable (in diesem Fall die Selbsteinstufung als politische links) den Intercept. Insofern ist die vorhergesagte Wahrscheinlichkeit, dass eine befragte Person, die sich als links einstuft, die AfD wählt, 0,037, also fast 4 %. Das macht Sinn.</p>
+<p>Zum Vergleich berechnen wir noch die vorhergesagten Wahrscheinlichkeiten für Personen die sich als moderat links, mittig und moderat rechts, und rechts einstufen. Dafür addieren wir einfach die Regressionskoeffizienten mit der Referenzkategorie:</p>
+<pre class="r"><code># moderat links
+plogis(-3.2426 + (-1.0341))</code></pre>
+<pre><code>## [1] 0.01369817</code></pre>
+<pre class="r"><code># mittig
+plogis(-3.2426 + 0.9615)</code></pre>
+<pre><code>## [1] 0.09270039</code></pre>
+<pre class="r"><code># moderat rechts
+plogis(-3.2426 + 2.5284)</code></pre>
+<pre><code>## [1] 0.3286715</code></pre>
+<pre class="r"><code># rechts
+plogis(-3.2426 + 3.2426)</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<p>Dementsprechend sind die vorhergesagten Wahrscheinlichkeiten, dass eine befragte Person die AfD wählt, wie folgt:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Ausprägung</th>
+<th>Ergebnis</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>moderat links</td>
+<td>0.01369817</td>
+<td>Die vorhergesagte Wahrscheinlichkeit beträgt 1%</td>
+</tr>
+<tr class="even">
+<td>mitte</td>
+<td>0.09270039</td>
+<td>Die vorhergesagte Wahrscheinlichkeit beträgt 9%</td>
+</tr>
+<tr class="odd">
+<td>moderat rechts</td>
+<td>0.3286715</td>
+<td>Die vorhergesagte Wahrscheinlichkeit beträgt 32%</td>
+</tr>
+<tr class="even">
+<td>rechts</td>
+<td>0.5</td>
+<td>Die vorhergesagte Wahrscheinlichkeit beträgt 50%</td>
+</tr>
+</tbody>
+</table>
+<p>Wir sehen also, dass die Wahrscheinlichkeit einer befragten Person, die AfD zu wählen, deutlich steigt, umso &quot;rechter&quot; sich diese Person selbst auf einer Links-Rechts Skala einordnet.</p>
+<p>Glücklicherweise gibt es einfachere Wege, die <em>predicted probabilities</em> zu berechnen. Hierfür können wir zum Beispiel die <code>ggpredict()</code>-Funktion aus dem <code>ggeffects</code>-Paket verwenden.</p>
+<pre class="r"><code>ggpredict(afd_logit, terms = &quot;LiRe_cat&quot;) # für die Vorhersage müssen wir unsere unabhängige Variable nochmals nennen</code></pre>
+<pre><code>## # Predicted probabilities of AfD.Wahl
+## # x = LiRe_cat
+## 
+## x              | Predicted |       95% CI
+## -----------------------------------------
+## links          |      0.04 | [0.02, 0.09]
+## moderat links  |      0.01 | [0.01, 0.03]
+## mittig         |      0.09 | [0.08, 0.11]
+## moderat rechts |      0.33 | [0.26, 0.41]
+## rechts         |      0.50 | [0.33, 0.67]</code></pre>
+<p>Wie wir sehen, werden uns auch direkt die Konfidenzintervalle angezeigt, die wir für unsere jetzt folgende Visualisierung benötigen.</p>
+</div>
+<div id="visualisierung" class="section level2">
+<h2>3.3. Visualisierung</h2>
+<p>Die Visualisierung von <em>predicted probabilities</em> realisieren wir auch mit dem <code>ggeffects</code>-Paket (welches auf <code>ggplot2</code> basiert, das wir deshalb zu Beginn des Tutorials mittels <code>library()</code> geladen haben). Dafür speichern wir unsere Vorhersage, die wir mit der <code>ggeffects()</code>-Funktion berechnen, als eigenständiges Objekt mit dem Namen <code>afd_preds</code> und nutzen die Funktion <code>plot()</code></p>
+<pre class="r"><code>afd_preds &lt;- ggpredict(afd_logit, terms = &quot;LiRe_cat&quot;)
+
+plot(afd_preds)</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Den Graphen können wir mit den bekannten Funktionen von <code>ggplot2</code> verändern:</p>
+<pre class="r"><code># Titel und Achsenbeschriftung
+plot(afd_preds) + 
+  labs(x = &quot;Links-Rechts Selbsteinschätzung&quot;
+       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
+       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach politischer Selbsteinschätzung&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Das Aussehen bzw. die Skala der y-Achse verändern wir mit den Argumente <code>breaks</code> und <code>limits</code>. Diese bestimmten, welche Schritte auf der y-Achse gemacht werden sollen und den minimalen und maximalen Bereich der y-Achse.</p>
+<pre class="r"><code>plot(afd_preds
+     , breaks = c(0, .05, .15, .25, .35, .45, .55, .65, .75)
+     , limits = c(0, .75)) + 
+  labs(x = &quot;Links-Rechts Selbsteinschätzung&quot;
+       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
+       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach politischer Selbsteinschätzung&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
+<div id="aufgaben" class="section level1">
+<h1>4. Aufgaben</h1>
+<p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
+<ol style="list-style-type: decimal">
+<li>Berechnen Sie mittels einer logistischen Regression den Effekt des Geschlechts und Alters, des Einkommens und des Wohnortes auf die Wahrscheinlichkeit, dass eine befragte Person die AfD wählt.</li>
+<li>Berechnet und visualisiert die vorhergesagten Wahrscheinlichkeiten und benutzt dafür das Alter und das Geschlecht</li>
+</ol>
+</div>
+<div id="lösungen" class="section level1">
+<h1>5. Lösungen</h1>
+<pre class="r"><code># Aufgabe 1
+afd_logit &lt;- glm(AfD.Wahl ~ geschlecht
+                 + alter
+                 + wohnort
+                 + einkommen_cat # Kategorische codierung der Einkommens-Variable
+                 , data = gles, family = &quot;binomial&quot;)
+summary(afd_logit)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = AfD.Wahl ~ geschlecht + alter + wohnort + einkommen_cat, 
+##     family = &quot;binomial&quot;, data = gles)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.8198  -0.4918  -0.4041  -0.2751   2.7912  
+## 
+## Coefficients:
+##                              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                 -2.042296   0.490214  -4.166 3.10e-05 ***
+## geschlechtweiblich          -0.971472   0.197664  -4.915 8.89e-07 ***
+## alter                       -0.008611   0.005225  -1.648  0.09938 .  
+## wohnortKleinstadt            0.719550   0.264090   2.725  0.00644 ** 
+## wohnortLand                  0.669802   0.268999   2.490  0.01278 *  
+## wohnortVorstadt             -0.845182   0.630425  -1.341  0.18003    
+## einkommen_cat1000 bis 1999   0.577091   0.442016   1.306  0.19169    
+## einkommen_cat2000 bis 2999   0.434287   0.433630   1.002  0.31658    
+## einkommen_cat3000 bis 3999  -0.487985   0.480085  -1.016  0.30941    
+## einkommen_cat4000 bis 4999  -0.155320   0.492633  -0.315  0.75255    
+## einkommen_cat5000 bis 7499  -0.346296   0.513253  -0.675  0.49986    
+## einkommen_cat7500 und mehr -15.178467 529.858775  -0.029  0.97715    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 939.27  on 1475  degrees of freedom
+## Residual deviance: 869.53  on 1464  degrees of freedom
+##   (636 observations deleted due to missingness)
+## AIC: 893.53
+## 
+## Number of Fisher Scoring iterations: 16</code></pre>
+<pre class="r"><code># Aufgabe 2
+
+afd_preds_age &lt;- ggpredict(afd_logit, terms = &quot;alter&quot;)
+afd_preds_sex &lt;- ggpredict(afd_logit, terms = &quot;geschlecht&quot;)
+
+plot(afd_preds_age)</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code>plot(afd_preds_sex)</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre class="r"><code># Titel und Achsenbeschriftung
+plot(afd_preds_age) + 
+  labs(x = &quot;Alter der befragten Personen&quot;
+       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
+       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Alter&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<pre class="r"><code>plot(afd_preds_sex) + 
+  labs(x = &quot;Geschlecht der befragten Personen&quot;
+       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
+       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Geschlecht&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
+<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

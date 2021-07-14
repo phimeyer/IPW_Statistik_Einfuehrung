@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 11: Multiple Lineare Regression</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 11: Multiple Lineare Regression</h1>
+
+</div>
+
+
+<p>Nachdem wir in der vorletzten Sitzung die bivariate lineare Regression kennengelernt haben, wollen wir nun herausfinden, wie wir mehrere unabhängige Variablen gleichzeitig berücksichtigen können. Bei der multiplen linearen Regression wird eine abhängige Variable durch mehrere unabhängige Variablen erklärt. Damit verlassen wir die bivariate Statistik und stoßen in den Bereich der multivariaten Statistik vor. Mehr als eine einzige unabhängige Variable einzubeziehen ermöglicht es, die Erklärungsleistung des Regressionsmodells zu erhöhen. Wir können die (Varianz der) abhängigen Variable also mit zusätzlich berücksichtigten unabhängigen Variablen besser (zu einem höheren Anteil) erklären. In dieser Sitzung werden wir eine multiple lineare Regression durchführen, die Anwendungsvoraussetzungen von linearen Modellen prüfen und die Ergebnisse angemessen visualisieren.</p>
+<div id="datensätze-laden-und-umkodieren" class="section level1">
+<h1>1. Datensätze laden und umkodieren</h1>
+<p>Wie in den vergangenen Sitzungen, müssen wir zunächst die Datensätze laden und die verwendeten Variablen sinvoll umkodieren.</p>
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre class="r"><code># GLES
+# Alter
+q2c_num &lt;- as.numeric(as.character(gles$q2c))
+gles$alter &lt;- 2017 - q2c_num
+
+# Geschlecht
+names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
+table(gles$geschlecht)</code></pre>
+<pre><code>## 
+## maennlich  weiblich 
+##      1097      1015</code></pre>
+<pre class="r"><code># Einkommen kategorial
+gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
+                     gles$q192 == &quot;500 bis unter 750 Euro&quot; |
+                     gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;
+gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
+                     gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
+                     gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
+gles$einkommen_cat[gles$q192 == &quot;2000 bis unter 2500 Euro&quot; |
+                     gles$q192 == &quot;2500 bis unter 3000 Euro&quot;] &lt;- &quot;2000 bis 2999&quot;
+gles$einkommen_cat[gles$q192 == &quot;3000 bis unter 4000 Euro&quot;] &lt;- &quot;3000 bis 3999&quot;
+gles$einkommen_cat[gles$q192 == &quot;4000 bis unter 5000 Euro&quot;] &lt;- &quot;4000 bis 4999&quot;
+gles$einkommen_cat[gles$q192 == &quot;5000 bis unter 7500 Euro&quot;] &lt;- &quot;5000 bis 7499&quot;
+gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
+                     gles$q192 == &quot;10000 Euro und mehr&quot;] &lt;- &quot;7500 und mehr&quot;
+
+gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
+                                levels = c(&quot;weniger als 1000&quot;,
+                                           &quot;1000 bis 1999&quot;,
+                                           &quot;2000 bis 2999&quot;,
+                                           &quot;3000 bis 3999&quot;,
+                                           &quot;4000 bis 4999&quot;,
+                                           &quot;5000 bis 7499&quot;,
+                                           &quot;7500 und mehr&quot;))
+
+# Einkommen numerisch
+gles$einkommen_num[gles$einkommen_cat == &quot;weniger als 1000&quot;] &lt;- 1
+gles$einkommen_num[gles$einkommen_cat == &quot;1000 bis 1999&quot;] &lt;- 2
+gles$einkommen_num[gles$einkommen_cat == &quot;2000 bis 2999&quot;] &lt;- 3
+gles$einkommen_num[gles$einkommen_cat == &quot;3000 bis 3999&quot;] &lt;- 4
+gles$einkommen_num[gles$einkommen_cat == &quot;4000 bis 4999&quot;] &lt;- 5
+gles$einkommen_num[gles$einkommen_cat == &quot;5000 bis 7499&quot;] &lt;- 6
+gles$einkommen_num[gles$einkommen_cat == &quot;7500 und mehr&quot;] &lt;- 7
+
+# Wohnort
+gles$wohnort[gles$q197 == &quot;Grossstadt&quot;] &lt;- &quot;Großstadt&quot;
+gles$wohnort[gles$q197 == &quot;kleine oder mittelgrosse Stadt&quot;] &lt;- &quot;Kleinstadt&quot;
+gles$wohnort[gles$q197 == &quot;laendliche Gegend oder Dorf&quot;] &lt;- &quot;Land&quot;
+gles$wohnort[gles$q197 == &quot;Vorstadt/ Vorort einer Grossstadt&quot;] &lt;- &quot;Vorstadt&quot;
+
+# Links-Rechts-Selbsteinstufung
+gles$LiRe &lt;- as.character(gles$q32)
+gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
+gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
+gles$LiRe &lt;- as.numeric(gles$LiRe)
+
+# Links-Rechts-Selbsteinstufung aggregiert
+gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
+                gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
+                gles$LiRe &lt;= 4] &lt;- &quot;moderat links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 5 &amp;
+                gles$LiRe &lt;= 7] &lt;- &quot;mittig&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 8 &amp;
+                gles$LiRe &lt;= 9] &lt;- &quot;moderat rechts&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 10 &amp;
+                gles$LiRe &lt;= 11] &lt;- &quot;rechts&quot;
+
+gles$LiRe_cat &lt;- factor(gles$LiRe_cat,
+                                levels = c(&quot;links&quot;,
+                                           &quot;moderat links&quot;,
+                                           &quot;mittig&quot;,
+                                           &quot;moderat rechts&quot;,
+                                           &quot;rechts&quot;))
+
+# AfD-Wahl
+gles$AfD.Wahl[gles$q19ba == &quot;AfD&quot;] &lt;- 1
+gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0
+
+# Lijphart
+# ENPP
+lijphart$enpp4510 &lt;- as.numeric(lijphart$enpp4510)
+
+# Gallagher-Index
+lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
+
+# Bikameralismus-Index
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# Minimal-Gewinn-Koalition mit einer Partei
+lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
+
+# Exekutivdominanz (Kabinettsdauer)
+lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
+</div>
+<div id="multiple-regression-schätzen" class="section level1">
+<h1>2. Multiple Regression schätzen</h1>
+<p>Mithilfe von linearen Regressionen erklärt man die (Ausprägung der) abhängigen Variable <span class="math inline">\(y_i\)</span> mithilfe des Schnittpunktes der Y-Achse <span class="math inline">\(b_0\)</span> und der (Ausprägung der) unabhängigen Variablen <span class="math inline">\(x_{ji}\)</span>. Die Regressionskoeffizienten <span class="math inline">\(b_{1...j}\)</span> geben den Effekt einer unabhängigen Variable auf die abhängige Variable an (um <span class="math inline">\(y_i\)</span> zu berechnen, werden sie also mit <span class="math inline">\(x_{ji}\)</span> multipliziert). Schließlich bezeichnet <span class="math inline">\(e_i\)</span> die Residuen, also den Teil der Abweichung von <span class="math inline">\(y_i\)</span>, der nicht durch das Modell erklärt wird. <span class="math inline">\(e_i\)</span> ist in der Gleichung notwendig, weil eine vollständige Erklärung von <span class="math inline">\(y_i\)</span> durch die einbezogenen unabhängigen Variablen <span class="math inline">\(x_{ji}\)</span> zumindest in den Sozialwissenschaften in der Regel nicht zu realisieren ist.</p>
+<p><span class="math inline">\(y_i=b_0+b_1x_{1i}+b_2x_{2i}+...+b_jx_{ji}+e_i\)</span>.</p>
+<p>Die Residue <span class="math inline">\(e_i\)</span> ist die Differenz (wörtlich: der Rest) der tatsächlichen Beobachtung <span class="math inline">\(y_i\)</span> vom Vorhersagewert laut Regressionsgerade <span class="math inline">\(\hat{y}\)</span>. Die Vorhersagewerte berechnen sich also wie folgt:</p>
+<p><span class="math inline">\(\hat{y}_i=b_0+b_1x_{1i}+b_2x_{2i}+...+b_jx_{ji}\)</span></p>
+<p>In unserem konkreten Modell erklären wir die Links-Rechts-Selbsteinstufung der Befragten anhand ihres Alters, Geschlechts und Wohnorts. Die Gleichung wäre also wie folgt:</p>
+<p><span class="math inline">\(LiRe_i=b_0+b_{1i}\cdot Alter_i+b_{2i}\cdot Geschlecht_i+b_{3i}\cdot Wohnort_i+e_i\)</span></p>
+<p>Wie in der vorherigen Sitzung gezeigt, berechnen wir die lineare Regression in <code>R</code> mit <code>lm()</code>. Allerdings fügen wir diesmal jeweils mit einem <code>+</code> zusätzliche Variablen hinzu. Dadurch wird nicht mehr bloß der Effekt des Alters auf die Links-Rechts-Selbsteinstufung geschätzt, sondern der Effekt von Alter, Geschlecht und Wohnort parallel. Das geschieht allerdings jeweils unter statistischer Kontrolle der Effekte der anderen unabhängigen Variablen, sodass wir jeweils den Netto-Effekt einer unabhängigen Variablen auf die abhängige Variable berechnen, während die anderen Variablen konstant gehalten werden. Mit dem Argument <code>data</code> bestimmen wir den Datensatz <code>gles</code>.</p>
+<p>Wenn wir die Funktion <code>lm()</code> ausführen, werden uns der Intercept, also der Wert der abhängigen Variable <code>LiRe</code> am Schnittpunkt von Regressionsgerade und Y-Achse, und die Regressionskoeffizienten der Variablen angezeigt. Bei der metrischen Variable <code>alter</code> zeigt dieser die Steigung der Regressionsgeraden, also die Veränderung in der abhängigen Variable <code>LiRe</code>, mit der Veränderung von <code>alter</code> um eine Einheit (also um ein Jahr). Bei der dichotomen Variable <code>geschlecht</code> wird die Veränderung in <code>LiRe</code> berichtet, die mit dem Wechsel der Kategorie &quot;männlich&quot; zur Kategorie &quot;weiblich&quot; einhergeht. Bei der kategorialen Variable <code>wohnort</code> wird die Veränderung in der abhängigen Variable <code>LiRe</code> berichtet, die jeweils im Vergleich zu der nicht gezeigten Referenzkategorie einhergeht. Von den vier Kategorien von <code>wohnort</code> wird die Kategorie Großstadt nicht gezeigt und ist die Referenzkategorie.</p>
+<pre class="r"><code>lm(LiRe ~ alter + geschlecht + wohnort, data = gles)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht + wohnort, data = gles)
+## 
+## Coefficients:
+##        (Intercept)               alter  geschlechtweiblich   wohnortKleinstadt  
+##            4.47512             0.01047            -0.43886             0.47961  
+##        wohnortLand     wohnortVorstadt  
+##            0.55996             0.33990</code></pre>
+<p>Die Regressionsgerade schneidet die Y-Achse bei 4,48 &quot;Punkten&quot; auf der <code>LiRe</code>-Skala. Inhaltlich interessanter sind die Koeffizienten: Mit einem zusätzlichen Jahr ist eine Person durchschnittlich 0,01 Punkte &quot;rechter&quot;. Frauen sind im Mittel 0,44 Punkte &quot;linker&quot; als Männer. Im Vergleich zur Großstadt sind Befragte, die in der Kleinstadt leben, im Mittel 0,48 Punkte &quot;rechter&quot;. Befragte auf dem Land sind durchschnittlich 0,56 und Befragte aus der Vorstadt 0,34 Punkte &quot;rechter&quot; als Befragte aus der Großstadt.</p>
+<p>Einen detaillierteren Regressionsoutput erhalten wir, wenn wir den Output von <code>lm()</code> in einem Objekt speichern, hier <code>modell</code>, und die Funktion <code>summary()</code> darauf anwenden.</p>
+<pre class="r"><code>modell &lt;- lm(LiRe ~ alter + geschlecht + wohnort, data = gles)
+summary(modell)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht + wohnort, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8343 -1.3085  0.1901  1.1156  6.2517 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         4.475121   0.148485  30.139  &lt; 2e-16 ***
+## alter               0.010471   0.002272   4.608 4.33e-06 ***
+## geschlechtweiblich -0.438857   0.085989  -5.104 3.65e-07 ***
+## wohnortKleinstadt   0.479610   0.117138   4.094 4.40e-05 ***
+## wohnortLand         0.559962   0.117634   4.760 2.08e-06 ***
+## wohnortVorstadt     0.339904   0.187732   1.811   0.0704 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.9 on 1957 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.03567,    Adjusted R-squared:  0.03321 
+## F-statistic: 14.48 on 5 and 1957 DF,  p-value: 5.932e-14</code></pre>
+<p>Die eben besprochenen Koeffizienten stehen in der ersten Spalte des so erzeugten Outputs. In der zweiten Spalte sind Standardfehler, in der dritten t-Werte und in der vierten p-Werte mit &quot;Signifikanz-Sternchen&quot; (siehe Legende darunter) abgetragen. Unten sehen wir Standardfehler des Modells und Freiheitsgrade sowie das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> und das angepasste <span class="math inline">\(R^2\)</span>. Schließlich wird der F-Test auf Gesamtsignifikanz des Modells mitsamt p-Wert berichtet.</p>
+<p>Das Modell mit seinen unabhängigen Variablen <code>alter</code>, <code>geschlecht</code> und <code>wohnort</code> kann die Varianz in der abhängigen Variable <code>LiRe</code> nur zu einem Anteil von etwas mehr als 3% erklären (<span class="math inline">\(R^2=0,36\)</span>; <span class="math inline">\(adj. R^2=0,033\)</span>). In einer Studienarbeit müssten wir prüfen, ob die Erklärungsleistung des Modells mithilfe zusätzlicher unabhängiger Variablen erhöht werden kann. Der geringe p-Wert der F-Statistik zeigt, dass das Modell insgesamt die abhängige Variabe signifikant besser erklärt als ein Modell ohne unabhängige Variablen. Die von uns berücksichtigten Variablen sind (mit Ausnahme von Wohnort: Vorstadt) statistisch hoch signifikant, d.h. es ist sehr unwahrscheinlich, dass der festgestellte Koeffizient in Wahrheit Null ist (ein 99,9%-Konfidenzintervall um den Koeffizienten beinhaltet die Null nicht). Für Wohnort: Vorstadt beinhaltet zumindest ein 90%-Konfidenzintervall die Null nicht.</p>
+</div>
+<div id="regressionsdiagnostik" class="section level1">
+<h1>3. Regressionsdiagnostik</h1>
+<p>Lineare Regressionen unterstellen bestimmte Annahmen über die Daten, zu deren Analyse sie verwendet werden. Diese Annahmen prüfen wir anhand von Plots zur Regressionsdiagnostik. Dabei sind insbesondere die Linearität des unterstellten Zusammenhangs, die Normalverteilung der Residuen, Homoskedastizität (Varianzgleichheit der Residuen), Ausreißer mit großem Einfluss und Nichtvorliegen von Multikollinearität von Interesse. Die Plots erzeugen wir über <code>plot()</code>.</p>
+<pre class="r"><code>plot(modell)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-1.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-2.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-3.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-4.png" width="672" /></p>
+<div id="linearität" class="section level2">
+<h2>3.1 Linearität</h2>
+<p>Die Linearität des Zusammenhangs prüfen wir anhand des Residuals vs. Fitted Values-Plots, der der erste der Diagnostik-Plots ist. Deshalb fügen wir eine Eins im Input der Funktion an.</p>
+<pre class="r"><code>plot(modell, 1)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Wenn wir die Vorhersagewerte (&quot;fitted values&quot;) den Residuen gegenüberstellen, ist kein Muster zu erkennen (mit größeren Vorhersagewerten gehen also z.B. keine größeren Residuen einher). Wir können also von Linearität des Zusammenhangs ausgehen, sodass ein lineares Regressionsmodell angemessen ist.</p>
+</div>
+<div id="normalverteilung-der-residuen" class="section level2">
+<h2>3.2 Normalverteilung der Residuen</h2>
+<p>Die Residuen sollten außerdem normalverteilt sein. Das prüfen wir mit dem QQ-Plot (Quantil-Quantil-Plot), indem wir die Zwei in die <code>plot()</code>-Funktion schreiben.</p>
+<pre class="r"><code>plot(modell, 2)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Da die geplotteten Punkte weitesgehend der geraden Linie folgen, können wir insgesamt schließen, dass die Residuen normalverteilt sind.</p>
+</div>
+<div id="homoskedastizität" class="section level2">
+<h2>3.3 Homoskedastizität</h2>
+<p>Außerdem sollten die Varianz der Residuen über Vorhersagewerte hinweg gleichbleibend sein, also sog. <em>Homoskedastizität</em> vorliegen. Wenn im Gegensatz dazu <em>Heteroskedastizität</em> vorliegen würde, würde z.B. für höhere Vorhersagewerte die Streuung der Residuen um die Regressionsgerade herum trichterförmig zunehmen. Die Annahme der Homoskedastizität prüfen wir mit einem ähnlichen Plot wie dem oben bei der Linearität verwendeten Residuals vs. Fitted-Plot: Diesmal wird die Wurzel der standardisierten Residuen geplottet.</p>
+<pre class="r"><code>plot(modell, 3)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Es ist auch hier kein problematischer Trend zu erkennen.</p>
+</div>
+<div id="einflussreiche-werte" class="section level2">
+<h2>3.4 Einflussreiche Werte</h2>
+<p>Weiterhin interessieren uns Ausreißer und extreme Werte, die einen starken Einfluss auf die Steigung der Regressionsgeraden nehmen (wir sprechen hier von leverage, also vom &quot;Hebel&quot;, den diese Werte haben).</p>
+<pre class="r"><code>plot(modell, 4)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>plot(modell, 5)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p>Der vierte Plot zu Cook's Distance zeigt uns Werte mit großem Einfluss. Der fünfte Plot zeigt, dass eine Gruppe von Fällen eine höhere Leverage aufweist. Exemplarisch können wir die drei einflussreichsten Fälle einmal händisch prüfen. Ihr Index ist in beiden Plots abgetragen: Es sind die Fälle in der 30., 436. und 913. Zeile. Uns interessieren jeweils die Ausprägungen der im Modell beinhalteten Variablen. Dazu spezifizieren wir in den eckigen Klammern, dass wir die Zellen in Zeilen (vor dem Komma) 30, 436 und 913 und Spalten (nach dem Komma) &quot;LiRe&quot;, &quot;alter&quot;, &quot;geschlecht&quot; und &quot;wohnort&quot; ausgeben möchten.</p>
+<pre class="r"><code>gles[c(30, 436, 913), c(&quot;LiRe&quot;, &quot;alter&quot;, &quot;geschlecht&quot;, &quot;wohnort&quot;)]</code></pre>
+<pre><code>##     LiRe alter geschlecht  wohnort
+## 30    10    79   weiblich Vorstadt
+## 436   11    70  maennlich Vorstadt
+## 913   11    65  maennlich Vorstadt</code></pre>
+<p>Es handelt sich um Fälle mit hohen Ausprägungen auf der Links-Rechts-Selbsteinstufung mit recht hohem Alter, die in der Vorstadt leben. Wir können jedoch nicht auf Messfehler schließen, die einen Auschluss der Fälle rechtfertigen würden.</p>
+</div>
+<div id="keine-multikollinearität" class="section level2">
+<h2>3.5 Keine Multikollinearität</h2>
+<p>Zu guter letzt wollen wir prüfen, ob die einzelnen Prädiktoren (ein anderer Begriff für die unabhängigen Variablen) voneinander unabhängig sind. Zumindest sollten sie untereinander nicht stark korrelieren. Es wäre beispielsweise vorstellbar, das unsere Prädiktoren Alter und Wohnort zusammenhängen. Bei starker Korrelation unabhängiger Variablen spricht man von Multikollinearität. Das Vorliegen von Multikollinearität prüfen wir mit dem Variance Inflation Factor. Diesen berechnen wir mit der Funktion <code>vif()</code> aus dem Paket <code>car</code>.</p>
+<pre class="r"><code>install.packages(&quot;car&quot;)</code></pre>
+<pre class="r"><code>library(car)</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre class="r"><code>vif(modell)</code></pre>
+<pre><code>##                GVIF Df GVIF^(1/(2*Df))
+## alter      1.003915  1        1.001956
+## geschlecht 1.001405  1        1.000702
+## wohnort    1.002838  3        1.000472</code></pre>
+<p>Wenn keine Multikollinearität vorliegt, liegt der VIF bei Eins (Kühnel/Krebs 2014: 539). In unserem Modell liegt der VIF für alle unabhängigen Variablen nahe Eins, wir können das Vorliegen problematischer Multikollinearität also verneinen. Insgesamt ist ein lineares Modell also zur Analyse des unterstellten Zusammenhangs angemessen.</p>
+</div>
+</div>
+<div id="visualisierung" class="section level1">
+<h1>4. Visualisierung</h1>
+<p>Schließlich möchten wir unsere Ergebnisse visualisieren. Während sich dazu bei der bivariaten linearen Regression insbesondere das Plotten der Regressionsgeraden eignet, haben wir diese Möglichkeit bei der multiplen linearen Regression nicht. Die visuelle Darstellung müsste bei unseren drei Prädiktoren und einer abhängigen Variable vierdimensional sein. Deshalb beschränken wir uns bei der Darstellung auf die Effekte.</p>
+<p>Zunächst verwenden wir die Funktion <code>ggpredict()</code> aus dem Paket <code>ggeffects</code>, mit der wir die vorhergesagten Werte für die abhängige Variable <code>LiRe</code> für bestimmte Werte der unabhängigen Variablen berechnen.</p>
+<pre class="r"><code>install.packages(&quot;ggeffects&quot;)</code></pre>
+<pre class="r"><code>library(ggeffects)
+ggpredict(modell)</code></pre>
+<pre><code>## $alter
+## # Predicted values of LiRe
+## # x = alter
+## 
+##   x | Predicted |       95% CI
+## ------------------------------
+##  10 |      5.06 | [4.82, 5.30]
+##  20 |      5.16 | [4.96, 5.37]
+##  30 |      5.27 | [5.09, 5.45]
+##  40 |      5.37 | [5.21, 5.54]
+##  60 |      5.58 | [5.42, 5.75]
+##  70 |      5.69 | [5.50, 5.87]
+##  80 |      5.79 | [5.58, 6.00]
+## 100 |      6.00 | [5.73, 6.28]
+## 
+## Adjusted for:
+## * geschlecht =  maennlich
+## *    wohnort = Kleinstadt
+## 
+## $geschlecht
+## # Predicted values of LiRe
+## # x = geschlecht
+## 
+## x         | Predicted |       95% CI
+## ------------------------------------
+## maennlich |      5.48 | [5.32, 5.64]
+## weiblich  |      5.04 | [4.87, 5.21]
+## 
+## Adjusted for:
+## *   alter =      50.12
+## * wohnort = Kleinstadt
+## 
+## $wohnort
+## # Predicted values of LiRe
+## # x = wohnort
+## 
+## x          | Predicted |       95% CI
+## -------------------------------------
+## Land       |      5.56 | [5.40, 5.72]
+## Kleinstadt |      5.48 | [5.32, 5.64]
+## Vorstadt   |      5.34 | [5.01, 5.67]
+## Großstadt  |      5.00 | [4.80, 5.20]
+## 
+## Adjusted for:
+## *      alter =     50.12
+## * geschlecht = maennlich
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;ggalleffects&quot; &quot;list&quot;        
+## attr(,&quot;model.name&quot;)
+## [1] &quot;modell&quot;</code></pre>
+<p>Oben im Output sehen wir die für <code>LiRe</code> vorhergesagten Werte wenn <code>alter</code> bestimmte Werte annimmt. Wenn eine Person 30 Jahre ist, sagt das Modell also eine Position auf der subjektiven Links-Rechtsachse von 5,06 vorher. Für 60 Jährige im Mittel eine Position von 5,38 usw. Darunter finden wir analog die Vorhersagen für die anderen Prädiktoren.</p>
+<p>Diese Vorhersagewerte wollen wir nun angemessen plotten. Wir verwenden jeweils die <code>base</code>-Funktion <code>plot</code>, die wir auf den Output von <code>ggpredict()</code> anwenden. Je nach Klasse der Variablen erhalten wir unterschiedliche Plots: Für das Alter als kontinuierlicher Variable erhalten wir eine Gerade, die die Vorhersagewerte für <code>LiRe</code> über die Ausprägungen von <code>alter</code> darstellt (es handelt sich nicht um die Regressionsgerade des ganzen Modells, die gibt es bei multiplen linearen Regressionen nicht). Für die kategorialen Variablen <code>geschlecht</code> und <code>wohnort</code> werden jeweils die Vorhersagewerte pro Kategorie geplottet. In beiden Fällen sind die Konfidenzintervalle abgebildet: Um die Gerade des Alters herum als grau hinterlegter Bereich, um die Vorhersagewerte des Geschlechts und des Wohnorts herum mit Markern. Für die kontinuierliche Variable <code>alter</code> wird der Effekt also durch die Steigung der Geraden abgebildet, für die kategorialen <code>geschlecht</code> und <code>wohnort</code> sind sie direkt anhand der Skala auf der Y-Achse abzulesen.</p>
+<pre class="r"><code>plot(ggpredict(modell, terms = &quot;alter&quot;))</code></pre>
+<pre><code>## Loading required namespace: ggplot2</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell, terms = &quot;geschlecht&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell, terms = &quot;wohnort&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-16-3.png" width="672" /></p>
+</div>
+<div id="zusammenfassung" class="section level1">
+<h1>5. Zusammenfassung</h1>
+<p>Multiple lineare Regressionen erklären eine abhängige Variable ausgehend von mehreren Prädiktoren. Die Regressionskoeffizienten geben jeweils die Effektstärke als Veränderung in y an, wenn die unabhängige Variable um eine Einheit zunimmt. Für kategoriale Variablen ist dies die Veränderung in y mit dem Wechsel von der Refferenzkategorie zur gezeigten Kategorie. <code>lm()</code> berechnet ein (multiples) lineares Modell, <code>summary()</code> erzeugt einen anschaulichen Output. Lineare Modelle sind geeignet, wenn der Zusammenhang linear ist, die Residuen normalverteilt sind, keine Varianzheterogenität der Residuen vorliegt, keine durch Messfehler erzeugten Ausreißer vorliegen und keine Multikollinearität zwischen den Prädiktoren besteht. Mit <code>plot()</code> und <code>ggpredict()</code> aus dem Paket <code>ggeffects</code> können Regressionsergebnisse sinnvoll geplottet werden.</p>
+</div>
+<div id="aufgaben" class="section level1">
+<h1>6. Aufgaben</h1>
+<ol style="list-style-type: decimal">
+<li><p>Vergleichen Sie drei lineare Modelle, indem Sie mit einem bivariaten Modell mit <code>LiRe</code> und <code>alter</code> beginnen und sukzessive die beiden anderen Variablen des obigen Modells aufnehmen. Speichern Sie die erzeugten linearen Regressionsmodelle jeweils in einem Objekt und lassen Sie sich die <code>summary()</code> ausgeben. Vergleichen Sie die Erklärungsleistung der drei Modelle.</p></li>
+<li><p>Wie kann die geringe Erklärungsleistung unseres Modells erhöht werden? Nehmen Sie zwei bis vier weitere Variablen des Datensatzes <code>gles</code> auf.</p></li>
+<li><p>Überprüfen Sie, ob Ihr Modell die Annahmen linearer Regressionen erfüllt.</p></li>
+<li><p>Visualisieren Sie vorhergesagte Werte der Variablen Ihres Modells.</p></li>
+</ol>
+</div>
+<div id="lösungen" class="section level1">
+<h1>7. Lösungen</h1>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>modell1 &lt;- lm(LiRe ~ alter, data = gles)
+summary(modell1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter, data = gles)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.547 -1.279  0.095  1.000  6.063 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 4.662830   0.122925  37.932  &lt; 2e-16 ***
+## alter       0.010529   0.002295   4.588 4.76e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.922 on 1961 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.01062,    Adjusted R-squared:  0.01012 
+## F-statistic: 21.05 on 1 and 1961 DF,  p-value: 4.755e-06</code></pre>
+<pre class="r"><code>modell2 &lt;- lm(LiRe ~ alter + geschlecht, data = gles)
+summary(modell2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7668 -1.3620  0.2407  1.0438  6.3064 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         4.847920   0.127487  38.027  &lt; 2e-16 ***
+## alter               0.010939   0.002282   4.793 1.76e-06 ***
+## geschlechtweiblich -0.438694   0.086459  -5.074 4.26e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.91 on 1960 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.02345,    Adjusted R-squared:  0.02245 
+## F-statistic: 23.53 on 2 and 1960 DF,  p-value: 7.968e-11</code></pre>
+<pre class="r"><code>modell3 &lt;- lm(LiRe ~ alter + geschlecht + wohnort , data = gles)
+summary(modell3)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht + wohnort, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8343 -1.3085  0.1901  1.1156  6.2517 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         4.475121   0.148485  30.139  &lt; 2e-16 ***
+## alter               0.010471   0.002272   4.608 4.33e-06 ***
+## geschlechtweiblich -0.438857   0.085989  -5.104 3.65e-07 ***
+## wohnortKleinstadt   0.479610   0.117138   4.094 4.40e-05 ***
+## wohnortLand         0.559962   0.117634   4.760 2.08e-06 ***
+## wohnortVorstadt     0.339904   0.187732   1.811   0.0704 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.9 on 1957 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.03567,    Adjusted R-squared:  0.03321 
+## F-statistic: 14.48 on 5 and 1957 DF,  p-value: 5.932e-14</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gles$schulab[gles$q135 == &quot;anderen Schulabschluss&quot; |
+               gles$q135 == &quot;bin noch Schueler&quot;] &lt;- NA
+gles$schulab[gles$q135 == &quot;Abitur bzw. erweiterte Oberschule mit Abschluss 12. Klasse (Hochschulreife)&quot;] &lt;- &quot;Hochschulreife&quot;
+gles$schulab[gles$q135 == &quot;Fachhochschulreife (Abschluss einer Fachoberschule etc.)&quot;] &lt;- &quot;Fachhochschulreife&quot;
+gles$schulab[gles$q135 == &quot;Realschulabschluss, Mittlere Reife, Fachschulreife oder Abschluss der polytechnischen Oberschule 10. Klasse&quot;] &lt;- &quot;Realschule&quot;
+gles$schulab[gles$q135 == &quot;Hauptschulabschluss, Volksschulabschluss, Abschluss der polytechnischen Oberschule 8. oder 9. Klasse&quot;] &lt;- &quot;Hauptschule&quot;
+gles$schulab[gles$q135 == &quot;Schule beendet ohne Abschluss&quot;] &lt;- &quot;kein Abschluss&quot;
+
+gles$schulab &lt;- factor(gles$schulab,
+                             levels = c(&quot;kein Abschluss&quot;,
+                                        &quot;Hauptschule&quot;,
+                                        &quot;Realschule&quot;,
+                                        &quot;Fachhochschulreife&quot;,
+                                        &quot;Hochschulreife&quot;))
+
+modell4 &lt;- lm(LiRe ~ alter
+              + geschlecht
+              + wohnort
+              + einkommen_cat
+              + q33
+              + schulab
+              + q83
+              , data = gles)
+summary(modell4)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht + wohnort + einkommen_cat + 
+##     q33 + schulab + q83, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.0503 -1.2635  0.1331  1.1805  5.9318 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                    4.001719   0.664264   6.024 2.10e-09 ***
+## alter                          0.006878   0.002888   2.381 0.017363 *  
+## geschlechtweiblich            -0.412404   0.095850  -4.303 1.79e-05 ***
+## wohnortKleinstadt              0.388732   0.128866   3.017 0.002597 ** 
+## wohnortLand                    0.498188   0.133315   3.737 0.000193 ***
+## wohnortVorstadt                0.321118   0.206059   1.558 0.119341    
+## einkommen_cat1000 bis 1999     0.069705   0.218556   0.319 0.749819    
+## einkommen_cat2000 bis 2999     0.270751   0.214336   1.263 0.206698    
+## einkommen_cat3000 bis 3999     0.351593   0.226825   1.550 0.121323    
+## einkommen_cat4000 bis 4999     0.461668   0.244060   1.892 0.058722 .  
+## einkommen_cat5000 bis 7499     0.408671   0.253075   1.615 0.106546    
+## einkommen_cat7500 und mehr     0.987475   0.332719   2.968 0.003043 ** 
+## q33ziemlich zufrieden         -0.197055   0.155259  -1.269 0.204552    
+## q33nicht sehr zufrieden       -0.235111   0.178207  -1.319 0.187253    
+## q33ueberhaupt nicht zufrieden  0.535304   0.259125   2.066 0.039006 *  
+## schulabHauptschule             1.228508   0.620146   1.981 0.047762 *  
+## schulabRealschule              1.114980   0.618206   1.804 0.071486 .  
+## schulabFachhochschulreife      0.740526   0.632130   1.171 0.241581    
+## schulabHochschulreife          0.713295   0.620668   1.149 0.250629    
+## q83wichtig                    -0.493734   0.130496  -3.784 0.000160 ***
+## q83mittelmaessig              -0.705460   0.145107  -4.862 1.28e-06 ***
+## q83nicht so wichtig            0.083128   0.191327   0.434 0.663997    
+## q83ueberhaupt nicht wichtig   -0.283108   0.384540  -0.736 0.461701    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.903 on 1605 degrees of freedom
+##   (484 observations deleted due to missingness)
+## Multiple R-squared:  0.08895,    Adjusted R-squared:  0.07646 
+## F-statistic: 7.123 on 22 and 1605 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>plot(modell4)</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-19-1.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-19-2.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-19-3.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-19-4.png" width="672" /></p>
+<pre class="r"><code>vif(modell4)</code></pre>
+<pre><code>##                   GVIF Df GVIF^(1/(2*Df))
+## alter         1.214028  1        1.101829
+## geschlecht    1.025848  1        1.012842
+## wohnort       1.093004  3        1.014932
+## einkommen_cat 1.329862  6        1.024041
+## q33           1.151355  3        1.023768
+## schulab       1.515948  4        1.053381
+## q83           1.149174  4        1.017532</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;alter&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;geschlecht&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;wohnort&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-3.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;einkommen_cat&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-4.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;q33&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-5.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;schulab&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-6.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;q83&quot;))</code></pre>
+<p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-20-7.png" width="672" /></p>
+</div>
+<div id="literatur" class="section level1">
+<h1>8. Literatur</h1>
+<p>Kühnel, Steffen-M./Dagmar Krebs (2014): Statistik für die Sozialwissenschaften. Grundlagen Methoden Anwendungen. 7. Auflage. Reinbek bei Hamburg: Rowohlt.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

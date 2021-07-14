@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 3: Datensätze einladen</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 3: Datensätze einladen</h1>
+
+</div>
+
+
+<p>Bisher haben wir uns mit den unterschiedlichen Objekte und Objektklassen in <code>R</code> auseinandergesetzt. In der zweiten Sitzung gingen wir dabei auf zweidimensionale Objekte und auf die Arbeit mit Datensätzen ein. In dieser dritten und der kommenden vierten Sitzung wollen wir unsere Kenntnis der Arbeit mit Datensätzen vertiefen, indem wir externe Datensätze einladen und zur Handhabung aufbereiten. Dabei lernen wir die Datensätze kennen, mit denen wir im weiteren Verlauf des Kurses arbeiten werden.</p>
+<div id="externe-datensätze-einladen" class="section level1">
+<h1>1. Externe Datensätze einladen</h1>
+<p>Nur wenige Forschende haben die Ressourcen, sämtliche für ihre Analyse notwendigen Daten eigenständig zu erheben. Das gilt umso mehr für Studierende. Deshalb ist es essentiell zu wissen, wie Sekundärdaten (Daten, die andere Forschende zur Verfügung stellen) für die eigene Datenanalyse nutzbar gemacht werden können. Diese stehen in Form von Datensätzen in unterschiedlichen Datenformaten zur Verfügung. <code>R</code>, bzw. einige Pakete, bieten vierschiedene Möglichkeiten an, Datensätze in unterschiedlichen Formaten zur Analyse zu laden.</p>
+<div id="gles-2017" class="section level2">
+<h2>1.1 GLES 2017</h2>
+<p>Um zu Erlernen, auf welchem Wege man üblicherweise an Forschungsdaten gelangt, wollen wir in einem ersten Schritt öffentlich verfügbare Daten herunterladen und von der eigenen Festplatte laden. Besuchen Sie dazu den Web-Auftritt des Leibniz Instituts für Sozialwissenschaften unter <a href="https://www.gesis.org/home" class="uri">https://www.gesis.org/home</a>. Die Gesis bietet einen großen Fundus an sozialwissenschaftlichen Daten, der Ihnen auch über den Kontext dieses Kurses hinaus an die Hand gegeben sei. Hier finden Sie eine Reihe relevanter Forschungsdaten wie den ALLBUS und das SOEP.</p>
+<p>Suchen Sie aber die Suchleiste nach dem &quot;Nachwahl-Querschnitt (GLES 2017)&quot;. Die German Longitudinal Election Study (GLES) ist ein Projekt der Gesis in Kooperation mit der Deutschen Gesellschaft für Wahlforschung (DGfW). Sie vereint Vor- und Nachwahlbefragungen einer repräsentativen Stichprobe der Wählerschaft bei Bundestagswahlen. Der hier verwendete Nachwahl-Querschnitt befragte die Respondenten im Nachgang der Bundestagswahl 2017 zu politischen Themen, Einstellungen und Verhaltensweisen, Meinungsbildung im Wahlkampf sowie sozio-demografischen Merkmalen. Insbesondere ist es uns damit möglich, die Wahlentscheidung der Befragten zu analysieren bzw. Einflussfaktoren der Wahl einer bestimmten Partei zu bestimmen.</p>
+<p>Laden Sie sich rechts oben unter &quot;Downloads&quot; -&gt; &quot;Datensätze&quot; die Version &quot;ZA6801_de_v4-0-1.sav deutsch (Datensatz)&quot; mit 2.37 MB herunter. Dazu werden Sie aufgefordert, sich ein Konto bei der Gesis anzulegen. Laden Sie sich bitte außerdem unter &quot;Fragebögen&quot; den Fragebogen &quot;ZA6801_fb.pdf deutsch&quot; und unter &quot;andere Dokumente&quot; die Studienbeschreibung &quot;ZA6801_sb.pdf&quot; herunter und machen Sie sich mit beidem vertraut. Das ist wichtig, um einen Überblick über die Studie, den Datensatz und die vercodete Information bzw. insbesondere die vorhandenen Variablen und damit verbundenen Interviewfragen zu bekommen. Die Variablennamen sind technisch gehalten und an sich wenig aussagekräftig, weshalb die Begleitdokumentation wesentlich ist, um zu verstehen, welche inhaltliche Information dahinter steckt.</p>
+<p>Legen Sie den Datensatz an einer geeigneten Stelle auf ihrem Computer ab. Am besten ist es, wenn Sie sich einen Ordner zu diesem Seminar anlegen, in dem Sie den Datensatz, die Begleitdokumentation und die Kursskripte speichern. Um den Datensatz nun in <code>R</code> zu laden, müssen wir zunächst herausfinden, auf welchen Ordner <code>R</code> zugreift. Mit <code>getwd()</code> wird uns das derzeitige Verzeichnis angezeigt. &quot;wd&quot; steht dabei für &quot;working directory&quot; (etwa: Arbeitsverzeichnis). Im Working Directory &quot;arbeitet&quot; <code>R</code> bzw. liest Daten ein und speichert Skripte, den Workspace (nicht empfohlen) und geschriebene Objekte.</p>
+<pre class="r"><code>getwd()</code></pre>
+<p>Nun zeigt <code>R</code> an, wo es Daten speichert woher es sie einliest. Wir wollen nun erreichen, dass <code>R</code> auf den Ordner zugreift, in dem der Datensatz abgelegt ist. Deshalb legen wir das Verzeichnis mit <code>setwd()</code> fest. Schreiben Sie dazu den Pfad zu dem Verzeichnis, in dem der Datensatz abgelegt ist, in Anführungszeichen in die Funktion und führen Sie sie aus. Ein Dateipfad weist üblicherweise die folgende Struktur auf: &quot;/Users/christophgarwe/R_Projekt/Daten&quot;.</p>
+<pre class="r"><code>setwd(&quot;eigener Pfad&quot;)</code></pre>
+<p>Prinzipiell können wir den Datensatz nun von <code>R</code> aus ansteuern bzw. laden. Dazu werden üblicherweise Befehle wie <code>read.table()</code> verwendet.</p>
+<pre class="r"><code>?read.table # Machen Sie sich mit den Argumenten von read.table() vertraut</code></pre>
+<p>Dazu müssten wir <code>R</code> lediglich anhand des Dateipfades mitteilen, wo der Datensatz abgelegt ist (Argument <code>file</code>). Allerdings liegt dieser Datensatz in dem speziellen Datenformat &quot;.sav&quot; vor, dem Format des Statistikprogramms SPSS. Deshalb benötigen wir eine spezielle Funktion, mit der wir den Datensatz laden können. Die Funktion, die wir zum Einladen des Datensatzes in diesem Format verwenden, lautet <code>read.spss()</code> und gehört zum Paket <code>foreign</code>. Wir installieren und laden das Paket:</p>
+<pre class="r"><code>install.packages(&quot;foreign&quot;)</code></pre>
+<pre class="r"><code>library(foreign)</code></pre>
+<p>Nun können wir den Datensatz mit der Funktion <code>read.spss()</code> laden, die der oben erwähnten <code>read.table()</code> sehr ähnlich ist, jedoch speziell für &quot;fremde&quot; Datenformate im Rahmen des Pakets <code>foreign</code> entworfen wurde. Wir speichern den Datensatz in dem Objekt <code>gles</code>. Außerdem spezifizieren wir das Argument <code>to.data.frame = TRUE</code>, wodurch wir festlegen, dass der Datensatz in Form eines Dataframe vorliegen soll.</p>
+<pre class="r"><code>gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)</code></pre>
+<p>Beachten Sie: In dieser Form funktioniert dieser Code nur, weil wir oben mittles <code>setwd()</code> das Verzeichnis so gesetzt haben, dass <code>R</code> am Ende des Dateinpfades die Datei &quot;ZA6801_de_v4-0-1.sav&quot; findet. Hätten wir das Verzeichnis nicht festgelegt, müssten wir den gesamten Dateienpfad (inklusive der Datei) unter <code>file</code> nennen.</p>
+</div>
+<div id="patterns-of-democracy" class="section level2">
+<h2>1.2 Patterns of Democracy</h2>
+<p>Um den Datensatz zu &quot;Patterns of Democracy&quot; (A. Lijphart) zu laden, gehen wir prinzipiell genauso vor. Dieser Datensatz wird über StudIP in der Veranstaltung &quot;Politikwissenschaftliche Methoden mit R&quot; als &quot;Lijphart_Data_recode.csv&quot; angeboten. Laden Sie ihn herunter und legen Sie ihn ebenfalls an einem geeigneten Ort ab (am besten in einem Kurs-Ordner).</p>
+<p>Arend Lijpharts &quot;Patterns of Democracy&quot; ist ein Klassiker der Demokratieforschung und untersucht zwei Typen von Demokratien, die Mehrheitsdemokratie mit den klassischen Beispielen Neuseeland (vor 1996) und Barbados und die Konsensdemokratie mit den klassischen Beispielen Schweiz und Belgien. Der vorliegende Datensatz beinhaltet alle Variablen, die Lijphart verwendet, um die latenten Konzepte Mehrheits- und Konsensdemokratie zu messen. Die Beobachtungseinheiten sind dabei anders als beim GLES nicht Befragte, sondern Länder.</p>
+<p>Anders als der GLES-Datensatz, liegt der Lijphart-Datensatz im sog. CSV-Format (&quot;comma seperated values&quot;) vor. D.h., in diesem Datensatz stehen alle Werte einer Zeile hintereinander, jeweils nur durch ein Komma (oder Semikolon) getrennt. Öffnen Sie den Datensatz mal mit einem .txt-Programm wie TextEdit oder einem Textverarbeitungsprogramm wie Microsoft Word, um sich einen Eindruck zu verschaffen.</p>
+<p>Den Datensatz zu &quot;Patterns of Democracy&quot; laden wir mit der Funktion <code>read.csv2()</code>, einer der Varianten von <code>read.table()</code> (-&gt; <code>?read.table</code>). Je nach Betriebssystem kann es sein, dass sich <code>read.csv()</code> besser eignet, probieren Sie es im Zweifel einmal aus. Wir legen auch diesen Datensatz in einem Objekt ab, das wir &quot;lijphart&quot; nennen.</p>
+<pre class="r"><code>lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+</div>
+</div>
+<div id="ein-erster-blick-in-die-datensätze" class="section level1">
+<h1>2. Ein erster Blick in die Datensätze</h1>
+<p>Nachdem uns nun beide Datensätze zur Verfügung stehen, möchten wir nun einen Überlick über die darin enthaltenen Variablen bekommen. Eine einfache Möglichkeit dazu ist die Funktion <code>str()</code> (&quot;structure&quot;), die den Objekttyp des Datensatzes sowie einen Überblick über die Variablen und enthaltenen Werte zeigt.</p>
+<pre class="r"><code>str(gles)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    2112 obs. of  602 variables:
+##  $ study       : Factor w/ 1 level &quot;ZA6801&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ version     : chr  &quot;4-0-1 (2019-02-26)&quot; &quot;4-0-1 (2019-02-26)&quot; &quot;4-0-1 (2019-02-26)&quot; &quot;4-0-1 (2019-02-26)&quot; ...
+##  $ doi         : chr  &quot;doi:10.4232/1.13235&quot; &quot;doi:10.4232/1.13235&quot; &quot;doi:10.4232/1.13235&quot; &quot;doi:10.4232/1.13235&quot; ...
+##  $ year        : Factor w/ 1 level &quot;2017&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ field       : chr  &quot;2017-09-25 bis 2017-11-30&quot; &quot;2017-09-25 bis 2017-11-30&quot; &quot;2017-09-25 bis 2017-11-30&quot; &quot;2017-09-25 bis 2017-11-30&quot; ...
+##  $ glescomp    : Factor w/ 9 levels &quot;Komponente 1: Vor- und Nachwahl-Querschnitt&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ survey      : Factor w/ 3 levels &quot;Vorwahl-Querschnitt&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ lfdn        : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ intnum      : num  63 63 63 63 63 63 63 63 63 63 ...
+##  $ welle       : Factor w/ 2 levels &quot;Basisbearbeitung&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ intdate     : num  1.37e+10 1.37e+10 1.37e+10 1.37e+10 1.37e+10 ...
+##  $ beginn      : chr  &quot;2017/11/18 1506:15&quot; &quot;2017/10/04 1652:52&quot; &quot;2017/10/05 1446:27&quot; &quot;2017/10/02 1058:37&quot; ...
+##  $ ende        : chr  &quot;2017/11/18 1642:12&quot; &quot;2017/10/04 1820:12&quot; &quot;2017/10/05 1650:28&quot; &quot;2017/10/02 1224:38&quot; ...
+##  $ intdauer_ges: num  95.9 87.3 124 86 75.2 ...
+##  $ bula        : Factor w/ 16 levels &quot;Schleswig-Holstein&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ ostwest     : Factor w/ 2 levels &quot;Ostdeutschland&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ ostwest2    : Factor w/ 2 levels &quot;Ostdeutschland&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ vpoint      : num  2858 2858 2858 2858 2858 ...
+##  $ wahlkreis   : Factor w/ 299 levels &quot;1 Flensburg / Schleswig&quot;,..: 9 9 9 9 9 9 9 9 9 9 ...
+##  $ w_ow        : num  1.2 1.2 1.2 1.2 1.2 ...
+##  $ w_ipfges    : num  0.977 0.655 0.636 0.551 0.931 ...
+##  $ w_ipfost    : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ w_ipfwes    : num  0.834 0.55 0.554 0.463 0.806 ...
+##  $ q1          : Factor w/ 2 levels &quot;maennlich&quot;,&quot;weiblich&quot;: 1 1 2 1 2 1 2 1 2 2 ...
+##  $ q2b         : Factor w/ 12 levels &quot;Januar&quot;,&quot;Februar&quot;,..: 6 4 1 10 5 4 3 1 4 11 ...
+##  $ q2c         : Factor w/ 79 levels &quot;1922&quot;,&quot;1923&quot;,..: 38 42 31 17 79 37 29 54 52 76 ...
+##  $ q2d         : Factor w/ 2 levels &quot;nicht wahlberechtigt&quot;,..: 2 2 2 2 1 2 2 2 2 2 ...
+##  $ q3_c1       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: 100 188 59 177 195 144 58 236 195 261 ...
+##  $ q3_c2       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA 190 NA NA 193 141 NA NA 196 NA ...
+##  $ q3_c3       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA 187 NA NA 107 NA NA NA NA NA ...
+##  $ q3_c4       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ q3_c5       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ q4_c1       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: 159 200 54 72 87 261 180 71 170 195 ...
+##  $ q4_c2       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: 156 NA NA NA 82 NA NA NA 171 NA ...
+##  $ q4_c3       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ q4_c4       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ q4_c5       : Factor w/ 302 levels &quot;POLITISCHE PROZESSE (POLITICS-THEMEN)&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ q5a         : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 2 4 54 1 1 6 4 5 42 4 ...
+##  $ q5b         : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 2 4 54 1 1 6 4 5 42 4 ...
+##  $ q6a         : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 6 4 53 1 1 54 4 5 NA 2 ...
+##  $ q6b         : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 6 4 53 1 1 54 4 5 NA 2 ...
+##  $ q7          : Factor w/ 4 levels &quot;sehr aufmerksam&quot;,..: 3 2 1 1 2 1 1 1 3 2 ...
+##  $ q8a         : Factor w/ 5 levels &quot;stimme voll und ganz zu&quot;,..: 2 3 1 1 3 1 3 3 1 1 ...
+##  $ q8b         : Factor w/ 5 levels &quot;stimme voll und ganz zu&quot;,..: 3 3 4 3 3 4 5 3 3 4 ...
+##  $ q8c         : Factor w/ 5 levels &quot;stimme voll und ganz zu&quot;,..: 2 3 1 1 4 3 2 3 4 1 ...
+##  $ q8d         : Factor w/ 5 levels &quot;stimme voll und ganz zu&quot;,..: 3 5 5 4 4 5 5 5 3 3 ...
+##  $ q8e         : Factor w/ 5 levels &quot;stimme voll und ganz zu&quot;,..: 3 4 2 2 3 5 2 5 1 3 ...
+##  $ q9a         : Factor w/ 4 levels &quot;sehr wichtig&quot;,..: 3 4 4 3 1 4 4 4 4 4 ...
+##  $ q9b         : Factor w/ 4 levels &quot;sehr wichtig&quot;,..: 3 4 4 3 3 4 4 4 4 3 ...
+##  $ q9c         : Factor w/ 4 levels &quot;sehr wichtig&quot;,..: 1 1 1 2 1 1 2 2 1 1 ...
+##  $ q9d         : Factor w/ 4 levels &quot;sehr wichtig&quot;,..: 4 4 4 2 3 3 2 4 2 2 ...
+##  $ q10         : Factor w/ 4 levels &quot;sehr verbreitet&quot;,..: 1 3 2 4 3 3 1 3 1 2 ...
+##  $ q11         : Factor w/ 4 levels &quot;sehr gute Arbeit geleistet&quot;,..: 2 2 2 2 2 3 2 3 2 2 ...
+##  $ q12a        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 2 2 3 2 2 1 2 3 1 2 ...
+##  $ q12b        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 1 1 3 2 3 1 1 1 1 1 ...
+##  $ q12c        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 3 3 3 1 4 3 3 NA 4 2 ...
+##  $ q12d        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 3 5 3 2 2 3 2 2 1 3 ...
+##  $ q12e        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 1 1 3 2 1 1 2 3 1 3 ...
+##  $ q12f        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 2 4 3 2 3 3 3 4 2 3 ...
+##  $ q12g        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 1 2 3 1 2 2 2 2 1 2 ...
+##  $ q12h        : Factor w/ 5 levels &quot;viel hoeher als heute&quot;,..: 1 2 3 2 2 2 2 NA 4 2 ...
+##  $ q13         : Factor w/ 5 levels &quot;sehr gut&quot;,&quot;gut&quot;,..: 2 2 2 1 2 2 2 3 4 2 ...
+##  $ q14         : Factor w/ 5 levels &quot;wesentlich besser geworden&quot;,..: 4 2 4 2 4 3 2 3 5 3 ...
+##  $ q15         : Factor w/ 5 levels &quot;sehr stark&quot;,&quot;stark&quot;,..: 3 2 5 2 3 5 3 3 3 2 ...
+##  $ q16         : Factor w/ 5 levels &quot;wesentlich besser&quot;,..: 4 3 4 2 4 3 3 4 5 2 ...
+##  $ q17         : Factor w/ 2 levels &quot;ja, habe gewaehlt&quot;,..: 1 1 1 1 NA 1 1 1 1 2 ...
+##  $ q18         : Factor w/ 3 levels &quot;per Briefwahl&quot;,..: 3 2 3 3 NA 1 3 3 3 NA ...
+##  $ q19aa       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 1 4 1 NA NA 4 4 5 NA NA ...
+##  $ q19ab       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 1 4 1 NA NA 4 4 5 NA NA ...
+##  $ q19ba       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 1 6 1 NA NA 6 4 5 NA NA ...
+##  $ q19bb       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: 1 6 1 NA NA 6 4 5 NA NA ...
+##  $ q20         : Factor w/ 2 levels &quot;ja, ich haette gewaehlt&quot;,..: NA NA NA NA 1 NA NA NA NA NA ...
+##  $ q21aa       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA NA NA NA 1 NA NA NA NA NA ...
+##  $ q21ab       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA NA NA NA 1 NA NA NA NA NA ...
+##  $ q21ba       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA NA NA NA 1 NA NA NA NA NA ...
+##  $ q21bb       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA NA NA NA 1 NA NA NA NA NA ...
+##  $ q22         : Factor w/ 5 levels &quot;stand schon seit langem fest&quot;,..: 2 2 3 NA NA 1 1 3 NA NA ...
+##  $ q23         : Factor w/ 2 levels &quot;ja&quot;,&quot;nein&quot;: 1 1 1 1 NA 1 1 1 1 NA ...
+##  $ q24         : Factor w/ 2 levels &quot;ja, habe gewaehlt&quot;,..: 2 1 1 1 NA 1 1 1 1 NA ...
+##  $ q25aa       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA 4 4 NA NA 4 4 5 4 NA ...
+##  $ q25ab       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA 4 4 NA NA 4 4 5 4 NA ...
+##  $ q25ba       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA 4 1 NA NA 6 4 5 4 NA ...
+##  $ q25bb       : Factor w/ 55 levels &quot;CDU/CSU&quot;,&quot;CDU&quot;,..: NA 4 1 NA NA 6 4 5 4 NA ...
+##  $ q26         : Factor w/ 5 levels &quot;1 Es macht keinen Unterschied, wer an der Regierung ist.&quot;,..: 3 2 3 5 4 5 5 4 3 4 ...
+##  $ q27         : Factor w/ 5 levels &quot;1 Es macht keinen Unterschied, was man waehlt.&quot;,..: 1 5 5 5 5 5 5 4 3 5 ...
+##  $ q28a        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 10 8 9 11 11 4 5 3 7 10 ...
+##  $ q28b        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 10 6 9 11 11 3 3 4 5 8 ...
+##  $ q28c        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 5 9 5 8 10 7 10 3 7 9 ...
+##  $ q28d        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 3 6 6 2 8 6 7 4 6 6 ...
+##  $ q28e        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 8 9 7 9 9 9 9 2 6 8 ...
+##  $ q28f        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 10 6 6 9 11 5 4 7 6 6 ...
+##  $ q28g        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von dieser Partei&quot;,..: 1 1 1 1 3 1 1 2 8 1 ...
+##  $ q29a        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 9 8 10 10 11 4 5 3 3 9 ...
+##  $ q29b        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 5 8 6 7 5 9 10 6 6 6 ...
+##  $ q29c        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 5 7 7 4 8 5 8 7 5 NA ...
+##  $ q29d        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 6 8 6 9 7 10 8 6 6 NA ...
+##  $ q29e        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 9 NA 7 10 11 4 5 8 8 NA ...
+##  $ q29f        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 8 1 5 4 2 1 1 1 6 NA ...
+##  $ q29g        : Factor w/ 11 levels &quot;-5 halte ueberhaupt nichts von diesem Politiker&quot;,..: 8 7 7 10 11 3 3 7 6 NA ...
+##   [list output truncated]
+##  - attr(*, &quot;variable.labels&quot;)= Named chr [1:602] &quot;Studiennummer&quot; &quot;GESIS Archiv Version&quot; &quot;Digital Object Identifier&quot; &quot;Erhebungsjahr&quot; ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:602] &quot;study&quot; &quot;version&quot; &quot;doi&quot; &quot;year&quot; ...
+##  - attr(*, &quot;codepage&quot;)= int 65001</code></pre>
+<p><code>gles</code> liegt als Dataframe vor und enthält 2112 Beobachtungen (Zeilen) und 602 Variablen (Spalten). Variablen sind <code>study</code>, <code>version</code>, <code>doi</code> usw., wobei das Dollarzeichen, wie bei Dataframes üblich, Variablen kenzeichnet (Stizung 2). Die ersten Variablen vercoden Information zur Durchführung des Interviews, die inhaltlich interessanten Variablen folgen später. Die Bezeichnung der meisten ist recht technisch gehalten. Die Variablen liegen als numerische und character-Vektoren sowie als Faktoren vor, die in Datafraes verbunden werden können (Sitzung 2).</p>
+<pre class="r"><code>str(lijphart)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    36 obs. of  74 variables:
+##  $ Country                  : chr  &quot;ARG&quot; &quot;AUL&quot; &quot;AUT&quot; &quot;BAH&quot; ...
+##  $ exe_part4510             : chr  &quot;-0.93&quot; &quot;-0.73&quot; &quot;0.43&quot; &quot;-1.50&quot; ...
+##  $ exe_part8110             : chr  &quot;-1.01&quot; &quot;-0.65&quot; &quot;0.64&quot; &quot;-1.33&quot; ...
+##  $ fed_unit4510             : chr  &quot;1.38&quot; &quot;1.63&quot; &quot;1.07&quot; &quot;-0.15&quot; ...
+##  $ fed_unit8110             : chr  &quot;1.34&quot; &quot;1.58&quot; &quot;0.97&quot; &quot;-0.18&quot; ...
+##  $ enpp4510                 : chr  &quot;3.15&quot; &quot;2.22&quot; &quot;2.68&quot; &quot;1.69&quot; ...
+##  $ enpp8110                 : chr  &quot;3.15&quot; &quot;2.19&quot; &quot;3.23&quot; &quot;1.74&quot; ...
+##  $ minwin_one_part4510      : chr  &quot;82.4&quot; &quot;80.7&quot; &quot;43.3&quot; &quot;100.0&quot; ...
+##  $ minwin_one_part8110      : chr  &quot;82.4&quot; &quot;86.5&quot; &quot;47.4&quot; &quot;100.0&quot; ...
+##  $ exe_dom4510              : chr  &quot;8.00&quot; &quot;9.10&quot; &quot;8.07&quot; &quot;9.44&quot; ...
+##  $ exe_dom8110              : chr  &quot;8.00&quot; &quot;7.37&quot; &quot;5.90&quot; &quot;7.37&quot; ...
+##  $ disprop4510              : chr  &quot;17.98&quot; &quot;9.44&quot; &quot;2.51&quot; &quot;16.48&quot; ...
+##  $ disprop8110              : chr  &quot;17.98&quot; &quot;10.07&quot; &quot;2.02&quot; &quot;15.90&quot; ...
+##  $ inter_gr_plural4510      : chr  &quot;2.70&quot; &quot;2.12&quot; &quot;0.38&quot; &quot;3.00&quot; ...
+##  $ inter_gr_plural8110      : chr  &quot;2.70&quot; &quot;1.88&quot; &quot;0.38&quot; &quot;3.00&quot; ...
+##  $ federal4510              : chr  &quot;4.5&quot; &quot;5.0&quot; &quot;4.5&quot; &quot;1.0&quot; ...
+##  $ federal8110              : chr  &quot;4.5&quot; &quot;5.0&quot; &quot;4.5&quot; &quot;1.0&quot; ...
+##  $ bicam4510                : chr  &quot;4.0&quot; &quot;4.0&quot; &quot;2.0&quot; &quot;2.0&quot; ...
+##  $ bicam8110                : chr  &quot;4.0&quot; &quot;4.0&quot; &quot;2.0&quot; &quot;2.0&quot; ...
+##  $ const_rigid4510          : chr  &quot;4.0&quot; &quot;4.0&quot; &quot;3.0&quot; &quot;3.0&quot; ...
+##  $ const_rigid8110          : chr  &quot;4.0&quot; &quot;4.0&quot; &quot;3.0&quot; &quot;3.0&quot; ...
+##  $ judic_rev4510            : chr  &quot;2.7&quot; &quot;3.0&quot; &quot;3.0&quot; &quot;2.0&quot; ...
+##  $ judic_rev8110            : chr  &quot;2.7&quot; &quot;3.0&quot; &quot;3.0&quot; &quot;2.0&quot; ...
+##  $ cen_bank_indep4594       : chr  &quot;0.39&quot; &quot;0.42&quot; &quot;0.55&quot; &quot;0.41&quot; ...
+##  $ cen_bank_indep8194       : chr  &quot;0.39&quot; &quot;0.42&quot; &quot;0.53&quot; &quot;0.41&quot; ...
+##  $ gov_effectiv9609         : chr  &quot;-0.08&quot; &quot;1.76&quot; &quot;1.80&quot; &quot;1.14&quot; ...
+##  $ regu_quality9609         : chr  &quot;-0.42&quot; &quot;1.56&quot; &quot;1.51&quot; &quot;1.01&quot; ...
+##  $ rule_of_law9609          : chr  &quot;-0.48&quot; &quot;1.72&quot; &quot;1.83&quot; &quot;1.16&quot; ...
+##  $ ctrl_corrupt9609         : chr  &quot;-0.38&quot; &quot;1.91&quot; &quot;1.95&quot; &quot;1.28&quot; ...
+##  $ corrupt_perc10           : chr  &quot;2.9&quot; &quot;8.7&quot; &quot;7.9&quot; &quot;&quot; ...
+##  $ gdp_growth8109           : chr  &quot;&quot; &quot;1.880&quot; &quot;1.732&quot; &quot;&quot; ...
+##  $ gdp_growth9109           : chr  &quot;3.210&quot; &quot;1.906&quot; &quot;1.613&quot; &quot;&quot; ...
+##  $ consum_price8109         : chr  &quot;&quot; &quot;4.507&quot; &quot;2.623&quot; &quot;&quot; ...
+##  $ gdp_deflat8109           : chr  &quot;&quot; &quot;4.607&quot; &quot;2.382&quot; &quot;&quot; ...
+##  $ consum_price9109         : chr  &quot;15.849&quot; &quot;2.601&quot; &quot;2.145&quot; &quot;&quot; ...
+##  $ gdp_deflat9109           : chr  &quot;13.745&quot; &quot;2.774&quot; &quot;1.692&quot; &quot;&quot; ...
+##  $ unempl8109               : chr  &quot;&quot; &quot;7.331&quot; &quot;3.912&quot; &quot;&quot; ...
+##  $ unempl9109               : chr  &quot;12.531&quot; &quot;7.155&quot; &quot;4.097&quot; &quot;&quot; ...
+##  $ budget_balanc0008        : chr  &quot;&quot; &quot;1.2&quot; &quot;-1.8&quot; &quot;&quot; ...
+##  $ budget_balanc0307        : chr  &quot;&quot; &quot;1.2&quot; &quot;-2.2&quot; &quot;-1.8&quot; ...
+##  $ heri_free0910            : chr  &quot;51.7&quot; &quot;82.5&quot; &quot;71.9&quot; &quot;68.0&quot; ...
+##  $ fras_free08              : chr  &quot;5.99&quot; &quot;7.90&quot; &quot;7.61&quot; &quot;7.21&quot; ...
+##  $ pol_stab9609             : chr  &quot;-0.09&quot; &quot;1.01&quot; &quot;1.15&quot; &quot;0.89&quot; ...
+##  $ confl_risk9004           : chr  &quot;10.23&quot; &quot;11.36&quot; &quot;11.79&quot; &quot;10.83&quot; ...
+##  $ domes_conflict_weight8109: int  NA 62 103 0 17 192 19 155 192 90 ...
+##  $ domes_conflict_weight9009: int  934 34 125 0 25 169 22 169 266 84 ...
+##  $ deaths_domes_terror8510  : int  5 0 0 2 2 0 3 2 1 0 ...
+##  $ voice_account9609        : chr  &quot;0.28&quot; &quot;1.42&quot; &quot;1.37&quot; &quot;1.09&quot; ...
+##  $ eiu_democ0610            : chr  &quot;6.70&quot; &quot;9.13&quot; &quot;8.56&quot; &quot;&quot; ...
+##  $ elec_plural0610          : chr  &quot;8.75&quot; &quot;10.00&quot; &quot;9.58&quot; &quot;&quot; ...
+##  $ gov_funct0610            : chr  &quot;5.24&quot; &quot;8.93&quot; &quot;7.98&quot; &quot;&quot; ...
+##  $ pol_part0610             : chr  &quot;5.56&quot; &quot;7.78&quot; &quot;7.78&quot; &quot;&quot; ...
+##  $ pol_cult0610             : chr  &quot;5.84&quot; &quot;8.96&quot; &quot;8.34&quot; &quot;&quot; ...
+##  $ civ_lib0610              : chr  &quot;8.14&quot; &quot;10.00&quot; &quot;9.12&quot; &quot;&quot; ...
+##  $ women_parl_rep90         : chr  &quot;6.3&quot; &quot;6.1&quot; &quot;11.5&quot; &quot;4.1&quot; ...
+##  $ women_parl_rep10         : chr  &quot;38.5&quot; &quot;24.7&quot; &quot;27.9&quot; &quot;12.2&quot; ...
+##  $ women_cab_rep95          : chr  &quot;0.0&quot; &quot;5.9&quot; &quot;23.5&quot; &quot;27.3&quot; ...
+##  $ women_cab_rep08          : int  23 24 38 8 28 23 28 16 29 37 ...
+##  $ gender_ineq08            : int  534 296 300 NA 448 236 663 289 501 209 ...
+##  $ X10_10_ratio00           : chr  &quot;31.8&quot; &quot;12.5&quot; &quot;6.9&quot; &quot;&quot; ...
+##  $ X20_20_ratio00           : chr  &quot;16.3&quot; &quot;7.0&quot; &quot;4.4&quot; &quot;&quot; ...
+##  $ gini_ineq00              : chr  &quot;51.3&quot; &quot;35.2&quot; &quot;29.1&quot; &quot;&quot; ...
+##  $ turnout8110              : chr  &quot;78.43&quot; &quot;82.87&quot; &quot;78.23&quot; &quot;67.16&quot; ...
+##  $ non_mand_turnout8110     : chr  &quot;&quot; &quot;&quot; &quot;78.23&quot; &quot;67.16&quot; ...
+##  $ satis_democ9596          : int  35 NA 63 NA NA 54 NA NA NA 83 ...
+##  $ satis_democ0507          : chr  &quot;45.1&quot; &quot;51.5&quot; &quot;&quot; &quot;&quot; ...
+##  $ soc_expend05             : chr  &quot;&quot; &quot;18.5&quot; &quot;24.9&quot; &quot;&quot; ...
+##  $ mand_soc_expend05        : chr  &quot;&quot; &quot;19.5&quot; &quot;25.5&quot; &quot;&quot; ...
+##  $ envir_perform10          : chr  &quot;61.0&quot; &quot;65.7&quot; &quot;78.1&quot; &quot;&quot; ...
+##  $ incarceration10          : int  151 133 103 376 326 97 267 117 228 71 ...
+##  $ death_pen10              : int  0 0 0 2 2 0 2 0 0 0 ...
+##  $ foreign_aid90            : chr  &quot;&quot; &quot;0.34&quot; &quot;0.11&quot; &quot;&quot; ...
+##  $ foreign_aid05            : chr  &quot;&quot; &quot;0.25&quot; &quot;0.52&quot; &quot;&quot; ...
+##  $ aid_vers_def05           : int  NA 14 58 NA NA 48 NA 31 NA 45 ...</code></pre>
+<p><code>lijphart</code> ist ebenso ein Dataframe und beinhaltet 36 Beobachtungen und 74 Variablen (<code>Country</code>, <code>exe_part4510</code>, <code>exe_part8110</code> usw.). Die Variablen sind hauptsächlich character-Vectors sowie teilweise integer-Vectors (ganze Zahlen).</p>
+<p>Mit <code>View()</code> können wir unsere Datensätze in ihrer eigentlichen Form, nämlich als große Tabelle, ansehen. Dabei ist zu beachten, dass man gerade bei größeren Datensätzen nur recht langsam durch den Datensatz scrollen kann.</p>
+<pre class="r"><code>View(gles)
+View(lijphart)</code></pre>
+<p>Wenn wir anstatt dessen nur einen Eindruck der Variablen und der ersten enthaltenen Werte bekommen möchten, bieten sich die Funktionen <code>head()</code> und <code>tail()</code> an, die die jeweils ersten und letzten zehn Zeilen des Datensatzes zeigen. Aufgrund der Größe der Datensätze ist der Output für <code>lijphart</code> übersichtlicher als für <code>gles</code>.</p>
+<pre class="r"><code># head(gles)
+# tail(gles)
+
+head(lijphart)</code></pre>
+<pre><code>##   Country exe_part4510 exe_part8110 fed_unit4510 fed_unit8110 enpp4510 enpp8110
+## 1     ARG        -0.93        -1.01         1.38         1.34     3.15     3.15
+## 2     AUL        -0.73        -0.65         1.63         1.58     2.22     2.19
+## 3     AUT         0.43         0.64         1.07         0.97     2.68     3.23
+## 4     BAH        -1.50        -1.33        -0.15        -0.18     1.69     1.74
+## 5     BAR        -1.28        -1.20        -0.49        -0.53     1.68     1.62
+## 6     BEL         1.14         1.10         0.10         0.44     4.72     6.13
+##   minwin_one_part4510 minwin_one_part8110 exe_dom4510 exe_dom8110 disprop4510
+## 1                82.4                82.4        8.00        8.00       17.98
+## 2                80.7                86.5        9.10        7.37        9.44
+## 3                43.3                47.4        8.07        5.90        2.51
+## 4               100.0               100.0        9.44        7.37       16.48
+## 5               100.0               100.0        8.87        7.37       17.27
+## 6                37.3                36.3        2.57        4.21        3.35
+##   disprop8110 inter_gr_plural4510 inter_gr_plural8110 federal4510 federal8110
+## 1       17.98                2.70                2.70         4.5         4.5
+## 2       10.07                2.12                1.88         5.0         5.0
+## 3        2.02                0.38                0.38         4.5         4.5
+## 4       15.90                3.00                3.00         1.0         1.0
+## 5       18.72                2.20                2.00         1.0         1.0
+## 6        3.75                1.15                1.33         3.5         4.2
+##   bicam4510 bicam8110 const_rigid4510 const_rigid8110 judic_rev4510
+## 1       4.0       4.0             4.0             4.0           2.7
+## 2       4.0       4.0             4.0             4.0           3.0
+## 3       2.0       2.0             3.0             3.0           3.0
+## 4       2.0       2.0             3.0             3.0           2.0
+## 5       2.0       2.0             2.0             2.0           2.0
+## 6       2.8       2.5             3.0             3.0           1.8
+##   judic_rev8110 cen_bank_indep4594 cen_bank_indep8194 gov_effectiv9609
+## 1           2.7               0.39               0.39            -0.08
+## 2           3.0               0.42               0.42             1.76
+## 3           3.0               0.55               0.53             1.80
+## 4           2.0               0.41               0.41             1.14
+## 5           2.0               0.38               0.38             1.36
+## 6           2.7               0.27               0.30             1.68
+##   regu_quality9609 rule_of_law9609 ctrl_corrupt9609 corrupt_perc10
+## 1            -0.42           -0.48            -0.38            2.9
+## 2             1.56            1.72             1.91            8.7
+## 3             1.51            1.83             1.95            7.9
+## 4             1.01            1.16             1.28               
+## 5             0.98            1.12             1.32            7.8
+## 6             1.24            1.31             1.37            7.1
+##   gdp_growth8109 gdp_growth9109 consum_price8109 gdp_deflat8109
+## 1                         3.210                                
+## 2          1.880          1.906            4.507          4.607
+## 3          1.732          1.613            2.623          2.382
+## 4                                                              
+## 5                                                              
+## 6          1.552          1.371            2.930          2.756
+##   consum_price9109 gdp_deflat9109 unempl8109 unempl9109 budget_balanc0008
+## 1           15.849         13.745                12.531                  
+## 2            2.601          2.774      7.331      7.155               1.2
+## 3            2.145          1.692      3.912      4.097              -1.8
+## 4                                                                        
+## 5                                                                        
+## 6            2.062          1.961      8.744      8.054              -0.5
+##   budget_balanc0307 heri_free0910 fras_free08 pol_stab9609 confl_risk9004
+## 1                            51.7        5.99        -0.09          10.23
+## 2               1.2          82.5        7.90         1.01          11.36
+## 3              -2.2          71.9        7.61         1.15          11.79
+## 4              -1.8          68.0        7.21         0.89          10.83
+## 5                            68.5        6.35         1.05               
+## 6              -0.7          70.2        7.22         0.92          11.59
+##   domes_conflict_weight8109 domes_conflict_weight9009 deaths_domes_terror8510
+## 1                        NA                       934                       5
+## 2                        62                        34                       0
+## 3                       103                       125                       0
+## 4                         0                         0                       2
+## 5                        17                        25                       2
+## 6                       192                       169                       0
+##   voice_account9609 eiu_democ0610 elec_plural0610 gov_funct0610 pol_part0610
+## 1              0.28          6.70            8.75          5.24         5.56
+## 2              1.42          9.13           10.00          8.93         7.78
+## 3              1.37          8.56            9.58          7.98         7.78
+## 4              1.09                                                         
+## 5              1.21                                                         
+## 6              1.39          8.12            9.58          8.21         6.11
+##   pol_cult0610 civ_lib0610 women_parl_rep90 women_parl_rep10 women_cab_rep95
+## 1         5.84        8.14              6.3             38.5             0.0
+## 2         8.96       10.00              6.1             24.7             5.9
+## 3         8.34        9.12             11.5             27.9            23.5
+## 4                                       4.1             12.2            27.3
+## 5                                       3.7             10.0            27.3
+## 6         7.29        9.41              8.5             39.3            11.8
+##   women_cab_rep08 gender_ineq08 X10_10_ratio00 X20_20_ratio00 gini_ineq00
+## 1              23           534           31.8           16.3        51.3
+## 2              24           296           12.5            7.0        35.2
+## 3              38           300            6.9            4.4        29.1
+## 4               8            NA                                          
+## 5              28           448                                          
+## 6              23           236            8.2            4.9        33.0
+##   turnout8110 non_mand_turnout8110 satis_democ9596 satis_democ0507 soc_expend05
+## 1       78.43                                   35            45.1             
+## 2       82.87                                   NA            51.5         18.5
+## 3       78.23                78.23              63                         24.9
+## 4       67.16                67.16              NA                             
+## 5       71.35                71.35              NA                             
+## 6       86.32                                   54                         26.2
+##   mand_soc_expend05 envir_perform10 incarceration10 death_pen10 foreign_aid90
+## 1                              61.0             151           0              
+## 2              19.5            65.7             133           0          0.34
+## 3              25.5            78.1             103           0          0.11
+## 4                                               376           2              
+## 5                                               326           2              
+## 6              26.2            58.1              97           0          0.46
+##   foreign_aid05 aid_vers_def05
+## 1                           NA
+## 2          0.25             14
+## 3          0.52             58
+## 4                           NA
+## 5                           NA
+## 6          0.53             48</code></pre>
+<pre class="r"><code>tail(lijphart)</code></pre>
+<pre><code>##    Country exe_part4510 exe_part8110 fed_unit4510 fed_unit8110 enpp4510
+## 31     SWE         0.79         0.87        -1.03        -1.09     3.47
+## 32     SWI         1.72         1.67         1.46         1.59     5.20
+## 33     TRI        -1.01        -0.79        -0.24        -0.34     1.87
+## 34      UK        -1.09        -1.48        -1.06        -1.12     2.16
+## 35     URU         0.39         0.31        -0.79        -0.84     4.40
+## 36      US        -0.67        -0.63         2.25         2.18     2.39
+##    enpp8110 minwin_one_part4510 minwin_one_part8110 exe_dom4510 exe_dom8110
+## 31     3.82                48.1                42.6        5.61        4.92
+## 32     5.50                 4.0                 1.7        1.00        1.00
+## 33     1.88                94.3                90.7        6.95        4.21
+## 34     2.27                97.3                99.8        8.12        9.83
+## 35     4.40                80.3                80.3        4.00        4.00
+## 36     2.37                80.4                78.9        4.00        4.00
+##    disprop4510 disprop8110 inter_gr_plural4510 inter_gr_plural8110 federal4510
+## 31        2.04        1.95                0.35                0.42         2.0
+## 32        2.55        3.08                0.88                0.88         5.0
+## 33       11.33       11.67                3.00                3.00         1.3
+## 34       11.70       16.00                3.02                3.08         1.2
+## 35        6.05        6.05                1.70                1.70         1.0
+## 36       14.28       13.35                3.02                2.88         5.0
+##    federal8110 bicam4510 bicam8110 const_rigid4510 const_rigid8110
+## 31         2.0       1.7       1.0             1.5             2.0
+## 32         5.0       4.0       4.0             4.0             4.0
+## 33         1.5       2.0       2.0             3.0             3.0
+## 34         1.4       2.5       2.5             1.0             1.0
+## 35         1.0       3.0       3.0             1.0             1.0
+## 36         5.0       4.0       4.0             4.0             4.0
+##    judic_rev4510 judic_rev8110 cen_bank_indep4594 cen_bank_indep8194
+## 31           1.0           1.0               0.29               0.29
+## 32           1.0           1.0               0.61               0.68
+## 33           2.0           2.0               0.35               0.30
+## 34           1.0           1.0               0.31               0.28
+## 35           2.5           2.5               0.19               0.19
+## 36           4.0           4.0               0.56               0.56
+##    gov_effectiv9609 regu_quality9609 rule_of_law9609 ctrl_corrupt9609
+## 31             1.96             1.50            1.81             2.17
+## 32             1.97             1.56            1.84             2.06
+## 33             0.30             0.68            0.09             0.11
+## 34             1.76             1.69            1.65             1.90
+## 35             0.51             0.46            0.57             0.94
+## 36             1.64             1.51            1.54             1.53
+##    corrupt_perc10 gdp_growth8109 gdp_growth9109 consum_price8109 gdp_deflat8109
+## 31            9.2          1.640          1.493            3.915          4.061
+## 32            8.7            910            545            2.125          2.059
+## 33            3.6          1.615          4.209            7.752          5.752
+## 34            7.6          1.960          1.642            4.119          4.032
+## 35            6.9                         2.732                                
+## 36            7.1          1.731          1.439            3.370          2.939
+##    consum_price9109 gdp_deflat9109 unempl8109 unempl9109 budget_balanc0008
+## 31            1.968          2.182      5.618      7.145                  
+## 32            1.450          1.274                 3.465               0.4
+## 33            6.001          5.523     13.934     12.308                  
+## 34            2.821          2.743                 6.661              -2.1
+## 35           24.313         23.020                11.198              -2.5
+## 36            2.649          2.249      6.159      5.653                  
+##    budget_balanc0307 heri_free0910 fras_free08 pol_stab9609 confl_risk9004
+## 31                            71.9        7.28         1.25          11.38
+## 32              -0.1          81.9        8.08         1.25          12.00
+## 33               2.5          66.5        7.10         0.04           8.82
+## 34              -3.0          74.5        7.81         0.62          10.00
+## 35              -2.1          70.0        6.93         0.77           8.80
+## 36              -2.8          77.8        7.96         0.50          10.99
+##    domes_conflict_weight8109 domes_conflict_weight9009 deaths_domes_terror8510
+## 31                        58                        50                       0
+## 32                        34                        25                       0
+## 33                       136                       184                      23
+## 34                      1998                      1303                      55
+## 35                        NA                       325                       0
+## 36                       269                       288                      28
+##    voice_account9609 eiu_democ0610 elec_plural0610 gov_funct0610 pol_part0610
+## 31              1.55          9.75            9.86          9.88         9.63
+## 32              1.52          9.09            9.58          9.29         7.78
+## 33              0.61          7.18            9.44          6.91         6.11
+## 34              1.33          8.13            9.58          8.33         5.37
+## 35              0.96          8.05           10.00          8.33         4.81
+## 36              1.25          8.21            8.89          7.86         7.22
+##    pol_cult0610 civ_lib0610 women_parl_rep90 women_parl_rep10 women_cab_rep95
+## 31         9.38       10.00             38.4             45.0            47.6
+## 32         9.17        9.61             14.0             29.0            14.3
+## 33         5.42        8.04             16.7             28.6            15.8
+## 34         8.34        9.02              6.3             22.0             8.7
+## 35         7.29        9.81              6.1             15.2             5.9
+## 36         8.54        8.53              6.6             16.9            20.0
+##    women_cab_rep08 gender_ineq08 X10_10_ratio00 X20_20_ratio00 gini_ineq00
+## 31              48           212            6.2            4.0        25.0
+## 32              43           228            9.0            5.5        33.7
+## 33              36           473           12.9            7.6        38.9
+## 34              23           355           13.8            7.2        36.0
+## 35              29           508           17.9           10.2        44.9
+## 36              44           400           15.9            8.4        40.8
+##    turnout8110 non_mand_turnout8110 satis_democ9596 satis_democ0507
+## 31       82.38                82.38              55            61.5
+## 32       38.29                38.29              NA            61.3
+## 33       71.00                71.00              NA            32.1
+## 34       67.92                67.92              46            33.3
+## 35       94.51                                   52            60.9
+## 36       51.30                51.30              NA            35.5
+##    soc_expend05 mand_soc_expend05 envir_perform10 incarceration10 death_pen10
+## 31         27.3              27.5            86.0              78           0
+## 32                                           89.1              79           0
+## 33                                           54.2             276           2
+## 34         22.9              23.7            74.2             152           0
+## 35                                           59.1             261           0
+## 36         18.4              18.8            63.5             743           2
+##    foreign_aid90 foreign_aid05 aid_vers_def05
+## 31          0.91          0.94             63
+## 32          0.32          0.44             44
+## 33                                         NA
+## 34          0.27          0.47             17
+## 35                                         NA
+## 36          0.21          0.22              5</code></pre>
+</div>
+<div id="zusammenfassung" class="section level1">
+<h1>3. Zusammenfassung</h1>
+<p><code>gles</code> ist ein Datensatz aus der Wahlforschung zur Bundestagswahl 2017. <code>lijphart</code> ist der Datensatz zu Arend Lijpharts &quot;Patterns of Democracy&quot;. Um Datensätze zu laden, müssen Verzeichnisse mit <code>setwd()</code> gesetzt und Daten je nach Format mit einer Funktion wie <code>read.table()</code> geladen werden. Bei Fremdformaten kommen Funktionen des Pakets <code>foreign</code> wie <code>read.spss()</code> zur Anwendung. Mit <code>str()</code>, <code>View()</code> sowie <code>head()</code> und <code>tail()</code> bekommen wir einen ersten Überblick über Datensätze.</p>
+</div>
+<div id="quellen" class="section level1">
+<h1>4. Quellen</h1>
+<p>GLES (2019). Nachwahl-Querschnitt (GLES 2017). GESIS Datenarchiv, Köln. ZA6801 Datenfile Version 4.0.1, <a href="https://doi.org/10.4232/1.13235" class="uri">https://doi.org/10.4232/1.13235</a>.</p>
+<p>Lijphart, Arend (2012): Patterns of Democracy. Government Forms and Performance in Thirty-Six Countries. 2nd Edition. New Haven/London: Yale University Press.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

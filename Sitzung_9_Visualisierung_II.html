@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 9: Visualisierungen von Zusammenhängen</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 9: Visualisierungen von Zusammenhängen</h1>
+
+</div>
+
+
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
+<p>In unserem letzten Tutorial haben wir uns mit der bivariaten linearen Regression beschäftigt und den Zusammenhang zwischen effektiver Parteienanzahl und Wahlsystemdisproportionalität untersucht. Zusätzlich haben wir bereits eine einfache Visualiserung der Residuen realisiert.</p>
+<p>In diesem Tutorial werden wir an diesem Punkt ansetzen und weitere Visualisierungsmöglichkeiten besprechen. Zusätzlich werden wir lernen, wie man das Aussehen von Graphen (Hintergrundfarbe, Farben, Beschriftungen u.v.m) nach eigenen Wünschen gestalten kann.</p>
+</div>
+<div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
+<h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
+<p>Wir laden in einem ersten Schritt die Pakete, die wir für dieses Tutorial brauchen. Da wir uns in diesem Tutorial nur mit der Visualisierung von Zusammenhängen auseinandersetzen, werden wir lediglich das <code>ggplot2</code>-Paket verwenden. Anschließend laden wir den Lijphart-Datensatz und transformieren einige Variablen, damit diese der von uns gewünschten Klasse (numerische Variablen) angehören.</p>
+<pre class="r"><code># Pakete laden
+
+library(ggplot2) # Das Paket wird in Punkt 4 dieses Tutorials verwendet</code></pre>
+<pre class="r"><code># Datensatz laden
+getwd()
+setwd(&quot;eigener Pfad&quot;)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre class="r"><code># Lijphart
+# ENPP
+lijphart$enpp4510 &lt;- as.numeric(lijphart$enpp4510)
+
+# Gallagher-Index
+lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
+
+# Bikameralismus-Index
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# Minimal-Gewinn-Koalition mit einer Partei
+lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
+
+# Exekutivdominanz (Kabinettsdauer)
+lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
+</div>
+<div id="visualisierung-von-zusammenhängen" class="section level1">
+<h1>3. Visualisierung von Zusammenhängen</h1>
+<p>Zusammenhänge lassen sich mit vielen unterschiedlichen Graphen präsentieren. Zwei dieser Möglichkeiten werden wir im folgenden besprechen: Streudiagramme und Linienplots.</p>
+<p>Wie bereits in Sitzung 6 werden wir unsere Visualisierungen mit dem <code>ggplot2</code>-Paket realisieren. Für die Darstellung von Zusammenhängen werden wir vor allem die <code>ggplot()</code>-Funktion und <code>geom_point()</code> verwenden.</p>
+<p>Wie bereits oben erwähnt werden wir unsere Visualisierungen mit den Variablen <em>enpp4510</em> und <em>disprop4510</em> durchführen.</p>
+<div id="streudiagramme" class="section level2">
+<h2>3.1. Streudiagramme</h2>
+<p>Wollen wir den Zusammenhang zwischen der effektiven Parteienanzahl und der Wahlsystemdisproportionalität darstellen, dann bietet sich ein Streudiagramm an. Hierfür verwenden wir die Funktion <code>geom_point()</code>.</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point()</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Wollen wir wissen, welche Länder sich hinter den Punkten verstecken, dann können wir mittels <code>geom_text()</code> und der Variable <em>Country</em> ganz einfach Beschriftungen hinzufügen:</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_text(label = lijphart$Country)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="linienplots" class="section level2">
+<h2>3.2. Linienplots</h2>
+<p>Die Aussagekraft lässt sich noch erweitern, wenn wir eine Regressionslinie hinzufügen. Zur kurzen Erinnerung: in Sitzung 8 haben wir eine bivariate Regression zwischen der ENPP und dem Gallagher-Index gerechnet und herausgefunden, dass beide Variablen signifikant negativ zusammenhängen. Um das auch grafisch darzustellen, nutzen wir die Funktion <code>geom_smooth()</code> und bestimmen mit <code>method = lm</code>, dass wir eine lineare Regressionsgerade visualisieren wollen.</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Wie wir sehen können, werden die Konfidenzintervalle automatisch visualisiert. Wollen wir das nicht, dann können wir das wie folgt bestimmen:</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>In einem letzten Schritt beschriften wir die Punkte mit den dazugehörigen Ländernamen. Hierfür verwenden wir wieder die Funktion <code>geom_text()</code> und die Variable <em>Country</em>, zusätzlich justieren wir mit <code>hjust</code> und <code>vjust</code> die Platzierung der Beschriftungen und garantieren so eine bessere Lesbarkeit:</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+<div id="graphen-verändern" class="section level1">
+<h1>4. Graphen verändern</h1>
+<p>Wollen wir das Aussehen unserer Graphen verändern, dann bietet uns <code>ggplot2</code> nahezu unendlich viele Möglichkeiten.</p>
+<div id="beschriftungen" class="section level3">
+<h3>4.1. Beschriftungen</h3>
+<p><code>ggplot2</code> macht die Benennung eines Graphen sehr einfach. Hierfür verwenden wir die Funktion <code>labs()</code> und setzen unsere gewünschte Beschriftung in Anführungszeichen:</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;,
+        x =&quot;Effektive Parteienanzahl&quot;, y = &quot;Disproportionalität von Wahlsystemen&quot;)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="hintergrund-themes" class="section level3">
+<h3>4.2. Hintergrund-Themes</h3>
+<p><code>ggplot2</code> bietet unterschiedliche Hintergrund-Themes an. Zusätzlich bietet das Paket <code>ggthemes</code> weitere Möglichkeiten. Die folgende Tabelle bietet einen kleinen Überblick über mögliche Themes.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Paket</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>theme_bw()</td>
+<td>ggplot2</td>
+<td>Schwarze Elemente auf weißem Hintergrund</td>
+</tr>
+<tr class="even">
+<td>theme_minimal()</td>
+<td>ggplot2</td>
+<td>Minimalistisch</td>
+</tr>
+<tr class="odd">
+<td>theme_classic()</td>
+<td>ggplot2</td>
+<td>Theme ohne grid Linien</td>
+</tr>
+<tr class="even">
+<td>theme_base()</td>
+<td>ggthemes</td>
+<td>Basis Theme</td>
+</tr>
+<tr class="odd">
+<td>theme_economist()</td>
+<td>ggthemes</td>
+<td>The Economist Theme</td>
+</tr>
+<tr class="even">
+<td>theme_fivethirtyeight()</td>
+<td>ggthemes</td>
+<td>FiveThirtyEight Theme</td>
+</tr>
+<tr class="odd">
+<td>theme_tufte()</td>
+<td>ggthemes</td>
+<td>Tufte (1983) theme</td>
+</tr>
+</tbody>
+</table>
+<p>Die Veränderung des Hintergrunds ist denkbar einfach. Hierfür müssen wir einfach die jeweilige Theme-Funktion verwenden:</p>
+<pre class="r"><code># Minimal Theme
+
+ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;
+       , x =&quot;Effektive Parteienanzahl&quot;
+       , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code># The Economist
+library(ggthemes) # für dieses Theme brauchen wir ein weiteres Paket
+
+ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;
+       , x =&quot;Effektive Parteienanzahl&quot;
+       , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
+  theme_economist() </code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+</div>
+<div id="farben" class="section level3">
+<h3>4.3. Farben</h3>
+<p>Wenn wir die Farben der Datenpunkte verändern wollen, dann müssen wir lediglich das Argument <code>color</code> in die <code>geom_point()</code> Funktion einbauen. Gleiches gilt für die Form der Punkte, wobei wir hier das Argument <code>shape</code> verwenden (die einzelnen Formen können über die Ziffern 1-20 ausgewählt werden):</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;
+       , x =&quot;Effektive Parteienanzahl&quot;
+       , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Die Schritte sind ähnlich wenn wir die Form, Farbe und Füllung unsere Regressionslinie verändern möchten:</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = lm,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + # Form und Aussehen der Regressionslinie und Füllung der Konfidenzintervalle verändern
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;
+       , x =&quot;Effektive Parteienanzahl&quot;
+       , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="einen-plot-speichern" class="section level3">
+<h3>4.4. Einen Plot speichern</h3>
+<p>Wenn wir einen Plot haben, den wir speichern möchten, können wir die Funktion <code>ggsave()</code> verwenden. Die Benennung der Datei bestimmen wir, indem wir Anführungszeichen verwenden. Beachten Sie, dass damit nur die zuletzt erstellte Darstellung gespeichert wird.</p>
+<pre class="r"><code>ggsave(&quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
+<p>Die Abbildung wird in Ihrem Arbeitsverzeichnis gespeichert. Der Dateityp .png kann durch ein beliebiges Format (z.B. .jpg) ersetzt werden.</p>
+<p>Haben wir unsere Abbildungen in einem Objekt gespeichert, können wir die Graphen speichern, indem wir den Objektnamen vor dem Dateinamen angeben. Dieses Vorgehen hat vor allem bei vielen Graphen Vorteile, da wir so effizient einzelne Visualisierungen ansteuern können.</p>
+<pre class="r"><code># Graph wird im Objekt &quot;ENPP_Gallagher&quot; gespeichert:
+
+ENPP_Gallagher &lt;- ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) + 
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = lm,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + # Form und Aussehen der Regressionslinie und Füllung der Konfidenzintervalle verändern
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;
+       , x =&quot;Effektive Parteienanzahl&quot;
+       , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
+  theme_minimal()
+
+# Den Graphen als Datei in unserem Arbeitsverzeichnis speichern
+
+ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
+<p>Sie werden feststellen, dass Sie mit der Größe Ihres Graphs nicht ganz zufrieden sind. Um das zu ändern, können wir die Breite und Höhe der zu speichernden Graphen verändern:</p>
+<pre class="r"><code>ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;, width = 4, height = 4)</code></pre>
+</div>
+</div>
+<div id="aufgaben" class="section level1">
+<h1>5. Aufgaben</h1>
+<p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
+<ol style="list-style-type: decimal">
+<li>Repliziert Sie alle hier gezeigten Graphen mit den Variablen Kabinettstyp - <strong>bicam4510</strong> - und Regierungsdauer - <strong>exe_dom4510</strong>.</li>
+<li>Erstellten Sie einen Graphen mit einer Loess-Linie anstelle einer Regressionsgeraden.</li>
+<li>Verwendet andere Hintergrund-Themes als die gezeigten.</li>
+<li>Finden Sie heraus, wie Sie die Skalierung der x-Achse und y-Achse verändern und wenden Sie das neue Wissen an einem Ihrer Graphen an.</li>
+<li>Speichern Sie einen Graphen als .jpg und einen als .pdf.</li>
+</ol>
+</div>
+<div id="lösungen" class="section level1">
+<h1>6. Lösungen</h1>
+<pre class="r"><code># Aufgabe 1: Graphen mit neuen Variablen replizieren
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point()</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_text(label = lijphart$Country)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<pre class="r"><code># Linienplots
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-5.png" width="672" /></p>
+<pre class="r"><code># Graphaussehen verändern
+## Beschriftungen
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-6.png" width="672" /></p>
+<pre class="r"><code>## Hintergrundthemes
+# Minimal Theme
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-7.png" width="672" /></p>
+<pre class="r"><code># The Economist
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_economist() </code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-8.png" width="672" /></p>
+<pre class="r"><code>## Farben und Füllungen
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-9.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = lm,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + # Form und Aussehen der Regressionslinie und Füllung der Konfidenzintervalle verändern
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-10.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 2: Loess-Linie 
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 3: Ein anderes Hintergrund-Theme als die gezeigten
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_dark() # Willkürliche Verwendung des dark_themes. Natürlich gibt es noch mehr!</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 4: X- und Y-Achse verändern
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;) +
+  scale_x_continuous(name=&quot;Kabinettstyp&quot;, limits=c(1, 10)) + # Willkürliche Veränderung der Achsen 
+  scale_y_continuous(name=&quot;Regierungsdauer&quot;, limits=c(1, 10)) + # Auch möglich: expand_limits(x= XX , y=XX)
+  # Auch möglich xlim(XX, XX)+ylim(XX, XX) 
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 5: Gaphen speichern
+
+# Neues Objekt speichern
+Bicam_Exe &lt;- ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal()
+
+# JPG
+#ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.jpg&quot;, width = 4, height = 4)
+
+# PDF
+#ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.pdf&quot;, width = 4, height = 4)</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

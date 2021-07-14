@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 5: Univariate Maße</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 5: Univariate Maße</h1>
+
+</div>
+
+
+<p>Nachdem wir die Datensätze, mit denen wir in diesem Kurs arbeiten werden, in den vergangenen Sitzungen geladen und für unsere Analysen angepasst haben, wollen wir sie in dieser Sitzung näher kennenlernen. Um genau zu sein, werden wir Lage- und Streuungsmaße der Variablen berechnen, die wir in der letzten Sitzung erstellt haben. So verschaffen wir uns einen Eindruck von deren Verteilung. Wir werden zunächst Lagemaße mit <code>R</code> berechnen und daraufhin zu Streuungsmaßen wechseln.</p>
+<div id="datensätze-laden-und-umkodieren" class="section level1">
+<h1>1. Datensätze laden und umkodieren</h1>
+<p>Damit wir mit unseren Datensätzen und den darin enthaltenen Variablen arbeiten können, müssen wir sie wie immer zuerst laden.</p>
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<p>Wir müssen sie außerdem so umkodieren, wie in der letzten Sitzung gezeigt. Weil wir den Workspace und damit die Veränderungen an den Datensätzen nicht gespeichert haben (vgl. Sitzung 1), müssen die Datenmanipulationen der vergangenen Sitzung wiederholt werden. Zum Glück haben wir den Code in Form eines Skripts gespeichert und müssen ihn nicht erneut schreiben, sondern können ihn in das Skript dieser Sitzung kopieren.</p>
+<pre class="r"><code># GLES
+# Alter
+q2c_num &lt;- as.numeric(as.character(gles$q2c))
+gles$alter &lt;- 2017 - q2c_num
+
+# Geschlecht
+names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
+
+# Einkommen kategorial
+gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
+                     gles$q192 == &quot;500 bis unter 750 Euro&quot; |
+                     gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;
+gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
+                     gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
+                     gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
+gles$einkommen_cat[gles$q192 == &quot;2000 bis unter 2500 Euro&quot; |
+                     gles$q192 == &quot;2500 bis unter 3000 Euro&quot;] &lt;- &quot;2000 bis 2999&quot;
+gles$einkommen_cat[gles$q192 == &quot;3000 bis unter 4000 Euro&quot;] &lt;- &quot;3000 bis 3999&quot;
+gles$einkommen_cat[gles$q192 == &quot;4000 bis unter 5000 Euro&quot;] &lt;- &quot;4000 bis 4999&quot;
+gles$einkommen_cat[gles$q192 == &quot;5000 bis unter 7500 Euro&quot;] &lt;- &quot;5000 bis 7499&quot;
+gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
+                     gles$q192 == &quot;10000 Euro und mehr&quot;] &lt;- &quot;7500 und mehr&quot;
+
+gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
+                                levels = c(&quot;weniger als 1000&quot;,
+                                           &quot;1000 bis 1999&quot;,
+                                           &quot;2000 bis 2999&quot;,
+                                           &quot;3000 bis 3999&quot;,
+                                           &quot;4000 bis 4999&quot;,
+                                           &quot;5000 bis 7499&quot;,
+                                           &quot;7500 und mehr&quot;))
+
+# Einkommen numerisch
+gles$einkommen_num[gles$einkommen_cat == &quot;weniger als 1000&quot;] &lt;- 1
+gles$einkommen_num[gles$einkommen_cat == &quot;1000 bis 1999&quot;] &lt;- 2
+gles$einkommen_num[gles$einkommen_cat == &quot;2000 bis 2999&quot;] &lt;- 3
+gles$einkommen_num[gles$einkommen_cat == &quot;3000 bis 3999&quot;] &lt;- 4
+gles$einkommen_num[gles$einkommen_cat == &quot;4000 bis 4999&quot;] &lt;- 5
+gles$einkommen_num[gles$einkommen_cat == &quot;5000 bis 7499&quot;] &lt;- 6
+gles$einkommen_num[gles$einkommen_cat == &quot;7500 und mehr&quot;] &lt;- 7
+
+# Wohnort
+gles$wohnort[gles$q197 == &quot;Grossstadt&quot;] &lt;- &quot;Großstadt&quot;
+gles$wohnort[gles$q197 == &quot;kleine oder mittelgrosse Stadt&quot;] &lt;- &quot;Kleinstadt&quot;
+gles$wohnort[gles$q197 == &quot;laendliche Gegend oder Dorf&quot;] &lt;- &quot;Land&quot;
+gles$wohnort[gles$q197 == &quot;Vorstadt/ Vorort einer Grossstadt&quot;] &lt;- &quot;Vorstadt&quot;
+
+# Links-Rechts-Selbsteinstufung
+gles$LiRe &lt;- as.character(gles$q32)
+gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
+gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
+gles$LiRe &lt;- as.numeric(gles$LiRe)
+
+# Links-Rechts-Selbsteinstufung aggregiert
+gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
+                gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
+                gles$LiRe &lt;= 4] &lt;- &quot;moderat links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 5 &amp;
+                gles$LiRe &lt;= 7] &lt;- &quot;mittig&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 8 &amp;
+                gles$LiRe &lt;= 9] &lt;- &quot;moderat rechts&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 10 &amp;
+                gles$LiRe &lt;= 11] &lt;- &quot;rechts&quot;
+
+gles$LiRe_cat &lt;- factor(gles$LiRe_cat,
+                                levels = c(&quot;links&quot;,
+                                           &quot;moderat links&quot;,
+                                           &quot;mittig&quot;,
+                                           &quot;moderat rechts&quot;,
+                                           &quot;rechts&quot;))
+
+# AfD-Wahl
+gles$AfD.Wahl[gles$q19ba == &quot;AfD&quot;] &lt;- 1
+gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0
+
+# Lijphart
+# ENPP
+lijphart$enpp4510 &lt;- as.numeric(lijphart$enpp4510)
+
+# Gallagher-Index
+lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
+
+# Bikameralismus-Index
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# Minimal-Gewinn-Koalition mit einer Partei
+lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
+
+# Exekutivdominanz (Kabinettsdauer)
+lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
+</div>
+<div id="lagemaße" class="section level1">
+<h1>2. Lagemaße</h1>
+<p>Lagemaße vermitteln uns einen Eindruck der zentralen Tendenz einer Verteilung. Wir behandeln hier das arithmetische Mittel, den Median, den Modus, das Maximum und Minimum sowie Quantile.</p>
+<div id="arithmetisches-mittel" class="section level2">
+<h2>2.1 arithmetisches Mittel</h2>
+<p>Das arithmetische Mittel (&quot;Mittelwert&quot;, &quot;Durchschnitt&quot;) summiert die Merkmalsausprägung jeder Beobachtung und teilt die Summe durch die Fallzahl:</p>
+<p><span class="math inline">\(\frac1n\sum_{i=1}^n(x_i)\)</span>.</p>
+<p>In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (&quot;rm&quot; für &quot;remove&quot;), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
+<p>Das mittlere Alter der Befragten der GLES liegt bei</p>
+<pre class="r"><code>mean(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 50.15396</code></pre>
+<p>50 Jahren. Die mittlere subjektive politische Position auf der Links-Rechts-Achse liegt in unserem Sample bei</p>
+<pre class="r"><code>round(mean(gles$LiRe, na.rm = TRUE), digits = 1)</code></pre>
+<pre><code>## [1] 5.2</code></pre>
+<p>etwa 5,2 und damit leicht links der Skalenmitte (6). Wir runden hier auf die erste Nachkommastelle mit der Funktion <code>round(x, digits = 1)</code>. Wollten wir mehr Nachkommastellen ausgeben lassen, müssten wir das Argument <code>digits</code> auf einen höheren Wert setzen.</p>
+</div>
+<div id="median" class="section level2">
+<h2>2.2 Median</h2>
+<p>Der Median ist der mittlere Wert einer Verteilung wenn diese der Größe nach sortiert ist und teilt die Beobachtungen in gleiche &quot;Hälften&quot;. Bei gerader Fallzahl wird das arithmetische Mittel der beiden mittleren Werte berechnet. In <code>R</code> lässt sich der Median mit <code>median()</code> berechnen.</p>
+<pre class="r"><code>median(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 51</code></pre>
+<pre class="r"><code>median(gles$alter[1:100], na.rm = TRUE)</code></pre>
+<pre><code>## [1] 52</code></pre>
+<pre class="r"><code>median(gles$einkommen_num, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>Der Median des Alters der Befragten liegt bei 51 Jahren und damit leicht über dem arithmetischen Mittel. Betrachtet man nur die ersten 100 Personen des Samples, liegt der Median bei 52 Jahren. Die mittlere befragte Person fällt in Bezug auf das Nettohaushaltseinkommen in die Kategorie 3, ihr Haushaltseinkommen liegt also zwischen 2000 und 2999 Euro.</p>
+</div>
+<div id="modus" class="section level2">
+<h2>2.3 Modus</h2>
+<p>Der Modus ist der häufigste Wert einer Verteilung bzw. die Merkmalsausprägung, die am häufigsten realisiert wird. Für den Modus gibt es keine spezielle Funktion in <code>R</code>, allerdings können wir ihn uns bei Variablen mit wenigen Kategorien ganz einfach mit einer Häufigkeitstabelle ausgeben lassen.</p>
+<pre class="r"><code>table(gles$LiRe_cat)</code></pre>
+<pre><code>## 
+##          links  moderat links         mittig moderat rechts         rechts 
+##            158            512           1090            168             36</code></pre>
+<p>Die häufigste Merkmalsausprägung der Variable <code>LiRe_cat</code> ist &quot;mittig&quot; mit 1090 Beobachtungen. Bei Variablen mit vielen Ausprägungen kommt man mit dieser Methode allerdings an seine Grenzen. Eine zugegebenermaßen nicht unbedingt elegante Lösung wäre diese:</p>
+<pre class="r"><code>table(gles$alter)[max(table(gles$alter))]</code></pre>
+<pre><code>## 65 
+## 50</code></pre>
+<p>Das in den eckigen Klammern stehende <code>max(table(gles$alter))</code> berichtet dabei, wie häufig der häufigste Wert in der Häufigkeitstabelle <code>table(gles$alter)</code> vorkommt (50 mal). Die Aussage des Codes ist also: Zeige, welches Element von <code>table(gles$alter)</code> 50 mal vorkommt. Schicken Sie diese Teile des obigen Codes jeweils einzeln ab, um die Logik dahinter nachzuvollziehen (genereller Hinweis).</p>
+</div>
+<div id="maximum-minimum" class="section level2">
+<h2>2.4 Maximum, Minimum</h2>
+<p>Auch für die vielleicht offensichtlichsten Lagemaße, das Minimum und das Maximum, stehen in <code>R</code> entsprechende Funktionen bereit: <code>min()</code> und <code>max()</code>. Diese zeigen, welche die niedrigste und welche die höchste Ausprägung ist.</p>
+<pre class="r"><code>min(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 16</code></pre>
+<pre class="r"><code>max(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 95</code></pre>
+<p>Beide Werte lassen sich auch über <code>range()</code> (&quot;Spannweite&quot;) ausgeben.</p>
+<pre class="r"><code>range(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 16 95</code></pre>
+</div>
+<div id="quantile" class="section level2">
+<h2>2.5 Quantile</h2>
+<p>Quantile sind bestimmte Anteile einer der Größe nach geordneten Verteilung. Quantilwerte geben an, welche Ausprägung die Beobachtung an der Grenze eines solchen Anteils der Verteilung hat. Üblicherweise findet man Quantile in Form von Quartilen vor, die die Verteilung in vier gleichgroße Anteile á 25% unterteilen. Die Funktion <code>quantile()</code> gibt standardmäßig Quartile aus.</p>
+<pre class="r"><code>quantile(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>##   0%  25%  50%  75% 100% 
+##   16   34   51   65   95</code></pre>
+<p>Minimum, Median und Maximum werden hier als erste, letzte und mittlere Beobachtung genauso ausgewiesen wie die 25- und 75-Prozent-Quartile. Für das Alter der Befragten liegen diese bei 34 und 65 Jahren.</p>
+<p>Natürlich können wir Quantile auch anders zuschneiden. Wollten wir die Verteilung in Fünftel teilen, ginge das so:</p>
+<pre class="r"><code>quantile(gles$alter, probs = seq(0, 1, .2), na.rm = TRUE)</code></pre>
+<pre><code>##   0%  20%  40%  60%  80% 100% 
+##   16   30   45   56   68   95</code></pre>
+<p>Für 10%-Schritte so:</p>
+<pre class="r"><code>quantile(gles$alter, probs = seq(0, 1, .1), na.rm = TRUE)</code></pre>
+<pre><code>##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
+##   16   23   30   38   45   51   56   62   68   77   95</code></pre>
+<p>Die Funktion <code>seq(0, 1, 0.1)</code> (&quot;sequence&quot;) mit der das Argument <code>probs</code> (&quot;probabilities&quot;) spezifiziert wird, erstellt eine Sequenz mit Werten von 0 bis 1 in Schritten á 0,1. Schicken Sie sie einmal einzeln ab, um ihre Funktionsweise zu verstehen.</p>
+</div>
+<div id="summary" class="section level2">
+<h2>2.6 <code>summary()</code></h2>
+<p>Um einen ersten Überblick über eine Verteilung zu bekommen, ist die (schon bekannte) <code>summary()</code>-Funktion in der Regel ein hilfreiches Werkzeug. Im Output von <code>summary()</code> finden sich das Minimum, das Maximum, das erste und dritte Quartil, der Median, das arithmetisches Mittel und die Anzahl der fehlenden Werte.</p>
+<pre class="r"><code>summary(gles$alter)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   16.00   34.00   51.00   50.15   65.00   95.00       1</code></pre>
+<p>In der vergangenen Sitzung haben wir herausgefunden, dass eine Person bei der Frage nach ihrem Geburtsdatum keine Angabe abgab. Diese Person erscheint hier als fehlender Wert.</p>
+</div>
+</div>
+<div id="streuungsmaße" class="section level1">
+<h1>3. Streuungsmaße</h1>
+<p>Streuungsmaße ermöglichen es einzuschätzen, wie sehr die Werte einer Verteilung unterschiedlich sind bzw. wie sehr sie streuen. Verteilungen mit geringer Streuung sind eng um einen zentralen Wert herum angesiedelt. Verteilungen mit großer Streuung sind zu einem großen Teil sehr unterschiedlich von ihrem zentralen Wert. Entsprechend sind die folgenden Streuungsmaße jeweils als Differenzen zu einem zentralen Wert - dem arithmetischen Mittel - (Varianz, Standardabweichung) oder zwischen Werten, die gleich weit von dem zentralen Wert entfernt liegen (Spannweite, IQR), operationalisiert.</p>
+<div id="spannweite" class="section level2">
+<h2>3.1 Spannweite</h2>
+<p>Die Spannweite ist die Differenz des Minimums und des Maximums und kann so errechnet werden:</p>
+<pre class="r"><code>max(gles$alter, na.rm = TRUE) - min(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 79</code></pre>
+<pre class="r"><code>range(gles$alter, na.rm = TRUE)[2] - range(gles$alter, na.rm = TRUE)[1]</code></pre>
+<pre><code>## [1] 79</code></pre>
+</div>
+<div id="quartilsabstand" class="section level2">
+<h2>3.2 Quartilsabstand</h2>
+<p>Der Quartilsabstand (&quot;interquartile range&quot;, IQR) ist die Spanne zwischen dem ersten und dritten Quartil und ein übliches Maß, da sich die Streuung der gesamten Verteilung recht gut anhand der Streuung der mittleren 50% der Verteilung einschätzen lässt.</p>
+<pre class="r"><code>IQR(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 31</code></pre>
+<p>Die Person, die älter ist als die jüngsten 25% aller Befragten ist 31 Jahre jünger als die Person, die älter ist als 75% der Befragten.</p>
+</div>
+<div id="varianz" class="section level2">
+<h2>3.3 Varianz</h2>
+<p>Die Varianz und die Standardabweichung werden jeweils über die Differenz jedes einzelnen Wertes zum arithmetischen Mittel berechnet. Wie beim arithmetischen Mittel selbst, werden diese einzelnen Abweichungen addiert und durch die Fallzahl dividiert. Da einige Abweichungen positiv und andere negativ sind, würden sie sich bei der Summierung gegenseitig aufheben. Deshalb werden sie zuvor quadriert:</p>
+<p><span class="math inline">\(\frac1n\sum_{i=1}^n(x_i-\overline{x})^2\)</span>.</p>
+<p>Durch die Quadrierung nimmt die Varianz im Vergleich zu den ursprünglichen Werten meist deutlich größere Werte an.</p>
+<p><code>R</code> berechnet die Varianz mit <code>var()</code>. Für das Alter der Befragten liegt die Varianz bei:</p>
+<pre class="r"><code>var(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 368.4336</code></pre>
+<p>Die Varianz des Anteils von Minimal-Gewinnkoalitionen mit einer Partei im Lijphart-Datensatz liegt bei:</p>
+<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 979.3046</code></pre>
+</div>
+<div id="standardabweichung" class="section level2">
+<h2>3.4 Standardabweichung</h2>
+<p>Zur Berechnung der Standardabweichung wird die Wurzel der Varianz gezogen. So wird der Effekt der Quadrierung ausgeglichen und die Werte bleiben vergleichbar groß wie die Ursprungswerte. Die Standardabweichung ist dadurch sinnvoll interpretierbar, etwa als &quot;mittlere Abweichung vom Mittel&quot;. Schließlich wird sie analog zum arithmetischen Mittel berechnet, mit dem Unterschied, dass die zugrundeliegenden Werte die einzelnen Abweichungen sind und diese vor der Summierung quadriert werden sowie nach der Summierung die Wurzel gezogen wird:</p>
+<p><span class="math inline">\(\sqrt{\frac1n\sum_{i=1}^n(x_i-\overline{x})^2}\)</span>.</p>
+<p><code>R</code> berechnet die Standardabweichung mit der Funktion <code>sd()</code> (Abkürzung für &quot;standard deviation&quot;).</p>
+<pre class="r"><code>sd(gles$alter, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 19.19463</code></pre>
+<p>Anders als bei der im Vergleich zu den zugrunde liegenden Werten deutlich größer ausfallenden Varianz, können wir die Standardabweichung inhaltlich sinnvoll interpretieren: Durchschnittlich weicht das Alter eines Befragten um etwa 19 Jahre vom mittleren Alter ab.</p>
+</div>
+<div id="populations--und-stichprobenvarianz" class="section level2">
+<h2>3.5 Populations- und Stichprobenvarianz</h2>
+<p>Um genau zu sein, werden die Varianz (und die varianzbasierte Standardabweichung) in <code>R</code> als Populationsmaße berechnet. D.h., dass bei ihrer Berechnung nicht (wie in den obigen Formeln gezeigt) durch die Fallzahl <span class="math inline">\(n\)</span>, sondern durch die Freiheitsgrade <span class="math inline">\(n-1\)</span> dividiert wird. Um die Stichprobenvarianz zu berechnen, multiplizieren wir den Output von <code>var()</code> mit <span class="math inline">\((n-1)/n\)</span>. Die Fallzahl <span class="math inline">\(n\)</span> ermitteln wir mit der Funktion <code>nrow()</code> (&quot;number of rows&quot;), also der Anzahl von Beobachtungen (Zeilen) eines Datensatzes.</p>
+<pre class="r"><code>var(gles$alter, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles)</code></pre>
+<pre><code>## [1] 368.2592</code></pre>
+<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
+<pre><code>## [1] 952.1017</code></pre>
+<p>Im Ergebnis identisch und länger (damit weniger effizient), aber verallgemeinerbar, ist folgender Code. Hier wird die Fallzahl mit <code>length()</code> ermittelt. <code>length()</code> bestimmt die Anzahl der Elemente in eindimensionalen Objekten, also Vektoren. Damit kann diese Berechnung auch für eindimensionale Objekte (außerhalb von Datensätzen) durchgeführt werden. Während die Dataframes <code>gles</code> und <code>lijphart</code> zwei Dimensionen (Zeilen und Spalten) aufweisen, sodass wir <code>nrow()</code> sinnvoll verwenden können, sind einzelne Variablen innerhalb der Dataframes wie <code>alter</code> und <code>minwin_one_part4510</code> eindimensionale Vektoren, sodass <code>length()</code> angemessen ist.</p>
+<pre class="r"><code>var(gles$alter, na.rm = TRUE) * (length(gles$alter) - 1) / length(gles$alter)</code></pre>
+<pre><code>## [1] 368.2592</code></pre>
+<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) * (length(lijphart$minwin_one_part4510) - 1) / length(lijphart$minwin_one_part4510)</code></pre>
+<pre><code>## [1] 952.1017</code></pre>
+<p>Je größer die Fallzahl (der Datensatz), desto weniger fällt die Verwendung der Populationsvarianz ins Gewicht. Für das Alter der Befragten im GLES-Datensatz mit 2112 Beobachtungen fällt die Differenz zwischen Stichproben- und Populationsvarianz deutlich geringer aus als für den Anteil von Minimal-Gewinnkoalitionen mit einer Partei aus dem Lijphart-Datensatz mit 36 Beobachtungen.</p>
+</div>
+</div>
+<div id="zusammenfassung" class="section level1">
+<h1>4. Zusammenfassung</h1>
+<p>Lagemaße zeigen die zentrale Tendenz, Streuungsmaße die Unterschiedlichkeit einer Verteilung. Die meißten univariaten Kennzahlen liegen als einfach zu handhabende Funktionen in <code>R</code> vor. Das arithmetische Mittel wird mit <code>mean()</code>, der Median mit <code>median()</code>, Quantile mit <code>quantile()</code>, eine Zusammenfassung von Lagemaßen mit <code>summary()</code>, der Quartilsabstand mit <code>IQR()</code>, die Varianz mit <code>var()</code> und die Standardabweichung mit <code>sd()</code> berechnet. In der Regel müssen dabei <code>NA</code>s mit <code>na.rm = TRUE</code> ausgeschlossen werden. <code>var()</code> errechnet die Populationsvarianz, sodass bei kleineren Stichproben auf die Stichprobenvarianz zurückgegriffen werden sollte.</p>
+</div>
+<div id="aufgaben" class="section level1">
+<h1>5. Aufgaben</h1>
+<ol style="list-style-type: decimal">
+<li>Lassen Sie sich das arithmetische Mittel, den Median und Quantile für die den Gallagher-Disproportionalitätsindex, den Anteil von Minimal-Gewinnkoalitionen mit einer Partei sowie die Exekutivdominanz ausgeben. Berechnen Sie bei einer Variable Quartile, bei einer Variable 12,5%-Quantile sowie bei einer Variable 5%-Quantile. Runden Sie den Mittelwert jeweils auf die zweite Nachkommastelle.</li>
+<li>Erstellen Sie eine Häufigkeitstabelle des kategorisierten Haushaltseinkommens sowie eine Zusammenfassung der wesentliche Lagemaße des numerisch codierten Haushaltseinkommens. Ermitteln Sie außerdem den Quartilsabstand des numerisch codierten Haushaltseinkommens. Wie hoch ist das Haushaltseinkommen der mittleren 50% der Befragten?</li>
+<li>Ermitteln Sie Varianz und Standardabweichung der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes.</li>
+<li>Berechnen Sie die Stichprobenvarianz der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes. Berechnen Sie nun die Standardabweichung für beide Variablen auf Grundlage der Stichprobenvarianz. Tipp: Die mathematische Operation dazu ist aus Sitzung 1 bekannt.</li>
+<li>Speichern Sie das Geburtsjahr der Befragten (<code>q2c</code>) in einem numerischen Vektor <code>gj</code>, den Sie nicht an den Datensatz anhängen. Subtrahieren Sie 1900. Berechnen Sie nun die Stichprobenvarianz und auf deren Grundlage die Standardabweichung. Tipp: Wie man Faktoren in numerische Vektoren umwandelt, haben wir in der vergangenen Sitzung behandelt.</li>
+</ol>
+</div>
+<div id="lösungen" class="section level1">
+<h1>6. Lösungen</h1>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>round(mean(lijphart$disprop4510, na.rm = TRUE), digits = 2)</code></pre>
+<pre><code>## [1] 8.55</code></pre>
+<pre class="r"><code>median(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 7.14</code></pre>
+<pre class="r"><code>quantile(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>##      0%     25%     50%     75%    100% 
+##  1.2100  3.2525  7.1400 14.3050 21.9700</code></pre>
+<pre class="r"><code>round(mean(lijphart$minwin_one_part4510, na.rm = TRUE), digits = 2)</code></pre>
+<pre><code>## [1] 60.32</code></pre>
+<pre class="r"><code>median(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 55.05</code></pre>
+<pre class="r"><code>quantile(lijphart$minwin_one_part4510, probs = seq(0, 1, .125), na.rm = TRUE)</code></pre>
+<pre><code>##       0%    12.5%      25%    37.5%      50%    62.5%      75%    87.5% 
+##   4.0000  18.4125  37.6750  46.5250  55.0500  80.6625  86.6000  99.2875 
+##     100% 
+## 100.0000</code></pre>
+<pre class="r"><code>round(mean(lijphart$exe_dom4510, na.rm = TRUE), digits = 2)</code></pre>
+<pre><code>## [1] 5.35</code></pre>
+<pre class="r"><code>median(lijphart$exe_dom4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 4.305</code></pre>
+<pre class="r"><code>quantile(lijphart$exe_dom4510, probs = seq(0, 1, .05), na.rm = TRUE)</code></pre>
+<pre><code>##     0%     5%    10%    15%    20%    25%    30%    35%    40%    45%    50% 
+## 1.0000 1.4825 1.9700 2.6550 3.0000 3.2225 3.2950 3.4775 4.0000 4.0300 4.3050 
+##    55%    60%    65%    70%    75%    80%    85%    90%    95%   100% 
+## 4.8075 5.8700 7.7375 8.0000 8.0775 8.1200 8.7025 8.9850 9.4900 9.9000</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>table(gles$einkommen_cat)</code></pre>
+<pre><code>## 
+## weniger als 1000    1000 bis 1999    2000 bis 2999    3000 bis 3999 
+##              114              427              512              310 
+##    4000 bis 4999    5000 bis 7499    7500 und mehr 
+##              189              161               56</code></pre>
+<pre class="r"><code>summary(gles$einkommen_num)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   2.000   3.000   3.418   4.000   7.000     343</code></pre>
+<pre class="r"><code>IQR(gles$einkommen_num, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>var(gles$LiRe, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 3.731736</code></pre>
+<pre class="r"><code>sd(gles$LiRe, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 1.93177</code></pre>
+<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 979.3046</code></pre>
+<pre class="r"><code>sd(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 31.29384</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>var(gles$LiRe, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles)</code></pre>
+<pre><code>## [1] 3.72997</code></pre>
+<pre class="r"><code>var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
+<pre><code>## [1] 36.57471</code></pre>
+<pre class="r"><code>sqrt(var(gles$LiRe, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles))</code></pre>
+<pre><code>## [1] 1.931313</code></pre>
+<pre class="r"><code>sqrt(var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart))</code></pre>
+<pre><code>## [1] 6.047703</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gj &lt;- as.numeric(as.character(gles$q2c))
+gj &lt;- gj - 1900
+var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj)</code></pre>
+<pre><code>## [1] 368.2592</code></pre>
+<pre class="r"><code>sqrt(var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj))</code></pre>
+<pre><code>## [1] 19.19008</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sitzung 13: Regressionstabellen</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Einleitung</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sitzung 13: Regressionstabellen</h1>
+
+</div>
+
+
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
+<p>In diesem letzten Tutorial werden wir lernen, wie man übersichtliche Regressionstabellen erstellt und sich im R-Output anzeigen lässt. Hierfür verwenden wir das Paket <code>stargazer</code>, dessen Output so gestaltet ist, dass es dem von wissenschaftlichen Tabellen sehr nahe kommt. <code>stargazer</code> erlaubt einen Output im Form von <em>Text</em>, welcher dann als gut lesbare Tabelle in der Console angezeigt wird, aber in Form von <em>html</em>-Code und <em>LateX</em>-Code.</p>
+</div>
+<div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
+<h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
+<p>Wir werden den Lijphart-Datensatz verwenden und anhand der in Sitzungen 8 und 10 besprochenen OLS-Regression die Erstellung von Regressionstabellen diskutieren. Zuerst werden wir, wie immer, die nötigen Pakete und Daten laden und einige Variablen umkodieren.</p>
+<pre class="r"><code># Pakete laden
+library(stargazer) # falls Sie dieses Paket noch nicht installiert haben, führen Sie bite vorher install.packages(&quot;stargazer&quot;) aus</code></pre>
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre class="r"><code># Lijphart
+# ENPP
+lijphart$enpp4510 &lt;- as.numeric(lijphart$enpp4510)
+
+# Gallagher-Index
+lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
+
+# Bikameralismus-Index
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# Minimal-Gewinn-Koalition mit einer Partei
+lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
+
+# Exekutivdominanz (Kabinettsdauer)
+lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
+</div>
+<div id="regression-berechnen" class="section level1">
+<h1>3. Regression berechnen</h1>
+<p>Für unser Beispiel berechnen wir eine OLS-Regression um den Zusammenhang zwischen der effektiven Parteienanzahl (<strong>enpp4510</strong>) - unserer abhängigen Variable - und dem Gallagher-Index (<strong>disprop4510</strong>), der Exekutivdominanz (<strong>exe_dom4510</strong>) und dem Kabinettstyp (<strong>minwin_one_part4510</strong>) - unseren unabhängigen Variablen. Über den theoretischen Sinn dieser Variablenauswahl lässt sich natürlich streiten. Der Grund, warum wir in diesem Beispiel drei unabhängige Variablen verwenden, ist, dass wir damit die unterschiedlichen Vorteile und Funktionen von <code>stargazer</code> besser darstellen können.</p>
+<p>Wir speichern die Regression mit dem Objektnamen <code>lm_lijphart</code> und verwenden, wie in Sitzungen 8 und 10, die <code>lm</code>-Funktion.</p>
+<pre class="r"><code>lm_lijphart &lt;- lm(enpp4510 ~ disprop4510
+                  + exe_dom4510 
+                  + minwin_one_part4510
+                  , data = lijphart)</code></pre>
+<p>Wir nutzen <code>summary()</code> um die Ergebnisse in der Standardausgabe von <code>R</code> anzeigen zu lassen.</p>
+<pre class="r"><code>summary(lm_lijphart)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = enpp4510 ~ disprop4510 + exe_dom4510 + minwin_one_part4510, 
+##     data = lijphart)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.56166 -0.27976 -0.02584  0.27019  1.43149 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          5.219973   0.221419  23.575  &lt; 2e-16 ***
+## disprop4510         -0.012436   0.019871  -0.626 0.535861    
+## exe_dom4510         -0.122576   0.056421  -2.173 0.037333 *  
+## minwin_one_part4510 -0.020995   0.005175  -4.057 0.000298 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.576 on 32 degrees of freedom
+## Multiple R-squared:  0.7657, Adjusted R-squared:  0.7437 
+## F-statistic: 34.86 on 3 and 32 DF,  p-value: 3.365e-10</code></pre>
+</div>
+<div id="übersichtliche-tabellen-mit-stargazer" class="section level1">
+<h1>4. Übersichtliche Tabellen mit <code>stargazer</code></h1>
+<p>Zunächst verwenden wir die Funktion <code>stargazer()</code> und lassen uns einen ersten Output für das Objekts <code>lm_lijphart</code> ausgeben. Bitte beachten Sie, dass wir das Argument <code>type = &quot;text&quot;</code> hinzufügen. Dieses Argument definiert, dass wir eine direkt les- und interpretierbare Ausgabe in der Console erhalten.</p>
+<pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;)</code></pre>
+<pre><code>## 
+## ===============================================
+##                         Dependent variable:    
+##                     ---------------------------
+##                              enpp4510          
+## -----------------------------------------------
+## disprop4510                   -0.012           
+##                               (0.020)          
+##                                                
+## exe_dom4510                  -0.123**          
+##                               (0.056)          
+##                                                
+## minwin_one_part4510          -0.021***         
+##                               (0.005)          
+##                                                
+## Constant                     5.220***          
+##                               (0.221)          
+##                                                
+## -----------------------------------------------
+## Observations                    36             
+## R2                             0.766           
+## Adjusted R2                    0.744           
+## Residual Std. Error       0.576 (df = 32)      
+## F Statistic           34.858*** (df = 3; 32)   
+## ===============================================
+## Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Im Gegensatz zu der Standardausgabe mit <code>summary()</code>, gibt uns <code>stargazer()</code> eine geordnete Ausgabe mit der Anzahl der Untersuchungen, MacFadden-R2, Signifikanzniveaus u.v.m.</p>
+<p>Wollen wir diese Tabelle als html-Code, dann müssen wir lediglich das Argument <code>type</code> dementsprechend ändern.</p>
+<pre class="r"><code>stargazer(lm_lijphart, type = &quot;html&quot;)</code></pre>
+<pre><code>## 
+## &lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;em&gt;Dependent variable:&lt;/em&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td colspan=&quot;1&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;enpp4510&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;disprop4510&lt;/td&gt;&lt;td&gt;-0.012&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.020)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;exe_dom4510&lt;/td&gt;&lt;td&gt;-0.123&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.056)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;minwin_one_part4510&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.005)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Constant&lt;/td&gt;&lt;td&gt;5.220&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.221)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Observations&lt;/td&gt;&lt;td&gt;36&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.766&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.744&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;0.576 (df = 32)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;F Statistic&lt;/td&gt;&lt;td&gt;34.858&lt;sup&gt;***&lt;/sup&gt; (df = 3; 32)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style=&quot;text-align:right&quot;&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+## &lt;/table&gt;</code></pre>
+<p>Ähnliches gilt für die Ausgabe als Latex-Code</p>
+<pre class="r"><code>stargazer(lm_lijphart, type = &quot;latex&quot;)</code></pre>
+<pre><code>## 
+## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+## % Date and time: Mi, Jul 14, 2021 - 15:17:20
+## \begin{table}[!htbp] \centering 
+##   \caption{} 
+##   \label{} 
+## \begin{tabular}{@{\extracolsep{5pt}}lc} 
+## \\[-1.8ex]\hline 
+## \hline \\[-1.8ex] 
+##  &amp; \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+## \cline{2-2} 
+## \\[-1.8ex] &amp; enpp4510 \\ 
+## \hline \\[-1.8ex] 
+##  disprop4510 &amp; $-$0.012 \\ 
+##   &amp; (0.020) \\ 
+##   &amp; \\ 
+##  exe\_dom4510 &amp; $-$0.123$^{**}$ \\ 
+##   &amp; (0.056) \\ 
+##   &amp; \\ 
+##  minwin\_one\_part4510 &amp; $-$0.021$^{***}$ \\ 
+##   &amp; (0.005) \\ 
+##   &amp; \\ 
+##  Constant &amp; 5.220$^{***}$ \\ 
+##   &amp; (0.221) \\ 
+##   &amp; \\ 
+## \hline \\[-1.8ex] 
+## Observations &amp; 36 \\ 
+## R$^{2}$ &amp; 0.766 \\ 
+## Adjusted R$^{2}$ &amp; 0.744 \\ 
+## Residual Std. Error &amp; 0.576 (df = 32) \\ 
+## F Statistic &amp; 34.858$^{***}$ (df = 3; 32) \\ 
+## \hline 
+## \hline \\[-1.8ex] 
+## \textit{Note:}  &amp; \multicolumn{1}{r}{$^{*}$p$&lt;$0.1; $^{**}$p$&lt;$0.05; $^{***}$p$&lt;$0.01} \\ 
+## \end{tabular} 
+## \end{table}</code></pre>
+<p>Zur besseren Darstellung werden wir in den folgenden Schritten die <code>type</code>-Option bei <code>= &quot;text&quot;</code> belassen.</p>
+<div id="tabellen-modifizieren" class="section level3">
+<h3>4.1. Tabellen modifizieren</h3>
+<p>Das <code>stargazer</code>-Paket erlaubt sehr viele kleinere und größere Modifikationen. Die wichtigsten sind sicherlich die Veränderung der Variablennamen. Zur Erinnerung hier noch einmal der nicht-modifizierte <code>stargazer</code>-Output:</p>
+<pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;)</code></pre>
+<pre><code>## 
+## ===============================================
+##                         Dependent variable:    
+##                     ---------------------------
+##                              enpp4510          
+## -----------------------------------------------
+## disprop4510                   -0.012           
+##                               (0.020)          
+##                                                
+## exe_dom4510                  -0.123**          
+##                               (0.056)          
+##                                                
+## minwin_one_part4510          -0.021***         
+##                               (0.005)          
+##                                                
+## Constant                     5.220***          
+##                               (0.221)          
+##                                                
+## -----------------------------------------------
+## Observations                    36             
+## R2                             0.766           
+## Adjusted R2                    0.744           
+## Residual Std. Error       0.576 (df = 32)      
+## F Statistic           34.858*** (df = 3; 32)   
+## ===============================================
+## Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<div id="beschriftungen" class="section level4">
+<h4>4.1.1. Beschriftungen</h4>
+<p>Wir können in <code>stargazer</code> einen Tabellentitel hinzufügen und alle Variablen mit konkreten Beschriftungen versehen. Hierbei ist es ganz besonders wichtig, dass Sie genau wissen, in welcher Reihenfolge Sie Ihre Variablen in das Modell eingeben haben. Stargazer kontrolliert nicht (das kann es auch gar nicht), ob die Variablennamen der unabhängigen Variablen inhaltlich übereinstimmen. In unserem Modell ist die Reihenfolge der unabhängigen Variablen wie folgt: <code>disprop4510</code> + <code>exe_dom4510</code> + <code>minwin_one_part4510</code></p>
+<pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;, 
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;)
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## ==================================================
+##                          Abhängige Variable:      
+##                     ------------------------------
+##                     Effektive Parteienanzahl (ENP)
+## --------------------------------------------------
+## Gallagher-Index                 -0.012            
+##                                (0.020)            
+##                                                   
+## Exekutivdominanz               -0.123**           
+##                                (0.056)            
+##                                                   
+## Kabinettsdauer                -0.021***           
+##                                (0.005)            
+##                                                   
+## Constant                       5.220***           
+##                                (0.221)            
+##                                                   
+## --------------------------------------------------
+## Observations                      36              
+## R2                              0.766             
+## Adjusted R2                     0.744             
+## Residual Std. Error        0.576 (df = 32)        
+## F Statistic             34.858*** (df = 3; 32)    
+## ==================================================
+## Note:                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Natürlich kann Stargazer auch mehrere Regressionmodelle handhaben. Das ist wichtig, um Modellvergleiche zu veranschaulichen, weil Bestimmtheitsmaße und F-Statistik jeweils unterhalb der Modelle gegenübergestellt werden. Um das zu demonstrieren, rechnen wir jetzt beispielhaft ein zweites Modell, in welchem wir die Variable bezüglich des Bikameralismus (<strong>bicam4510</strong>) hinzufügen. Dieses zweite Modell wird in dem Objekt <code>lm_lijphart_2</code> gespeichert.</p>
+<pre class="r"><code>lm_lijphart_2 &lt;- lm(enpp4510 ~ disprop4510
+                  + exe_dom4510 
+                  + minwin_one_part4510
+                  + bicam4510
+                  , data = lijphart)</code></pre>
+<p>Für einen <code>stargazer</code>-Output mit beiden Modellen, müssen wir das zweite Modell lediglich in den <code>stargazer()</code>-Befehl einfügen.</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, 
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;)
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## =================================================================
+##                                  Abhängige Variable:             
+##                     ---------------------------------------------
+##                            Effektive Parteienanzahl (ENP)        
+##                              (1)                    (2)          
+## -----------------------------------------------------------------
+## Gallagher-Index             -0.012                 -0.015        
+##                            (0.020)                (0.020)        
+##                                                                  
+## Exekutivdominanz           -0.123**               -0.135**       
+##                            (0.056)                (0.057)        
+##                                                                  
+## Kabinettsdauer            -0.021***              -0.020***       
+##                            (0.005)                (0.005)        
+##                                                                  
+## Bikameralismus                                     0.124         
+##                                                   (0.094)        
+##                                                                  
+## Constant                   5.220***               4.957***       
+##                            (0.221)                (0.296)        
+##                                                                  
+## -----------------------------------------------------------------
+## Observations                  36                     36          
+## R2                          0.766                  0.778         
+## Adjusted R2                 0.744                  0.750         
+## Residual Std. Error    0.576 (df = 32)        0.569 (df = 31)    
+## F Statistic         34.858*** (df = 3; 32) 27.188*** (df = 4; 31)
+## =================================================================
+## Note:                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Wir sehen jetzt hier zwei Spalten, die die zwei unterschiedlichen Modelle beinhalten. Natürlich können wir die Spaltennamen ebenfalls verändern.</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, 
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          column.labels = c(&quot;Model 1&quot;, &quot;Model 2&quot;),
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;)
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## =================================================================
+##                                  Abhängige Variable:             
+##                     ---------------------------------------------
+##                            Effektive Parteienanzahl (ENP)        
+##                            Model 1                Model 2        
+##                              (1)                    (2)          
+## -----------------------------------------------------------------
+## Gallagher-Index             -0.012                 -0.015        
+##                            (0.020)                (0.020)        
+##                                                                  
+## Exekutivdominanz           -0.123**               -0.135**       
+##                            (0.056)                (0.057)        
+##                                                                  
+## Kabinettsdauer            -0.021***              -0.020***       
+##                            (0.005)                (0.005)        
+##                                                                  
+## Bikameralismus                                     0.124         
+##                                                   (0.094)        
+##                                                                  
+## Constant                   5.220***               4.957***       
+##                            (0.221)                (0.296)        
+##                                                                  
+## -----------------------------------------------------------------
+## Observations                  36                     36          
+## R2                          0.766                  0.778         
+## Adjusted R2                 0.744                  0.750         
+## Residual Std. Error    0.576 (df = 32)        0.569 (df = 31)    
+## F Statistic         34.858*** (df = 3; 32) 27.188*** (df = 4; 31)
+## =================================================================
+## Note:                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+<div id="statistiken-und-weitere-informationen-hinzufügen" class="section level4">
+<h4>4.1.2. Statistiken und weitere Informationen hinzufügen</h4>
+<p>Haben wir ein Modell, welches beispielsweise mittels <em>fixed effects</em> berechnet wurde, dann können wir diese zusätzliche Information ebenfalls in in unserem Output darstellen. Hierfür nutzen wir ganz einfach die <code>add.lines</code>-Option und modifizieren unsere Tabelle. Die Reihenfolge in der wir unsere Modelle eingeben, bestimmt die Reihenfolge in der wir unsere zusätzlichen Informationen eingeben (ähnlich wie bei der Beschriftung der unabhängigen Variablen). Für unser Beispiel bestimmen wir, dass das zweite Modell mit <em>fixed effects</em> gerechnet wurde (<strong>obwohl das nicht stimmt</strong>, sondern lediglich Anschauungszwecken dient).</p>
+<p>Um die <code>add.lines</code>-Option noch etwas mehr auszureizen, fügen wir eine Zeile hinzu.</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, 
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          column.labels = c(&quot;Model 1&quot;, &quot;Model 2&quot;),
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;),
+           add.lines = list(c(&quot;Fixed effects?&quot;, &quot;Nein&quot;, &quot;Ja&quot;),
+                            c(&quot;Ergebnisse nur Anschauungszwecken&quot;, &quot;Ja&quot;, &quot;Ja&quot;))
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## ===============================================================================
+##                                                Abhängige Variable:             
+##                                   ---------------------------------------------
+##                                          Effektive Parteienanzahl (ENP)        
+##                                          Model 1                Model 2        
+##                                            (1)                    (2)          
+## -------------------------------------------------------------------------------
+## Gallagher-Index                           -0.012                 -0.015        
+##                                          (0.020)                (0.020)        
+##                                                                                
+## Exekutivdominanz                         -0.123**               -0.135**       
+##                                          (0.056)                (0.057)        
+##                                                                                
+## Kabinettsdauer                          -0.021***              -0.020***       
+##                                          (0.005)                (0.005)        
+##                                                                                
+## Bikameralismus                                                   0.124         
+##                                                                 (0.094)        
+##                                                                                
+## Constant                                 5.220***               4.957***       
+##                                          (0.221)                (0.296)        
+##                                                                                
+## -------------------------------------------------------------------------------
+## Fixed effects?                             Nein                    Ja          
+## Ergebnisse nur Anschauungszwecken           Ja                     Ja          
+## Observations                                36                     36          
+## R2                                        0.766                  0.778         
+## Adjusted R2                               0.744                  0.750         
+## Residual Std. Error                  0.576 (df = 32)        0.569 (df = 31)    
+## F Statistic                       34.858*** (df = 3; 32) 27.188*** (df = 4; 31)
+## ===============================================================================
+## Note:                                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Standardfehler werden standardmäßig von <code>stargazer</code> berichtet. Wollen wir uns stattdessen die Konfidenzintervalle anzeigen lassen, nutzen wir das (logische) <code>ci</code>-Argument.</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, ci = TRUE,
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          column.labels = c(&quot;Model 1&quot;, &quot;Model 2&quot;),
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;),
+           add.lines = list(c(&quot;Fixed effects?&quot;, &quot;Nein&quot;, &quot;Ja&quot;),
+                            c(&quot;Ergebnisse nur Anschauungszwecken&quot;, &quot;Ja&quot;, &quot;Ja&quot;))
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## ===============================================================================
+##                                                Abhängige Variable:             
+##                                   ---------------------------------------------
+##                                          Effektive Parteienanzahl (ENP)        
+##                                          Model 1                Model 2        
+##                                            (1)                    (2)          
+## -------------------------------------------------------------------------------
+## Gallagher-Index                           -0.012                 -0.015        
+##                                      (-0.051, 0.027)        (-0.054, 0.024)    
+##                                                                                
+## Exekutivdominanz                         -0.123**               -0.135**       
+##                                      (-0.233, -0.012)       (-0.246, -0.024)   
+##                                                                                
+## Kabinettsdauer                          -0.021***              -0.020***       
+##                                      (-0.031, -0.011)       (-0.030, -0.009)   
+##                                                                                
+## Bikameralismus                                                   0.124         
+##                                                             (-0.060, 0.308)    
+##                                                                                
+## Constant                                 5.220***               4.957***       
+##                                       (4.786, 5.654)         (4.378, 5.537)    
+##                                                                                
+## -------------------------------------------------------------------------------
+## Fixed effects?                             Nein                    Ja          
+## Ergebnisse nur Anschauungszwecken           Ja                     Ja          
+## Observations                                36                     36          
+## R2                                        0.766                  0.778         
+## Adjusted R2                               0.744                  0.750         
+## Residual Std. Error                  0.576 (df = 32)        0.569 (df = 31)    
+## F Statistic                       34.858*** (df = 3; 32) 27.188*** (df = 4; 31)
+## ===============================================================================
+## Note:                                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Zusätzlich können wir mit <code>omit.stat</code> bestimmen welche der deskriptiven Statistiken nicht angezeigt werden sollen.</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, omit.stat = c(&quot;rsq&quot;, &quot;f&quot;),
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          column.labels = c(&quot;Model 1&quot;, &quot;Model 2&quot;),
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;),
+           add.lines = list(c(&quot;Fixed effects?&quot;, &quot;Nein&quot;, &quot;Ja&quot;),
+                            c(&quot;Ergebnisse nur Anschauungszwecken&quot;, &quot;Ja&quot;, &quot;Ja&quot;))
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## =================================================================
+##                                         Abhängige Variable:      
+##                                   -------------------------------
+##                                   Effektive Parteienanzahl (ENP) 
+##                                       Model 1         Model 2    
+##                                         (1)             (2)      
+## -----------------------------------------------------------------
+## Gallagher-Index                       -0.012          -0.015     
+##                                       (0.020)         (0.020)    
+##                                                                  
+## Exekutivdominanz                     -0.123**        -0.135**    
+##                                       (0.056)         (0.057)    
+##                                                                  
+## Kabinettsdauer                       -0.021***       -0.020***   
+##                                       (0.005)         (0.005)    
+##                                                                  
+## Bikameralismus                                         0.124     
+##                                                       (0.094)    
+##                                                                  
+## Constant                             5.220***        4.957***    
+##                                       (0.221)         (0.296)    
+##                                                                  
+## -----------------------------------------------------------------
+## Fixed effects?                         Nein             Ja       
+## Ergebnisse nur Anschauungszwecken       Ja              Ja       
+## Observations                            36              36       
+## Adjusted R2                            0.744           0.750     
+## Residual Std. Error               0.576 (df = 32) 0.569 (df = 31)
+## =================================================================
+## Note:                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Letztlich können wir auch Notizen am Ende der Tabelle einfügen und linksbündig ausrichten.</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, omit.stat = c(&quot;rsq&quot;, &quot;f&quot;),
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          column.labels = c(&quot;Model 1&quot;, &quot;Model 2&quot;),
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;),
+           add.lines = list(c(&quot;Fixed effects?&quot;, &quot;Nein&quot;, &quot;Ja&quot;),
+                            c(&quot;Ergebnisse nur Anschauungszwecken&quot;, &quot;Ja&quot;, &quot;Ja&quot;)),
+          notes = &quot;Das sieht doch wirklich gut aus!&quot;, 
+          notes.align = &quot;l&quot;
+          )</code></pre>
+<pre><code>## 
+## Großartige Lijphart-Ergebnisse
+## ===================================================================
+##                                          Abhängige Variable:       
+##                                   ---------------------------------
+##                                    Effektive Parteienanzahl (ENP)  
+##                                       Model 1          Model 2     
+##                                         (1)              (2)       
+## -------------------------------------------------------------------
+## Gallagher-Index                        -0.012           -0.015     
+##                                       (0.020)          (0.020)     
+##                                                                    
+## Exekutivdominanz                      -0.123**         -0.135**    
+##                                       (0.056)          (0.057)     
+##                                                                    
+## Kabinettsdauer                       -0.021***        -0.020***    
+##                                       (0.005)          (0.005)     
+##                                                                    
+## Bikameralismus                                          0.124      
+##                                                        (0.094)     
+##                                                                    
+## Constant                              5.220***         4.957***    
+##                                       (0.221)          (0.296)     
+##                                                                    
+## -------------------------------------------------------------------
+## Fixed effects?                          Nein              Ja       
+## Ergebnisse nur Anschauungszwecken        Ja               Ja       
+## Observations                             36               36       
+## Adjusted R2                            0.744            0.750      
+## Residual Std. Error               0.576 (df = 32)  0.569 (df = 31) 
+## ===================================================================
+## Note:                             *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01      
+##                                   Das sieht doch wirklich gut aus!</code></pre>
+<p>Wie Sie unschwer erkennen können, sind die Modifikationsoptionen bei <code>stargazer</code> sehr umfangreich. So könnten wir uns z.B. auch robuste Standardfehler anzeigen lassen und vieles weitere mehr. Da das aber den Rahmen dieses Tutorials sprengen würde, bleibt uns nur der Hinweis, dass Sie über eine <em>google</em>-Suche sehr viele hilfreiche Tipps und Tricks finden können.</p>
+</div>
+</div>
+<div id="tabellenausgaben-speichern" class="section level3">
+<h3>4.2. Tabellenausgaben speichern</h3>
+<p><code>stargazer</code>-Tabellen lassen sich problemlos als <em>html</em> oder als <em>tex</em> (<em>LateX</em>) Dateien speichern. Hierfür verwenden wir das <code>out</code>-Argument und definieren gleichzeitig den Namen der Datei. In unserem Beispiel wollen wir eine html-Datei mit dem Namen <code>&quot;lijphart-regression.htm&quot;</code> speichern (html-Dateien werden standardmäßig über Ihren jeweiligen Browser geöffnet).</p>
+<pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
+          , type = &quot;text&quot;, omit.stat = c(&quot;rsq&quot;, &quot;f&quot;),
+          title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Effektive Parteienanzahl (ENP)&quot;,
+          column.labels = c(&quot;Model 1&quot;, &quot;Model 2&quot;),
+          covariate.labels = c(&quot;Gallagher-Index&quot;, &quot;Exekutivdominanz&quot;, &quot;Kabinettsdauer&quot;, &quot;Bikameralismus&quot;),
+          add.lines = list(c(&quot;Fixed effects?&quot;, &quot;Nein&quot;, &quot;Ja&quot;),
+                            c(&quot;Ergebnisse nur Anschauungszwecken&quot;, &quot;Ja&quot;, &quot;Ja&quot;)),
+          notes = &quot;Das sieht doch wirklich gut aus!&quot;, 
+          notes.align = &quot;l&quot;, 
+          out = &quot;lijphart-regression.htm&quot;
+          )</code></pre>
+<p>Dieser Schritt ist natürlich nur wirklich hilfreich, wenn Sie entweder mit LateX arbeiten oder Ihre Eregbnisse auf einer Internetseite bzw. für eine Präsentation speichern wollen. Für eine Hausarbeit z.B. ist es einfacher den einfachen <em>text</em>-Output mittels Copy-and-Paste in eine Word-Tabelle zu übertragen!</p>
+</div>
+</div>
+<div id="aufgaben" class="section level1">
+<h1>5. Aufgaben</h1>
+<p>Bearbeiten Sie bitte die folgenden Aufgaben:</p>
+<ol style="list-style-type: decimal">
+<li>Erstellen Sie eine Regressiontabelle mit <code>stargazer</code> für das binäre logistische Regressionsmodell aus Sitzung 11. Beschriften Sie die Variablen und lassen Sie sich die Konfidenzintervalle ausgeben.</li>
+</ol>
+</div>
+<div id="lösungen" class="section level1">
+<h1>6. Lösungen</h1>
+<pre class="r"><code># Aufgabe 1
+
+# GLES Daten einlesen und transformieren
+#gles &lt;- read.spss(&quot;/Users/christophgarwe/Seafile/Lehrstuhl/Lehrstuhl Hannover Forschung/Forschung/01 Hönnige/025 MWK_StatistikR/Daten/ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+gles &lt;- read.spss(&quot;/Users/PhMeyer/Seafile/Seafile/Lehrstuhl/Lehrstuhl Hannover Forschung/Forschung/01 Hönnige/025 MWK_StatistikR/Daten/ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+
+
+# Alter
+q2c_num &lt;- as.numeric(as.character(gles$q2c))
+gles$alter &lt;- 2017 - q2c_num
+
+# Geschlecht
+names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
+
+# Einkommen kategorial
+gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
+                     gles$q192 == &quot;500 bis unter 750 Euro&quot; |
+                     gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;
+gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
+                     gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
+                     gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
+gles$einkommen_cat[gles$q192 == &quot;2000 bis unter 2500 Euro&quot; |
+                     gles$q192 == &quot;2500 bis unter 3000 Euro&quot;] &lt;- &quot;2000 bis 2999&quot;
+gles$einkommen_cat[gles$q192 == &quot;3000 bis unter 4000 Euro&quot;] &lt;- &quot;3000 bis 3999&quot;
+gles$einkommen_cat[gles$q192 == &quot;4000 bis unter 5000 Euro&quot;] &lt;- &quot;4000 bis 4999&quot;
+gles$einkommen_cat[gles$q192 == &quot;5000 bis unter 7500 Euro&quot;] &lt;- &quot;5000 bis 7499&quot;
+gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
+                     gles$q192 == &quot;10000 Euro und mehr&quot;] &lt;- &quot;7500 und mehr&quot;
+
+gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
+                                levels = c(&quot;weniger als 1000&quot;,
+                                           &quot;1000 bis 1999&quot;,
+                                           &quot;2000 bis 2999&quot;,
+                                           &quot;3000 bis 3999&quot;,
+                                           &quot;4000 bis 4999&quot;,
+                                           &quot;5000 bis 7499&quot;,
+                                           &quot;7500 und mehr&quot;))
+
+# Einkommen numerisch
+gles$einkommen_num[gles$einkommen_cat == &quot;weniger als 1000&quot;] &lt;- 1
+gles$einkommen_num[gles$einkommen_cat == &quot;1000 bis 1999&quot;] &lt;- 2
+gles$einkommen_num[gles$einkommen_cat == &quot;2000 bis 2999&quot;] &lt;- 3
+gles$einkommen_num[gles$einkommen_cat == &quot;3000 bis 3999&quot;] &lt;- 4
+gles$einkommen_num[gles$einkommen_cat == &quot;4000 bis 4999&quot;] &lt;- 5
+gles$einkommen_num[gles$einkommen_cat == &quot;5000 bis 7499&quot;] &lt;- 6
+gles$einkommen_num[gles$einkommen_cat == &quot;7500 und mehr&quot;] &lt;- 7
+
+# Wohnort
+gles$wohnort[gles$q197 == &quot;Grossstadt&quot;] &lt;- &quot;Großstadt&quot;
+gles$wohnort[gles$q197 == &quot;kleine oder mittelgrosse Stadt&quot;] &lt;- &quot;Kleinstadt&quot;
+gles$wohnort[gles$q197 == &quot;laendliche Gegend oder Dorf&quot;] &lt;- &quot;Land&quot;
+gles$wohnort[gles$q197 == &quot;Vorstadt/ Vorort einer Grossstadt&quot;] &lt;- &quot;Vorstadt&quot;
+
+# Links-Rechts-Selbsteinstufung
+gles$LiRe &lt;- as.character(gles$q32)
+gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
+gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
+gles$LiRe &lt;- as.numeric(gles$LiRe)
+
+# Links-Rechts-Selbsteinstufung aggregiert
+gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
+                gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
+                gles$LiRe &lt;= 4] &lt;- &quot;moderat links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 5 &amp;
+                gles$LiRe &lt;= 7] &lt;- &quot;mittig&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 8 &amp;
+                gles$LiRe &lt;= 9] &lt;- &quot;moderat rechts&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 10 &amp;
+                gles$LiRe &lt;= 11] &lt;- &quot;rechts&quot;
+
+gles$LiRe_cat &lt;- factor(gles$LiRe_cat,
+                                levels = c(&quot;links&quot;,
+                                           &quot;moderat links&quot;,
+                                           &quot;mittig&quot;,
+                                           &quot;moderat rechts&quot;,
+                                           &quot;rechts&quot;))
+
+# AfD-Wahl
+gles$AfD.Wahl[gles$q19ba == &quot;AfD&quot;] &lt;- 1
+gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0
+
+# Modell berechnen
+afd_logit &lt;- glm(AfD.Wahl ~ LiRe_cat
+                 , data = gles, family = &quot;binomial&quot;)
+
+# Stargazer Tabelle erstellen
+stargazer(afd_logit
+          , type = &quot;text&quot;, ci = TRUE,
+          title            = &quot;Großartige GLES-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;,
+          column.labels = &quot;Model 1&quot;,
+          covariate.labels = c(&quot;Links-Rechts Selbsteinschätzung&quot;, &quot;Mitte&quot;, &quot;Moderat-Rechts&quot;,&quot;Rechs&quot;))</code></pre>
+<pre><code>## 
+## Großartige GLES-Ergebnisse
+## ====================================================================
+##                                         Abhängige Variable:         
+##                                 ------------------------------------
+##                                 Wahrscheinlichkeit die AfD zu wählen
+##                                               Model 1               
+## --------------------------------------------------------------------
+## Links-Rechts Selbsteinschätzung               -1.034*               
+##                                           (-2.237, 0.169)           
+##                                                                     
+## Mitte                                         0.961**               
+##                                            (0.039, 1.884)           
+##                                                                     
+## Moderat-Rechts                                2.528***              
+##                                            (1.569, 3.488)           
+##                                                                     
+## Rechs                                         3.243***              
+##                                            (2.098, 4.387)           
+##                                                                     
+## Constant                                     -3.243***              
+##                                           (-4.136, -2.349)          
+##                                                                     
+## --------------------------------------------------------------------
+## Observations                                   1,607                
+## Log Likelihood                                -430.801              
+## Akaike Inf. Crit.                             871.601               
+## ====================================================================
+## Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

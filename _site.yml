@@ -1,11 +1,31 @@
 name: "ipw-statistik"
 output_dir: "."
 navbar:
-  title: "Politikwissenschaftliche Methoden mit R"
+  title: "Politikwissenschaftliche Statistik mit R"
   left:
     - text: "Einleitung"
       href: index.html
-    - text: "Einleitung und Grundlagen"
+    - text: "Grundlagen"
       href: Sitzung_1_Einfuehrung.html
     - text: "Faktoren und zweidimensionale Objekte"
       href: Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html
+    - text: "Datensätze"
+      href: Sitzung_3_Datensätze_einladen.html
+    - text: "Variablen"
+      href: Sitzung_4_Variablen_Kodieren.html
+    - text: "Univariate Variablen"
+      href: Sitzung_5_univariate_Maße.html
+    - text: "Visualisierung I"
+      href: Sitzung_6_Visualisierung_I.html
+    - text: "Bivariate Zusammenhänge"
+      href: Sitzung_7_bivariate_Zusammenhangsmaße.html
+    - text: "Bivariate OLS Regression"
+      href: Sitzung_8_bivariate_OLS.html
+    - text: "Visualisierung II"
+      href: Sitzung_9_Visualisierung_II.html
+    - text: "Multivariate Regression"
+      href: Sitzung_10_multiple_lineare_Regression.html
+    - text: "Logistische Regression"
+      href: Sitzung_11_LogitReg.html
+    - text: "Tabellen erstellen"
+      href: Sitzung_13_Tabellen.html
