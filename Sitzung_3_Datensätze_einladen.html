@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 3: Datensätze einladen</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 3: Datensätze einladen mit R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,23 +371,34 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 3: Datensätze einladen</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 3: Datensätze einladen mit <code>R</code></h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
+<pre class="r"><code>library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
 <p>Bisher haben wir uns mit den unterschiedlichen Objekte und Objektklassen in <code>R</code> auseinandergesetzt. In der zweiten Sitzung gingen wir dabei auf zweidimensionale Objekte und auf die Arbeit mit Datensätzen ein. In dieser dritten und der kommenden vierten Sitzung wollen wir unsere Kenntnis der Arbeit mit Datensätzen vertiefen, indem wir externe Datensätze einladen und zur Handhabung aufbereiten. Dabei lernen wir die Datensätze kennen, mit denen wir im weiteren Verlauf des Kurses arbeiten werden.</p>
+</div>
 <div id="externe-datensätze-einladen" class="section level1">
-<h1>1. Externe Datensätze einladen</h1>
+<h1>2. Externe Datensätze einladen</h1>
 <p>Nur wenige Forschende haben die Ressourcen, sämtliche für ihre Analyse notwendigen Daten eigenständig zu erheben. Das gilt umso mehr für Studierende. Deshalb ist es essentiell zu wissen, wie Sekundärdaten (Daten, die andere Forschende zur Verfügung stellen) für die eigene Datenanalyse nutzbar gemacht werden können. Diese stehen in Form von Datensätzen in unterschiedlichen Datenformaten zur Verfügung. <code>R</code>, bzw. einige Pakete, bieten vierschiedene Möglichkeiten an, Datensätze in unterschiedlichen Formaten zur Analyse zu laden.</p>
 <div id="gles-2017" class="section level2">
-<h2>1.1 GLES 2017</h2>
+<h2>2.1 GLES 2017</h2>
 <p>Um zu Erlernen, auf welchem Wege man üblicherweise an Forschungsdaten gelangt, wollen wir in einem ersten Schritt öffentlich verfügbare Daten herunterladen und von der eigenen Festplatte laden. Besuchen Sie dazu den Web-Auftritt des Leibniz Instituts für Sozialwissenschaften unter <a href="https://www.gesis.org/home" class="uri">https://www.gesis.org/home</a>. Die Gesis bietet einen großen Fundus an sozialwissenschaftlichen Daten, der Ihnen auch über den Kontext dieses Kurses hinaus an die Hand gegeben sei. Hier finden Sie eine Reihe relevanter Forschungsdaten wie den ALLBUS und das SOEP.</p>
 <p>Suchen Sie aber die Suchleiste nach dem &quot;Nachwahl-Querschnitt (GLES 2017)&quot;. Die German Longitudinal Election Study (GLES) ist ein Projekt der Gesis in Kooperation mit der Deutschen Gesellschaft für Wahlforschung (DGfW). Sie vereint Vor- und Nachwahlbefragungen einer repräsentativen Stichprobe der Wählerschaft bei Bundestagswahlen. Der hier verwendete Nachwahl-Querschnitt befragte die Respondenten im Nachgang der Bundestagswahl 2017 zu politischen Themen, Einstellungen und Verhaltensweisen, Meinungsbildung im Wahlkampf sowie sozio-demografischen Merkmalen. Insbesondere ist es uns damit möglich, die Wahlentscheidung der Befragten zu analysieren bzw. Einflussfaktoren der Wahl einer bestimmten Partei zu bestimmen.</p>
 <p>Laden Sie sich rechts oben unter &quot;Downloads&quot; -&gt; &quot;Datensätze&quot; die Version &quot;ZA6801_de_v4-0-1.sav deutsch (Datensatz)&quot; mit 2.37 MB herunter. Dazu werden Sie aufgefordert, sich ein Konto bei der Gesis anzulegen. Laden Sie sich bitte außerdem unter &quot;Fragebögen&quot; den Fragebogen &quot;ZA6801_fb.pdf deutsch&quot; und unter &quot;andere Dokumente&quot; die Studienbeschreibung &quot;ZA6801_sb.pdf&quot; herunter und machen Sie sich mit beidem vertraut. Das ist wichtig, um einen Überblick über die Studie, den Datensatz und die vercodete Information bzw. insbesondere die vorhandenen Variablen und damit verbundenen Interviewfragen zu bekommen. Die Variablennamen sind technisch gehalten und an sich wenig aussagekräftig, weshalb die Begleitdokumentation wesentlich ist, um zu verstehen, welche inhaltliche Information dahinter steckt.</p>
 <p>Legen Sie den Datensatz an einer geeigneten Stelle auf ihrem Computer ab. Am besten ist es, wenn Sie sich einen Ordner zu diesem Seminar anlegen, in dem Sie den Datensatz, die Begleitdokumentation und die Kursskripte speichern. Um den Datensatz nun in <code>R</code> zu laden, müssen wir zunächst herausfinden, auf welchen Ordner <code>R</code> zugreift. Mit <code>getwd()</code> wird uns das derzeitige Verzeichnis angezeigt. &quot;wd&quot; steht dabei für &quot;working directory&quot; (etwa: Arbeitsverzeichnis). Im Working Directory &quot;arbeitet&quot; <code>R</code> bzw. liest Daten ein und speichert Skripte, den Workspace (nicht empfohlen) und geschriebene Objekte.</p>
 <pre class="r"><code>getwd()</code></pre>
-<p>Nun zeigt <code>R</code> an, wo es Daten speichert woher es sie einliest. Wir wollen nun erreichen, dass <code>R</code> auf den Ordner zugreift, in dem der Datensatz abgelegt ist. Deshalb legen wir das Verzeichnis mit <code>setwd()</code> fest. Schreiben Sie dazu den Pfad zu dem Verzeichnis, in dem der Datensatz abgelegt ist, in Anführungszeichen in die Funktion und führen Sie sie aus. Ein Dateipfad weist üblicherweise die folgende Struktur auf: &quot;/Users/christophgarwe/R_Projekt/Daten&quot;.</p>
+<p>Nun zeigt <code>R</code> an, wo es Daten speichert woher es sie einliest. Wir wollen nun erreichen, dass <code>R</code> auf den Ordner zugreift, in dem der Datensatz abgelegt ist. Deshalb legen wir das Verzeichnis mit <code>setwd()</code> fest. Schreiben Sie dazu den Pfad zu dem Verzeichnis, in dem der Datensatz abgelegt ist, in Anführungszeichen in die Funktion und führen Sie sie aus. Ein Dateipfad weist beispielsweise bei Apple die folgende Struktur auf: &quot;/Users/christophgarwe/R_Projekt/Daten&quot;. Bei Windows lautet der Pfad: &quot;C:/Users/christophgarwe/R_Projekt/Daten&quot;, wenn die Daten beim Nutzer &quot;christophgarwe&quot; im Ordner &quot;R_Projekt&quot; im Unterordner &quot;Daten&quot; liegen. Möchten Sie ihr Verzeichnis woanders anlegen bzw. anders benennen, müssen Sie dies anpassen. Nachfolgend müssen Sie also immer wenn von &quot;Eigener Pfad&quot; die Rede ist, dieses Verzeichnis dort hineinschreiben.</p>
 <pre class="r"><code>setwd(&quot;eigener Pfad&quot;)</code></pre>
 <p>Prinzipiell können wir den Datensatz nun von <code>R</code> aus ansteuern bzw. laden. Dazu werden üblicherweise Befehle wie <code>read.table()</code> verwendet.</p>
 <pre class="r"><code>?read.table # Machen Sie sich mit den Argumenten von read.table() vertraut</code></pre>
@@ -395,7 +410,7 @@ div.tocify {
 <p>Beachten Sie: In dieser Form funktioniert dieser Code nur, weil wir oben mittles <code>setwd()</code> das Verzeichnis so gesetzt haben, dass <code>R</code> am Ende des Dateinpfades die Datei &quot;ZA6801_de_v4-0-1.sav&quot; findet. Hätten wir das Verzeichnis nicht festgelegt, müssten wir den gesamten Dateienpfad (inklusive der Datei) unter <code>file</code> nennen.</p>
 </div>
 <div id="patterns-of-democracy" class="section level2">
-<h2>1.2 Patterns of Democracy</h2>
+<h2>2.2 Patterns of Democracy</h2>
 <p>Um den Datensatz zu &quot;Patterns of Democracy&quot; (A. Lijphart) zu laden, gehen wir prinzipiell genauso vor. Dieser Datensatz wird über StudIP in der Veranstaltung &quot;Politikwissenschaftliche Methoden mit R&quot; als &quot;Lijphart_Data_recode.csv&quot; angeboten. Laden Sie ihn herunter und legen Sie ihn ebenfalls an einem geeigneten Ort ab (am besten in einem Kurs-Ordner).</p>
 <p>Arend Lijpharts &quot;Patterns of Democracy&quot; ist ein Klassiker der Demokratieforschung und untersucht zwei Typen von Demokratien, die Mehrheitsdemokratie mit den klassischen Beispielen Neuseeland (vor 1996) und Barbados und die Konsensdemokratie mit den klassischen Beispielen Schweiz und Belgien. Der vorliegende Datensatz beinhaltet alle Variablen, die Lijphart verwendet, um die latenten Konzepte Mehrheits- und Konsensdemokratie zu messen. Die Beobachtungseinheiten sind dabei anders als beim GLES nicht Befragte, sondern Länder.</p>
 <p>Anders als der GLES-Datensatz, liegt der Lijphart-Datensatz im sog. CSV-Format (&quot;comma seperated values&quot;) vor. D.h., in diesem Datensatz stehen alle Werte einer Zeile hintereinander, jeweils nur durch ein Komma (oder Semikolon) getrennt. Öffnen Sie den Datensatz mal mit einem .txt-Programm wie TextEdit oder einem Textverarbeitungsprogramm wie Microsoft Word, um sich einen Eindruck zu verschaffen.</p>
@@ -404,7 +419,7 @@ div.tocify {
 </div>
 </div>
 <div id="ein-erster-blick-in-die-datensätze" class="section level1">
-<h1>2. Ein erster Blick in die Datensätze</h1>
+<h1>3. Ein erster Blick in die Datensätze</h1>
 <p>Nachdem uns nun beide Datensätze zur Verfügung stehen, möchten wir nun einen Überlick über die darin enthaltenen Variablen bekommen. Eine einfache Möglichkeit dazu ist die Funktion <code>str()</code> (&quot;structure&quot;), die den Objekttyp des Datensatzes sowie einen Überblick über die Variablen und enthaltenen Werte zeigt.</p>
 <pre class="r"><code>str(gles)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    2112 obs. of  602 variables:
@@ -824,11 +839,11 @@ head(lijphart)</code></pre>
 ## 36          0.21          0.22              5</code></pre>
 </div>
 <div id="zusammenfassung" class="section level1">
-<h1>3. Zusammenfassung</h1>
+<h1>4. Zusammenfassung</h1>
 <p><code>gles</code> ist ein Datensatz aus der Wahlforschung zur Bundestagswahl 2017. <code>lijphart</code> ist der Datensatz zu Arend Lijpharts &quot;Patterns of Democracy&quot;. Um Datensätze zu laden, müssen Verzeichnisse mit <code>setwd()</code> gesetzt und Daten je nach Format mit einer Funktion wie <code>read.table()</code> geladen werden. Bei Fremdformaten kommen Funktionen des Pakets <code>foreign</code> wie <code>read.spss()</code> zur Anwendung. Mit <code>str()</code>, <code>View()</code> sowie <code>head()</code> und <code>tail()</code> bekommen wir einen ersten Überblick über Datensätze.</p>
 </div>
-<div id="quellen" class="section level1">
-<h1>4. Quellen</h1>
+<div id="datensätze-quellen" class="section level1">
+<h1>5. Datensätze Quellen</h1>
 <p>GLES (2019). Nachwahl-Querschnitt (GLES 2017). GESIS Datenarchiv, Köln. ZA6801 Datenfile Version 4.0.1, <a href="https://doi.org/10.4232/1.13235" class="uri">https://doi.org/10.4232/1.13235</a>.</p>
 <p>Lijphart, Arend (2012): Patterns of Democracy. Government Forms and Performance in Thirty-Six Countries. 2nd Edition. New Haven/London: Yale University Press.</p>
 </div>

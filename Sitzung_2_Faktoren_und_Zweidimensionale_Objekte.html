@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 2: Faktoren und Zweidimensionale Objekte</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 2: Faktoren und zweidimensionale Objekte in R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,18 +371,26 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 2: Faktoren und Zweidimensionale Objekte</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 2: Faktoren und zweidimensionale Objekte in <code>R</code></h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
 <p>Nachdem die vergangene Sitzung einen breit angelegten Einstieg in <code>R</code> als Programm der statistischen Datenanalyse gegeben hat, wollen wir von dieser Sitzung an auf die Arbeit mit Datensätzen einschwenken. Dazu werden wir in der nächsten Sitzung die Datensätze, mit denen wir die Analysen durchführen werden, kennenlernen und in <code>R</code> nutzbar machen. Zuvor wollen wir uns in dieser Sitzung einen Überblick über die zweidimensionalen Objektklassen verschaffen, in denen Datensätze üblicherweise in <code>R</code> vorliegen. Außerdem lernen wir mit Faktoren eine weiteren eindimensionale Objektklasse kennen.</p>
+</div>
 <div id="matrix" class="section level1">
-<h1>1. <code>matrix</code></h1>
+<h1>2. <code>matrix</code></h1>
 <p>Matrizen sind Vektoren mit einer Besonderheit: Sie haben zwei Dimensionen (Vektoren besitzen nur eine). Daten in Form von Matrizen sind also in Zeilen und Spalten geordnet, genau wie bei einer klassischen Tabelle. Das hat zur Folge, dass innerhalb einer Matrix jede Zeile, genauso wie jede Spalte, gleich lang sein muss. Wäre eine Spalte oder Zeile länger oder kürzer, käme es zu leeren Zellen innerhalb der Matrix und damit könnte <code>R</code> nicht umgehen.</p>
 <p>Ansonsten verhalten sich Matrizen so wie Vektoren. Das bezieht sich insbesondere darauf, dass sie nur eine Klasse von Objekten gleichzeitig beinhalten können. Die Elemente einer Matrix können also z.B. entweder nur <em>character</em>-Vektoren oder nur numerisch sein.</p>
 <div id="eine-matrix-erstellen" class="section level2">
-<h2>1.1 eine Matrix erstellen</h2>
+<h2>2.1 Eine Matrix erstellen</h2>
 <p>Wir bilden eine Matrix in <code>R</code> so:</p>
 <pre class="r"><code>m &lt;- matrix(data = 1:6, nrow = 2, ncol = 3)
 m</code></pre>
@@ -400,7 +412,7 @@ m</code></pre>
 <p>Nun füllt <code>R</code> die Matrix zeilenweise mit Werten, sodass 1, 2 und 3 in der ersten und 4, 5 und 6 in der zweiten Zeile stehen.</p>
 </div>
 <div id="cbind-und-rbind" class="section level2">
-<h2>1.2 <code>cbind()</code> und <code>rbind()</code></h2>
+<h2>2.2 <code>cbind()</code> und <code>rbind()</code></h2>
 <p>Anders als zuvor, können Matrizen auch erzeugt werden, indem Vektoren &quot;zusammengebunden&quot; werden. Dazu verwenden wir <code>cbind()</code> (&quot;column bind&quot;, Spalten verbinden) und <code>rbind()</code> (&quot;row bind&quot;, Zeilen verbinden).</p>
 <pre class="r"><code>abc &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)   # Bilden eines character vector &quot;abc&quot;, der die Buchstaben &quot;a&quot;, &quot;b&quot; und &quot;c&quot; enthält
 def &lt;- c(&quot;d&quot;, &quot;e&quot;, &quot;f&quot;)   # Bilden eines zweiten character vector &quot;def&quot;, der die Buchstaben &quot;d&quot;, &quot;e&quot; und &quot;f&quot; enthält
@@ -443,10 +455,10 @@ z                       # nochmal ausgeben</code></pre>
 </div>
 </div>
 <div id="data-frame" class="section level1">
-<h1>2. <code>data frame</code></h1>
+<h1>3. <code>data frame</code></h1>
 <p>Dataframes sind die übliche Form, in der tabellarische Daten in <code>R</code> gespeichert werden und damit ein wichtiger Typ von Objekten. Wenn wir in der nächsten Sitzung die Datensätze, die wir in diesem Kurs untersuchen wollen, einlesen, werden sie in Form von Dataframes vorliegen. Während wir diese Dataframes mit Funktionen zum Einladen von extern verfügbaren Datensätzen erstellen werden (insbesondere <code>read.csv</code>, dazu mehr in der nächsten Sitzung), können wir Dataframes auch direkt mithilfe der Funktion <code>data.frame()</code> bilden.</p>
 <div id="dataframes-händisch-erstellen" class="section level2">
-<h2>2.1 Dataframes händisch erstellen</h2>
+<h2>3.1 Dataframes händisch erstellen</h2>
 <p>Genau wie bei Matrizen müssen auch bei Dataframes alle Zeilen und Spalten die gleiche Länge aufweisen. Im Gegensatz zur Matrix ist es bei Dataframes allerdings möglich, Elemente unterschiedlicher Klassen miteinander zu kombinieren. Dataframes werden gebildet, indem wir in den Klammern der Funktion <code>data.frame()</code> die in ihnen zusammengefassten Spalten (Variablen) nacheinander mit ihrem Namen und Inhalt nennen. In diesem Beispiel für die Variablen <code>a</code> und <code>b</code>:</p>
 <pre class="r"><code>df &lt;- data.frame(a = 1:4, b = c(TRUE, TRUE, FALSE, FALSE))
 df</code></pre>
@@ -456,7 +468,7 @@ df</code></pre>
 ## 3 3 FALSE
 ## 4 4 FALSE</code></pre>
 <p>Wenn wir <code>df</code> abschicken, zeigt der Output die Variablennamen <code>a</code> und <code>b</code> oben und eine automatische Nummerierung der Spalten links.</p>
-<p>In einem etwas größeren Beispiel liegt uns ein Auszug aus (fiktiven) Daten eines Experiments vor. Der hier gebildete Dataframe fasst Information zu einer Identifikationsnummer (&quot;id&quot;), dazu, ob es sich um die Experimental- oder Kontrollgruppe handelt (&quot;bedingung&quot;), zur Soziodemografie (&quot;geschlecht&quot;, &quot;alter&quot;), sowie zu den Ergebnissen des Experiments zu zwei unterschiedlichen Zeitpunkten (&quot;wert_t1&quot;, &quot;wert_t2&quot;) für sechs teilnehmende Personen zusammen.</p>
+<p>In einem etwas größeren Beispiel liegt uns ein Auszug aus (fiktiven) Daten eines Experiments vor. Dieser Dataframe beinhaltet Information zu einer Identifikationsnummer (&quot;id&quot;), und dazu, ob es sich um die Experimental- oder Kontrollgruppe handelt (&quot;bedingung&quot;). Zudem zur Soziodemografie (&quot;geschlecht&quot;, &quot;alter&quot;), sowie zu den Ergebnissen des Experiments zu zwei unterschiedlichen Zeitpunkten (&quot;wert_t1&quot;, &quot;wert_t2&quot;) für sechs teilnehmende Personen zusammen.</p>
 <pre class="r"><code>df &lt;- data.frame(id = 1:6,
                  bedingung = c(&quot;E&quot;, &quot;E&quot;, &quot;C&quot;, &quot;C&quot;, &quot;C&quot;, &quot;E&quot;),
                  geschlecht = c(&quot;M&quot;, &quot;M&quot;, &quot;W&quot;, &quot;M&quot;, &quot;W&quot;, &quot;W&quot;),
@@ -474,7 +486,7 @@ df</code></pre>
 <p>Nun wird der Vorzug von Dataframes ersichtlich: Sie ermöglichen es, dass wir Information unterschiedlicher Skalenniveaus kombinieren. Für jede Beobachtung steht also jede Form von Information zur Verfügung, die benötigt wird.</p>
 </div>
 <div id="dataframes-und-matrizen-umwandeln" class="section level2">
-<h2>2.2 Dataframes und Matrizen umwandeln</h2>
+<h2>3.2 Dataframes und Matrizen umwandeln</h2>
 <p>In einer Matrix wäre das nicht möglich. Anstatt dessen werden alle enthaltenen Elemente mittels implicit coercion zu character Strings (wenn die Funktion <code>as.matrix()</code> verwendet wird) oder numerischen Werten (wenn die Funktion <code>data.matrix()</code> verwendet wird) umgewandelt:</p>
 <pre class="r"><code>dfm &lt;- as.matrix(df) # Umwandlung des Dataframe df in eine Matrix dfm auf die &quot;klassiche&quot; Art und Weise mit as.matrix(): Umwandlung in Characters
 dfm</code></pre>
@@ -504,7 +516,7 @@ dfz</code></pre>
 ## vierte          9          23</code></pre>
 </div>
 <div id="variablen--und-zeilennamen-abfragen-und-verändern" class="section level2">
-<h2>2.3 Variablen- und Zeilennamen abfragen und verändern</h2>
+<h2>3.3 Variablen- und Zeilennamen abfragen und verändern</h2>
 <p>Häufig ist es sinnvoll, sich die in einem Datensatz enthaltenen Variablen anzuschauen, zumindest dann, wenn es sich (anders als hier) um einen fremden Datensatz handelt. Die Namen der Variablen (also der Spalten eines Dataframes) können wir uns mit <code>names()</code> anzeigen lassen.</p>
 <pre class="r"><code>names(df)</code></pre>
 <pre><code>## [1] &quot;id&quot;         &quot;bedingung&quot;  &quot;geschlecht&quot; &quot;alter&quot;      &quot;wert_t1&quot;   
@@ -536,10 +548,10 @@ beispiel  # Zeilennummern nun von sieben bis 12</code></pre>
 </div>
 </div>
 <div id="zeilen-spalten-und-zellen-auswählen" class="section level1">
-<h1>3. Zeilen, Spalten und Zellen auswählen</h1>
+<h1>4. Zeilen, Spalten und Zellen auswählen</h1>
 <p>Häufig benötigt man einen Datensatz nicht in seiner Gänze, sondern möchte bestimmte Zeilen oder Spalten bzw. einzelne Zellen auswählen. Wir können einzelne Elemente innerhalb von mehrdimensionalen Objekten auf unterschiedliche Arten auswählen.</p>
 <div id="auswählen-mithilfe-der-eckigen-klammern" class="section level2">
-<h2>3.1 Auswählen mithilfe der eckigen Klammern <code>[]</code></h2>
+<h2>4.1 Auswählen mithilfe der eckigen Klammern <code>[]</code></h2>
 <p>Beim Output von Matrizen (solange wir die Spalten-/Zeilennamen nicht angepasst haben) konnten wir sehen, dass links von den Zeilen und oben über den Spalten die eckigen Klammern <code>[]</code> zu sehen sind.</p>
 <pre class="r"><code>m</code></pre>
 <pre><code>##      [,1] [,2] [,3]
@@ -597,16 +609,16 @@ beispiel  # Zeilennummern nun von sieben bis 12</code></pre>
 ## 6         E          W</code></pre>
 </div>
 <div id="auswählen-mithilfe-des-dollarzeichens" class="section level2">
-<h2>3.2. Auswählen mithilfe des Dollarzeichens <code>$</code></h2>
+<h2>4.2. Auswählen mithilfe des Dollarzeichens <code>$</code></h2>
 <p>Nur für Dataframes (nicht für Matrizen) empfiehlt sich die Verwendung des Dollarzeichens <code>$</code>. Dabei wird ganz einfach der Variablenname mit dem Dollarzeichen an den Datensatz angehängt.</p>
 <pre class="r"><code>df$alter</code></pre>
 <pre><code>## [1] 17 19 22 18 16 21</code></pre>
 <pre class="r"><code>df$wert_t1</code></pre>
 <pre><code>## [1] 8.0 6.0 7.5 6.8 8.0 6.4</code></pre>
-<p>Die Verwendung des Dollarzeichens ist weniger fehleranfällig, da wir den Namen der ausgewählten Variable (Spalte) explizit nennen müssen. Dabei hilft uns <code>RStudio</code>, indem es die Variablennamen automatisch vervollständigt. Unser Code wird durch Nennung der Variablennamen außerdem anschaulicher und verständlicher (zumindest, solange wir aussagekräftige Variablennamen verwenden).</p>
+<p>Die Verwendung des Dollarzeichens ist weniger fehleranfällig, da wir den Namen der ausgewählten Variable (Spalte) explizit nennen müssen. Dabei hilft uns <code>RStudio</code>, indem es die Variablennamen automatisch vorschlägt. Unser Code wird durch Nennung der Variablennamen außerdem anschaulicher und verständlicher (zumindest, solange wir aussagekräftige Variablennamen verwenden).</p>
 </div>
 <div id="auswählen-mit-logischen-vektoren-und-werten" class="section level2">
-<h2>3.3 Auswählen mit logischen Vektoren und Werten</h2>
+<h2>4.3 Auswählen mit logischen Vektoren und Werten</h2>
 <p>Neben der Identifizierung von Zeilen und Spalten können wir auch einzelne Werte innerhalb einer Spalte bzw. Variable auswählen. Häufig ist von Interesse, bei welchen Beobachtungen eine Variable einen bestimmten Wert annimmt. Wir können also beim Auswählen noch detaillierter vorgehen, als zuvor gezeigt. Und zwar können wir inhaltliche Information (die Merkmalsausprägungen) bei der Auswahl miteinbeziehen. Wenn uns besipielsweise interessiert, welche Probanden des Experiments der Experimentalgruppe angehören, gehen wir folgendermaßen vor.</p>
 <ol style="list-style-type: decimal">
 <li>Wir bilden einen logischen Vektor (Sitzung 1), der eine Aussage darüber trifft, für welche Beobachtungen unter &quot;bedingung&quot; ein &quot;E&quot; eingetragen wurde (technisch: Wann ist die Aussage, dass &quot;bedingung&quot; gleich &quot;E&quot; ist, wahr?).</li>
@@ -627,7 +639,7 @@ beispiel  # Zeilennummern nun von sieben bis 12</code></pre>
 <pre><code>##   identifikation bedingung geschlecht alter wert_t1 wert_t2
 ## 1              1         E          M    17     8.0     8.3
 ## 6              6         E          W    21     6.4     6.4</code></pre>
-<p>Wenn wir wissen wollten, welche Probanden der Experimentalgruppe männlich sind, formulieren wir genauso zwei Bedingungen:</p>
+<p>Wenn wir wissen wollen, welche Probanden der Experimentalgruppe männlich sind, formulieren wir genauso zwei Bedingungen:</p>
 <pre class="r"><code>df[df$bedingung == &quot;E&quot; &amp; df$geschlecht == &quot;M&quot;, ]</code></pre>
 <pre><code>##   identifikation bedingung geschlecht alter wert_t1 wert_t2
 ## 1              1         E          M    17       8     8.3
@@ -638,10 +650,10 @@ beispiel  # Zeilennummern nun von sieben bis 12</code></pre>
 <p>Auswählen von Zeilen, Spalten und Zellen kann informativen Zwecken dienen, jedoch wollen wir häufig einen Datensatz anhand bestimmter Auswahlkriterien zuschneiden. Genauer gesagt, wollen wir nun die Erstellung von Subsets behandeln.</p>
 </div>
 <div id="subsets-erstellen" class="section level2">
-<h2>3.4 Subsets erstellen</h2>
+<h2>4.4 Subsets erstellen</h2>
 <p>Die gute Nachricht vorweg: Das Anspruchsvollste beim Erstellen von Subsets (Teilmengen) ist das Auswählen von Elementen und das haben wir schon behandelt. Nun geht es lediglich darum, die so definierten Subsets als für sich genommene Objekte zu speichern. Auch das Erstellen neuer Objekte haben wir schon kennengelernt. Dazu verwenden wir den Operator <code>&lt;-</code> .</p>
 <div id="subsetten-mithilfe-logischer-vektoren" class="section level3">
-<h3>3.4.1 Subsetten mithilfe logischer Vektoren</h3>
+<h3>4.4.1 Subsetten mithilfe logischer Vektoren</h3>
 <p>Wenn wir also einen Teildatensatz erstellen möchten, der nur die Experimentalgruppe enthält, schreiben wir:</p>
 <pre class="r"><code>subset &lt;- df[df$bedingung == &quot;E&quot;, ]
 subset</code></pre>
@@ -687,7 +699,7 @@ subset</code></pre>
 ## 6              6          W    21</code></pre>
 </div>
 <div id="subset" class="section level3">
-<h3>3.4.2 <code>subset()</code></h3>
+<h3>4.4.2 <code>subset()</code></h3>
 <p>Eine zweite gute Nachricht: Wir können uns das aufwendige Subsetten mittels eckiger Klammern vereinfachen. base-<code>R</code> besitzt nämlich eine eigenständige Funktion zum Erstellen von Subsets mit der naheliegenden Bezeichnung <code>subset()</code>. <code>subset()</code> ermöglicht die Reduktion eines Datensatzes auf ausgewählte Zeilen mit dem Argument <code>subset</code> und auf bestimmte Variablen (Spalten) mit dem Argument <code>select</code>.</p>
 <pre class="r"><code>?subset</code></pre>
 <p>Wir verkürzen den Datensatz auf die Variable &quot;alter&quot;:</p>
@@ -728,7 +740,7 @@ subset</code></pre>
 </div>
 </div>
 <div id="faktoren" class="section level1">
-<h1>4. Faktoren</h1>
+<h1>5. Faktoren</h1>
 <p>Abschließend möchten wir mit den Faktoren einen wichtigen eindimensionalen Objekttyp behandeln. Das Besondere bei Faktoren ist, dass sie Labels verwenden. Mithilfe beschreibender Labels wird unsere Datenanalyse anschaulicher: Eine Variable, die die Labels &quot;klein&quot;, &quot;mittel&quot; und &quot;groß&quot; verwendet, ist intuitiv verständlicher als eine Variable, die anstatt dessen nur die Werte 1, 2 und 3 verwendet. Dadurch bekommen wir eine Beschreibung zu den Daten.</p>
 <p>Faktoren erstellen wir mit der Funktion <code>factor()</code>. Unser Faktor <code>x</code> soll einmal den Wert &quot;klein&quot;, zweimal den Wert &quot;mittel&quot; und dreimal den Wert &quot;groß&quot; beinhalten. Wir nutzen <code>c()</code> und zählen die Werte des Faktors auf.</p>
 <pre class="r"><code>x &lt;- factor(c(&quot;klein&quot;, &quot;mittel&quot;, &quot;mittel&quot;, &quot;groß&quot;, &quot;groß&quot;, &quot;groß&quot;))
@@ -744,7 +756,7 @@ x</code></pre>
 <pre class="r"><code>x</code></pre>
 <pre><code>## [1] klein  mittel mittel groß   groß   groß  
 ## Levels: groß klein mittel</code></pre>
-<p>Wenn wir den Output von <code>unclass(x)</code> und <code>x</code> vergleichen, stellen wir fest, dass &quot;klein&quot; der Wert 2, &quot;mittel&quot; der Wert 3 und &quot;groß&quot; der Wert 1 zugewiesen wurde. Das liegt daran, dass <code>R</code> sich bei der Zuordnung der Werte an der alphabetischen Reihung orientiert. Demnach käme erst G, dann M und dann K, was einer inhaltlich sinnvollen Ordnung unserer Levels widerspricht. Deshalb werden wir <code>x</code> nun so ordnen, dass &quot;klein&quot; &lt; &quot;mittel&quot; &lt; &quot;groß&quot;. Dazu verwenden wir das Argument <code>levels =</code> innerhalb der Funktion <code>factor()</code> und spezifizieren dort mithilfe der Funktion <code>c()</code> die Levels in der richtigen Ordnung.</p>
+<p>Wenn wir den Output von <code>unclass(x)</code> und <code>x</code> vergleichen, stellen wir fest, dass &quot;klein&quot; der Wert 2, &quot;mittel&quot; der Wert 3 und &quot;groß&quot; der Wert 1 zugewiesen wurde. Das liegt daran, dass <code>R</code> sich bei der Zuordnung der Werte an der alphabetischen Reihung orientiert. Demnach käme erst G, dann M und dann K, was einer inhaltlich sinnvollen Ordnung unserer Levels widerspricht. Deshalb werden wir <code>x</code> nun so ordnen, dass &quot;klein&quot; &lt; &quot;mittel&quot; &lt; &quot;groß&quot; ist. Dazu verwenden wir das Argument <code>levels =</code> innerhalb der Funktion <code>factor()</code> und spezifizieren dort mithilfe der Funktion <code>c()</code> die Levels in der richtigen Ordnung.</p>
 <pre class="r"><code>x &lt;- factor(c(&quot;klein&quot;, &quot;mittel&quot;, &quot;mittel&quot;, &quot;groß&quot;, &quot;groß&quot;, &quot;groß&quot;),
             levels = c(&quot;klein&quot;, &quot;mittel&quot;, &quot;groß&quot;))
 unclass(x)</code></pre>
@@ -774,13 +786,13 @@ df$geschlecht</code></pre>
 ## 6              6         E          W    21     6.4     6.4</code></pre>
 </div>
 <div id="zusammenfassung" class="section level1">
-<h1>4. Zusammenfassung</h1>
+<h1>6. Zusammenfassung</h1>
 <p>Matrizen und Dataframes sind nützliche zweidimensionale Objekte in <code>R</code>. Zeilen und Spalten müssen bei beiden Objekttypen jeweils gleich lang sein. Matrizen können wie Vektoren nur Elemente derselben Klasse beinhalten. In Dataframes können Variablen unterschiedlicher Klassen abgespeichert werden. Wissenschaftliche Datensätze liegen üblicherweise in Form von Dataframes vor. Wir können mehrdimensionale Objekte aus eindimensionalen Vektoren bilden, indem wir sie &quot;zusammenbinden&quot;. Elemente innerhalb von Matrizen und Dataframes können mit eckigen Klammern, Elemente von Dataframes mit dem Dollarzeichen sowie mit Vergleichen und logischen Operatoren ausgewählt werden. Anhand ausgewählter Objekte können Subsets mithilfe der klassischen Identifizierung oder der Funktion <code>subset()</code> gebildet werden. Faktoren stellen eine weitere Klasse eindimensionaler Objekte dar. Faktoren vergeben zugrunde liegenden Werten Labels.</p>
 </div>
 <div id="aufgaben" class="section level1">
-<h1>5. Aufgaben</h1>
+<h1>7. Aufgaben</h1>
 <ol style="list-style-type: decimal">
-<li>Erstellen Sie zwei Matrizen, die beliebige 12 Werte beinhalten: a) mit drei Zeilen und Spalte für Spalte mit Werten versehen; b) mit zwei Spalten und Zeile für Zeile mit Werten versehen. Schreiben Sie effizienten Code, indem Sie jeweils nur die notwendigen Argumente erwähnen.</li>
+<li>Erstellen Sie zwei Matrizen, die beliebige zwölf Werte beinhalten: a) mit drei Zeilen und Spalte für Spalte mit Werten versehen; b) mit zwei Spalten und Zeile für Zeile mit Werten versehen. Schreiben Sie effizienten Code, indem Sie jeweils nur die notwendigen Argumente erwähnen.</li>
 <li>Erstellen Sie einen character-Vektor &quot;p&quot;, der die Namen der im 19. Deutschen Bundestag vertretenen Parteien enthält. Ordnen Sie den Vektor nach dem Mandatsanteil der Parteien beginnend mit dem größten Anteil. Erstellen Sie außerdem einen numerischen Vektor &quot;a&quot;, der die Mandatsanteile (gerundet auf eine Nachkommastelle) der Parteien enthält. Orientieren Sie sich an der Ordnung von &quot;p&quot;. Erstellen Sie eine Matrix, indem Sie beide Vektoren als Spalten verbinden. Inspizieren Sie die erstellte Matrix. Information finden Sie hier: <a href="https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf" class="uri">https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf</a></li>
 <li>Wandeln Sie die unter 2. erstellte Matrix in einen Dataframe um. Prüfen Sie die Klasse der beiden Variablen des Dataframe. wandeln Sie sie ggf. in ein angemessenes Datenformat um. Geben Sie beiden Variablen sinnvolle Namen.</li>
 <li>Erstellen Sie Subsets für die folgenden potenziellen Koalitionen und speichern Sie sie in Objekten mit den angegbenen Namen: CDU/CSU-SPD -&gt; &quot;groko&quot;, CDU/CSU-FDP-Grüne -&gt; &quot;jamaika&quot;. Summieren Sie jeweils den Mandatsanteil der möglichen Koalitionen (Tipp: im Tutorial zu Sitzung 1 finden Sie die entsprechende Funktion für das Summieren).</li>
@@ -789,7 +801,7 @@ df$geschlecht</code></pre>
 </ol>
 </div>
 <div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
+<h1>8. Lösungen</h1>
 <ol style="list-style-type: decimal">
 <li></li>
 </ol>

@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 5: Univariate Maße</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 5: Univariate Maße</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,21 +371,24 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 5: Univariate Maße</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 5: Univariate Maße</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
 <p>Nachdem wir die Datensätze, mit denen wir in diesem Kurs arbeiten werden, in den vergangenen Sitzungen geladen und für unsere Analysen angepasst haben, wollen wir sie in dieser Sitzung näher kennenlernen. Um genau zu sein, werden wir Lage- und Streuungsmaße der Variablen berechnen, die wir in der letzten Sitzung erstellt haben. So verschaffen wir uns einen Eindruck von deren Verteilung. Wir werden zunächst Lagemaße mit <code>R</code> berechnen und daraufhin zu Streuungsmaßen wechseln.</p>
 <div id="datensätze-laden-und-umkodieren" class="section level1">
 <h1>1. Datensätze laden und umkodieren</h1>
 <p>Damit wir mit unseren Datensätzen und den darin enthaltenen Variablen arbeiten können, müssen wir sie wie immer zuerst laden.</p>
-<pre class="r"><code>getwd()
-setwd(&quot;eigener Pfad&quot;)
-library(foreign)
+<pre class="r"><code>library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
-<p>Wir müssen sie außerdem so umkodieren, wie in der letzten Sitzung gezeigt. Weil wir den Workspace und damit die Veränderungen an den Datensätzen nicht gespeichert haben (vgl. Sitzung 1), müssen die Datenmanipulationen der vergangenen Sitzung wiederholt werden. Zum Glück haben wir den Code in Form eines Skripts gespeichert und müssen ihn nicht erneut schreiben, sondern können ihn in das Skript dieser Sitzung kopieren.</p>
+<p>Wir müssen sie außerdem so umkodieren, wie in der letzten Sitzung gezeigt. Die Datenmanipulationen der vergangenen Sitzung müssen wiederholt werden, weil wir den Workspace und damit die Veränderungen an den Datensätzen nicht gespeichert haben (vgl. Sitzung 1). Zum Glück haben wir den Code in Form eines Skripts gespeichert und müssen ihn nicht erneut schreiben, sondern können ihn in das Skript dieser Sitzung kopieren.</p>
 <pre class="r"><code># GLES
 # Alter
 q2c_num &lt;- as.numeric(as.character(gles$q2c))
@@ -481,18 +488,18 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <h2>2.1 arithmetisches Mittel</h2>
 <p>Das arithmetische Mittel (&quot;Mittelwert&quot;, &quot;Durchschnitt&quot;) summiert die Merkmalsausprägung jeder Beobachtung und teilt die Summe durch die Fallzahl:</p>
 <p><span class="math inline">\(\frac1n\sum_{i=1}^n(x_i)\)</span>.</p>
-<p>In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (&quot;rm&quot; für &quot;remove&quot;), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
+<p>In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. Im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (&quot;rm&quot; für &quot;remove&quot;), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
 <p>Das mittlere Alter der Befragten der GLES liegt bei</p>
 <pre class="r"><code>mean(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 50.15396</code></pre>
-<p>50 Jahren. Die mittlere subjektive politische Position auf der Links-Rechts-Achse liegt in unserem Sample bei</p>
+<p>etwa 50 Jahren. Die mittlere subjektive politische Position auf der Links-Rechts-Achse liegt in unserem Sample bei</p>
 <pre class="r"><code>round(mean(gles$LiRe, na.rm = TRUE), digits = 1)</code></pre>
 <pre><code>## [1] 5.2</code></pre>
 <p>etwa 5,2 und damit leicht links der Skalenmitte (6). Wir runden hier auf die erste Nachkommastelle mit der Funktion <code>round(x, digits = 1)</code>. Wollten wir mehr Nachkommastellen ausgeben lassen, müssten wir das Argument <code>digits</code> auf einen höheren Wert setzen.</p>
 </div>
 <div id="median" class="section level2">
 <h2>2.2 Median</h2>
-<p>Der Median ist der mittlere Wert einer Verteilung wenn diese der Größe nach sortiert ist und teilt die Beobachtungen in gleiche &quot;Hälften&quot;. Bei gerader Fallzahl wird das arithmetische Mittel der beiden mittleren Werte berechnet. In <code>R</code> lässt sich der Median mit <code>median()</code> berechnen.</p>
+<p>Der Median ist der mittlere Wert einer Verteilung, wenn diese der Größe nach sortiert ist und teilt die Beobachtungen in gleiche &quot;Hälften&quot;. Bei gerader Fallzahl wird das arithmetische Mittel der beiden mittleren Werte berechnet. In <code>R</code> lässt sich der Median mit <code>median()</code> berechnen.</p>
 <pre class="r"><code>median(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 51</code></pre>
 <pre class="r"><code>median(gles$alter[1:100], na.rm = TRUE)</code></pre>
@@ -548,7 +555,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>summary(gles$alter)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##   16.00   34.00   51.00   50.15   65.00   95.00       1</code></pre>
-<p>In der vergangenen Sitzung haben wir herausgefunden, dass eine Person bei der Frage nach ihrem Geburtsdatum keine Angabe abgab. Diese Person erscheint hier als fehlender Wert.</p>
+<p>In der vergangenen Sitzung haben wir herausgefunden, dass eine Person bei der Frage nach ihrem Geburtsdatum keine Angabe gemacht hat. Diese Person erscheint hier als fehlender Wert.</p>
 </div>
 </div>
 <div id="streuungsmaße" class="section level1">
@@ -567,7 +574,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <p>Der Quartilsabstand (&quot;interquartile range&quot;, IQR) ist die Spanne zwischen dem ersten und dritten Quartil und ein übliches Maß, da sich die Streuung der gesamten Verteilung recht gut anhand der Streuung der mittleren 50% der Verteilung einschätzen lässt.</p>
 <pre class="r"><code>IQR(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 31</code></pre>
-<p>Die Person, die älter ist als die jüngsten 25% aller Befragten ist 31 Jahre jünger als die Person, die älter ist als 75% der Befragten.</p>
+<p>Die Person, die älter ist als die jüngsten 25% aller Befragten, ist 31 Jahre jünger als die Person, die älter ist als 75% der Befragten.</p>
 </div>
 <div id="varianz" class="section level2">
 <h2>3.3 Varianz</h2>
@@ -607,7 +614,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="zusammenfassung" class="section level1">
 <h1>4. Zusammenfassung</h1>
-<p>Lagemaße zeigen die zentrale Tendenz, Streuungsmaße die Unterschiedlichkeit einer Verteilung. Die meißten univariaten Kennzahlen liegen als einfach zu handhabende Funktionen in <code>R</code> vor. Das arithmetische Mittel wird mit <code>mean()</code>, der Median mit <code>median()</code>, Quantile mit <code>quantile()</code>, eine Zusammenfassung von Lagemaßen mit <code>summary()</code>, der Quartilsabstand mit <code>IQR()</code>, die Varianz mit <code>var()</code> und die Standardabweichung mit <code>sd()</code> berechnet. In der Regel müssen dabei <code>NA</code>s mit <code>na.rm = TRUE</code> ausgeschlossen werden. <code>var()</code> errechnet die Populationsvarianz, sodass bei kleineren Stichproben auf die Stichprobenvarianz zurückgegriffen werden sollte.</p>
+<p>Lagemaße zeigen die zentrale Tendenz, Streuungsmaße die Unterschiedlichkeit einer Verteilung. Die meisten univariaten Kennzahlen liegen als einfach zu handhabende Funktionen in <code>R</code> vor. Das arithmetische Mittel wird mit <code>mean()</code>, der Median mit <code>median()</code>, Quantile mit <code>quantile()</code>, eine Zusammenfassung von Lagemaßen mit <code>summary()</code>, der Quartilsabstand mit <code>IQR()</code>, die Varianz mit <code>var()</code> und die Standardabweichung mit <code>sd()</code> berechnet. In der Regel müssen dabei <code>NA</code>s mit <code>na.rm = TRUE</code> ausgeschlossen werden. <code>var()</code> errechnet die Populationsvarianz, sodass bei kleineren Stichproben auf die Stichprobenvarianz zurückgegriffen werden sollte.</p>
 </div>
 <div id="aufgaben" class="section level1">
 <h1>5. Aufgaben</h1>
@@ -670,10 +677,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre><code>## [1] 3.731736</code></pre>
 <pre class="r"><code>sd(gles$LiRe, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 1.93177</code></pre>
-<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 979.3046</code></pre>
-<pre class="r"><code>sd(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 31.29384</code></pre>
+<pre class="r"><code>var(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 37.6197</code></pre>
+<pre class="r"><code>sd(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 6.13349</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li></li>
 </ol>

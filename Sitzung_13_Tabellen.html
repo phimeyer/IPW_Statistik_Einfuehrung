@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 13: Regressionstabellen</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 13: Visualisierung (3): Übersichtliche Regressionstabellen</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,23 +371,26 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 13: Regressionstabellen</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 13: Visualisierung (3): Übersichtliche Regressionstabellen</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
-<p>In diesem letzten Tutorial werden wir lernen, wie man übersichtliche Regressionstabellen erstellt und sich im R-Output anzeigen lässt. Hierfür verwenden wir das Paket <code>stargazer</code>, dessen Output so gestaltet ist, dass es dem von wissenschaftlichen Tabellen sehr nahe kommt. <code>stargazer</code> erlaubt einen Output im Form von <em>Text</em>, welcher dann als gut lesbare Tabelle in der Console angezeigt wird, aber in Form von <em>html</em>-Code und <em>LateX</em>-Code.</p>
+<p>In diesem letzten Tutorial werden wir lernen, wie man übersichtliche Regressionstabellen erstellt und sich im R-Output anzeigen lässt. Hierfür verwenden wir das Paket <code>stargazer</code>, dessen Output so gestaltet ist, dass es dem von wissenschaftlichen Tabellen sehr nahe kommt. <code>stargazer</code> erlaubt einen Output in Form von <em>Text</em>, welcher dann als gut lesbare Tabelle in der Console angezeigt wird, aber in Form von <em>html</em>-Code und <em>LateX</em>-Code.</p>
 </div>
 <div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
 <h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
 <p>Wir werden den Lijphart-Datensatz verwenden und anhand der in Sitzungen 8 und 10 besprochenen OLS-Regression die Erstellung von Regressionstabellen diskutieren. Zuerst werden wir, wie immer, die nötigen Pakete und Daten laden und einige Variablen umkodieren.</p>
 <pre class="r"><code># Pakete laden
 library(stargazer) # falls Sie dieses Paket noch nicht installiert haben, führen Sie bite vorher install.packages(&quot;stargazer&quot;) aus</code></pre>
-<pre class="r"><code>getwd()
-setwd(&quot;eigener Pfad&quot;)
-library(foreign)
+<pre class="r"><code>library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <pre class="r"><code># Lijphart
@@ -410,7 +417,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
                   + exe_dom4510 
                   + minwin_one_part4510
                   , data = lijphart)</code></pre>
-<p>Wir nutzen <code>summary()</code> um die Ergebnisse in der Standardausgabe von <code>R</code> anzeigen zu lassen.</p>
+<p>Wir nutzen <code>summary()</code>, um die Ergebnisse in der Standardausgabe von <code>R</code> anzeigen zu lassen.</p>
 <pre class="r"><code>summary(lm_lijphart)</code></pre>
 <pre><code>## 
 ## Call:
@@ -436,7 +443,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="übersichtliche-tabellen-mit-stargazer" class="section level1">
 <h1>4. Übersichtliche Tabellen mit <code>stargazer</code></h1>
-<p>Zunächst verwenden wir die Funktion <code>stargazer()</code> und lassen uns einen ersten Output für das Objekts <code>lm_lijphart</code> ausgeben. Bitte beachten Sie, dass wir das Argument <code>type = &quot;text&quot;</code> hinzufügen. Dieses Argument definiert, dass wir eine direkt les- und interpretierbare Ausgabe in der Console erhalten.</p>
+<p>Zunächst verwenden wir die Funktion <code>stargazer()</code> und lassen uns einen ersten Output für das Objekt <code>lm_lijphart</code> ausgeben. Bitte beachten Sie, dass wir das Argument <code>type = &quot;text&quot;</code> hinzufügen. Dieses Argument definiert, dass wir eine direkt les- und interpretierbare Ausgabe in der Console erhalten.</p>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;)</code></pre>
 <pre><code>## 
 ## ===============================================
@@ -494,7 +501,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;latex&quot;)</code></pre>
 <pre><code>## 
 ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Mi, Jul 14, 2021 - 15:17:20
+## % Date and time: Di, Aug 24, 2021 - 09:33:31
 ## \begin{table}[!htbp] \centering 
 ##   \caption{} 
 ##   \label{} 
@@ -529,8 +536,8 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## \end{tabular} 
 ## \end{table}</code></pre>
 <p>Zur besseren Darstellung werden wir in den folgenden Schritten die <code>type</code>-Option bei <code>= &quot;text&quot;</code> belassen.</p>
-<div id="tabellen-modifizieren" class="section level3">
-<h3>4.1. Tabellen modifizieren</h3>
+<div id="tabellen-modifizieren" class="section level2">
+<h2>4.1 Tabellen modifizieren</h2>
 <p>Das <code>stargazer</code>-Paket erlaubt sehr viele kleinere und größere Modifikationen. Die wichtigsten sind sicherlich die Veränderung der Variablennamen. Zur Erinnerung hier noch einmal der nicht-modifizierte <code>stargazer</code>-Output:</p>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;)</code></pre>
 <pre><code>## 
@@ -559,8 +566,8 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## F Statistic           34.858*** (df = 3; 32)   
 ## ===============================================
 ## Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-<div id="beschriftungen" class="section level4">
-<h4>4.1.1. Beschriftungen</h4>
+<div id="beschriftungen" class="section level3">
+<h3>4.1.1 Beschriftungen</h3>
 <p>Wir können in <code>stargazer</code> einen Tabellentitel hinzufügen und alle Variablen mit konkreten Beschriftungen versehen. Hierbei ist es ganz besonders wichtig, dass Sie genau wissen, in welcher Reihenfolge Sie Ihre Variablen in das Modell eingeben haben. Stargazer kontrolliert nicht (das kann es auch gar nicht), ob die Variablennamen der unabhängigen Variablen inhaltlich übereinstimmen. In unserem Modell ist die Reihenfolge der unabhängigen Variablen wie folgt: <code>disprop4510</code> + <code>exe_dom4510</code> + <code>minwin_one_part4510</code></p>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;, 
           title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
@@ -595,7 +602,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## F Statistic             34.858*** (df = 3; 32)    
 ## ==================================================
 ## Note:                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-<p>Natürlich kann Stargazer auch mehrere Regressionmodelle handhaben. Das ist wichtig, um Modellvergleiche zu veranschaulichen, weil Bestimmtheitsmaße und F-Statistik jeweils unterhalb der Modelle gegenübergestellt werden. Um das zu demonstrieren, rechnen wir jetzt beispielhaft ein zweites Modell, in welchem wir die Variable bezüglich des Bikameralismus (<strong>bicam4510</strong>) hinzufügen. Dieses zweite Modell wird in dem Objekt <code>lm_lijphart_2</code> gespeichert.</p>
+<p>Natürlich kann Stargazer auch mehrere Regressionsmodelle handhaben. Das ist wichtig, um Modellvergleiche zu veranschaulichen, weil Bestimmtheitsmaße und F-Statistik jeweils unterhalb der Modelle gegenübergestellt werden. Um das zu demonstrieren, rechnen wir jetzt beispielhaft ein zweites Modell, in welchem wir die Variable bezüglich des Bikameralismus (<strong>bicam4510</strong>) hinzufügen. Dieses zweite Modell wird in dem Objekt <code>lm_lijphart_2</code> gespeichert.</p>
 <pre class="r"><code>lm_lijphart_2 &lt;- lm(enpp4510 ~ disprop4510
                   + exe_dom4510 
                   + minwin_one_part4510
@@ -682,9 +689,9 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## =================================================================
 ## Note:                                 *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
-<div id="statistiken-und-weitere-informationen-hinzufügen" class="section level4">
-<h4>4.1.2. Statistiken und weitere Informationen hinzufügen</h4>
-<p>Haben wir ein Modell, welches beispielsweise mittels <em>fixed effects</em> berechnet wurde, dann können wir diese zusätzliche Information ebenfalls in in unserem Output darstellen. Hierfür nutzen wir ganz einfach die <code>add.lines</code>-Option und modifizieren unsere Tabelle. Die Reihenfolge in der wir unsere Modelle eingeben, bestimmt die Reihenfolge in der wir unsere zusätzlichen Informationen eingeben (ähnlich wie bei der Beschriftung der unabhängigen Variablen). Für unser Beispiel bestimmen wir, dass das zweite Modell mit <em>fixed effects</em> gerechnet wurde (<strong>obwohl das nicht stimmt</strong>, sondern lediglich Anschauungszwecken dient).</p>
+<div id="statistiken-und-weitere-informationen-hinzufügen" class="section level3">
+<h3>4.1.2 Statistiken und weitere Informationen hinzufügen</h3>
+<p>Haben wir ein Modell, welches beispielsweise mittels <em>fixed effects</em> berechnet wurde, dann können wir diese zusätzliche Information ebenfalls in unserem Output darstellen. Hierfür nutzen wir ganz einfach die <code>add.lines</code>-Option und modifizieren unsere Tabelle. Die Reihenfolge in der wir unsere Modelle eingeben, bestimmt die Reihenfolge in der wir unsere zusätzlichen Informationen eingeben (ähnlich wie bei der Beschriftung der unabhängigen Variablen). Für unser Beispiel bestimmen wir, dass das zweite Modell mit <em>fixed effects</em> gerechnet wurde (<strong>obwohl das nicht stimmt</strong>, sondern lediglich Anschauungszwecken dient).</p>
 <p>Um die <code>add.lines</code>-Option noch etwas mehr auszureizen, fügen wir eine Zeile hinzu.</p>
 <pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
           , type = &quot;text&quot;, 
@@ -730,7 +737,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## F Statistic                       34.858*** (df = 3; 32) 27.188*** (df = 4; 31)
 ## ===============================================================================
 ## Note:                                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-<p>Standardfehler werden standardmäßig von <code>stargazer</code> berichtet. Wollen wir uns stattdessen die Konfidenzintervalle anzeigen lassen, nutzen wir das (logische) <code>ci</code>-Argument.</p>
+<p>Standardfehler werden von <code>stargazer</code> berichtet. Wollen wir uns stattdessen die Konfidenzintervalle anzeigen lassen, nutzen wir das (logische) <code>ci</code>-Argument.</p>
 <pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
           , type = &quot;text&quot;, ci = TRUE,
           title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
@@ -775,7 +782,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## F Statistic                       34.858*** (df = 3; 32) 27.188*** (df = 4; 31)
 ## ===============================================================================
 ## Note:                                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-<p>Zusätzlich können wir mit <code>omit.stat</code> bestimmen welche der deskriptiven Statistiken nicht angezeigt werden sollen.</p>
+<p>Zusätzlich können wir mit <code>omit.stat</code> bestimmen, welche der deskriptiven Statistiken nicht angezeigt werden sollen.</p>
 <pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
           , type = &quot;text&quot;, omit.stat = c(&quot;rsq&quot;, &quot;f&quot;),
           title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
@@ -864,11 +871,11 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## ===================================================================
 ## Note:                             *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01      
 ##                                   Das sieht doch wirklich gut aus!</code></pre>
-<p>Wie Sie unschwer erkennen können, sind die Modifikationsoptionen bei <code>stargazer</code> sehr umfangreich. So könnten wir uns z.B. auch robuste Standardfehler anzeigen lassen und vieles weitere mehr. Da das aber den Rahmen dieses Tutorials sprengen würde, bleibt uns nur der Hinweis, dass Sie über eine <em>google</em>-Suche sehr viele hilfreiche Tipps und Tricks finden können.</p>
+<p>Wie Sie unschwer erkennen können, sind die Modifikationsoptionen bei <code>stargazer</code> sehr umfangreich. So könnten wir uns z.B. auch robuste Standardfehler anzeigen lassen und vieles Weitere mehr. Da das aber den Rahmen dieses Tutorials sprengen würde, bleibt uns nur der Hinweis, dass Sie über eine <em>google</em>-Suche sehr viele hilfreiche Tipps und Tricks finden können.</p>
 </div>
 </div>
-<div id="tabellenausgaben-speichern" class="section level3">
-<h3>4.2. Tabellenausgaben speichern</h3>
+<div id="tabellenausgaben-speichern" class="section level2">
+<h2>4.2 Tabellenausgaben speichern</h2>
 <p><code>stargazer</code>-Tabellen lassen sich problemlos als <em>html</em> oder als <em>tex</em> (<em>LateX</em>) Dateien speichern. Hierfür verwenden wir das <code>out</code>-Argument und definieren gleichzeitig den Namen der Datei. In unserem Beispiel wollen wir eine html-Datei mit dem Namen <code>&quot;lijphart-regression.htm&quot;</code> speichern (html-Dateien werden standardmäßig über Ihren jeweiligen Browser geöffnet).</p>
 <pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
           , type = &quot;text&quot;, omit.stat = c(&quot;rsq&quot;, &quot;f&quot;),
@@ -883,26 +890,25 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
           notes.align = &quot;l&quot;, 
           out = &quot;lijphart-regression.htm&quot;
           )</code></pre>
-<p>Dieser Schritt ist natürlich nur wirklich hilfreich, wenn Sie entweder mit LateX arbeiten oder Ihre Eregbnisse auf einer Internetseite bzw. für eine Präsentation speichern wollen. Für eine Hausarbeit z.B. ist es einfacher den einfachen <em>text</em>-Output mittels Copy-and-Paste in eine Word-Tabelle zu übertragen!</p>
+<p>Dieser Schritt ist natürlich nur wirklich hilfreich, wenn Sie entweder mit LateX arbeiten oder Ihre Ergebnisse auf einer Internetseite bzw. für eine Präsentation speichern wollen. Für eine Hausarbeit z.B. ist es einfacher den <em>text</em>-Output mittels Copy-and-Paste in eine Word-Tabelle zu übertragen!</p>
 </div>
+</div>
+<div id="zusammenfassung" class="section level1">
+<h1>5. Zusammenfassung</h1>
+<p>Oft stehen wir vor dem Problem, dass die Ergebnisse z.B. einer Regressionsanalyse von <code>R</code> nicht übersichtlich dargestellt werden. Die klassische <code>summary()</code>-Funktion ist hier ein sehr gutes Beispiel. Das <code>stargazer</code>-Paket, welches in diesem Tutorial vorgestellt wurde, bietet hier eine sehr effiziente und zeitsparende Möglichkeit Regressionsanalysen in einer übersichtlichen und leicht verständlichen Tabellenform darzustellen. Weiterhin können die Ergebnisstabellen mittels verschiedener Argumente (z.B. notes =, omit.stat =, title =, u.s.w.) individuell angepasst werden.</p>
 </div>
 <div id="aufgaben" class="section level1">
-<h1>5. Aufgaben</h1>
-<p>Bearbeiten Sie bitte die folgenden Aufgaben:</p>
-<ol style="list-style-type: decimal">
-<li>Erstellen Sie eine Regressiontabelle mit <code>stargazer</code> für das binäre logistische Regressionsmodell aus Sitzung 11. Beschriften Sie die Variablen und lassen Sie sich die Konfidenzintervalle ausgeben.</li>
-</ol>
+<h1>6. Aufgaben</h1>
+<p>Bearbeiten Sie bitte die folgende Aufgabe:</p>
+<p>Erstellen Sie eine Regressionstabelle mit <code>stargazer</code> für das binäre logistische Regressionsmodell aus Sitzung 11. Beschriften Sie die Variablen und lassen Sie sich die Konfidenzintervalle ausgeben.</p>
 </div>
 <div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
-<pre class="r"><code># Aufgabe 1
-
-# GLES Daten einlesen und transformieren
-#gles &lt;- read.spss(&quot;/Users/christophgarwe/Seafile/Lehrstuhl/Lehrstuhl Hannover Forschung/Forschung/01 Hönnige/025 MWK_StatistikR/Daten/ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
-gles &lt;- read.spss(&quot;/Users/PhMeyer/Seafile/Seafile/Lehrstuhl/Lehrstuhl Hannover Forschung/Forschung/01 Hönnige/025 MWK_StatistikR/Daten/ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
-
-
-# Alter
+<h1>7. Lösungen</h1>
+<pre class="r"><code># GLES Daten einlesen und transformieren
+library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre class="r"><code># Alter
 q2c_num &lt;- as.numeric(as.character(gles$q2c))
 gles$alter &lt;- 2017 - q2c_num
 

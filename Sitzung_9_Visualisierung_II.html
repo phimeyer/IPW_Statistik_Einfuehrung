@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 9: Visualisierungen von Zusammenhängen</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 9: Visualisierung (2): Zusammenhangsmaße</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,11 +371,16 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 9: Visualisierungen von Zusammenhängen</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 9: Visualisierung (2): Zusammenhangsmaße</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
 <p>In unserem letzten Tutorial haben wir uns mit der bivariaten linearen Regression beschäftigt und den Zusammenhang zwischen effektiver Parteienanzahl und Wahlsystemdisproportionalität untersucht. Zusätzlich haben wir bereits eine einfache Visualiserung der Residuen realisiert.</p>
@@ -405,11 +414,11 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="visualisierung-von-zusammenhängen" class="section level1">
 <h1>3. Visualisierung von Zusammenhängen</h1>
-<p>Zusammenhänge lassen sich mit vielen unterschiedlichen Graphen präsentieren. Zwei dieser Möglichkeiten werden wir im folgenden besprechen: Streudiagramme und Linienplots.</p>
+<p>Zusammenhänge lassen sich mit vielen unterschiedlichen Graphen präsentieren. Zwei dieser Möglichkeiten werden wir im Folgenden besprechen: Streudiagramme und Linienplots.</p>
 <p>Wie bereits in Sitzung 6 werden wir unsere Visualisierungen mit dem <code>ggplot2</code>-Paket realisieren. Für die Darstellung von Zusammenhängen werden wir vor allem die <code>ggplot()</code>-Funktion und <code>geom_point()</code> verwenden.</p>
-<p>Wie bereits oben erwähnt werden wir unsere Visualisierungen mit den Variablen <em>enpp4510</em> und <em>disprop4510</em> durchführen.</p>
+<p>Wie bereits oben erwähnt, werden wir unsere Visualisierungen mit den Variablen <em>enpp4510</em> und <em>disprop4510</em> durchführen.</p>
 <div id="streudiagramme" class="section level2">
-<h2>3.1. Streudiagramme</h2>
+<h2>3.1 Streudiagramme</h2>
 <p>Wollen wir den Zusammenhang zwischen der effektiven Parteienanzahl und der Wahlsystemdisproportionalität darstellen, dann bietet sich ein Streudiagramm an. Hierfür verwenden wir die Funktion <code>geom_point()</code>.</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point()</code></pre>
@@ -421,8 +430,8 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="linienplots" class="section level2">
-<h2>3.2. Linienplots</h2>
-<p>Die Aussagekraft lässt sich noch erweitern, wenn wir eine Regressionslinie hinzufügen. Zur kurzen Erinnerung: in Sitzung 8 haben wir eine bivariate Regression zwischen der ENPP und dem Gallagher-Index gerechnet und herausgefunden, dass beide Variablen signifikant negativ zusammenhängen. Um das auch grafisch darzustellen, nutzen wir die Funktion <code>geom_smooth()</code> und bestimmen mit <code>method = lm</code>, dass wir eine lineare Regressionsgerade visualisieren wollen.</p>
+<h2>3.2 Linienplots</h2>
+<p>Die Aussagekraft lässt sich noch erweitern, wenn wir eine Regressionslinie hinzufügen. Zur kurzen Erinnerung: In Sitzung 8 haben wir eine bivariate Regression zwischen der ENPP und dem Gallagher-Index gerechnet und herausgefunden, dass beide Variablen signifikant negativ zusammenhängen. Um das auch grafisch darzustellen, nutzen wir die Funktion <code>geom_smooth()</code> und bestimmen mit <code>method = lm</code>, dass wir eine lineare Regressionsgerade visualisieren wollen.</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point() +
   geom_smooth(method = lm)</code></pre>
@@ -442,9 +451,9 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="graphen-verändern" class="section level1">
 <h1>4. Graphen verändern</h1>
-<p>Wollen wir das Aussehen unserer Graphen verändern, dann bietet uns <code>ggplot2</code> nahezu unendlich viele Möglichkeiten.</p>
-<div id="beschriftungen" class="section level3">
-<h3>4.1. Beschriftungen</h3>
+<p>Wollen wir das Aussehen unserer Graphen verändern, dann bietet uns <code>ggplot2</code> nahezu unendlich viele Möglichkeiten. Einige davon werden in den folgenden Unterkapitels präsentiert, andere findet ihr natürlich mittels der help-Funktion <code>?</code> oder aber über die <a href="https://ggplot2.tidyverse.org/">ggplot2-Homepage</a>.</p>
+<div id="beschriftungen" class="section level2">
+<h2>4.1 Beschriftungen</h2>
 <p><code>ggplot2</code> macht die Benennung eines Graphen sehr einfach. Hierfür verwenden wir die Funktion <code>labs()</code> und setzen unsere gewünschte Beschriftung in Anführungszeichen:</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point() +
@@ -454,8 +463,8 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
         x =&quot;Effektive Parteienanzahl&quot;, y = &quot;Disproportionalität von Wahlsystemen&quot;)</code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
-<div id="hintergrund-themes" class="section level3">
-<h3>4.2. Hintergrund-Themes</h3>
+<div id="hintergrund-themes" class="section level2">
+<h2>4.2 Hintergrund-Themes</h2>
 <p><code>ggplot2</code> bietet unterschiedliche Hintergrund-Themes an. Zusätzlich bietet das Paket <code>ggthemes</code> weitere Möglichkeiten. Die folgende Tabelle bietet einen kleinen Überblick über mögliche Themes.</p>
 <table>
 <thead>
@@ -528,8 +537,8 @@ ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   theme_economist() </code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 </div>
-<div id="farben" class="section level3">
-<h3>4.3. Farben</h3>
+<div id="farben" class="section level2">
+<h2>4.3 Farben</h2>
 <p>Wenn wir die Farben der Datenpunkte verändern wollen, dann müssen wir lediglich das Argument <code>color</code> in die <code>geom_point()</code> Funktion einbauen. Gleiches gilt für die Form der Punkte, wobei wir hier das Argument <code>shape</code> verwenden (die einzelnen Formen können über die Ziffern 1-20 ausgewählt werden):</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
@@ -552,9 +561,9 @@ ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   theme_minimal()</code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
-<div id="einen-plot-speichern" class="section level3">
-<h3>4.4. Einen Plot speichern</h3>
-<p>Wenn wir einen Plot haben, den wir speichern möchten, können wir die Funktion <code>ggsave()</code> verwenden. Die Benennung der Datei bestimmen wir, indem wir Anführungszeichen verwenden. Beachten Sie, dass damit nur die zuletzt erstellte Darstellung gespeichert wird.</p>
+<div id="einen-plot-speichern" class="section level2">
+<h2>4.4 Einen Plot speichern</h2>
+<p>Wenn wir einen Plot erstellt haben, den wir speichern möchten, können wir die Funktion <code>ggsave()</code> verwenden. Die Benennung der Datei bestimmen wir, indem wir Anführungszeichen verwenden. Beachten Sie, dass damit nur die zuletzt erstellte Darstellung gespeichert wird.</p>
 <pre class="r"><code>ggsave(&quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
 <p>Die Abbildung wird in Ihrem Arbeitsverzeichnis gespeichert. Der Dateityp .png kann durch ein beliebiges Format (z.B. .jpg) ersetzt werden.</p>
 <p>Haben wir unsere Abbildungen in einem Objekt gespeichert, können wir die Graphen speichern, indem wir den Objektnamen vor dem Dateinamen angeben. Dieses Vorgehen hat vor allem bei vielen Graphen Vorteile, da wir so effizient einzelne Visualisierungen ansteuern können.</p>
@@ -577,19 +586,24 @@ ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
 <pre class="r"><code>ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;, width = 4, height = 4)</code></pre>
 </div>
 </div>
+<div id="zusammenfassung" class="section level1">
+<h1>5. Zusammenfassung</h1>
+<p>Das <code>ggplot2</code>-Paket gibt uns eine Vielzahl an unterschiedlichen Möglichkeiten zur Visualisierung von Daten und Analyseergebnissen. In diesem Tutorial haben wir neben dem visualisieren von Linienplots und Streudiagrammen vor allem gelernt, wie wir das Erscheinungsbild unserer Plots (Farben, Achsenbeschriftungen, Hintergrund) verändern können.</p>
+<p>Wenn Sie eigene Grafiken im Rahmen einer Hausarbeit erstellen möchten, werden Sie zusätzliche Funktionen und Argumente recherchieren müssen. Dazu sei auf <code>?ggplot</code> und die Hilfefunktion zu einzelnen (Geom-)Funktionen, sowie auf <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a> und das dort verfügbare &quot;Cheatsheet&quot; hingewiesen.</p>
+</div>
 <div id="aufgaben" class="section level1">
-<h1>5. Aufgaben</h1>
+<h1>6. Aufgaben</h1>
 <p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
 <ol style="list-style-type: decimal">
 <li>Repliziert Sie alle hier gezeigten Graphen mit den Variablen Kabinettstyp - <strong>bicam4510</strong> - und Regierungsdauer - <strong>exe_dom4510</strong>.</li>
 <li>Erstellten Sie einen Graphen mit einer Loess-Linie anstelle einer Regressionsgeraden.</li>
-<li>Verwendet andere Hintergrund-Themes als die gezeigten.</li>
+<li>Verwenden Sie andere Hintergrund-Themes als die gezeigten.</li>
 <li>Finden Sie heraus, wie Sie die Skalierung der x-Achse und y-Achse verändern und wenden Sie das neue Wissen an einem Ihrer Graphen an.</li>
 <li>Speichern Sie einen Graphen als .jpg und einen als .pdf.</li>
 </ol>
 </div>
 <div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
+<h1>7. Lösungen</h1>
 <pre class="r"><code># Aufgabe 1: Graphen mit neuen Variablen replizieren
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
@@ -711,10 +725,10 @@ Bicam_Exe &lt;- ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   theme_minimal()
 
 # JPG
-#ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.jpg&quot;, width = 4, height = 4)
+ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.jpg&quot;, width = 4, height = 4)
 
 # PDF
-#ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.pdf&quot;, width = 4, height = 4)</code></pre>
+ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.pdf&quot;, width = 4, height = 4)</code></pre>
 </div>
 
 

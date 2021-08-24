@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 1: Grundlagen</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 1: Einleitung und Grundlagen von R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,14 +371,19 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 1: Grundlagen</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 1: Einleitung und Grundlagen von <code>R</code></h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
 <div id="herzlich-wilkommen" class="section level1">
 <h1>Herzlich Wilkommen!</h1>
-<p>Herzlich willkommen zu dieser Einführung in die politikwissenschaftlichen Methoden mit <code>R</code>! In dieser ersten Sitzung werden wir:</p>
+<p>Herzlich willkommen zu dieser Einführung in die politikwissenschaftlichen Statistik mit <code>R</code>! In dieser ersten Sitzung werden wir:</p>
 <ol style="list-style-type: decimal">
 <li>das Programm kennenlernen</li>
 <li>herausfinden, wie man es installiert und bedient</li>
@@ -384,23 +393,23 @@ div.tocify {
 </div>
 <div id="warum-r" class="section level1">
 <h1>1. Warum <code>R</code>?</h1>
-<p><code>R</code> ist ein leistungsstarkes Programm zur statistischen Datenanalyse, das in wissenschaftlichen Anwendungen heute weit verbreitet ist. Sein besonderer Vorteil im Vergleich zu anderen Standardprogrammen liegt in seiner Flexibilität. Diese erhält es zum einen durch seine Paketstruktur. Unterschiedliche sog. Pakete (englisch <code>packages</code>) sind speziell für bestimmte Anwendungen entworfen worden. Sie werden immer nur dann geladen, wenn man sie benötigt. Zu so ziemlich jedem Zweck, den man sich vorstellen kann, liegen zwischenzeitlich <code>R</code>-Pakete vor. Flexibilität verleiht ihm außerdem seine Programiersprache. Um genau zu sein, ist <code>R</code> eigentlich eine (Statistik-)Programmiersprache, kein Statistikprogramm. Herkömmliche Statistikprogramme beinhalten immer nur begrenzte Anwendungsmöglichkeiten, die durch die Entwicklerfirma vorgegeben sind. Im Gegensatz dazu gewährt <code>R</code> prinzipiell unbegrenzte Anwendungsmöglichkeiten.</p>
+<p><code>R</code> ist ein leistungsstarkes Programm zur statistischen Datenanalyse, das in wissenschaftlichen Anwendungen heute weit verbreitet ist. Sein besonderer Vorteil im Vergleich zu anderen Standardprogrammen liegt in seiner Flexibilität. Diese erhält es zum einen durch seine Paketstruktur. Unterschiedliche sog. Pakete (englisch <code>packages</code>) sind speziell für bestimmte Anwendungen entworfen worden. Sie werden immer nur dann geladen, wenn man sie benötigt. Zu so ziemlich jedem Zweck, den man sich vorstellen kann, liegen zwischenzeitlich <code>R</code>-Pakete vor. Flexibilität verleiht ihm außerdem seine Programmiersprache. Um genau zu sein, ist <code>R</code> eigentlich eine (Statistik-)Programmiersprache, kein Statistikprogramm. Herkömmliche Statistikprogramme beinhalten immer nur begrenzte Anwendungsmöglichkeiten, die durch die Entwicklerfirma vorgegeben sind. Im Gegensatz dazu gewährt <code>R</code> prinzipiell unbegrenzte Anwendungsmöglichkeiten.</p>
 <p>Die Pakete werden nicht etwa von einer zentralen Software-Firma entwickelt, sondern von einer Vielzahl von Usern auf der ganzen Welt. Damit profitiert <code>R</code> von der Schwarmintelligenz, während die <code>R Core Group</code> die Qualitätssicherung übernimmt, indem sie neue Pakete prüft und zulässt. Genauso kann man sich die Schwarmintelligenz auf einer Vielzahl von Hilfeforen wie <a href="https://stackoverflow.com/">stackoverflow</a> zu Nutze machen, wo Hilfestellung und Lösungen bereitgestellt werden. Auch eine Google-Suche hilft häufig weiter.</p>
 <p>Ein weiterer Vorteil (nicht zuletzt für Studierende) liegt darin, dass <code>R</code> als open source-Programm kostenlos zur Verfügung steht. Es wird durch die R Foundation for Statistical Computing über die Webseite des CRAN (Comprehensive R Archive Network, <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>) zum Download angeboten. Mittlerweile steht mit <code>RStudio</code> außerdem ein professionelles Interface, das die Bedienung deutlich vereinfacht, kostenlos zur Verfügung.</p>
 <p>Allerdings kommen diese Vorteile nicht ohne einige Nachteile: R-Code gilt als recht anspruchsvoll und Vieles wirkt auf den ersten Blick nicht sonderlich intuitiv. Außerdem ist <code>R</code> case-sensitive (unterscheidet Groß- und Kleinschreibung) und verzeiht keine Tippfehler. Ist etwas nicht (exakt) richtig geschrieben, kommt es zu einer Fehlermeldung oder (schlimmer) ungewollten oder unbemerkten Datenmanipulationen. Das hat damit zu tun, dass <code>R</code> auf der Programmiersprache S beruht. Damit ist das Erlernen des Umgangs mit <code>R</code> durch eine steile Lernkurve gekennzeichnet. Das heißt auch: Es ist ganz normal, wenn Sie etwas nicht auf Anhieb verstehen. Geben Sie nicht auf, es wird besser!</p>
-<p>Ziel dieses Kurses ist, einen grundständigen Einblick in <code>R</code> sowie alle für das Studium relevanten Anwendungen der statistischen Datenanalyse zu erhalten. Den Code den Sie dabei kennenlernen, können Sie also für Ihre eigenen Arbeiten übernehmen (ich vermeide es hier, &quot;kopieren&quot; zu sagen). Ein grundständiges Verständnis des Codes bzw. wie und weshalb man ihn verwendet, ist dazu allerdings unerlässlich. Darauf soll insbesondere zu Anfang der Fokus liegen.</p>
+<p>Ziel dieses Kurses ist, einen grundständigen Einblick in <code>R</code> sowie alle für das Studium relevanten Anwendungen der statistischen Datenanalyse zu erhalten. Den Code, den Sie dabei kennenlernen, können Sie also für Ihre eigenen Arbeiten übernehmen (ich vermeide es hier, &quot;kopieren&quot; zu sagen). Ein grundständiges Verständnis des Codes bzw. wie und weshalb man ihn verwendet, ist dazu allerdings unerlässlich. Darauf soll insbesondere zu Anfang der Fokus liegen.</p>
 </div>
 <div id="installation-und-grundlagen-der-bedienung" class="section level1">
 <h1>2. Installation und Grundlagen der Bedienung</h1>
-<p>Damit Sie <code>R</code> auf Ihrem Computer verwenden können, müssen Sie es downloaden und installieren. Gehen Sie dazu auf <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> und laden Sie die aktuellste Version für Ihr Betriebssystem (Linux, MacOS oder Windows) herunter. Wählen Sie dabei einen Standort, der möglichst nahe an Ihrem Aufenthaltsort liegt (in Hannover also die Universitäten Göttingen oder Münster). Installieren Sie es anschließend. R kann nun geöffnet und bedient werden (es empfiehlt sich es einmal auszuprobieren), allerdings wird die Handhabung durch <code>RStudio</code> deutlich vereinfacht. Gehen Sie also nun auf <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a> und laden Sie die kostenlose Version herunter. Wichtig ist, dass erst <code>R</code> und danach <code>RStudio</code> installiert wird, da <code>RStudio</code> <code>R</code> voraussetzt.</p>
+<p>Damit Sie <code>R</code> auf Ihrem Computer verwenden können, müssen Sie es downloaden und installieren. Gehen Sie dazu auf <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> und laden Sie die aktuellste Version für Ihr Betriebssystem (Linux, MacOS oder Windows) herunter. Wählen Sie dabei einen Standort, der möglichst nahe an Ihrem Aufenthaltsort liegt (in Hannover also die Universitäten Göttingen oder Münster). Installieren Sie R anschließend. Nun kann R geöffnet und bedient werden (es empfiehlt sich es einmal auszuprobieren), allerdings wird die Handhabung durch <code>RStudio</code> deutlich vereinfacht. Gehen Sie also nun auf <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a> und laden Sie die kostenlose Version herunter. Wichtig ist, dass erst <code>R</code> und danach <code>RStudio</code> installiert wird, da <code>RStudio</code> <code>R</code> voraussetzt.</p>
 <div id="die-console" class="section level2">
 <h2>2.1 Die <code>Console</code></h2>
 <p>Nun können wir <code>RStudio</code> öffnen, wodurch <code>R</code> im Hintergrund ebenfalls geöffnet, allerdings mit der vereinfachten Anwenderansicht versehen wird. Code-Input kann links in der <code>Console</code> ausgeführt werden. Geben Sie als Beispiel</p>
 <pre class="r"><code>Sys.time()</code></pre>
-<pre><code>## [1] &quot;2021-07-14 15:22:10 CEST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-08-24 09:14:05 CEST&quot;</code></pre>
 <p>in die <code>Console</code> ein und bestätigen Sie mit Enter, wodurch Datum und Zeit des Systems ausgegeben werden. (Wie Sie vielleicht bemerken, ist die Funktion möglichst intuitiv gehalten. Tipp: Versuchen Sie stets die Intention hinter der Bezeichnung von Funktionen zu erahnen.)</p>
-<p>Haben Sie bemerkt, dass <code>RStudio</code> Ihnen Code-Vorschläge gemacht hat? (Wenn nicht, tippen Sie nochmal <code>Sys.</code> ein und schauen Sie mal, welche Informationen zum System Sie sonst noch abrufen können). Wenn wir nur Teile von Funktionen eingeben, versucht <code>RStudio</code> sie zu vervollständigen. <code>R</code> hätte uns in seiner klassischen Version dabei nicht weitergeholfen.</p>
-<p>Nun wollen wir selbst kreativ werden und weisen Objekten Inhalt in Form von Werten oder Strings (Zeichen oder Zeichenabfolgen) zu. Zentral ist dabei der <code>&lt;-</code>-Operator, den Sie jetzt kennenlernen und am besten nie wieder vergessen. Es ist eigentlich ganz einfach: Was rechts von <code>&lt;-</code> steht, wird dem, das links davon steht, zugewiesen (Stichwort: intuitiv). Schreiben Sie in die <code>Console</code></p>
+<p>Haben Sie bemerkt, dass <code>RStudio</code> Ihnen Code-Vorschläge gemacht hat? (wenn nicht, tippen Sie nochmal <code>Sys.</code> ein und schauen Sie mal, welche Informationen zum System Sie sonst noch abrufen können). Wenn wir nur Teile von Funktionen eingeben, versucht <code>RStudio</code> sie zu vervollständigen. <code>R</code> hätte uns in seiner klassischen Version dabei nicht weitergeholfen.</p>
+<p>Nun wollen wir selbst kreativ werden und weisen Objekten Inhalt in Form von Werten oder Strings (Zeichen oder Zeichenabfolgen) zu. Zentral ist dabei der <code>&lt;-</code>-Operator, den Sie jetzt kennenlernen und am besten nie wieder vergessen. Es ist eigentlich ganz einfach: Was rechts von <code>&lt;-</code> steht, wird dem, was links davon steht, zugewiesen (Stichwort: intuitiv). Schreiben Sie in die <code>Console</code></p>
 <pre class="r"><code>x &lt;- 1</code></pre>
 <p>und schicken Sie den Code mit Enter ab. Um zu sehen, ob das geklappt hat, lassen wir uns das Objekt <code>x</code> ausgeben (<code>x</code> in die <code>Console</code> schreiben und mit Enter abschicken).</p>
 <pre class="r"><code>x</code></pre>
@@ -413,7 +422,7 @@ y</code></pre>
 </div>
 <div id="global-environment-und-history" class="section level2">
 <h2>2.2 <code>Global Environment</code> und <code>History</code></h2>
-<p>Die beiden Objekte <code>x</code> und <code>y</code> sind oben rechts in dem Fenster <code>Global Environment</code> erschienen. Das <code>Global Environment</code> ist der Ort, an dem <code>R</code> erstellte Objekte und eingeladene Daten für die Dauer einer <code>R</code>-Session speichert. Es ist gewissermaßen der Raum, in dem wir arbeiten - daher das Synonym <code>Workspace</code>, das Ihnen begegnen wird. <code>RStudio</code> gibt uns mit dem Fenster oben rechts einen direkten Überblick über alle von uns erstellten Objekte und verfügbaren Daten. Im Gegensatz dazu können wir in der <code>History</code> (der Reiter rechts daneben) allen Code, den wir jemals geschrieben haben (nicht nur in der aktuellen Session), nachschlagen (jetzt enthält die <code>History</code> nur den Code zur Erstellung von <code>x</code> und <code>y</code> sowie <code>Sys.time()</code>).</p>
+<p>Die beiden Objekte <code>x</code> und <code>y</code> sind oben rechts in dem Fenster <code>Global Environment</code> erschienen. Das <code>Global Environment</code> ist der Ort, an dem <code>R</code> erstellte Objekte und eingeladene Daten für die Dauer einer <code>R</code>-Session speichert. Es ist gewissermaßen der Raum, in dem wir arbeiten - daher das Synonym <code>Workspace</code>, das Ihnen begegnen wird. <code>RStudio</code> gibt uns mit dem Fenster oben rechts einen direkten Überblick über alle von uns erstellten Objekte und verfügbaren Daten. Im Gegensatz dazu können wir in der <code>History</code> (der Reiter rechts daneben) den gesamten Code, welchen wir jemals geschrieben haben (nicht nur in der aktuellen Session), nachschlagen (jetzt enthält die <code>History</code> nur den Code zur Erstellung von <code>x</code> und <code>y</code> sowie <code>Sys.time()</code>).</p>
 <p>Es wird dringend empfohlen, das <code>Global Environment</code> mit Beendigung einer Session zu leeren, d.h. den <code>Workspace</code> beim Schließen von R NICHT zu speichern (<code>R Studio</code> fragt Sie danach). Das wirkt ungewohnt, aber so bleiben Änderungen immer nur vorübergehend und wir verändern das <code>Global Environment</code> nicht nachhaltig. Gleichzeitig wollen wir natürlich in der Lage sein, Datenmanipulationen in einer späteren Session zu wiederholen. Deshalb speichern wir den Code als Text (nicht die Veränderungen im <code>Global Environment</code>, die daraus folgen) in einem <code>R Script</code>.</p>
 </div>
 <div id="r-script" class="section level2">
@@ -436,12 +445,13 @@ y</code></pre>
 <ul>
 <li><code>Strg+Enter</code> bzw. <code>Cmd+Enter</code></li>
 </ul>
-<p>Codezeilen aus dem Skript an die <code>Console</code> schicken. Ein Blick ins <code>Global Environment</code> bestätigt: <code>x</code> wurde der Wert 2 zugeschrieben (Wenn das nicht geklappt hat, stellen Sie sicher, dass sich der Cursor in der Zeile befindet, die an die <code>Console</code> geschickt werden soll, wenn Sie den Code abschicken).</p>
+<p>Codezeilen aus dem Skript an die <code>Console</code> schicken. Ein Blick ins <code>Global Environment</code> bestätigt: <code>x</code> wurde der Wert 2 zugeschrieben (wenn das nicht geklappt hat, stellen Sie sicher, dass sich der Cursor in der Zeile befindet, die an die <code>Console</code> geschickt werden soll, wenn Sie den Code abschicken).</p>
 <p>Skripte speichern also den Code in Textform, damit wir ihn später wiederverwenden und prüfen können. Sie sind nicht nur wichtig, um Code zu konservieren, sondern helfen uns auch die <em>Replizierbarkeit</em> unserer Analyse zu gewährleisten. Wissenschaftliche Fachzeitschriften verlangen heutzutage regelmäßig, dass mit dem Manuskript eines Artikels auch Replikationsmaterial zur Verfügung gestellt wird, anhand dessen die Analyse nachvollzogen werden kann. Genauso wird erwartet, dass empirische Arbeiten im Rahmen des Studiums mit Repikationsmaterial abgegeben werden, damit die dort berichteten Ergebnisse überprüft werden können.</p>
+<p>Damit wir dies erreichen, können wir unser Skript speichern. Wir speichern es manuell, indem wir zunächst <code>File</code> und dann <code>Save As...</code> auswählen. In der 13. Sitzung werden wir lernen, wie man einzelne Objekte speichern kann.</p>
 </div>
 <div id="hilfe-und-weiteres" class="section level2">
 <h2>2.4 Hilfe und Weiteres</h2>
-<p>Neben dem <code>R Script</code> (oben links), der <code>Console</code> (unten links) und dem <code>Global Environment</code> bzw. der <code>History</code> (oben rechts) gibt es unten rechts noch ein viertes, bisher nicht erwähntes Fenster. Wichtig in der Anwendung sind hier die Reiter <code>Plots</code>, <code>Packages</code> und <code>Help</code>. Unter <code>Plots</code> werden in <code>R</code> erstellte Abbildungen angezeigt (dazu mehr unter 4. und in Sitzungen 6 und 8). Unter <code>Packages</code> erhalten wir einen Überblick über installierte und geladenen Pakete (dazu mehr unter 4.). Schließlich können wir unter <code>Help</code> auf die Reference Manuals (&quot;Bedienungshandbücher&quot;) für einzelne Funktionen zugreifen. Dazu brauchen wir lediglich den Namen einer Funktion (ohne Klammern) in die Suchleiste einzugeben. Alternativ können wir ein Fragezeichen <code>?</code> zusammen mit der Funktion in die <code>Console</code> eingeben (oder natürlich über das Skript abschicken):</p>
+<p>Neben dem <code>R Script</code> (oben links), der <code>Console</code> (unten links) und dem <code>Global Environment</code> bzw. der <code>History</code> (oben rechts) gibt es unten rechts noch ein viertes, bisher nicht erwähntes Fenster. Wichtig in der Anwendung sind hier die Reiter <code>Plots</code>, <code>Packages</code> und <code>Help</code>. Unter <code>Plots</code> werden in <code>R</code> erstellte Abbildungen angezeigt (dazu mehr unter 4. und in Sitzungen 6 und 8). Unter <code>Packages</code> erhalten wir einen Überblick über die installierten und geladenen Pakete (dazu mehr unter 4.). Schließlich können wir unter <code>Help</code> auf die Reference Manuals (&quot;Bedienungshandbücher&quot;) für einzelne Funktionen zugreifen. Dazu brauchen wir lediglich den Namen einer Funktion (ohne Klammern) in die Suchleiste einzugeben. Alternativ können wir ein Fragezeichen <code>?</code> zusammen mit der Funktion in die <code>Console</code> eingeben (oder natürlich über das Skript abschicken):</p>
 <pre class="r"><code>?table</code></pre>
 <p>Schauen Sie sich den Hilfe-Eintrag zu der Funktion <code>table()</code> an, der Ihnen nun angezeigt wird. Die <code>R</code>-Reference Manuals sind in der Regel wie dieser Eintrag aufgebaut mit den Punkten Description, Usage, Arguments usw. Hilfreich ist häufig die Information zu den Argumenten der Funktion (dazu mehr unter 4.), &quot;See Also&quot; zu verwandten oder alternativen Funktionen sowie insbesondere die &quot;Examples&quot;. Diese Anwendungsbeispiele helfen sehr dabei, <code>R</code>-Funktionen und ihre Verwendung zu verstehen.</p>
 </div>
@@ -501,7 +511,7 @@ y</code></pre>
 <pre><code>## [1] NA</code></pre>
 <pre class="r"><code>as.logical(&quot;1&quot;)</code></pre>
 <pre><code>## [1] NA</code></pre>
-<p>Insgesamt sind <em>characters</em> also am wenigsten voraussetzungsvoll: Alles kann als <em>character</em> ausgedrückt werden. <em>numerics</em> setzen voraus, das etwas als Zahl ausgedrückt werden kann. <em>logicals</em> schließlich sind am voraussetzungsvollsten: Sie erwarten Dichotomie. Demnach kann etwas entweder vorliegen (<code>TRUE</code>) oder nicht vorliegen (<code>FALSE</code>), mehr ist nicht möglich. Das wirkt alles pedantisch, jedoch sind die Klassen von Objekten in <code>R</code> für die Datenanalyse unmittelbar relevant. Sie sparen sich später eine Menge Arbeit, wenn Sie sie sich jetzt gut einprägen. Eine wichtige Rolle spielen sie z.B. im Zusammenhang mit Vektoren.</p>
+<p>Insgesamt sind <em>characters</em> also am wenigsten voraussetzungsvoll: Alles kann als <em>character</em> ausgedrückt werden. <em>numerics</em> setzen voraus, dass etwas als Zahl ausgedrückt werden kann. <em>logicals</em> schließlich sind am voraussetzungsvollsten: Sie erwarten Dichotomie. Demnach kann etwas entweder vorliegen (<code>TRUE</code>) oder nicht vorliegen (<code>FALSE</code>), mehr ist nicht möglich. Das wirkt alles pedantisch, jedoch sind die Klassen von Objekten in <code>R</code> für die Datenanalyse unmittelbar relevant. Sie sparen sich später eine Menge Arbeit, wenn Sie sie sich jetzt gut einprägen. Eine wichtige Rolle spielen sie z.B. im Zusammenhang mit Vektoren.</p>
 </div>
 <div id="vektoren" class="section level1">
 <h1>4. Vektoren</h1>
@@ -559,13 +569,13 @@ x[3]          # Auswählen des dritten Elements</code></pre>
 <p>Schließlich können wir eine Auswahl mithilfe eines logischen Vektors treffen. Dieser muss die gleiche Länge wie der Vektor haben, aus dem wir auswählen möchten. Andernfalls versteht <code>R</code> nicht, auf welches Element in <code>x</code> sich welches Element in dem neuen Vektor bezieht. Wir bilden den logischen Vektor mit <code>c()</code> innerhalb der eckigen Klammern von <code>x</code>.</p>
 <pre class="r"><code>x[c(TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE)]</code></pre>
 <pre><code>## [1] &quot;a&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;h&quot;</code></pre>
-<p>Hier wurde acht mal eine wahr-/unwahr-Aussage getroffen, genauso viele Elemente beinhaltet <code>x</code>. Damit gibt es für jedes der Elemente in <code>x</code> eine entsprechende Aussage.</p>
+<p>Hier wurde achtmal eine wahr-/unwahr-Aussage getroffen, genauso viele Elemente beinhaltet <code>x</code>. Damit gibt es für jedes der Elemente in <code>x</code> eine entsprechende Aussage.</p>
 <p>Diese Form des Auwählens ist viel zu kompliziert, um sie in der Praxis zu verwenden. Allerdings hilft uns dieses Beispiel zu verstehen, wie logische Vergleiche in <code>R</code> funktionieren. Wenn wir z.B. eine Liste von Namen hätten und wissen wollten, ob &quot;Christoph&quot; darauf steht, antwortet uns <code>R</code> in Form eines logischen Vektors:</p>
 <pre class="r"><code>namen &lt;- c(&quot;Helena&quot;, &quot;Philipp&quot;, &quot;Jakob&quot;, &quot;Julia&quot;, &quot;Christoph&quot;, &quot;Johannes&quot;, &quot;Nicole&quot;, &quot;Kerstin&quot;)
 namen == &quot;Christoph&quot;</code></pre>
 <pre><code>## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</code></pre>
-<p>Wie der logische Vektor, den <code>R</code> als Output erzeugt, zeigt, ist innerhalb des Vektors <code>namen</code> die Aussage, dass <code>namen</code> gleich &quot;Christoph&quot; ist, an fünfter Stelle &quot;wahr&quot;. An jeder anderen Stelle ist sie unwahr.</p>
-<p>Noch ergiebiger sind solche Vergleiche anhand von numerischen Daten. Wenn wir einen Vektor hätten, in dem unterschiedliche Jahre gespeichert sind, könnten wir genauso prüfen, ob das Jahr 2010 darin enthalten ist. Darüber hinaus könnten wir mithilfe Vergleichszeichen prüfen, ob frühere oder spätere Jahre enthalten sind. Wir verwenden <code>==</code> &quot;gleich&quot;,<code>!=</code> &quot;ungleich&quot;,<code>&lt;</code> &quot;kleiner&quot;, <code>&gt;</code> &quot;größer&quot;, <code>&lt;=</code> &quot;kleiner gleich&quot; und <code>&gt;=</code> &quot;größer gleich&quot;.</p>
+<p>Als Output erzeugt <code>R</code> einen logischen Vektor. Dieser zeigt uns an, dass innerhalb des Vektors <code>namen</code> die Aussage, dass <code>namen</code> gleich &quot;Christoph&quot; ist, an fünfter Stelle &quot;wahr&quot; ist. An jeder anderen Stelle ist sie unwahr.</p>
+<p>Noch ergiebiger sind solche Vergleiche anhand von numerischen Daten. Wenn wir einen Vektor haben, in dem unterschiedliche Jahre gespeichert sind, können wir genauso prüfen, ob das Jahr 2010 darin enthalten ist. Darüber hinaus konnten wir mithilfe von Vergleichszeichen prüfen, ob frühere oder spätere Jahre enthalten sind. Wir verwenden <code>==</code> &quot;gleich&quot;,<code>!=</code> &quot;ungleich&quot;,<code>&lt;</code> &quot;kleiner&quot;, <code>&gt;</code> &quot;größer&quot;, <code>&lt;=</code> &quot;kleiner gleich&quot; und <code>&gt;=</code> &quot;größer gleich&quot;.</p>
 <pre class="r"><code>jahre &lt;- c(2013, 2005, 1995, 2017, 2021, 1989, 2010, 2018)
 jahre == 2010 # Welche Elemente sind gleich dem (sind das) Jahr 2010?</code></pre>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
@@ -629,10 +639,10 @@ x * y</code></pre>
 <p>In der Auseinandersetzung mit Klassen, Vektoren und beim Kennenlernen des Programms sind wir Funktionen wie <code>Sys.time()</code>, <code>c()</code> und <code>class()</code> begegnet. Bisher haben wir uns aber noch nicht im Einzelnen damit befasst, welche interne Struktur Funktionen haben und wie sie in <code>R</code> angelegt sind.</p>
 <div id="base-r-und-die-grundstruktur-von-funktionen" class="section level2">
 <h2>5.1 <code>base</code>-R und die Grundstruktur von Funktionen</h2>
-<p>Funktionen sind Paketen zugeordnet. Sie können immernur dann verwendet werden, wenn wir das zugehörige Paket installiert und geladen haben. Zu welchem Paket eine Funktion gehört, können wir herausfinden, indem wir die Hilfefunktion (s.o.) zu der Funktion aufrufen. Das Paket finden wir oben links in geschweiften Klammern hinter dem Namen der Funktion.</p>
+<p>Funktionen sind Paketen zugeordnet. Sie können immer nur dann verwendet werden, wenn wir das zugehörige Paket installiert und geladen haben. Zu welchem Paket eine Funktion gehört, können wir herausfinden, indem wir die Hilfefunktion (s.o.) zu der Funktion aufrufen. Das Paket finden wir oben links in geschweiften Klammern hinter dem Namen der Funktion.</p>
 <pre class="r"><code>?summary</code></pre>
 <p>Die Funktion <code>summary()</code> gehört demnach zum Paket <code>base</code>. <code>base</code> ist das Ursprungspaket von <code>R</code> und wird gemeinsam mit <code>R</code> installiert. Es beinhaltet grundsätzliche Funktionen, ohne die eine Datenanalyse nicht erfolgreich ablaufen kann. Für spezialisiertere Anwendungen müssen wir allerdings spezialisierte Pakete installieren.</p>
-<p>Funktionen besitzen Argumente, die wir spezifizieren können bzw. zum Teil müssen. Dadurch bestimmen wir, worauf <code>R</code> die Funktion beziehen und wie genau sie ausgeführt werden sollen. Argumente stehen innerhalb der Klammern <code>()</code> hinter dem Namen der Funktion und werden mithilfe des (einfachen) Gleichheitszeichens <code>=</code> auf einen bestimmten Wert festgesetzt oder mit Inhalt versehen. In etwa so:</p>
+<p>Funktionen besitzen Argumente, die wir spezifizieren können bzw. zum Teil müssen. Dadurch bestimmen wir, worauf <code>R</code> die Funktion bezieht und wie genau sie ausgeführt werden soll. Argumente stehen innerhalb der Klammern <code>()</code> hinter dem Namen der Funktion und werden mithilfe des (einfachen) Gleichheitszeichens <code>=</code> auf einen bestimmten Wert festgesetzt oder mit Inhalt versehen. In etwa so:</p>
 <p><code>Funktion(Argument1 = a, Argument2 = b)</code>.</p>
 <p>Manche Argumente müssen explizit spezifiziert werden, während andere mit einer Standardeinstellung (dem &quot;default&quot;) versehen sind. <code>R</code> erzeugt eine Fehlermeldung, wenn obligatorische Argumente nicht bestimmt wurden.</p>
 <pre class="r"><code>summary(object = )        # Argument &quot;object =&quot; nicht spezifiziert</code></pre>
@@ -652,7 +662,7 @@ x * y</code></pre>
 <p>Nun ist <code>ggplot2</code> auf unserem Computer installiert. Prüfen Sie mal im Fenster rechts unten unter <code>Packages</code>, ob Sie es finden. Damit wir es auch verwenden können, müssen wir es außerdem laden. Mit <code>library()</code> holen wir es, wenn man so will, aus der Bibliothek hervor (tatsächlich finden Sie rechts unten unter <code>Packages</code> die Bezeichnung <code>System Library</code> für den Ort, an dem alle Pakete gespeichert sind).</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <p>Nun ist das Paket geladen und wir können auf seine Funktionen zugreifen. Wenn Sie es nochmal unter <code>Packages</code> suchen, werden Sie feststellen, dass sich in dem Kästchen links neben dem Paket nun ein Haken befindet. Alternativ hätten wir das Paket auch laden können, indem wir den Haken per Mausklick setzen.</p>
-<p>Als nächstes möchten wir eine Funktion aus dem Paket <code>ggplot2</code> verwenden. Mit <code>qplot()</code> (für &quot;qick plot&quot;) lassen sich recht einfach ansehnliche Grafiken erstellen. Dazu verwenden wir den Datensatz <code>mpg</code> zum Benzinverbrauch von Automodellen, den <code>ggplot2</code> zu Veranschaulichungszwecken gleich mitliefert (Näheres unter <code>?mpg</code>). <code>mpg</code> beinhaltet unter anderem Information dazu, wie viele Meilen ein bestimmtes Modell mit einer Gallone (US-Maßeinheit für Flüssigkeiten) Benzin zurücklegen kann, und zwar die Variablen <code>cty</code> für Meilen in der City und <code>hwy</code> für Meilen auf dem Highway. Um herauszufinden, ob sich ein stärkerer Verbrauch in der Stadt wie auf dem Land gleichermaßen niederschlägt, können wir einen Scatterplot dieser beiden Variablen zeichnen.</p>
+<p>Als Nächstes möchten wir eine Funktion aus dem Paket <code>ggplot2</code> verwenden. Mit <code>qplot()</code> (für &quot;qick plot&quot;) lassen sich recht einfach ansehnliche Grafiken erstellen. Dazu verwenden wir den Datensatz <code>mpg</code> zum Benzinverbrauch von Automodellen, den <code>ggplot2</code> zu Veranschaulichungszwecken gleich mitliefert (Näheres unter <code>?mpg</code>). <code>mpg</code> beinhaltet unter anderem Information dazu, wie viele Meilen ein bestimmtes Modell mit einer Gallone (US-Maßeinheit für Flüssigkeiten) Benzin zurücklegen kann, und zwar die Variablen <code>cty</code> für Meilen in der City und <code>hwy</code> für Meilen auf dem Highway. Um herauszufinden, ob sich ein stärkerer Verbrauch in der Stadt wie auf dem Land gleichermaßen niederschlägt, können wir einen Scatterplot dieser beiden Variablen zeichnen.</p>
 <p>Um den Scatterplot zu zeichnen, müssen wir (mindestens) die Argumente <code>x</code> - mit dem wir definieren, welche Variable auf der X-Achse abgebildet sein soll, <code>y</code> - mit dem wir die Y-Achse definieren, und <code>data</code> - mit dem wir den verwendeten Datensatz definieren - bestimmen. Wir möchten den Verbrauch in der Stadt <code>cty</code> auf der X-Achse abbilden, den Verbrauch auf dem Highway <code>hwy</code> auf der Y-Achse abbilden und verwenden den Datensatz <code>mpg</code>.</p>
 <pre class="r"><code>qplot(x = cty, y = hwy, data = mpg)</code></pre>
 <p><img src="Sitzung_1_Einfuehrung_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
@@ -664,7 +674,7 @@ x * y</code></pre>
 </div>
 <div id="zusammenfassung" class="section level1">
 <h1>6. Zusammenfassung</h1>
-<p>Diese Einführungssitzung bot einen breit angelegten Einstieg in die Datenanalyse mit <code>R</code>. Code wird in <code>R</code> über die <code>Console</code> abgeschickt, während wir ihn im <code>R Script</code> speichern. Dabei erstellte und veränderte Objekte werden im <code>Global Environment</code> für die Dauer einer Session gespeichert, während die <code>History</code> allen jemals abgeschickten Code speichert. <em>characters</em>, <em>integers</em>, <em>numerics</em> und <em>logicals</em> sind vier häufig anzutreffende Objektklassen. Die Veränderung von Klassen ist mit Informationsverlust verbunden und gelingt nur, wenn ausreichend Information vorhanden ist, um Objekte in anderen Klassen sinnvoll zu interpretieren. Vektoren beinhalten immer nur Elemente derselben Klasse. Pakete beinhalten Funktionen und sind unterschiedlich spezialisiert. Manche Pakete sind vorinstalliert, andere müssen mit <code>install.packages()</code> installiert und vor jedem Gebrauch mit <code>library()</code> geladen werden. Funktionen beinhalten Argumente, von denen nur manche spezifiziert werden müssen. Solange die Reihenfolge eine eindeutige Zuordnung ermöglicht, müssen Argumente nicht ausdrücklich genannt werden.</p>
+<p>Diese Einführungssitzung bot einen breit angelegten Einstieg in die Datenanalyse mit <code>R</code>. Code wird in <code>R</code> über die <code>Console</code> abgeschickt, während wir ihn im <code>R Script</code> speichern. Über <code>File</code> und <code>Save As...</code> werden Skripte gespeichert. Dies ist notwendig, um unsere Analyse wiederverwendbar, kontrollierbar und replizierbar zu machen. Dabei erstellte und veränderte Objekte werden im <code>Global Environment</code> für die Dauer einer Session gespeichert, während die <code>History</code> allen jemals abgeschickten Code speichert. <em>characters</em>, <em>integers</em>, <em>numerics</em> und <em>logicals</em> sind vier häufig anzutreffende Objektklassen. Die Veränderung von Klassen ist mit Informationsverlust verbunden und gelingt nur, wenn ausreichend Information vorhanden ist, um Objekte in anderen Klassen sinnvoll zu interpretieren. Vektoren beinhalten immer nur Elemente derselben Klasse. Pakete beinhalten Funktionen und sind unterschiedlich spezialisiert. Manche Pakete sind vorinstalliert, andere müssen mit <code>install.packages()</code> installiert und vor jedem Gebrauch mit <code>library()</code> geladen werden. Funktionen beinhalten Argumente, von denen nur manche spezifiziert werden müssen. Solange die Reihenfolge eine eindeutige Zuordnung ermöglicht, müssen Argumente nicht ausdrücklich genannt werden.</p>
 </div>
 <div id="aufgaben" class="section level1">
 <h1>7. Aufgaben</h1>

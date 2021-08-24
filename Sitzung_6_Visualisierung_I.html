@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Sitzung 6: Visualisierung 1</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 6: Visualisierung (1): Univariate Verteilungen</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,43 +318,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="Sitzung_0_Projekt.html">Einleitung</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
 </li>
 <li>
   <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze</a>
+  <a href="Sitzung_3_Datensätze_einladen.html">Datensätze einladen</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Variablen</a>
+  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung I</a>
+  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
 </li>
 <li>
   <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate OLS Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung II</a>
+  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multivariate Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
 </li>
 <li>
   <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Tabellen erstellen</a>
+  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -367,18 +371,21 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Sitzung 6: Visualisierung 1</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 6: Visualisierung (1): Univariate Verteilungen</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<p>Wir haben unsere beiden Datensätze in den vergangenen Sitzungen eingeladen, einige Variablen umkodiert und anhand univariater Maße einen ersten Eindruck von ihrer Verteilung erhalten. Dieser erste Eindruck reicht allerdings nicht aus, um wirklich zu verstehen wie die Variablen verteilt sind. Deshalb möchten wir in dieser Sitzung etwas mehr Anschaulichkeit schaffen, indem wir die Verteilung der Variablen visualisieren. Wir bleiben dabei im Bereich der univariaten Statistik, betrachten also jeweils nur eine einzelne Variable.</p>
+<div class="figure">
+<img src="logo_IPW.png" />
+
+</div>
+<p>Wir haben unsere beiden Datensätze in den vergangenen Sitzungen eingeladen, einige Variablen umkodiert und anhand univariater Maße einen ersten Eindruck von ihrer Verteilung erhalten. Dieser erste Eindruck reicht allerdings nicht aus, um wirklich zu verstehen, wie die Variablen verteilt sind. Deshalb möchten wir in dieser Sitzung etwas mehr Anschaulichkeit schaffen, indem wir die Verteilung der Variablen visualisieren. Wir bleiben dabei im Bereich der univariaten Statistik, betrachten also jeweils nur eine einzelne Variable.</p>
 <div id="datensätze-laden-und-umkodieren" class="section level1">
 <h1>1. Datensätze laden und umkodieren</h1>
 <p>Damit wir mit unseren Datensätzen und den darin enthaltenen Variablen arbeiten können, müssen wir sie wie immer zuerst laden und zu unseren Zwecken umkodieren.</p>
-<pre class="r"><code>getwd()
-setwd(&quot;eigener Pfad&quot;)
-library(foreign)
+<pre class="r"><code>library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <pre class="r"><code># GLES
@@ -476,11 +483,11 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="visualisierung-mit-ggplot2" class="section level1">
 <h1>2. Visualisierung mit <code>ggplot2</code></h1>
 <p>Wir haben das Paket <code>ggplot2</code> bereits in Sitzung 1 heruntergeladen, als es darum ging, die Paketstruktur von <code>R</code> kennenzulernen. <code>ggplot2</code> ist das heute wohl gängigste Grafik-Paket in <code>R</code> und ist Teil des <code>tidyverse</code>, einer Gruppe von Paketen zur Datenanalyse, die eine gemeinsame &quot;Sprache&quot; sprechen. Das <code>tidyverse</code> wurde von einer Gruppe von Statistikern um Hadley Wickam entwickelt und im frei erhältlichen Buch <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> anschaulich erläutert (Tipp für weitergehend Interessierte).</p>
-<p>In <code>ggplot2</code> sind Grafiken in Form von <code>layers</code> (&quot;Schichten&quot;) aufgebaut. Die unterste Schicht ist eine &quot;weiße Leinwand&quot;, die wir schrittweise mit Elementen der Datenvisualiserung (sog. <code>geoms</code>) füllen. Die zentrale Funktion zur Datenvisualisierung mithilfe von <code>ggplot2</code> ist <code>ggplot()</code>. Mit <code>ggplot()</code> beginnen wir eine Grafik, indem wir die verwendeten Daten festlegen (mit dem Argument <code>data</code>) und bestimmen, wie die Daten ästhetisch umgesetzt werden (mit dem Argument <code>mapping</code>). Damit ist die &quot;weiße Leinwand&quot; erstellt. Wie die Grafik genau aussehen soll, legen wir dann mit den <code>geoms</code> fest. Dadurch bestimmen wir den Typ der Visualisierung, also z.B. ob es sich um ein Balkendiagramm oder Histogramm handeln soll.</p>
+<p>In <code>ggplot2</code> sind Grafiken in Form von <code>layers</code> (&quot;Schichten&quot;) aufgebaut. Die unterste Schicht ist eine &quot;weiße Leinwand&quot;, die wir schrittweise mit Elementen der Datenvisualisierung (sog. <code>geoms</code>) füllen. Die zentrale Funktion zur Datenvisualisierung mithilfe von <code>ggplot2</code> ist <code>ggplot()</code>. Mit <code>ggplot()</code> beginnen wir eine Grafik, indem wir die verwendeten Daten festlegen (mit dem Argument <code>data</code>) und bestimmen, wie die Daten ästhetisch umgesetzt werden (mit dem Argument <code>mapping</code>). Damit ist die &quot;weiße Leinwand&quot; erstellt. Wie die Grafik genau aussehen soll, legen wir dann mit den <code>geoms</code> fest. Dadurch bestimmen wir den Typ der Visualisierung, also z.B. ob es sich um ein Balkendiagramm oder Histogramm handeln soll.</p>
 </div>
 <div id="anwendungen" class="section level1">
 <h1>3. Anwendungen</h1>
-<p>Im Folgenden erstellen wir mit der Funktion <code>ggplot()</code> Grafiken (englisch: plots), die die Verteilung einzelner Variablen veranschaulichen. Wir erstellen Balkendiagramme, Histogramme, Dichteplots und Boxplots. Wie immer wenn wir Pakete verwenden, die nicht vorinstalliert sind, müssen wir sie zunächst laden.</p>
+<p>Im Folgenden erstellen wir mit der Funktion <code>ggplot()</code> Grafiken (englisch: plots), die die Verteilung einzelner Variablen veranschaulichen. Wir erstellen Balkendiagramme, Histogramme, Dichteplots und Boxplots. Wie immer, wenn wir Pakete verwenden, die nicht vorinstalliert sind, müssen wir sie zunächst laden.</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <div id="balkendiagramm" class="section level2">
 <h2>3.1 Balkendiagramm</h2>
@@ -496,7 +503,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>ggplot(data = gles[!is.na(gles$einkommen_cat), ], mapping = aes(einkommen_cat)) +
   geom_bar()</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Dieser Code wirkt etwas uneinheitlich, weil bei <code>!is.na(gles$einkommen_cat)</code> der Datensatz <code>gles</code> mit <code>$</code> vor der Variable genannt werden muss, bei <code>aes(einkommen_cat)</code> allerdings nicht. Das liegt daran, dass die &quot;Sprache&quot; des <code>tidyverse</code>, die in <code>ggplot2</code> verwendet wird, die Spezifizierung von Datensätzen vor Variablen nicht notwendig macht. Hier hat also die Paketstruktur von <code>R</code> Folgen für die Schreibweise von Code: <code>aes()</code> ist Teil von <code>ggplot2</code>, <code>is.na()</code> nicht.</p>
+<p>Dieser Code wirkt etwas uneinheitlich, weil bei <code>!is.na(gles$einkommen_cat)</code> der Datensatz <code>gles</code> mit <code>$</code> vor der Variable genannt werden muss, bei <code>aes(einkommen_cat)</code> allerdings nicht. Das liegt daran, dass die &quot;Sprache&quot; des <code>tidyverse</code>, die in <code>ggplot2</code> verwendet wird, die Spezifizierung von Datensätzen vor Variablen nicht notwendig macht. Hier hat also die Paketstruktur von <code>R</code> Folgen für die Schreibweise von dem Code: <code>aes()</code> ist Teil von <code>ggplot2</code>, <code>is.na()</code> nicht.</p>
 <p>Des Weiteren fehlt ein Titel und die Achsenbeschriftung ist recht technisch. Die Beschriftung der Y-Achse braucht es auch nicht unbedingt. Um die Beschriftungen des Plots so anzupassen, nutzen wir die Funktion <code>labs()</code> (kurz für &quot;labels&quot;) und spezifizieren den (Haupt-)Titel (<code>title</code>), den Untertitel (<code>subtitle</code>), die Beschriftung der X-Achse (<code>x</code>) und die Beschriftung der Y-Achse (<code>y</code>). Genau wie zuvor, wird <code>labs()</code> dabei mit einem <code>+</code> angefügt und stellt somit gewissermaßen eine weitere Schicht dar, die auf den Plot gelegt wird.</p>
 <pre class="r"><code>ggplot(data = gles[!is.na(gles$einkommen_cat), ], mapping = aes(einkommen_cat)) +
   geom_bar() +
@@ -513,7 +520,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
        x = &quot;Haushaltseinkommen in Euro&quot;,
        y = NULL)</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Schließlich möchten wir die Farbe der Balken verändern. Die Füllung der Balken bestimmen wir mit dem Argument <code>fill</code>, während wir mit <code>color</code> die Farbe der Umrandung anpassen. Wir wollen stahlblaue Balken, die schwarz umrandet sind. Die in <code>R</code> zur Verfügung stehenden Farben können Sie einfach googeln. In wissenschaftlichen Publikationen und Arbeiten im Rahmen des Studiums sollten Abbildungen allerdings nicht zu farbenfroh sein. In der Regel ist eine schlicht Darstellungsweise (Verwendung von Graustufen) angemessen.</p>
+<p>Schließlich möchten wir die Farbe der Balken verändern. Die Füllung der Balken bestimmen wir mit dem Argument <code>fill</code>, während wir mit <code>color</code> die Farbe der Umrandung anpassen. Wir wollen stahlblaue Balken, die schwarz umrandet sind. Die in <code>R</code> zur Verfügung stehenden Farben können Sie einfach googeln. In wissenschaftlichen Publikationen und Arbeiten im Rahmen des Studiums sollten Abbildungen allerdings nicht zu farbenfroh sein. In der Regel ist eine schlichte Darstellungsweise (Verwendung von Graustufen) angemessen.</p>
 <pre class="r"><code>ggplot(data = gles[!is.na(gles$einkommen_cat), ], mapping = aes(einkommen_cat)) +
   geom_bar(width = .5, color = &quot;black&quot;, fill = &quot;steelblue2&quot;) +
   labs(title = &quot;Netto-Haushaltseinkommen der Befragten&quot;,
@@ -550,7 +557,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
        y = NULL) </code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Alternativ könnten wir mit <code>bins</code> einfach die Anzahl der Balken festlegen, die wir erzeugen wollen. Z.B. 15 Balken:</p>
+<p>Alternativ könnten wir mit <code>bins</code> einfach die Anzahl der Balken festlegen, die wir erzeugen wollen, z.B. 15 Balken:</p>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(alter)) +
   geom_histogram(bins = 15, color = &quot;black&quot;) +
   labs(title = &quot;Alter der Befragten&quot;,
@@ -563,7 +570,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="dichteplot" class="section level2">
 <h2>3.3 Dichteplot</h2>
 <p>Die Verteilung einer metrischen Variable können wir genauso mit Dichteplots (<em>kernel density plots</em>) darstellen. Im Gegensatz zum Histogramm fällt hier die Einteilung in Intervalle weg. Anstatt dessen wird die empirische Dichte als Kurve für jeden Punkt jeweils ausgehend von der Nähe von Beobachtungen zueinander berechnet. Diese Nähe wird bandwidth (&quot;Bandbreite&quot;) genannt (Kühnel/Krebs 2014: 62). Häufen sich Beobachtungen an einem Punkt, liegen viele von ihnen innerhalb der Bandbreite und die Dichtkurve fällt höher aus. Häufungen von Beobachtungen haben so direkten Einfluss auf den Ausschlag der Dichtekurve. Mit niedrigerer Bandbreite ist die Funktion sensibler für Ausschläge.</p>
-<p>Zuerst erzeugen wir den Plot in seiner einfachen Form und zwar wieder für das Alter der Befragten. Wir verwenden diesmal `geom_density():</p>
+<p>Zuerst erzeugen wir den Plot in seiner einfachen Form und zwar wieder für das Alter der Befragten. Wir verwenden diesmal <code>geom_density()</code>:</p>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(alter)) +
   geom_density()</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_density).</code></pre>
@@ -598,7 +605,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="boxplot" class="section level2">
 <h2>3.4 Boxplot</h2>
-<p>Boxplots stellen Verteilungen besonders anschaulichen dar. Boxplots plotten eine Verteilung über ihren Wertebereich und zeigen, an welcher Stelle welche Lagemaße liegen. So weisen sie den Median (dicke schwarze Linie) und das erste und dritte Quartil, also die mittleren 50% der Verteilung (oberes und unteres Ende der Box), aus. Die Antennen (englisch: &quot;Whiskers&quot;, zu deutsch &quot;Schnurhaare&quot;) beinhalten alle Werte, die innerhalb des 1,5-Fachen des Quartilsabstandes (der Box) liegen. Ausreißer (alle anderen Beobachtungen) werden zudem als Punkte oä. gezeigt (Kühnel/Krebs 2014: 63).</p>
+<p>Boxplots stellen Verteilungen besonders anschaulich dar. Boxplots plotten eine Verteilung über ihren Wertebereich und zeigen, an welcher Stelle welche Lagemaße liegen. So weisen sie den Median (dicke schwarze Linie) und das erste und dritte Quartil, also die mittleren 50% der Verteilung (oberes und unteres Ende der Box), aus. Die Antennen (englisch: &quot;whiskers&quot;, zu deutsch: &quot;Schnurrhaare&quot;) beinhalten alle Werte, die innerhalb des 1,5-Fachen des Quartilsabstandes (der Box) liegen. Ausreißer (alle anderen Beobachtungen) werden zudem als Punkte oä. gezeigt (Kühnel/Krebs 2014: 63).</p>
 <p>In seiner einfachen Form sieht der Code zur Erstellung eines Boxplots so aus:</p>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(alter)) +
   geom_boxplot()</code></pre>
@@ -610,7 +617,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
   coord_flip()</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<p>Nun fügen wir wieder die weiteren Darstellungsoptionen hinzu. Lassen Sie sich nicht verwirren: Weil das Koordinatensystem gekippt wurde, ist die X-Achse links und die Y-Achse unten zu sehen. Wenn wir mit <code>labs()</code> <code>x</code> und <code>y</code> festlegen, sind also auch diese vertauscht.</p>
+<p>Nun fügen wir wieder die weiteren Darstellungsoptionen hinzu. Lassen Sie sich nicht verwirren: Weil das Koordinatensystem gekippt wurde, ist die X-Achse links und die Y-Achse unten zu sehen. Wenn wir mit <code>labs()</code> die Titel der X- und Y-Achse festlegen, sind also auch diese vertauscht.</p>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(alter)) +
   geom_boxplot() +
   coord_flip() +
@@ -620,7 +627,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
        y = NULL)</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>Die Skalierung des Alters ist wenig detailliert, sodass wir beispielsweise zum Ablesen der Lage des ersten und dritten Quartils sehr schätzen müssten. Die X-Achse (vertauscht) modifizieren wir mit <code>scale_x_continuous()</code>. Die einzelnen Skalenmarkierungen legen wir entweder über das Argument <code>breaks</code> fest, wenn wir die Position jeder einzelnen Mmarkierung ausdrücklich bestimmen möchten (also z.B. <code>breaks = c(5, 10, 15, ...)</code>). Alternativ können wir <code>n.breaks</code> (&quot;number of breaks&quot;) verwenden, wenn wir lediglich festlegen wollen, wie viele Markierungen es sein sollen. Da wir Markierungen aller Fünf-Jahre-Intervalle möchten, ist die Verwendung von <code>n.breaks</code> deutlich einfacher. In diesem Fall möchten wir 18 einzelne Markierungen.</p>
+<p>Die Skalierung des Alters ist wenig detailliert, sodass wir beispielsweise zum Ablesen der Lage des ersten und dritten Quartils sehr schätzen müssten. Die X-Achse (vertauscht) modifizieren wir mit <code>scale_x_continuous()</code>. Die einzelnen Skalenmarkierungen legen wir entweder über das Argument <code>breaks</code> fest, wenn wir die Position jeder einzelnen Markierung ausdrücklich bestimmen möchten (also z.B. <code>breaks = c(5, 10, 15, ...)</code>). Alternativ können wir <code>n.breaks</code> (&quot;number of breaks&quot;) verwenden, wenn wir lediglich festlegen wollen, wie viele Markierungen es sein sollen. Da wir Markierungen aller Fünf-Jahre-Intervalle möchten, ist die Verwendung von <code>n.breaks</code> deutlich einfacher. In diesem Fall möchten wir 18 einzelne Markierungen.</p>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(alter)) +
   geom_boxplot() +
   coord_flip() +
@@ -631,7 +638,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
   scale_x_continuous(n.breaks = 18)</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>Die Person mit dem mittleren Alter ist also etwas über 50 Jahre alt, die Befragten, die die Grenzen des ersten und dritten Quartils bilden, sind etwa 35 und 65 Jahre alt. Die jüngste Person ist 16 oder 17 Jahre alt, die älteste 95 Jahre. Es gibt keine Ausreißer, d.h. alle Befragten, die nicht im zweiten oder dritten Quartil liegen (innerhalb der Box), liegen innerhalb des 1,5-fachen der Länge der Box (das wäre bei der Variable Alter auch unwahrscheinlich, da ein Ausreißer älter als <span class="math inline">\(1,5\cdot IQR + 3. Quartil = 1,5\cdot 30 + 65 = 110\)</span> Jahre sein müsste.).</p>
+<p>Die Person mit dem mittleren Alter ist also etwas über 50 Jahre alt. Die Befragten, die die Grenzen des ersten und dritten Quartils bilden, sind etwa 35 und 65 Jahre alt. Die jüngste Person ist 16 oder 17 Jahre alt, die älteste 95 Jahre. Es gibt keine Ausreißer, d.h. alle Befragten, die nicht im zweiten oder dritten Quartil liegen (innerhalb der Box), liegen innerhalb des 1,5-fachen der Länge der Box (das wäre bei der Variable Alter auch unwahrscheinlich, da ein Ausreißer älter als <span class="math inline">\(1,5\cdot IQR + 3. Quartil = 1,5\cdot 30 + 65 = 110\)</span> Jahre sein müsste.).</p>
 </div>
 </div>
 <div id="zusammenfassung" class="section level1">
@@ -691,10 +698,6 @@ ggplot(data = lijphart, mapping = aes(disprop4510)) +
   geom_boxplot() +
   scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5))</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-</div>
-<div id="literatur" class="section level1">
-<h1>7. Literatur</h1>
-<p>Kühnel, Steffen-M./Dagmar Krebs (2014): Statistik für die Sozialwissenschaften. Grundlagen Methoden Anwendungen. 7. Auflage. Reinbek bei Hamburg: Rowohlt.</p>
 </div>
 
 
