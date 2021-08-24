@@ -4,28 +4,30 @@ navbar:
   title: "Politikwissenschaftliche Statistik mit R"
   left:
     - text: "Einleitung"
-      href: index.html
-    - text: "Grundlagen"
+      href: Sitzung_0_Projekt.html
+    - text: "Einleitung und Grundlagen"
       href: Sitzung_1_Einfuehrung.html
     - text: "Faktoren und zweidimensionale Objekte"
       href: Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html
-    - text: "Datensätze"
+    - text: "Datensätze einladen"
       href: Sitzung_3_Datensätze_einladen.html
-    - text: "Variablen"
+    - text: "Variablen um-/kodieren"
       href: Sitzung_4_Variablen_Kodieren.html
-    - text: "Univariate Variablen"
+    - text: "Univariate Maße"
       href: Sitzung_5_univariate_Maße.html
-    - text: "Visualisierung I"
+    - text: "Visualisierung (1): Univariate Verteilungen"
       href: Sitzung_6_Visualisierung_I.html
     - text: "Bivariate Zusammenhänge"
       href: Sitzung_7_bivariate_Zusammenhangsmaße.html
-    - text: "Bivariate OLS Regression"
+    - text: "Bivariate lineare Regression"
       href: Sitzung_8_bivariate_OLS.html
-    - text: "Visualisierung II"
+    - text: "Visualisierung (2): Zusammenhangsmaße & Regression"
       href: Sitzung_9_Visualisierung_II.html
-    - text: "Multivariate Regression"
+    - text: "Multiple lineare Regression"
       href: Sitzung_10_multiple_lineare_Regression.html
     - text: "Logistische Regression"
       href: Sitzung_11_LogitReg.html
-    - text: "Tabellen erstellen"
+    - text: "Faktoranalyse"
+      href: Sitzung_12_Faktoranalyse.html
+    - text: "Visualisierung (3): Übersichtliche Regressionstabellen"
       href: Sitzung_13_Tabellen.html
