@@ -10,7 +10,7 @@ navbar:
     - text: "Faktoren und zweidimensionale Objekte"
       href: Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html
     - text: "Datensätze einladen"
-      href: Sitzung_3_Datensätze_einladen.html
+      href: Sitzung_3_Datensaetze_einladen.html
     - text: "Variablen um-/kodieren"
       href: Sitzung_4_Variablen_Kodieren.html
     - text: "Univariate Maße"
