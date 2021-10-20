@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
-<title>Politikwissenschaftliche Statistik mit R - Sitzung 12: Faktoranalyse</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 12: Faktorenanalyse</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -371,47 +372,581 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 12: Faktoranalyse</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 12: Faktorenanalyse</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
-<p>tbd</p>
+<p>Nachdem wir verschiedene statistische Verfahren kennengelernt haben, um Zusammenhänge zu erkennen und diese visualisiert haben, werden wir uns nun mit der <em>Faktorenanalyse</em> beschäftigen.</p>
+<p>Die Faktorenanalyse ist ein multivariates statistisches Verfahren zur Dimensionsreduktion. Diese Reduktion wird dadurch erreicht, dass aus einer Vielzahl an Variablen wenige Faktoren extrahiert werden. Mit der Faktorenanalyse wird Übersichtlichkeit erreicht und Gemeinsamkeiten zwischen den Variablen können gefunden werden. Das Verfahren geht mit Informationsverlust, bei gleichzeitiger Variablenverdichtung, einher.</p>
+<p>Auch Arend Lijphart hat die Faktorenanalyse in <em>“Patterns of Democracy”</em> angewandt. Sein Ergebnis visualisierte er mit der <em>“Landkarte der Demokratie”</em>, mit welcher demokratische Länder anhand von zwei Dimensionen eingeordnet werden können. Zudem konnte er zwischen Konsens- und Mehrheitsdemokratien unterscheiden. In dieser Sitzung werden wir Lijpharts Faktorenanalyse replizieren.</p>
 </div>
 <div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
 <h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
-<p>tbd</p>
+<p>Dazu müssen Sie zunächst die nötigen Pakete und Daten laden und einige Variablen umkodieren.</p>
+<pre class="r"><code># Pakete laden
+library(Hmisc)
+library(foreign)
+library(ggplot2)
+library(stats)</code></pre>
+<pre class="r"><code># Daten einlesen
+getwd()
+setwd(&quot;eigener Pfad&quot;)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<p>Zusätzlich zu den Datentransformationen der letzten Sitzungen müssen wir noch einige weitere Variablen umkodieren.</p>
+<pre class="r"><code># 1. Zweiparteiensystem vs. Mehrparteiensystem 
+# (ENPP)
+lijphart$enpp4510 &lt;- as.numeric(lijphart$enpp4510)
+
+# 2. Einparteienkabinette vs. Koalitionsregierungen 
+# (Mittelwert Regierungsdauer Minimal-Winning Koalition und Einparteienkabinette)
+lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
+
+# 3. Exekutivdominanz vs. dominante Legislative 
+# (Durchschnittliche Lebensdauer von Kabinetten)
+lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)
+
+# 4. Mehrheitswahlrecht vs. Verhältniswahlrecht
+# (Gallagher-Index der elektoralen Disproportionalität)
+lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
+
+# 5. Pluralistische vs. korporatistische Interessenvertretung
+# (Korporatismus-Index nach Siaroff)
+lijphart$inter_gr_plural4510 &lt;- as.numeric(lijphart$inter_gr_plural4510)
+
+# 6. Unitarisch-zentralisiert vs. Föderaldezentralisiert
+# (Skala von 1 bis 4 (zentral unitarisch bis föderal und dezentral))
+lijphart$fed_unit4510 &lt;- as.numeric(lijphart$fed_unit4510)
+
+# 7. Unikameralismus vs. Bikameralismus
+# Skala von 1 bis 4, (unikameral bis stark bikameral)
+lijphart$bicam4510 &lt;- as.numeric(lijphart$bicam4510)
+
+# 8. Flexible vs. Rigide Verfassungen
+# (Skala von 1 bis 4, (einfach, absolut, super, größer super))
+lijphart$const_rigid4510 &lt;- as.numeric(lijphart$const_rigid4510)
+
+# 9. Keine Normenkontrolle vs. Normenkontrolle durch Verfassungsgericht
+# (Skala von 1 bis 4, vergeben nach Sekundärliteratur)
+lijphart$judic_rev4510 &lt;- as.numeric(lijphart$judic_rev4510)
+
+# 10. Abhängige vs. Unabhängige Zentralbank
+# (Grad Zentralbankautonomie (Indizies Cukierman, Grilli…))
+lijphart$cen_bank_indep4594 &lt;- as.numeric(lijphart$cen_bank_indep4594)</code></pre>
 </div>
-<div id="xxx" class="section level1">
-<h1>3. xxx</h1>
-<p>TBD</p>
-<div id="xxx-1" class="section level2">
-<h2>3.1 xxx</h2>
-<p>TBD</p>
+<div id="vorbereitung-der-faktorenanalyse" class="section level1">
+<h1>3. Vorbereitung der Faktorenanalyse</h1>
+<div id="auswahl-der-variablen" class="section level2">
+<h2>3.1 Auswahl der Variablen</h2>
+<p>Grundsätzlich ist die Auswahl der Variablen wichtig, weil sie in einem hohen Maße den Erfolg der Faktorenanalyse bestimmt. Lijphart nutzt für seine Faktorenanalyse zehn Variablen. Es sind die Variablen, die wir zuvor umkodiert haben.</p>
+<p>Aus diesen Variablen erstellen wir ein <code>subset</code>.</p>
+<pre class="r"><code>sub_lijphart &lt;- lijphart[, c(&quot;enpp4510&quot;, &quot;minwin_one_part4510&quot;, &quot;exe_dom4510&quot;, 
+                             &quot;disprop4510&quot;, &quot;inter_gr_plural4510&quot;,
+                             &quot;fed_unit4510&quot;, &quot;bicam4510&quot;, &quot;const_rigid4510&quot;,                                 &quot;judic_rev4510&quot;, &quot;cen_bank_indep4594&quot;)]
+head(sub_lijphart)</code></pre>
+<pre><code>##   enpp4510 minwin_one_part4510 exe_dom4510 disprop4510 inter_gr_plural4510
+## 1     3.15                82.4        8.00       17.98                2.70
+## 2     2.22                80.7        9.10        9.44                2.12
+## 3     2.68                43.3        8.07        2.51                0.38
+## 4     1.69               100.0        9.44       16.48                3.00
+## 5     1.68               100.0        8.87       17.27                2.20
+## 6     4.72                37.3        2.57        3.35                1.15
+##   fed_unit4510 bicam4510 const_rigid4510 judic_rev4510 cen_bank_indep4594
+## 1         1.38       4.0               4           2.7               0.39
+## 2         1.63       4.0               4           3.0               0.42
+## 3         1.07       2.0               3           3.0               0.55
+## 4        -0.15       2.0               3           2.0               0.41
+## 5        -0.49       2.0               2           2.0               0.38
+## 6         0.10       2.8               3           1.8               0.27</code></pre>
 </div>
-<div id="xxx-2" class="section level2">
-<h2>3.2 xxx</h2>
-<p>TBD</p>
+<div id="voraussetzungen" class="section level2">
+<h2>3.2 Voraussetzungen</h2>
+<p>Generell sind nur Variablen, welche miteinander korrelieren, fähig zur Bündlung. Daher folgt nach der Variablenauswahl die Berechnung einer <em>Korrelationsmatrix</em>. In <code>R</code> geht dies mit folgendem Code:</p>
+<pre class="r"><code>cor_matrix &lt;- rcorr(as.matrix(sub_lijphart))
+cor_matrix</code></pre>
+<pre><code>##                     enpp4510 minwin_one_part4510 exe_dom4510 disprop4510
+## enpp4510                1.00               -0.85       -0.79       -0.57
+## minwin_one_part4510    -0.85                1.00        0.78        0.58
+## exe_dom4510            -0.79                0.78        1.00        0.55
+## disprop4510            -0.57                0.58        0.55        1.00
+## inter_gr_plural4510    -0.61                0.71        0.51        0.61
+## fed_unit4510            0.00               -0.07        0.08        0.09
+## bicam4510               0.09               -0.03        0.10        0.09
+## const_rigid4510        -0.08                0.00        0.11        0.17
+## judic_rev4510          -0.24                0.17        0.18        0.36
+## cen_bank_indep4594     -0.04               -0.15       -0.02       -0.12
+##                     inter_gr_plural4510 fed_unit4510 bicam4510 const_rigid4510
+## enpp4510                          -0.61         0.00      0.09           -0.08
+## minwin_one_part4510                0.71        -0.07     -0.03            0.00
+## exe_dom4510                        0.51         0.08      0.10            0.11
+## disprop4510                        0.61         0.09      0.09            0.17
+## inter_gr_plural4510                1.00         0.00      0.07            0.01
+## fed_unit4510                       0.00         1.00      0.76            0.74
+## bicam4510                          0.07         0.76      1.00            0.38
+## const_rigid4510                    0.01         0.74      0.38            1.00
+## judic_rev4510                      0.26         0.71      0.41            0.46
+## cen_bank_indep4594                -0.10         0.71      0.38            0.38
+##                     judic_rev4510 cen_bank_indep4594
+## enpp4510                    -0.24              -0.04
+## minwin_one_part4510          0.17              -0.15
+## exe_dom4510                  0.18              -0.02
+## disprop4510                  0.36              -0.12
+## inter_gr_plural4510          0.26              -0.10
+## fed_unit4510                 0.71               0.71
+## bicam4510                    0.41               0.38
+## const_rigid4510              0.46               0.38
+## judic_rev4510                1.00               0.34
+## cen_bank_indep4594           0.34               1.00
+## 
+## n= 36 
+## 
+## 
+## P
+##                     enpp4510 minwin_one_part4510 exe_dom4510 disprop4510
+## enpp4510                     0.0000              0.0000      0.0003     
+## minwin_one_part4510 0.0000                       0.0000      0.0002     
+## exe_dom4510         0.0000   0.0000                          0.0005     
+## disprop4510         0.0003   0.0002              0.0005                 
+## inter_gr_plural4510 0.0000   0.0000              0.0015      0.0000     
+## fed_unit4510        0.9897   0.6810              0.6512      0.5876     
+## bicam4510           0.6004   0.8662              0.5713      0.5918     
+## const_rigid4510     0.6569   0.9899              0.5308      0.3108     
+## judic_rev4510       0.1661   0.3215              0.2907      0.0322     
+## cen_bank_indep4594  0.8199   0.3718              0.9287      0.4862     
+##                     inter_gr_plural4510 fed_unit4510 bicam4510 const_rigid4510
+## enpp4510            0.0000              0.9897       0.6004    0.6569         
+## minwin_one_part4510 0.0000              0.6810       0.8662    0.9899         
+## exe_dom4510         0.0015              0.6512       0.5713    0.5308         
+## disprop4510         0.0000              0.5876       0.5918    0.3108         
+## inter_gr_plural4510                     0.9852       0.6671    0.9738         
+## fed_unit4510        0.9852                           0.0000    0.0000         
+## bicam4510           0.6671              0.0000                 0.0206         
+## const_rigid4510     0.9738              0.0000       0.0206                   
+## judic_rev4510       0.1229              0.0000       0.0135    0.0043         
+## cen_bank_indep4594  0.5464              0.0000       0.0241    0.0217         
+##                     judic_rev4510 cen_bank_indep4594
+## enpp4510            0.1661        0.8199            
+## minwin_one_part4510 0.3215        0.3718            
+## exe_dom4510         0.2907        0.9287            
+## disprop4510         0.0322        0.4862            
+## inter_gr_plural4510 0.1229        0.5464            
+## fed_unit4510        0.0000        0.0000            
+## bicam4510           0.0135        0.0241            
+## const_rigid4510     0.0043        0.0217            
+## judic_rev4510                     0.0416            
+## cen_bank_indep4594  0.0416</code></pre>
+<p>Diese Korrelationsmatrix wird in <code>R</code> in mehreren Zeilen angezeigt, weil sie zu groß ist. Um ein übersichtlicheres Ergebnis zu erhalten, müssten Sie die Grafik mit Excel, Word o.Ä. aufarbeiten. Durch eine Aufarbeitung würden Sie ein ähnliches Ergebnis wie Lijphart erhalten und könnten dann zwei Dreiecke erkennen. In diesen Dreicken wärem die Werte durchweg signifikant. Trotzdem werden die Ihnen jetzt vorliegende Korrelationsmatrix und jene von Lijphart nicht identisch sein. Dies liegt an statistischen Ungenauigkeiten und daran, dass verschiedene Statistikprogramme unterschiedliche Algorithmen nutzen.</p>
 </div>
-<div id="visualisierung" class="section level2">
-<h2>3.3 Visualisierung</h2>
-<p>TBD</p>
 </div>
+<div id="durchführung-der-faktorenanalyse" class="section level1">
+<h1>4. Durchführung der Faktorenanalyse</h1>
+<div id="hauptkomponentenanalyse" class="section level2">
+<h2>4.1 Hauptkomponentenanalyse</h2>
+<p>Nachdem wir die Variablen für unsere Analyse ausgewählt und die Voraussetzungen geprüft haben, können wir zunächst eine <em>Hauptkomponentenanalyse</em> durchführen. Die Hauptkomponentenanalyse dient zur Strukturierung von Daten, nicht zur Dimensionsreduktion. Doch sie ist notwendig, um die Anzahl der Faktoren statistisch festzulegen.</p>
+<pre class="r"><code>model_princomp &lt;- princomp(sub_lijphart)
+print(model_princomp$loadings, digits = 2)</code></pre>
+<pre><code>## 
+## Loadings:
+##                     Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8
+## enpp4510                           0.11          0.31   0.32          0.87 
+## minwin_one_part4510 -0.99   0.12                                           
+## exe_dom4510                       -0.85  -0.49                        0.15 
+## disprop4510         -0.12  -0.98   0.11                                    
+## inter_gr_plural4510                              0.19  -0.46  -0.85   0.11 
+## fed_unit4510                      -0.31   0.51                             
+## bicam4510                         -0.28   0.45   0.70   0.18         -0.27 
+## const_rigid4510                   -0.24   0.39  -0.59   0.46  -0.37        
+## judic_rev4510                     -0.14   0.36  -0.19  -0.66   0.36   0.34 
+## cen_bank_indep4594                                                         
+##                     Comp.9 Comp.10
+## enpp4510             0.13         
+## minwin_one_part4510               
+## exe_dom4510                       
+## disprop4510                       
+## inter_gr_plural4510               
+## fed_unit4510         0.74  -0.27  
+## bicam4510           -0.36         
+## const_rigid4510     -0.31         
+## judic_rev4510       -0.35         
+## cen_bank_indep4594   0.30   0.95  
+## 
+##                Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8 Comp.9
+## SS loadings       1.0    1.0    1.0    1.0    1.0    1.0    1.0    1.0    1.0
+## Proportion Var    0.1    0.1    0.1    0.1    0.1    0.1    0.1    0.1    0.1
+## Cumulative Var    0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9
+##                Comp.10
+## SS loadings        1.0
+## Proportion Var     0.1
+## Cumulative Var     1.0</code></pre>
+<p>Mit der Funktion <code>princomp()</code> können wir in <code>R</code> die Hauptkomponentenanalyse durchführen. Dazu müssen wir lediglich unser <code>subset</code> <em>sub_lijphart</em> angeben. Mit der zweiten Zeile Code gibt <code>R</code> die gerundeten <em>Faktorladungen</em> aus. Die Faktorladungen geben an, wie hoch die Erklärungskraft eines Faktors für die Varibalen ist.</p>
+</div>
+<div id="screeplot" class="section level2">
+<h2>4.2 Screeplot</h2>
+<p>Um die Faktorenanalyse zu optimieren, kann die Anzahl der Faktoren geschätzt werden. Neben der Bestimmung der Anzahl der Faktoren in Form einer theoriebasierten Schätzung, können wir auch bestimmte statistische Tests nutzen. Eine einfache Möglichkeit ist die Auswertung eines <em>Screeplots</em>.</p>
+<p>Das Screeplot ist eine Visualisierung der <em>Eigenwerte</em> in einem Koordinatensystem. Die Eigenwerte geben wieder, wie bedeutsam ein Faktor ist. Bei dem Screeplot sind sie absteigend geordnet. Die Anzahl der Faktoren erkennt man an dem Knick. Dieser Knick ist die größte Differenz der Eigenwerte zwischen zwei Variablen. Hier ist der erste Punkt links des Knickes gleich der Anzahl der Variablen. In diesem Fall ergibt die Auswertung des Screeplotes, dass zwei Faktoren am besten für unsere Analyse geeignet sind.</p>
+<pre class="r"><code>screeplot(model_princomp, 
+          type = &quot;lines&quot;, 
+          main = &quot;Screeplot&quot;)</code></pre>
+<p><img src="Sitzung_12_Faktoranalyse_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="faktorenanalyse" class="section level2">
+<h2>4.3 Faktorenanalyse</h2>
+<p>Durch die Bestimmung der Anzahl der Faktoren können wir diese mit in unsere Analyse einbinden. Dazu nutzen wir eine Faktorenanalyse. In <code>R</code> geht dies über die Funktion <code>factanal()</code>.</p>
+<pre class="r"><code>model_factanal &lt;- factanal(sub_lijphart, 2, rotation = &quot;varimax&quot;, scores = &quot;regression&quot;)
+print(model_factanal, round = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##               0.187               0.104               0.306               0.568 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##               0.477               0.005               0.432               0.455 
+##       judic_rev4510  cen_bank_indep4594 
+##               0.439               0.488 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510            -0.902         
+## minwin_one_part4510  0.944         
+## exe_dom4510          0.829         
+## disprop4510          0.650         
+## inter_gr_plural4510  0.723         
+## fed_unit4510                 0.998 
+## bicam4510                    0.753 
+## const_rigid4510              0.736 
+## judic_rev4510                0.708 
+## cen_bank_indep4594           0.711 
+## 
+##                Factor1 Factor2
+## SS loadings      3.410   3.130
+## Proportion Var   0.341   0.313
+## Cumulative Var   0.341   0.654
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 75.27 on 26 degrees of freedom.
+## The p-value is 1.1e-06</code></pre>
+<p>Der Befehl <code>factanal()</code> für die Faktorenanalyse besteht aus den Variablen, der Anzahl der Faktoren und der Rotationsmethode. Dabei wählen wir als Erstes unser <code>subset</code> <em>sub_lijphart</em> als unsere Variablen aus. Es folgt die Anzahl der Faktoren. Zudem kann durch das Argument <code>rotation</code> die Rotationsmethode ausgewählt werden. Die Rotationsmethode beeinflusst das Endergebnis unserer Analyse. In diesem Fall verwenden wir <code>varimax</code> als orthogonale Rotationsmethode. Lijphart hat sich für diese Rotationsmethode entschieden, weil sie sicherstellt, dass die Faktoren unabhängig voneinander sind. Indem wir das Argument <code>scores</code> auf <code>regression</code> setzen, können wir zusätzlich die Faktorwerte errechnen lassen. Diese werden wir für die Visualisierung benötigen.</p>
+<p>Mit der Funktion <code>print</code> fordern wir <code>R</code> dazu auf, das Ergebnis der Faktorenanalyse auszugeben. Dabei legen wir mit dem Argument <code>digits</code> die Anzahl der Rundungsziffern fest. Zudem können wir mit <code>cutoff</code> bestimmen, ab welcher Grenze die Ergebnisse nicht mehr angezeigt werden sollen. So können wir die Übersichtlichkeit unserer Faktorenanalyse erhöhen.</p>
+<p>Der Output der Faktorenanalyse gibt die gewünschte Anzahl an Faktoren und ihre Faktorenladungen für die zehn Variablen wieder. Aufgabe des Forschenden ist es nun, die Faktoren inhaltlich zu interpretieren. In der Regel wird nach Gemeinsamkeiten der Variablen gesucht. Lijphart nennt den ersten Faktor die <em>Exekutive-Parteien-Dimension</em> und den zweiten Faktor die <em>Föderalismus-Unitarismus-Dimension</em>.</p>
+</div>
+</div>
+<div id="visualisierung" class="section level1">
+<h1>5. Visualisierung</h1>
+<p>Lijphart fasst seine Ergebnisse der Faktorenanalyse in einer <em>“Landkarte der Demokratie”</em> zusammen. Dort können die Demokratien, welche er untersucht, mithilfe der beiden Dimensionen eingeordnet werden. Es entsteht ein Schaubild, in welchem Demokratien eingeordnet und miteinander verglichen werden können.</p>
+<p>Diese Form der Visualisierung wird <em>“mapping”</em> genannt. Wir können sie mit <code>R</code> replizieren. Hierzu benötigen wir die <em>Faktorwerte</em>. Die Faktorwerte geben wieder, wie stark die Untersuchungseinheiten von den Faktoren erfasst werden. Das bedeutet in diesem Fall, wie gut eine Demokratie von der Exekutive-Parteien-Dimension und der Föderalismus-Unitarismus-Dimension beschrieben werden. Die Faktorenwerte können in <code>R</code> mit folgendem Code ausgegeben werden:</p>
+<pre class="r"><code># Faktorwerte ausgeben lassen 
+head(model_factanal$scores)</code></pre>
+<pre><code>##         Factor1     Factor2
+## [1,]  0.6774763  1.37722672
+## [2,]  0.7943245  1.62520783
+## [3,] -0.2026600  1.06350614
+## [4,]  1.3630201 -0.14260879
+## [5,]  1.2698724 -0.48422545
+## [6,] -1.0058544  0.09310261</code></pre>
+<p>Um die <em>“Landkarte der Demokratie”</em> nachzustellen, müssen wir zunächst einen Dataframe erstellen. Dazu nutzen wir die Funktion <code>as.data.frame()</code> und erstellen ein neues Objekt. Danach erstellen wir die Grafik, indem wir das Paket <code>ggplot2</code> nutzen. Um unsere Replikation mit Lijpharts <em>“Landkarte der Demokratie”</em> vergleichbarer zu machen, passen wir sie etwas an. Wir verändern die Datenpunkte über <code>geom_point()</code>, indem wir sie mit dem Argument <code>size</code> verkleinern, mit <code>shape</code> die Form zu einer Raute ändern und diese mit <code>fill</code> schwarz ausfüllen. Zudem beschriften wir unsere Datenpunkte, um prüfen zu können, ob sie in etwa der Position von Lijpharts Datenpunkten übereinstimmen. Dazu nutzen wir <code>geom_text ()</code>. Zunächst legen wir mit <code>label</code> die Daten für unsere Beschriftung fest. Danach können wir die Beschrftung mit <code>nudge_y</code> auf der y-Achse verschieben. Das Argument <code>check_overlap</code> dient dazu, das Überlappen von Beschriftungen zu vermeiden. Mit <code>geom_hline()</code> und <code>geom_vline()</code> können wir eine horizontale und eine vertikale Linie an der Stelle 0 zeichnen. Dadurch wird die Einordnung der Demokratien erleichtert. Anschließend definieren wir mit <code>labs()</code> die Achsenbeschriftungen, den Titel und den Untertitel. Durch <code>coord_cartesian()</code> können wir das Koordinatensystem an der x-Achse spiegeln, indem wir die Definitionsränder von <code>xlim</code> von negativ nach positiv anordnen. Schließlich bestimmen wir mit <code>theme_linedraw()</code> das Design für unsere Grafik.</p>
+<pre class="r"><code># Dataframe erstellen 
+scores_data &lt;- as.data.frame(model_factanal$scores)
+
+# Visualisierung
+plot &lt;- ggplot(data = scores_data, aes(x = Factor1, y = Factor2)) + 
+  geom_point(size = 1, shape = 23, fill = &quot;black&quot;) +
+  geom_text(aes(label = lijphart$Country),
+            nudge_y = -.2,
+            check_overlap = T) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  labs(x = &quot;Exekutive-Parteien Dimension&quot;, 
+       y = &quot;Foederalismus-Unitarismus Dimension&quot;, 
+       title = &quot;Die Landkarte der Demokratie&quot;, 
+       subtitle = &quot;Eine Replikation nach Arend Lijphart&quot;) +
+  coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
+  theme_linedraw() 
+plot</code></pre>
+<p><img src="Sitzung_12_Faktoranalyse_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code># Grafik speichern
+ggsave(&quot;Landkarte der Demokratie.png&quot;)</code></pre>
+<p>Anschließend speichern wir die Grafik mit <code>ggsave()</code> in unserer working directory.</p>
+<p>Bitte beachten Sie, dass die Linien in der von Ihnen replizierten <em>“Landkarte der Demokratie”</em> je nach Betriebssystem in <code>R</code> anders ausgegeben werden können. In der abgespeicherten Grafik sollten die Linien dann wie die in diesem Tutorial aussehen.</p>
+<p>Nun können wir unsere <em>“Landkarte der Demokratie”</em> mit jener von Arend Lijphart aus <em>“Patterns of Democracy”</em> vergleichen. Es fällt auf, dass die Grafiken starke Gemeinsamkeiten aufweisen. Jedoch sind einige Demokratien in unserer Grafik verschoben, z.B. liegt Argentinien bei uns etwas weiter links als bei Lijphart. Das liegt daran, dass Faktorenanalysen in verschiedenen Statistikprogrammen mit unterschiedlichen Algorithmen berechnet werden.</p>
+</div>
+<div id="zusammenfassung" class="section level1">
+<h1>6. Zusammenfassung</h1>
+<p>In dieser Sitzung konnten Sie mit <code>R</code> die Faktorenanalyse von Arend Lijphart aus <em>“Patterns of Democracy”</em> replizieren. Dazu haben Sie alle relevanten Variablen umkodiert und aus ihnen ein <code>subset</code> erstellt. Mit der Funktion <code>princomp()</code> konnten Sie eine Hauptkomponentenanalyse durchführen. Dadurch gelang es Ihnen, ein Screeplot zu zeichnen und die Anzahl der Faktoren zu bestimmen, sodass Sie eine Faktorenanalyse durchführen konnten. Dabei haben Sie die Rotationsmethode und die Anzahl der Faktoren festgelegt. Zum Schluss haben Sie Ihre Ergebnisse visualisieren können, indem Sie Lijpharts <em>“Landkarte der Demokratie”</em> repliziert haben.</p>
 </div>
 <div id="aufgaben" class="section level1">
-<h1>4. Aufgaben</h1>
-<p>TBD</p>
+<h1>7. Aufgaben</h1>
+<ol style="list-style-type: decimal">
+<li><p>Verändern Sie die Anzahl der Faktoren zu:</p>
+<ol style="list-style-type: lower-alpha">
+<li>drei Faktoren und</li>
+<li>zu einem Faktor. Wie verändern sich die Ergebnisse? Können Sie Ihre Ergebnisse sinnvoll interpretieren? Vergleichen Sie Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</li>
+</ol></li>
+<li><p>Erstellen Sie ein neues <code>subset</code> mit allen Variablen aus <em>sub_lijphart</em> außer der Variablen der Interessenvertretung. Führen Sie eine Faktorenanalyse mit zwei Faktoren durch. Wie wirkt sich die Reduktion auf Ihre Ergebnisse aus? Ziehen Sie den Vergleich zu Ihrer replizierten Faktorenanalyse. Erstellen Sie dazu auch eine Visualisierung, welche Sie mit der replizierten “Landkarte der Demokratie” vergleichen.</p></li>
+<li><p>Replizieren Sie die Faktorenanalyse erneut. Verwenden Sie dabei alle Untersuchungseinheiten außer die Demokratien Großbritannien und Neuseeland. Erstellen Sie eine Visualisierung. Welche Veränderungen können Sie beobachten? Vergleichen Sie dazu Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</p></li>
+</ol>
 </div>
 <div id="lösungen" class="section level1">
-<h1>5. Lösungen</h1>
-<p>TBD</p>
+<h1>8. Lösungen</h1>
+<ol style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol></li>
+</ol>
+<pre class="r"><code># Faktorenanlyse mit drei Faktoren
+model_fac3 &lt;- factanal(sub_lijphart, 3, rotation = &quot;varimax&quot;)
+print(model_fac3, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 3, rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.12                0.13                0.30                0.53 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                0.49                0.00                0.38                0.42 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.39                0.00 
+## 
+## Loadings:
+##                     Factor1 Factor2 Factor3
+## enpp4510            -0.92                  
+## minwin_one_part4510  0.93                  
+## exe_dom4510          0.83                  
+## disprop4510          0.65                  
+## inter_gr_plural4510  0.71                  
+## fed_unit4510                 0.93    0.37  
+## bicam4510                    0.79          
+## const_rigid4510              0.76          
+## judic_rev4510                0.74          
+## cen_bank_indep4594           0.40    0.91  
+## 
+##                Factor1 Factor2 Factor3
+## SS loadings       3.41    2.80    1.03
+## Proportion Var    0.34    0.28    0.10
+## Cumulative Var    0.34    0.62    0.72
+## 
+## Test of the hypothesis that 3 factors are sufficient.
+## The chi square statistic is 57.01 on 18 degrees of freedom.
+## The p-value is 6.17e-06</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre class="r"><code># Faktorenanalyse mit einem Faktor
+model_fac1 &lt;- factanal(sub_lijphart, 1, rotation = &quot;varimax&quot;)
+print(model_fac1, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 1, rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                1.00                1.00                0.99                0.99 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                1.00                0.00                0.43                0.46 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.50                0.49 
+## 
+## Loadings:
+##                     Factor1
+## enpp4510                   
+## minwin_one_part4510        
+## exe_dom4510                
+## disprop4510                
+## inter_gr_plural4510        
+## fed_unit4510         1.00  
+## bicam4510            0.75  
+## const_rigid4510      0.74  
+## judic_rev4510        0.71  
+## cen_bank_indep4594   0.71  
+## 
+##                Factor1
+## SS loadings       3.13
+## Proportion Var    0.31
+## 
+## Test of the hypothesis that 1 factor is sufficient.
+## The chi square statistic is 187.58 on 35 degrees of freedom.
+## The p-value is 9.09e-23</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code># Neues reduziertes subset erstellen (Variablen)
+sub_lijphart_red1 &lt;- sub_lijphart[ ,c(&quot;enpp4510&quot;,&quot;minwin_one_part4510&quot;,                                               &quot;exe_dom4510&quot;, &quot;disprop4510&quot;,
+                                     &quot;fed_unit4510&quot;, &quot;bicam4510&quot;,                                                    &quot;const_rigid4510&quot;, &quot;judic_rev4510&quot;, 
+                                     &quot;cen_bank_indep4594&quot;)]
+
+# Faktorenanalyse durchführen
+model_red1 &lt;- factanal(sub_lijphart_red1, 2, rotation = &quot;varimax&quot;, scores = &quot;regression&quot;)
+print(model_red1, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart_red1, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.15                0.14                0.28                0.59 
+##        fed_unit4510           bicam4510     const_rigid4510       judic_rev4510 
+##                0.00                0.43                0.45                0.44 
+##  cen_bank_indep4594 
+##                0.49 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510                    -0.92  
+## minwin_one_part4510          0.92  
+## exe_dom4510                  0.85  
+## disprop4510                  0.64  
+## fed_unit4510         1.00          
+## bicam4510            0.75          
+## const_rigid4510      0.74          
+## judic_rev4510        0.71          
+## cen_bank_indep4594   0.71          
+## 
+##                Factor1 Factor2
+## SS loadings       3.13    2.89
+## Proportion Var    0.35    0.32
+## Cumulative Var    0.35    0.67
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 67.65 on 19 degrees of freedom.
+## The p-value is 2.25e-07</code></pre>
+<pre class="r"><code># Dataframe erstellen 
+scores_data_red1 &lt;- as.data.frame(model_red1$scores)
+
+# Visualisierung
+plot_red1 &lt;- ggplot(data = scores_data_red1, aes(x = Factor1, y = Factor2)) + 
+  geom_point(size = 1, shape = 23, fill = &quot;black&quot;) +
+  geom_text(aes(label = lijphart$Country),
+            nudge_y = -.2,
+            check_overlap = T) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  labs(x = &quot;Exekutive-Parteien Dimension&quot;, 
+       y = &quot;Foederalismus-Unitarismus Dimension&quot;, 
+       title = &quot;Die Landkarte der Demokratie&quot;, 
+       subtitle = &quot;Ohne die Variable der Interessensvertretung&quot;) +
+  coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
+  theme_linedraw() 
+plot_red1</code></pre>
+<p><img src="Sitzung_12_Faktoranalyse_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code># Vergleich mit der replizierten &quot;Landkarte der Demokratie&quot;
+plot</code></pre>
+<p><img src="Sitzung_12_Faktoranalyse_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code># Länder anzeigen lassen 
+lijphart$Country</code></pre>
+<pre><code>##  [1] &quot;ARG&quot; &quot;AUL&quot; &quot;AUT&quot; &quot;BAH&quot; &quot;BAR&quot; &quot;BEL&quot; &quot;BOT&quot; &quot;CAN&quot; &quot;CR&quot;  &quot;DEN&quot; &quot;FIN&quot; &quot;FRA&quot;
+## [13] &quot;GER&quot; &quot;GRE&quot; &quot;ICE&quot; &quot;IND&quot; &quot;IRE&quot; &quot;ISR&quot; &quot;ITA&quot; &quot;JAM&quot; &quot;JPN&quot; &quot;KOR&quot; &quot;LUX&quot; &quot;MAL&quot;
+## [25] &quot;MAU&quot; &quot;NET&quot; &quot;NOR&quot; &quot;NZ&quot;  &quot;POR&quot; &quot;SPA&quot; &quot;SWE&quot; &quot;SWI&quot; &quot;TRI&quot; &quot;UK&quot;  &quot;URU&quot; &quot;US&quot;</code></pre>
+<pre class="r"><code># Neues reduziertes subset erstellen (Untersuchungseinheiten)
+sub_lijphart_red2 &lt;- sub_lijphart[c(1:27, 29:33, 35:36), ]
+
+# Reduzierte Liste der Ländernamen erstellen 
+Country_red &lt;- lijphart$Country[c(1:27, 29:33, 35:36)]
+
+# Faktorenanalyse durchführen
+model_red2 &lt;- factanal(sub_lijphart_red2, 2, rotation = &quot;varimax&quot;, scores = &quot;regression&quot;)
+print(model_red2, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart_red2, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.18                0.12                0.30                0.57 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                0.50                0.00                0.41                0.50 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.46                0.52 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510            -0.90          
+## minwin_one_part4510  0.94          
+## exe_dom4510          0.84          
+## disprop4510          0.65          
+## inter_gr_plural4510  0.71          
+## fed_unit4510                 1.00  
+## bicam4510                    0.77  
+## const_rigid4510              0.69  
+## judic_rev4510        0.32    0.66  
+## cen_bank_indep4594           0.69  
+## 
+##                Factor1 Factor2
+## SS loadings       3.44    3.01
+## Proportion Var    0.34    0.30
+## Cumulative Var    0.34    0.64
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 79.4 on 26 degrees of freedom.
+## The p-value is 2.59e-07</code></pre>
+<pre class="r"><code># Dataframe erstellen 
+scores_data_red2 &lt;- as.data.frame(model_red2$scores)
+
+# Visualisierung
+plot_red2 &lt;- ggplot(data = scores_data_red2, aes(x = Factor1, y = Factor2)) + 
+  geom_point(size = 1, shape = 23, fill = &quot;black&quot;) +
+  geom_text(aes(label = Country_red),
+            nudge_y = -.2,
+            check_overlap = T) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  labs(x = &quot;Exekutive-Parteien Dimension&quot;, 
+       y = &quot;Foederalismus-Unitarismus Dimension&quot;, 
+       title = &quot;Die Landkarte der Demokratie&quot;, 
+       subtitle = &quot;Ohne die Demokratien GB und NZ&quot;) +
+  coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
+  theme_linedraw() 
+plot_red2</code></pre>
+<p><img src="Sitzung_12_Faktoranalyse_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code># Vergleich mit der replizierten &quot;Landkarte der Demokratie&quot;
+plot</code></pre>
+<p><img src="Sitzung_12_Faktoranalyse_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<p>Vergleich für alle Aufgaben:</p>
+<pre class="r"><code># Replizierte Faktorenanalyse
+print(model_factanal, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.19                0.10                0.31                0.57 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                0.48                0.00                0.43                0.45 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.44                0.49 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510            -0.90          
+## minwin_one_part4510  0.94          
+## exe_dom4510          0.83          
+## disprop4510          0.65          
+## inter_gr_plural4510  0.72          
+## fed_unit4510                 1.00  
+## bicam4510                    0.75  
+## const_rigid4510              0.74  
+## judic_rev4510                0.71  
+## cen_bank_indep4594           0.71  
+## 
+##                Factor1 Factor2
+## SS loadings       3.41    3.13
+## Proportion Var    0.34    0.31
+## Cumulative Var    0.34    0.65
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 75.27 on 26 degrees of freedom.
+## The p-value is 1.1e-06</code></pre>
 </div>
 
 

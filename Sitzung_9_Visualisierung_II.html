@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 9: Visualisierung (2): Zusammenhangsmaße</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,19 +373,17 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 9: Visualisierung (2): Zusammenhangsmaße</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
-<p>In unserem letzten Tutorial haben wir uns mit der bivariaten linearen Regression beschäftigt und den Zusammenhang zwischen effektiver Parteienanzahl und Wahlsystemdisproportionalität untersucht. Zusätzlich haben wir bereits eine einfache Visualiserung der Residuen realisiert.</p>
-<p>In diesem Tutorial werden wir an diesem Punkt ansetzen und weitere Visualisierungsmöglichkeiten besprechen. Zusätzlich werden wir lernen, wie man das Aussehen von Graphen (Hintergrundfarbe, Farben, Beschriftungen u.v.m) nach eigenen Wünschen gestalten kann.</p>
+<p>In unserem letzten Tutorial haben wir uns mit der bivariaten linearen Regression beschäftigt und den Zusammenhang zwischen effektiver Parteienanzahl und Wahlsystemdisproportionalität untersucht. Zusätzlich haben wir bereits eine einfache Visualiserung der Residuen realisiert. In diesem Tutorial werden wir an diesem Punkt ansetzen und weitere Visualisierungsmöglichkeiten besprechen. Zusätzlich werden wir lernen, wie man das Aussehen von Graphen (Hintergrundfarbe, Farben, Beschriftungen u.v.m) nach eigenen Wünschen gestalten kann.</p>
 </div>
 <div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
 <h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
@@ -436,8 +435,13 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
   geom_point() +
   geom_smooth(method = lm)</code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># Eine alternative Schreibweise bietet das Tilde (~) Zeichen, welches wir bereits aus dem Tutorial zur bivariaten OLS Regression kennen
+
+# ggplot(lijphart, aes(enpp4510 ~ disprop4510)) +
+#  geom_point() +
+#  geom_smooth(method = lm)</code></pre>
 <p>Wie wir sehen können, werden die Konfidenzintervalle automatisch visualisiert. Wollen wir das nicht, dann können wir das wie folgt bestimmen:</p>
-<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510, y = disprop4510)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE)</code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
@@ -589,7 +593,7 @@ ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
 <div id="zusammenfassung" class="section level1">
 <h1>5. Zusammenfassung</h1>
 <p>Das <code>ggplot2</code>-Paket gibt uns eine Vielzahl an unterschiedlichen Möglichkeiten zur Visualisierung von Daten und Analyseergebnissen. In diesem Tutorial haben wir neben dem visualisieren von Linienplots und Streudiagrammen vor allem gelernt, wie wir das Erscheinungsbild unserer Plots (Farben, Achsenbeschriftungen, Hintergrund) verändern können.</p>
-<p>Wenn Sie eigene Grafiken im Rahmen einer Hausarbeit erstellen möchten, werden Sie zusätzliche Funktionen und Argumente recherchieren müssen. Dazu sei auf <code>?ggplot</code> und die Hilfefunktion zu einzelnen (Geom-)Funktionen, sowie auf <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a> und das dort verfügbare &quot;Cheatsheet&quot; hingewiesen.</p>
+<p>Wenn Sie eigene Grafiken im Rahmen einer Hausarbeit erstellen möchten, werden Sie zusätzliche Funktionen und Argumente recherchieren müssen. Dazu sei auf <code>?ggplot</code> und die Hilfefunktion zu einzelnen (Geom-)Funktionen, sowie auf <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a> und das dort verfügbare “Cheatsheet” hingewiesen.</p>
 </div>
 <div id="aufgaben" class="section level1">
 <h1>6. Aufgaben</h1>
@@ -712,7 +716,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   # Auch möglich xlim(XX, XX)+ylim(XX, XX) 
   theme_minimal()</code></pre>
 <p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<pre class="r"><code># Aufgabe 5: Gaphen speichern
+<pre class="r"><code># Aufgabe 5: Graphen speichern
 
 # Neues Objekt speichern
 Bicam_Exe &lt;- ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
@@ -725,10 +729,10 @@ Bicam_Exe &lt;- ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   theme_minimal()
 
 # JPG
-ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.jpg&quot;, width = 4, height = 4)
+ggsave(&quot;fig1-Bicam_Exe.jpg&quot;, Bicam_Exe, device = &quot;jpeg&quot;, width = 4, height = 4)
 
 # PDF
-ggsave(Bicam_Exe, &quot;fig1-Bicam_Exe.pdf&quot;, width = 4, height = 4)</code></pre>
+ggsave(&quot;fig1-Bicam_Exe.pdf&quot;, Bicam_Exe, device = &quot;pdf&quot;, width = 4, height = 4)</code></pre>
 </div>
 
 

@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 11: Logistische Regression</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,15 +373,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 11: Logistische Regression</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
 <p>In der achten und zehnten Sitzung haben wir eine lineare Regression gerechnet. Lineare Regressionen sind bei einer stetigen abhängigen Variablen angemessen.</p>
@@ -395,7 +395,9 @@ div.tocify {
 library(ggplot2) # für die Visualisierung
 
 library(ggeffects) # für predicted probabilities</code></pre>
-<pre class="r"><code>library(foreign)
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <pre class="r"><code># GLES
@@ -480,7 +482,7 @@ gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0</code></pre>
 <div id="das-modell" class="section level3">
 <h3>3.1 Das Modell</h3>
 <p>In <code>R</code> rechnen wir eine logistische Regression mit der <code>glm()</code>-Funktion.</p>
-<p>Um ein einfaches logistisches Regressionsmodell zu schätzen, modellieren wir unsere abhängige Variable und unsere unabhängige Variable. Als Datensatz verwenden wir <code>gles</code>. Wir speichern das Modell in dem Objekt <code>afd_logit</code>. Zusätzlich teilen wir <code>R</code> mit, dass wir eine binomiale logistische Regression durchführen möchten, indem wir das Argument <code>family</code> auf <code>&quot;binomial&quot;</code> setzen.</p>
+<p>Um ein einfaches logistisches Regressionsmodell zu schätzen, modellieren wir unsere abhängige Variable und unsere unabhängige Variable. Als Datensatz verwenden wir <code>gles</code>. Wir speichern das Modell in dem Objekt <code>afd_logit</code>. Zusätzlich teilen wir <code>R</code> mit, dass wir eine binomiale logistische Regression durchführen möchten, indem wir das Argument <code>family</code> auf <code>"binomial"</code> setzen.</p>
 <pre class="r"><code>afd_logit &lt;- glm(AfD.Wahl ~ LiRe_cat
                  , data = gles, family = &quot;binomial&quot;)</code></pre>
 <p>Wir nutzen <code>summary()</code> um die Ergenisse zu betrachten.</p>
@@ -511,7 +513,7 @@ gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0</code></pre>
 ## AIC: 871.6
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<p>Wie schon bei der multiplen linearen Regression werden die Koeffizienten bei der kategorialen Variable <code>LiRe_cat</code> jeweils im Vergleich zur nicht gezeigten Refferenzkategorie &quot;links&quot; berechnet. Im Output sehen wir, dass z.B. im Vergleich zu Personen, die sich als links einstufen, Personen die sich als rechts einstufen eine deutlich höhere Wahrscheinlichkeit aufweisen, die AfD zu wählen. Der zugehörige Koeffizient ist positiv und der p-Wert zeigt, dass der Zusammenhang statistisch hochsignifikant ist (0,00000000283). Dementsprechend können wir daraus schließen, dass die Wahrscheinlichkeit, dass Befragte die AfD wählen, höher ist, wenn sich diese selbst als politisch rechts stehend einstufen. Allerdings können wir die so berechneten Logit-Koeffizienten aufgrund der zugrunde liegenden Logarithmierung nicht bezüglich der Stärke des Zusammenhangs interpretieren.</p>
+<p>Wie schon bei der multiplen linearen Regression werden die Koeffizienten bei der kategorialen Variable <code>LiRe_cat</code> jeweils im Vergleich zur nicht gezeigten Refferenzkategorie “links” berechnet. Im Output sehen wir, dass z.B. im Vergleich zu Personen, die sich als links einstufen, Personen die sich als rechts einstufen eine deutlich höhere Wahrscheinlichkeit aufweisen, die AfD zu wählen. Der zugehörige Koeffizient ist positiv und der p-Wert zeigt, dass der Zusammenhang statistisch hochsignifikant ist (0,00000000283). Dementsprechend können wir daraus schließen, dass die Wahrscheinlichkeit, dass Befragte die AfD wählen, höher ist, wenn sich diese selbst als politisch rechts stehend einstufen. Allerdings können wir die so berechneten Logit-Koeffizienten aufgrund der zugrunde liegenden Logarithmierung nicht bezüglich der Stärke des Zusammenhangs interpretieren.</p>
 </div>
 <div id="predicted-probabilities" class="section level2">
 <h2>3.2 Predicted Probabilities</h2>
@@ -564,13 +566,12 @@ plogis(-3.2426 + 3.2426)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Wir sehen also, dass die Wahrscheinlichkeit einer befragten Person, die AfD zu wählen, deutlich steigt, umso &quot;rechter&quot; sich diese Person selbst auf einer Links-Rechts Skala einordnet.</p>
+<p>Wir sehen also, dass die Wahrscheinlichkeit einer befragten Person, die AfD zu wählen, deutlich steigt, umso “rechter” sich diese Person selbst auf einer Links-Rechts Skala einordnet.</p>
 <p>Glücklicherweise gibt es einfachere Wege, die <em>predicted probabilities</em> zu berechnen. Hierfür können wir zum Beispiel die <code>ggpredict()</code>-Funktion aus dem <code>ggeffects</code>-Paket verwenden.</p>
 <pre class="r"><code>ggpredict(afd_logit, terms = &quot;LiRe_cat&quot;) # für die Vorhersage müssen wir unsere unabhängige Variable nochmals nennen</code></pre>
 <pre><code>## # Predicted probabilities of AfD.Wahl
-## # x = LiRe_cat
 ## 
-## x              | Predicted |       95% CI
+## LiRe_cat       | Predicted |       95% CI
 ## -----------------------------------------
 ## links          |      0.04 | [0.02, 0.09]
 ## moderat links  |      0.01 | [0.01, 0.03]

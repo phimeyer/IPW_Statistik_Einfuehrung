@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,15 +373,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
 <div id="herzlich-wilkommen-sehr-geehrte-dozierende" class="section level1">
 <h1>1. Herzlich Wilkommen, sehr geehrte Dozierende!</h1>
 <p>Ein herzliches Willkommen zu dieser Einführung in die politikwissenschaftliche Statistik mit <code>R</code>!</p>
@@ -409,28 +409,14 @@ div.tocify {
 <div id="behandelte-themen" class="section level2">
 <h2>1.5 Behandelte Themen</h2>
 <p>In diesem Kurs werden die Studierenden die Grundlagen des Programms erlernen, Datensatzaufbereitung, deskriptive und multivariate Statistik. Dies geschieht anhand von verbreiteten politikwissenschaftlichen Datensätzen. Konkret werden folgende Themen abgehandelt:</p>
-<ol style="list-style-type: decimal">
-<li><a href="Sitzung_1_Einfuehrung.html">Sitzung: Einleitung und Grundlagen von <code>R</code></a></li>
-<li><a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a></li>
-<li><a href="Sitzung_3_Datensätze_einladen.html">Sitzung: Datensätze einladen in <code>R</code></a></li>
-<li><a href="Sitzung_4_Variablen_Kodieren.html">Sitzung: Variablen um-/kodieren</a></li>
-<li><a href="Sitzung_5_univariate_Maße.html">Sitzung: Univariate Maße</a></li>
-<li><a href="Sitzung_6_Visualisierung_I.html">Sitzung: Visualisierung (1): Univariate Verteilungen</a></li>
-<li><a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Sitzung: Bivariate Zusammenhangsmaße</a></li>
-<li><a href="Sitzung_8_bivariate_OLS.html">Sitzung: Bivariate lineare Regression (OLS)</a></li>
-<li><a href="Sitzung_9_Visualisierung_II.html">Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a></li>
-<li><a href="Sitzung_10_multiple_lineare_Regression.html">Sitzung: Multiple lineare Regression</a></li>
-<li><a href="Sitzung_11_LogitReg.html">Sitzung: Logistische Regression</a></li>
-<li><a href="Sitzung_12_Faktoranalyse.html">Sitzung: Faktoranalyse</a></li>
-<li><a href="Sitzung_13_Tabellen.html">Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></li>
-</ol>
+<p><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a> <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a> <a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a> <a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a> <a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a> <a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a> <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a> <a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a> <a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a> <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a> <a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a> <a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a> <a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></p>
 </div>
 <div id="politikwissenschaftliche-beispiele" class="section level2">
 <h2>1.6 Politikwissenschaftliche Beispiele</h2>
 <p>Didaktisch haben wir uns bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt.</p>
 <ol style="list-style-type: decimal">
 <li><p>Politische Soziologie: Hier nutzen wir den Nachwahl-Querschnitt der German Longitudinal Election Study (GLES) von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle.</p></li>
-<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir den Datensatz zu &quot;Patterns of Democracy&quot; von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle.</p></li>
+<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir den Datensatz zu “Patterns of Democracy” von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle.</p></li>
 </ol>
 <p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze und anhand dessen ein Verständnis für Datenmanagement insgesamt.</p>
 </div>
@@ -449,7 +435,7 @@ div.tocify {
 <li><p>Bessere Noten: Innerhalb des politikwissenschaftlichen Studiums wird die Notwendigkeit immer größer, statistische Verfahren nicht nur passiv verstehen zu können, sondern auch gängige Verfahren aktiv anzuwenden. Ohne diese Fertigkeiten können letztlich keine eigenständigen empirischen Haus- und Abschlussarbeiten geschrieben werden. Ein erfolgreicher Besuch dieses Kurses hebt also Ihr potenzielles Notenniveau deutlich an.</p></li>
 <li><p>Eigenständige Analysen: Politikwissenschaft ist auch eine empirische Wissenschaft, in der wir politische Systeme und deren Regeln sowie das Verhalten von Akteuren (z.B. Parteien, Interessengruppen, Politikern und Wählern) verstehen und erklären wollen. Der Besuch dieses Kurses versetzt Sie in die Lage, selbstständige Analysen vorzunehmen und gegebene Analysen kritisch durch Replikation zu hinterfragen und nicht nur passiv die Arbeit anderer zu konsumieren.</p></li>
 <li><p>Moderne Datenanalyse: Innerhalb der Politikwissenschaft, ebenso wie in den Sprachwissenschaften, werden moderne Verfahren der Datenanalyse, wie die automatische Textanalyse, immer wichtiger. In der Politikwissenschaft haben wir Zugang zu einer großen Masse an politischen Dokumenten (z.B. Wahlprogramme, Gesetze, Tweets, Zeitungsartikel, Pressemitteilungen). Diese sind wegen ihrer breiten Verfügbarkeit und großen Masse kaum noch qualitativ auszuwerten, sondern werden mithilfe automatischer Textanalyse ausgewertet. Die Programmiersprache <code>R</code> bietet große Flexibilität und wird laufend erweitert, Dadurch kann sie auch aufwändige moderne Analyseverfahren leisten, während klassischen Statistikprogrammen enge Grenzen gesetzt sind. Der Kurs bietet Ihnen die Grundlage für einen Einstieg in diese Welt.</p></li>
-<li><p>Arbeitsmarkt: Die Fähigkeit zur quantitativen Datenanalyse verbessert Ihre Berufsaussichten deutlich. Sich damit systematisch auseinanderzusetzen, eröffnet Arbeitsmarktperspektiven im Bereich der &quot;Data Science&quot; und &quot;Big Data&quot;. Aber auch in klassischen Arbeitsmärkten für Politikwissenschaftler/innen wie z.B. dem Journalismus, wird dies immer wichtiger.</p></li>
+<li><p>Arbeitsmarkt: Die Fähigkeit zur quantitativen Datenanalyse verbessert Ihre Berufsaussichten deutlich. Sich damit systematisch auseinanderzusetzen, eröffnet Arbeitsmarktperspektiven im Bereich der “Data Science” und “Big Data”. Aber auch in klassischen Arbeitsmärkten für Politikwissenschaftler/innen wie z.B. dem Journalismus, wird dies immer wichtiger.</p></li>
 </ol>
 </div>
 <div id="r-als-das-programm-der-wahl-1" class="section level2">
@@ -471,8 +457,8 @@ div.tocify {
 <p>In der Statistikausbildung wird in Vorlesungen ein Schwerpunkt auf die mathematische Basis gelegt oder wenn Vorlesungen von Professor/innen anderer Fächer unterrichtet werden, sind die Beispiele oft nicht politikwissenschaftlicher Natur. Wir haben in der Vergangenheit festgestellt, dass deshalb Studierenden oft nicht klar ist, wozu sie eigentlich die Statistikvorlesungen in ihrem Studium benötigen.</p>
 <p>Didaktisch haben wir uns in diesem Kurs bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt, um den Nutzen so besser verdeutlichen zu können.</p>
 <ol style="list-style-type: decimal">
-<li><p>Politische Soziologie: Hier nutzen wir den &quot;Nachwahl-Querschnitt der German Longitudinal Election Study (GLES)&quot; von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle. Dieser ist ein Standarddatensatz der deutschen Wahlforschung.</p></li>
-<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir Daten zu &quot;Patterns of Democracy&quot; von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle. Dieser gehört zu den Klassikern der vergleichenden Politikwissenschaft.</p></li>
+<li><p>Politische Soziologie: Hier nutzen wir den “Nachwahl-Querschnitt der German Longitudinal Election Study (GLES)” von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle. Dieser ist ein Standarddatensatz der deutschen Wahlforschung.</p></li>
+<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir Daten zu “Patterns of Democracy” von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle. Dieser gehört zu den Klassikern der vergleichenden Politikwissenschaft.</p></li>
 </ol>
 <p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt Ihnen der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze, sodass Sie anhand dessen ein Verständnis für Datenmanagement insgesamt erwerben.</p>
 </div>
@@ -480,31 +466,14 @@ div.tocify {
 <h2>2.6. Behandelte Themen</h2>
 <p>In diesem Kurs werden Sie die Grundlagen des Programms erlernen sowie Datensatzaufbereitung, deskriptive und multivariate Statistik. Gleichzeitig erlernen Sie Grundlagen der Visualisierung, dem wir drei Sitzungen widmen.</p>
 <p>Konkret werden folgende Themen abgehandelt:</p>
-<ol style="list-style-type: decimal">
-<li><a href="Sitzung_1_Einfuehrung.html">Sitzung: Einleitung und Grundlagen von <code>R</code></a></li>
-<li><a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a></li>
-<li><a href="Sitzung_3_Datensaetze_einladen.html">Sitzung: Datensätze einladen in <code>R</code></a></li>
-<li><a href="Sitzung_4_Variablen_Kodieren.html">Sitzung: Variablen um-/kodieren</a></li>
-<li><a href="Sitzung_5_univariate_Maße.html">Sitzung: Univariate Maße</a></li>
-<li><a href="Sitzung_6_Visualisierung_I.html">Sitzung: Visualisierung (1): Univariate Verteilungen</a></li>
-<li><a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Sitzung: Bivariate Zusammenhangsmaße</a></li>
-<li><a href="Sitzung_8_bivariate_OLS.html">Sitzung: Bivariate lineare Regression (OLS)</a></li>
-<li><a href="Sitzung_9_Visualisierung_II.html">Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a></li>
-<li><a href="Sitzung_10_multiple_lineare_Regression.html">Sitzung: Multiple lineare Regression</a></li>
-<li><a href="Sitzung_11_LogitReg.html">Sitzung: Logistische Regression</a></li>
-<li><a href="Sitzung_12_Faktoranalyse.html">Sitzung: Faktoranalyse</a></li>
-<li><a href="Sitzung_13_Tabellen.html">Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></li>
-</ol>
+<p><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a> <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a> <a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a> <a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a> <a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a> <a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a> <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a> <a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a> <a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a> <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a> <a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a> <a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a> <a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></p>
 </div>
 </div>
 <div id="danksagungen" class="section level1">
 <h1>3. Danksagungen</h1>
-<p>Wir danken dem Niedersächsischen Ministerium für Wissenschaft und Kunst (MWK) für die Förderung des Projektes &quot;Digitalisierung in einer Massenveranstaltung: Peer-begleitetes E-Learning in der politikwissenschaftlichen Statistikausbildung mit der Programmiersprache R&quot; aus dem Programm &quot;Innovative Lehr- und Lernkonzepte: Innovation plus (2020/21), Projektnummer 25&quot;.</p>
-<div class="figure">
-<img src="logo_MWK.png" />
-
-</div>
-<p>Ebenso danken wir Frau Dr. Ines Katenhusen als Referentin des Präsidiums sowie dem Studiendekanat der Philosophischen Fakultät für Kommentare zum Antrag und Laura Brune als studentische Hilfskraft für den ersten Pre-Test und Fehlersuche und -korrektur.</p>
+<p>Wir danken dem Niedersächsischen Ministerium für Wissenschaft und Kunst (MWK) für die Förderung des Projektes “Digitalisierung in einer Massenveranstaltung: Peer-begleitetes E-Learning in der politikwissenschaftlichen Statistikausbildung mit der Programmiersprache R” aus dem Programm “Innovative Lehr- und Lernkonzepte: Innovation plus (2020/21), Projektnummer 25”.</p>
+<p><img src="logo_MWK.png" /></p>
+<p>Ebenso danken wir Frau Dr. Ines Katenhusen als Referentin des Präsidiums sowie dem Studiendekanat der Philosophischen Fakultät für Kommentare zum Antrag und Laura Brune als studentische Hilfskraft für den ersten Pre-Test und Fehlersuche und -korrektur.</p>
 </div>
 <div id="grundlagenliteratur-und-verwendete-datensätze" class="section level1">
 <h1>4. Grundlagenliteratur und verwendete Datensätze</h1>

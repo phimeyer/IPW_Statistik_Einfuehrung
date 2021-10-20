@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 7: Bivariate Zusammenhangsmaße</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,20 +373,24 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 7: Bivariate Zusammenhangsmaße</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
 <p>In den vorherigen Sitzungen haben wir unsere Datensätze geladen, zur Analyse aufbereitet (umkodiert) und die Verteilungen einzelner Variablen mit (univariaten) Lage- und Streuungsmaßen sowie geeigneter Visualisierung inspiziert. Von nun an wollen wir <em>Zusammenhänge</em> zwischen den einzelnen Variablen der Datensätze prüfen. Wir betrachten also nicht nur eine, sondern (fürs erste) jeweils zwei Variablen. Damit befinden wir uns nun auf dem Gebiet der bivariaten Statistik. Wir prüfen, inwieweit bei einzelnen Beobachtungen ein Ausschlag auf einer Variable mit einem Ausschlag auf einer anderen Variable einhergeht. In dieser Sitzung werden wir herausfinden, wie wir bivariate Zusammenhangsmaße für nominales und metrisches Skalenniveau in <code>R</code> berechnen.</p>
+</div>
 <div id="datensätze-laden-und-umkodieren" class="section level1">
-<h1>1. Datensätze laden und umkodieren</h1>
+<h1>2. Datensätze laden und umkodieren</h1>
 <p>Damit wir mit unseren Datensätzen und den darin enthaltenen Variablen arbeiten können, müssen wir sie wie immer zuerst laden und zu unseren Zwecken umkodieren.</p>
-<pre class="r"><code>library(foreign)
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <pre class="r"><code># GLES
@@ -481,11 +486,11 @@ lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
 lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="nominales-skalenniveau" class="section level1">
-<h1>2. Nominales Skalenniveau</h1>
-<p>Für Zusammenhänge zwischen zwei nominalskalierten Variablen berechnen wir Chi-Quadrat und Cramer's V.</p>
+<h1>3. Nominales Skalenniveau</h1>
+<p>Für Zusammenhänge zwischen zwei nominalskalierten Variablen berechnen wir Chi-Quadrat und Cramer’s V.</p>
 <div id="chi-quadrat" class="section level2">
-<h2>2.1 Chi-Quadrat</h2>
-<p>Wir beginnen mit Pearson's <span class="math inline">\(\chi^2\)</span>-Unabhängigkeitstest, der die empirisch beobachtete Häufigkeit mit der bei Unterstellung von Unabhängigkeit zu erwartenden Häufigkeit vergleicht und prüft, ob diese signifikant unterschiedlich sind. Er wird auf Grundlage der Differenz zwischen der Indifferenztabelle und der Kontingenztabelle gebildet. Die Indifferenztabelle enthält in jeder Zelle die bei Unabhängigkeit erwarteten Häufigkeiten <span class="math inline">\(e_{ij}\)</span>. Dagegen enthält die Kontingenztabelle in jeder Zelle die empirisch beobachteten Häufigkeiten <span class="math inline">\(f_{ij}\)</span> (Diaz-Bone 2019, 82):</p>
+<h2>3.1 Chi-Quadrat</h2>
+<p>Wir beginnen mit Pearson’s <span class="math inline">\(\chi^2\)</span>-Unabhängigkeitstest, der die empirisch beobachtete Häufigkeit mit der bei Unterstellung von Unabhängigkeit zu erwartenden Häufigkeit vergleicht und prüft, ob diese signifikant unterschiedlich sind. Er wird auf Grundlage der Differenz zwischen der Indifferenztabelle und der Kontingenztabelle gebildet. Die Indifferenztabelle enthält in jeder Zelle die bei Unabhängigkeit erwarteten Häufigkeiten <span class="math inline">\(e_{ij}\)</span>. Dagegen enthält die Kontingenztabelle in jeder Zelle die empirisch beobachteten Häufigkeiten <span class="math inline">\(f_{ij}\)</span> (Diaz-Bone 2019, 82):</p>
 <p><span class="math inline">\(\chi^2=\sum_{j=1}^m\sum_{i=1}^k\frac{(f_{ij}-e_{ij})^2}{f_{ij}}\)</span>.</p>
 <p>Eine Variable ist mit ihren Kategorien in den Zeilen und die andere Variable in den Spalten dieser Tabellen abgetragen.</p>
 <p>In <code>R</code> können wir Chi-Quadrat mit der Funktion <code>chisq.test()</code> berechnen. Wir beginnen mit dem angenommenen Zusammenhang zwischen der Wahl zugunsten oder zuungunsten der AfD und dem Wohnort der Befragten. Die Variablen <code>AfD.Wahl</code>und <code>wohnort</code> ordnen wir den Argumenten <code>x</code> und <code>y</code> zu. Keine der beiden Variablen weist eine natürliche Ordnung auf, sie sind also nominalskaliert. Wir speichern den Output von <code>chisq.test()</code> in dem Objekt <code>test_wohnort</code>. Wenn wir nun <code>test_wohnort</code> abschicken, zeigt <code>R</code> den Output der Funktion <code>chisq.test()</code>.</p>
@@ -513,7 +518,7 @@ test_wohnort</code></pre>
 ##     Großstadt Kleinstadt Land Vorstadt
 ##   0       340        526  543      119
 ##   1        27         71   60        4</code></pre>
-<p>Als weiteres Beispiel berechnen wir <span class="math inline">\(\chi^2\)</span> für den Zusammenhang zwischen der berichteten AfD-Wahl und dem Geschlecht der Befragten. Da beide Variablen dichotom sind (nur zwei Ausprägungen besitzen) und die dabei erstellten Tabellen somit das Format 2x2 aufweisen, wird eine Anpassung in der Berechnung vorgenommen (&quot;Yates' continuity correction&quot;).</p>
+<p>Als weiteres Beispiel berechnen wir <span class="math inline">\(\chi^2\)</span> für den Zusammenhang zwischen der berichteten AfD-Wahl und dem Geschlecht der Befragten. Da beide Variablen dichotom sind (nur zwei Ausprägungen besitzen) und die dabei erstellten Tabellen somit das Format 2x2 aufweisen, wird eine Anpassung in der Berechnung vorgenommen (“Yates’ continuity correction”).</p>
 <pre class="r"><code>test_geschlecht &lt;- chisq.test(gles$AfD.Wahl, gles$geschlecht)
 test_geschlecht</code></pre>
 <pre><code>## 
@@ -534,11 +539,11 @@ test_geschlecht</code></pre>
 <p>In diesem Fall ist <span class="math inline">\(\chi^2\)</span> größer als zuvor und der p-Wert liegt näher an Null.</p>
 </div>
 <div id="cramers-v" class="section level2">
-<h2>2.2 Cramer's V</h2>
-<p>Ein Nachteil von Chi-Quadrat ist, dass es je nach Tabellenformat und Fallzahl unterschiedlich ausfällt. Deshalb wird Cramer's V als Standardisierung von Chi-Quadrat auf den Wertebereich (0; 1) berechnet, indem man Chi-Quadrat mit Tabellenformat (geringere der Spalten- oder Zeilenanzahl -1) und Fallzahl verrechnet (Diaz-Bone 2019, 86):</p>
+<h2>3.2 Cramer’s V</h2>
+<p>Ein Nachteil von Chi-Quadrat ist, dass es je nach Tabellenformat und Fallzahl unterschiedlich ausfällt. Deshalb wird Cramer’s V als Standardisierung von Chi-Quadrat auf den Wertebereich (0; 1) berechnet, indem man Chi-Quadrat mit Tabellenformat (geringere der Spalten- oder Zeilenanzahl -1) und Fallzahl verrechnet (Diaz-Bone 2019, 86):</p>
 <p><span class="math inline">\(V=\sqrt{\frac{\chi^2}{n\cdot min(m-1;k-1)}}\)</span>.</p>
-<p>So können wir die Stärke von Zusammenhängen vergleichen. Weil die drei oben untersuchten Variablen dem gleichen Datensatz entstammen, ist die Fallzahl identisch. Da außerdem die AfD-Wahl jeweils die Variable mit den wenigsten (nämlich zwei) Kategorien ist, dürfte die Normierung durch Cramer's V keinen Effekt haben. Der höhere <span class="math inline">\(\chi^2\)</span>-Wert für den Zusammenhang von Geschlecht und AfD-Wahl im Vergleich zu dem Zusammenhang von Wohnort und AfD-Wahl, sollte auch für Cramer's V vorliegen.</p>
-<p>Wir verwenden die Funktion <code>cramerV()</code> aus dem Paket <code>rcompanion</code>, da base-<code>R</code> keine Funktion zur Berechnung von Cramer's V bereithält. Entsprechend müssen wir <code>rcompanion</code> zunächst installieren und laden. Die Funktion <code>cramerV()</code> erwartet als Input eine Kreuztabelle der beobachteten Häufigkeiten. Wie oben gezeigt, können wir diese entweder händisch mittels <code>table(Variable1, Variable2)</code> erstellen, oder die durch <code>chisq.test()</code> erstellte Tabelle verwenden, die unter <code>test_wohnort$observed</code> gespeichert ist.</p>
+<p>So können wir die Stärke von Zusammenhängen vergleichen. Weil die drei oben untersuchten Variablen dem gleichen Datensatz entstammen, ist die Fallzahl identisch. Da außerdem die AfD-Wahl jeweils die Variable mit den wenigsten (nämlich zwei) Kategorien ist, dürfte die Normierung durch Cramer’s V keinen Effekt haben. Der höhere <span class="math inline">\(\chi^2\)</span>-Wert für den Zusammenhang von Geschlecht und AfD-Wahl im Vergleich zu dem Zusammenhang von Wohnort und AfD-Wahl, sollte auch für Cramer’s V vorliegen.</p>
+<p>Wir verwenden die Funktion <code>cramerV()</code> aus dem Paket <code>rcompanion</code>, da base-<code>R</code> keine Funktion zur Berechnung von Cramer’s V bereithält. Entsprechend müssen wir <code>rcompanion</code> zunächst installieren und laden. Die Funktion <code>cramerV()</code> erwartet als Input eine Kreuztabelle der beobachteten Häufigkeiten. Wie oben gezeigt, können wir diese entweder händisch mittels <code>table(Variable1, Variable2)</code> erstellen, oder die durch <code>chisq.test()</code> erstellte Tabelle verwenden, die unter <code>test_wohnort$observed</code> gespeichert ist.</p>
 <pre class="r"><code>install.packages(&quot;rcompanion&quot;)</code></pre>
 <pre class="r"><code>library(rcompanion)
 cramerV(table(gles$AfD.Wahl, gles$wohnort)) # aufgrund händisch erstellter Kreuztabelle</code></pre>
@@ -551,15 +556,15 @@ cramerV(table(gles$AfD.Wahl, gles$wohnort)) # aufgrund händisch erstellter Kreu
 <pre class="r"><code>cramerV(test_geschlecht$observed) # aufgrund von chisq.test() erstellter Kreuztabelle</code></pre>
 <pre><code>## Cramer V 
 ##   0.1155</code></pre>
-<p>Wie wir erwartet haben, zeigt auch Cramer's V einen etwas stärkeren Zusammenhang zwischen dem Geschlecht und der AfD-Wahl, als zwischen dem Wohnort und der AfD Wahl. Tatsächlich müssen allerdings beide Zusammenhänge als schwach bezeichnet werden.</p>
+<p>Wie wir erwartet haben, zeigt auch Cramer’s V einen etwas stärkeren Zusammenhang zwischen dem Geschlecht und der AfD-Wahl, als zwischen dem Wohnort und der AfD Wahl. Tatsächlich müssen allerdings beide Zusammenhänge als schwach bezeichnet werden.</p>
 </div>
 </div>
 <div id="metrisches-skalenniveau" class="section level1">
-<h1>3. Metrisches Skalenniveau</h1>
-<p>Den Zusammenhang zwischen zwei metrisch skalierten Variablen wollen wir mithilfe der Kovarianz und Pearson's Korrelationskoeffizient r ermitteln. Das Alter weist einen natürlichen Nullpunkt auf und ist somit ratioskaliert. Bei der Links-Rechts-Selbsteinstufung können wir zumindest gleichmäßige Intervalle zwischen zwei Skalenpunkten annehmen, weshalb sie mindestens als intervallskaliert gelten kann. Es handelt sich somit um metrische Merkmale.</p>
+<h1>4. Metrisches Skalenniveau</h1>
+<p>Den Zusammenhang zwischen zwei metrisch skalierten Variablen wollen wir mithilfe der Kovarianz und Pearson’s Korrelationskoeffizient r ermitteln. Das Alter weist einen natürlichen Nullpunkt auf und ist somit ratioskaliert. Bei der Links-Rechts-Selbsteinstufung können wir zumindest gleichmäßige Intervalle zwischen zwei Skalenpunkten annehmen, weshalb sie mindestens als intervallskaliert gelten kann. Es handelt sich somit um metrische Merkmale.</p>
 </div>
 <div id="kovarianz" class="section level1">
-<h1>3.1 Kovarianz</h1>
+<h1>4.1 Kovarianz</h1>
 <p>Zur Errechnung der Kovarianz wird für beide Variablen die Abweichung vom Mittelwert bestimmt und diese multipliziert. Schließlich wird das arithmetische Mittel über alle Beobachtungen hinweg gebildet (Diaz-Bone 2019, 92):</p>
 <p><span class="math inline">\(cov(x;y)=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})\)</span>.</p>
 <p>In <code>R</code> errechnen wir die Kovarianz mithilfe der Funktion <code>cov()</code>. Für das Alter und die Links-Rechts-Selbsteinstufung errechnen wir die Kovarianz wie folgt. Die Variablen <code>alter</code> und <code>LiRe</code> werden den Argumenten <code>x</code> und <code>y</code> zugewiesen. Da es sich dabei um die ersten beiden Argumente der Funktion handelt, sparen wir es uns, diese explizit zu nennen. Wir spezifizieren außerdem das Argument <code>use</code> mit <code>complete.obs</code>, wodurch wir festlegen, dass Beobachtungen (Zeilen), bei denen für eine der Variablen keine Information vorhanden ist (<code>NA</code>), bei der Berechnung nicht berücksichtigt werden.</p>
@@ -568,30 +573,30 @@ cramerV(table(gles$AfD.Wahl, gles$wohnort)) # aufgrund händisch erstellter Kreu
 <p>Die Kovarianz für den Zusammenhang zwischen dem Alter der Befragten und der subjektiven Links-Rechts-Selbsteinstufung liegt bei etwa 3,77. Damit liegt ein positiver Zusammenhang vor. Da die Höhe des Wertes von den Ausprägungen der Variablen abhängt, kann die Stärke des Zusammenhangs nicht ohne Weiteres auf Grundlage der Kovarianz eingeschätzt werden.</p>
 </div>
 <div id="pearsons-r" class="section level1">
-<h1>3.2 Pearson's r</h1>
-<p>Allerdings können wir die Kovarianz auf den Wertebereich -1 bis 1 normieren, sodass wir ein Maß für die Stärke des Zusammenhangs erhalten. Das erreichen wir dadurch, dass wir sie durch das Produkt der Standardabweichungen beider Variablen dividieren (Diaz-Bone 2019, 94). So errechnen wir Pearson's Korrelationskoeffizienten</p>
+<h1>4.2 Pearson’s r</h1>
+<p>Allerdings können wir die Kovarianz auf den Wertebereich -1 bis 1 normieren, sodass wir ein Maß für die Stärke des Zusammenhangs erhalten. Das erreichen wir dadurch, dass wir sie durch das Produkt der Standardabweichungen beider Variablen dividieren (Diaz-Bone 2019, 94). So errechnen wir Pearson’s Korrelationskoeffizienten</p>
 <p><span class="math inline">\(r=\frac{cov(x;y)}{s_x\cdot s_y}=\frac{\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})^2}\sqrt{\frac{1}{n}\sum_{i=1}^n(y_i-\overline{y})^2}}\)</span>.</p>
 <p>Die Funktionen zur Errechnung von Kovarianz und Korrelation in <code>R</code> sind identisch aufgebaut (siehe Hilfeseiten <code>?cor</code> oder <code>?cov</code>). Wir nennen wieder die Variablen <code>alter</code> und <code>LiRe</code> bei den Argumenten <code>x</code> und <code>y</code> (wieder implizit) und legen <code>use</code> so fest, dass Zeilen, in denen eine der Variablen ein <code>NA</code> aufweist, vor der Berechnung gelöscht werden.</p>
 <pre class="r"><code>cor(gles$alter, gles$LiRe, use = &quot;complete.obs&quot;)</code></pre>
 <pre><code>## [1] 0.1030572</code></pre>
-<p>Für den Zusammenhang von Alter und Links-Rechts-Selbsteinstufung errechnen wir für Pearson's r einen Wert von etwa 0,1. Damit liegt ein schwacher positiver Zusammenhang vor. Unter Berücksichtigung der Skalierung der Variablen können wir eine inhaltliche Interpretation ableiten. <code>LiRe</code> ist so gemessen, dass höhere Werte einer &quot;rechteren&quot; Selbsteinstufung entsprechen. Wir können also folgern, dass mit zunehmendem Alter der Befragten eine rechtere politische Position einhergeht.</p>
+<p>Für den Zusammenhang von Alter und Links-Rechts-Selbsteinstufung errechnen wir für Pearson’s r einen Wert von etwa 0,1. Damit liegt ein schwacher positiver Zusammenhang vor. Unter Berücksichtigung der Skalierung der Variablen können wir eine inhaltliche Interpretation ableiten. <code>LiRe</code> ist so gemessen, dass höhere Werte einer “rechteren” Selbsteinstufung entsprechen. Wir können also folgern, dass mit zunehmendem Alter der Befragten eine rechtere politische Position einhergeht.</p>
 </div>
 <div id="zusammenfassung" class="section level1">
-<h1>4. Zusammenfassung</h1>
-<p>Bivariate Zusammenhangsmaße ermöglichen es uns zu prüfen, ob zwei Variablen voneinander unabhängig sind und wie stark ein zwischen ihnen bestehender Zusammenhang ist. Für metrische Merkmale ist es darüber hinaus möglich, die Richtung des Zusammenhangs (positiv oder negativ) zu bestimmen. In <code>R</code> lassen sich mit <code>table()</code> Kreuztabellen, mit <code>chisq.test()</code> Chi-Quadrat, mit <code>cramerV()</code> aus dem Paket <code>rcompanion</code> Cramer's V, mit <code>cov()</code> die Kovarianz und mit <code>cor()</code> der Korrelationskoeffizient r ermitteln.</p>
+<h1>5. Zusammenfassung</h1>
+<p>Bivariate Zusammenhangsmaße ermöglichen es uns zu prüfen, ob zwei Variablen voneinander unabhängig sind und wie stark ein zwischen ihnen bestehender Zusammenhang ist. Für metrische Merkmale ist es darüber hinaus möglich, die Richtung des Zusammenhangs (positiv oder negativ) zu bestimmen. In <code>R</code> lassen sich mit <code>table()</code> Kreuztabellen, mit <code>chisq.test()</code> Chi-Quadrat, mit <code>cramerV()</code> aus dem Paket <code>rcompanion</code> Cramer’s V, mit <code>cov()</code> die Kovarianz und mit <code>cor()</code> der Korrelationskoeffizient r ermitteln.</p>
 </div>
 <div id="aufgaben" class="section level1">
-<h1>5. Aufgaben</h1>
+<h1>6. Aufgaben</h1>
 <ol style="list-style-type: decimal">
 <li>Bedeutet unsere Schlussfolgerung in 3.2, dass Menschen mit zunehmendem Alter eine eher rechte politische Einstellung entwickeln?</li>
 <li>Finden Sie heraus, auf Grundlage welcher Variable wir die <code>AfD.Wahl</code> ursprünglich gebildet haben. Kodieren Sie diese Variable sinnvoll so um, dass sie die Wahlentscheiung der Befragten für die Parteien des Deutschen Bundestages enthält. Setzen Sie andere Antworten auf <code>NA</code>. Erstellen Sie eine Kreuztabelle für die Wahlentscheidung und den Wohnort der Befragten.</li>
-<li>Errechnen Sie Chi-Quadrat für die Wahlentscheidung und den Wohnort. Interpretieren Sie das Ergebnis. Lassen Sie sich die Tabellen der empirisch beobachteten und erwarteten Häufigkeiten ausgeben und vergleichen Sie sie. Berechnen Sie schließlich Cramer's V und interpretieren Sie das Ergebnis.</li>
+<li>Errechnen Sie Chi-Quadrat für die Wahlentscheidung und den Wohnort. Interpretieren Sie das Ergebnis. Lassen Sie sich die Tabellen der empirisch beobachteten und erwarteten Häufigkeiten ausgeben und vergleichen Sie sie. Berechnen Sie schließlich Cramer’s V und interpretieren Sie das Ergebnis.</li>
 <li>Berechnen Sie die Kovarianz des Alters und des (zu einer numerischen Variable umgeformten) Haushaltseinkommens der Befragten. Berechnen Sie außerdem die Kovarianz des Gallagher-Indizes der Disproportionalität und der Effective Number of Parliamentary Parties (ENPP). Interpretieren Sie Ihre Ergebnisse.</li>
-<li>Replizieren Sie einen Teil der Analyse Lijphart's aus &quot;Patterns of Democracy&quot;: Berechnen Sie die Korrelation von (1) ENPP und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (2) Exekutivdominanz (Regierungsdauer) und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (3) Gallagher-Index und ENPP. Interpretieren Sie Ihre Ergebnisse. Wenn Sie eine Kopie von &quot;Patterns of Democracy&quot; vorliegen haben, vergleichen Sie Ihre Ergebnisse mit den Ergebnissen Lijpharts. Diese werden in den jeweils letzten Abschnitten der Kapitel 6, 7 und 8 diskutiert.</li>
+<li>Replizieren Sie einen Teil der Analyse Lijphart’s aus “Patterns of Democracy”: Berechnen Sie die Korrelation von (1) ENPP und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (2) Exekutivdominanz (Regierungsdauer) und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (3) Gallagher-Index und ENPP. Interpretieren Sie Ihre Ergebnisse. Wenn Sie eine Kopie von “Patterns of Democracy” vorliegen haben, vergleichen Sie Ihre Ergebnisse mit den Ergebnissen Lijpharts. Diese werden in den jeweils letzten Abschnitten der Kapitel 6, 7 und 8 diskutiert.</li>
 </ol>
 </div>
 <div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
+<h1>7. Lösungen</h1>
 <ol start="2" style="list-style-type: decimal">
 <li></li>
 </ol>

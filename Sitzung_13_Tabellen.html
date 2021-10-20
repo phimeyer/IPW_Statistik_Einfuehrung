@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 13: Visualisierung (3): Übersichtliche Regressionstabellen</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,15 +373,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 13: Visualisierung (3): Übersichtliche Regressionstabellen</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer &amp; Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
 <p>In diesem letzten Tutorial werden wir lernen, wie man übersichtliche Regressionstabellen erstellt und sich im R-Output anzeigen lässt. Hierfür verwenden wir das Paket <code>stargazer</code>, dessen Output so gestaltet ist, dass es dem von wissenschaftlichen Tabellen sehr nahe kommt. <code>stargazer</code> erlaubt einen Output in Form von <em>Text</em>, welcher dann als gut lesbare Tabelle in der Console angezeigt wird, aber in Form von <em>html</em>-Code und <em>LateX</em>-Code.</p>
@@ -390,7 +390,9 @@ div.tocify {
 <p>Wir werden den Lijphart-Datensatz verwenden und anhand der in Sitzungen 8 und 10 besprochenen OLS-Regression die Erstellung von Regressionstabellen diskutieren. Zuerst werden wir, wie immer, die nötigen Pakete und Daten laden und einige Variablen umkodieren.</p>
 <pre class="r"><code># Pakete laden
 library(stargazer) # falls Sie dieses Paket noch nicht installiert haben, führen Sie bite vorher install.packages(&quot;stargazer&quot;) aus</code></pre>
-<pre class="r"><code>library(foreign)
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <pre class="r"><code># Lijphart
@@ -443,7 +445,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="übersichtliche-tabellen-mit-stargazer" class="section level1">
 <h1>4. Übersichtliche Tabellen mit <code>stargazer</code></h1>
-<p>Zunächst verwenden wir die Funktion <code>stargazer()</code> und lassen uns einen ersten Output für das Objekt <code>lm_lijphart</code> ausgeben. Bitte beachten Sie, dass wir das Argument <code>type = &quot;text&quot;</code> hinzufügen. Dieses Argument definiert, dass wir eine direkt les- und interpretierbare Ausgabe in der Console erhalten.</p>
+<p>Zunächst verwenden wir die Funktion <code>stargazer()</code> und lassen uns einen ersten Output für das Objekt <code>lm_lijphart</code> ausgeben. Bitte beachten Sie, dass wir das Argument <code>type = "text"</code> hinzufügen. Dieses Argument definiert, dass wir eine direkt les- und interpretierbare Ausgabe in der Console erhalten.</p>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;text&quot;)</code></pre>
 <pre><code>## 
 ## ===============================================
@@ -501,7 +503,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;latex&quot;)</code></pre>
 <pre><code>## 
 ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Di, Aug 24, 2021 - 10:04:06
+## % Date and time: Mi, Okt 20, 2021 - 20:38:39
 ## \begin{table}[!htbp] \centering 
 ##   \caption{} 
 ##   \label{} 
@@ -535,7 +537,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ## \textit{Note:}  &amp; \multicolumn{1}{r}{$^{*}$p$&lt;$0.1; $^{**}$p$&lt;$0.05; $^{***}$p$&lt;$0.01} \\ 
 ## \end{tabular} 
 ## \end{table}</code></pre>
-<p>Zur besseren Darstellung werden wir in den folgenden Schritten die <code>type</code>-Option bei <code>= &quot;text&quot;</code> belassen.</p>
+<p>Zur besseren Darstellung werden wir in den folgenden Schritten die <code>type</code>-Option bei <code>= "text"</code> belassen.</p>
 <div id="tabellen-modifizieren" class="section level2">
 <h2>4.1 Tabellen modifizieren</h2>
 <p>Das <code>stargazer</code>-Paket erlaubt sehr viele kleinere und größere Modifikationen. Die wichtigsten sind sicherlich die Veränderung der Variablennamen. Zur Erinnerung hier noch einmal der nicht-modifizierte <code>stargazer</code>-Output:</p>
@@ -876,7 +878,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="tabellenausgaben-speichern" class="section level2">
 <h2>4.2 Tabellenausgaben speichern</h2>
-<p><code>stargazer</code>-Tabellen lassen sich problemlos als <em>html</em> oder als <em>tex</em> (<em>LateX</em>) Dateien speichern. Hierfür verwenden wir das <code>out</code>-Argument und definieren gleichzeitig den Namen der Datei. In unserem Beispiel wollen wir eine html-Datei mit dem Namen <code>&quot;lijphart-regression.htm&quot;</code> speichern (html-Dateien werden standardmäßig über Ihren jeweiligen Browser geöffnet).</p>
+<p><code>stargazer</code>-Tabellen lassen sich problemlos als <em>html</em> oder als <em>tex</em> (<em>LateX</em>) Dateien speichern. Hierfür verwenden wir das <code>out</code>-Argument und definieren gleichzeitig den Namen der Datei. In unserem Beispiel wollen wir eine html-Datei mit dem Namen <code>"lijphart-regression.htm"</code> speichern (html-Dateien werden standardmäßig über Ihren jeweiligen Browser geöffnet).</p>
 <pre class="r"><code>stargazer(lm_lijphart, lm_lijphart_2
           , type = &quot;text&quot;, omit.stat = c(&quot;rsq&quot;, &quot;f&quot;),
           title            = &quot;Großartige Lijphart-Ergebnisse&quot;,
@@ -905,10 +907,9 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="lösungen" class="section level1">
 <h1>7. Lösungen</h1>
 <pre class="r"><code># GLES Daten einlesen und transformieren
-library(foreign)
-gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
-lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
-<pre class="r"><code># Alter
+gles &lt;- read.spss(&quot;/Users/Christoph/Seafile/Lehrstuhl/Lehrstuhl Hannover Forschung/Forschung/01 Hönnige/025 MWK_StatistikR/Daten/ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+
+# Alter
 q2c_num &lt;- as.numeric(as.character(gles$q2c))
 gles$alter &lt;- 2017 - q2c_num
 

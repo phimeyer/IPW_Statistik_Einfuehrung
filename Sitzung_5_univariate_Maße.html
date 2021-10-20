@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 5: Univariate Maße</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,20 +373,24 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 5: Univariate Maße</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
 <p>Nachdem wir die Datensätze, mit denen wir in diesem Kurs arbeiten werden, in den vergangenen Sitzungen geladen und für unsere Analysen angepasst haben, wollen wir sie in dieser Sitzung näher kennenlernen. Um genau zu sein, werden wir Lage- und Streuungsmaße der Variablen berechnen, die wir in der letzten Sitzung erstellt haben. So verschaffen wir uns einen Eindruck von deren Verteilung. Wir werden zunächst Lagemaße mit <code>R</code> berechnen und daraufhin zu Streuungsmaßen wechseln.</p>
+</div>
 <div id="datensätze-laden-und-umkodieren" class="section level1">
-<h1>1. Datensätze laden und umkodieren</h1>
+<h1>2. Datensätze laden und umkodieren</h1>
 <p>Damit wir mit unseren Datensätzen und den darin enthaltenen Variablen arbeiten können, müssen wir sie wie immer zuerst laden.</p>
-<pre class="r"><code>library(foreign)
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <p>Wir müssen sie außerdem so umkodieren, wie in der letzten Sitzung gezeigt. Die Datenmanipulationen der vergangenen Sitzung müssen wiederholt werden, weil wir den Workspace und damit die Veränderungen an den Datensätzen nicht gespeichert haben (vgl. Sitzung 1). Zum Glück haben wir den Code in Form eines Skripts gespeichert und müssen ihn nicht erneut schreiben, sondern können ihn in das Skript dieser Sitzung kopieren.</p>
@@ -482,13 +487,13 @@ lijphart$minwin_one_part4510 &lt;- as.numeric(lijphart$minwin_one_part4510)
 lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="lagemaße" class="section level1">
-<h1>2. Lagemaße</h1>
+<h1>3. Lagemaße</h1>
 <p>Lagemaße vermitteln uns einen Eindruck der zentralen Tendenz einer Verteilung. Wir behandeln hier das arithmetische Mittel, den Median, den Modus, das Maximum und Minimum sowie Quantile.</p>
 <div id="arithmetisches-mittel" class="section level2">
-<h2>2.1 arithmetisches Mittel</h2>
-<p>Das arithmetische Mittel (&quot;Mittelwert&quot;, &quot;Durchschnitt&quot;) summiert die Merkmalsausprägung jeder Beobachtung und teilt die Summe durch die Fallzahl:</p>
+<h2>3.1 arithmetisches Mittel</h2>
+<p>Das arithmetische Mittel (“Mittelwert”, “Durchschnitt”) summiert die Merkmalsausprägung jeder Beobachtung und teilt die Summe durch die Fallzahl:</p>
 <p><span class="math inline">\(\frac1n\sum_{i=1}^n(x_i)\)</span>.</p>
-<p>In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. Im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (&quot;rm&quot; für &quot;remove&quot;), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
+<p>In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. Im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (“rm” für “remove”), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
 <p>Das mittlere Alter der Befragten der GLES liegt bei</p>
 <pre class="r"><code>mean(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 50.15396</code></pre>
@@ -498,8 +503,8 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <p>etwa 5,2 und damit leicht links der Skalenmitte (6). Wir runden hier auf die erste Nachkommastelle mit der Funktion <code>round(x, digits = 1)</code>. Wollten wir mehr Nachkommastellen ausgeben lassen, müssten wir das Argument <code>digits</code> auf einen höheren Wert setzen.</p>
 </div>
 <div id="median" class="section level2">
-<h2>2.2 Median</h2>
-<p>Der Median ist der mittlere Wert einer Verteilung, wenn diese der Größe nach sortiert ist und teilt die Beobachtungen in gleiche &quot;Hälften&quot;. Bei gerader Fallzahl wird das arithmetische Mittel der beiden mittleren Werte berechnet. In <code>R</code> lässt sich der Median mit <code>median()</code> berechnen.</p>
+<h2>3.2 Median</h2>
+<p>Der Median ist der mittlere Wert einer Verteilung, wenn diese der Größe nach sortiert ist und teilt die Beobachtungen in gleiche “Hälften”. Bei gerader Fallzahl wird das arithmetische Mittel der beiden mittleren Werte berechnet. In <code>R</code> lässt sich der Median mit <code>median()</code> berechnen.</p>
 <pre class="r"><code>median(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 51</code></pre>
 <pre class="r"><code>median(gles$alter[1:100], na.rm = TRUE)</code></pre>
@@ -509,31 +514,31 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <p>Der Median des Alters der Befragten liegt bei 51 Jahren und damit leicht über dem arithmetischen Mittel. Betrachtet man nur die ersten 100 Personen des Samples, liegt der Median bei 52 Jahren. Die mittlere befragte Person fällt in Bezug auf das Nettohaushaltseinkommen in die Kategorie 3, ihr Haushaltseinkommen liegt also zwischen 2000 und 2999 Euro.</p>
 </div>
 <div id="modus" class="section level2">
-<h2>2.3 Modus</h2>
+<h2>3.3 Modus</h2>
 <p>Der Modus ist der häufigste Wert einer Verteilung bzw. die Merkmalsausprägung, die am häufigsten realisiert wird. Für den Modus gibt es keine spezielle Funktion in <code>R</code>, allerdings können wir ihn uns bei Variablen mit wenigen Kategorien ganz einfach mit einer Häufigkeitstabelle ausgeben lassen.</p>
 <pre class="r"><code>table(gles$LiRe_cat)</code></pre>
 <pre><code>## 
 ##          links  moderat links         mittig moderat rechts         rechts 
 ##            158            512           1090            168             36</code></pre>
-<p>Die häufigste Merkmalsausprägung der Variable <code>LiRe_cat</code> ist &quot;mittig&quot; mit 1090 Beobachtungen. Bei Variablen mit vielen Ausprägungen kommt man mit dieser Methode allerdings an seine Grenzen. Eine zugegebenermaßen nicht unbedingt elegante Lösung wäre diese:</p>
+<p>Die häufigste Merkmalsausprägung der Variable <code>LiRe_cat</code> ist “mittig” mit 1090 Beobachtungen. Bei Variablen mit vielen Ausprägungen kommt man mit dieser Methode allerdings an seine Grenzen. Eine zugegebenermaßen nicht unbedingt elegante Lösung wäre diese:</p>
 <pre class="r"><code>table(gles$alter)[max(table(gles$alter))]</code></pre>
 <pre><code>## 65 
 ## 50</code></pre>
 <p>Das in den eckigen Klammern stehende <code>max(table(gles$alter))</code> berichtet dabei, wie häufig der häufigste Wert in der Häufigkeitstabelle <code>table(gles$alter)</code> vorkommt (50 mal). Die Aussage des Codes ist also: Zeige, welches Element von <code>table(gles$alter)</code> 50 mal vorkommt. Schicken Sie diese Teile des obigen Codes jeweils einzeln ab, um die Logik dahinter nachzuvollziehen (genereller Hinweis).</p>
 </div>
 <div id="maximum-minimum" class="section level2">
-<h2>2.4 Maximum, Minimum</h2>
+<h2>3.4 Maximum, Minimum</h2>
 <p>Auch für die vielleicht offensichtlichsten Lagemaße, das Minimum und das Maximum, stehen in <code>R</code> entsprechende Funktionen bereit: <code>min()</code> und <code>max()</code>. Diese zeigen, welche die niedrigste und welche die höchste Ausprägung ist.</p>
 <pre class="r"><code>min(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 16</code></pre>
 <pre class="r"><code>max(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 95</code></pre>
-<p>Beide Werte lassen sich auch über <code>range()</code> (&quot;Spannweite&quot;) ausgeben.</p>
+<p>Beide Werte lassen sich auch über <code>range()</code> (“Spannweite”) ausgeben.</p>
 <pre class="r"><code>range(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 16 95</code></pre>
 </div>
 <div id="quantile" class="section level2">
-<h2>2.5 Quantile</h2>
+<h2>3.5 Quantile</h2>
 <p>Quantile sind bestimmte Anteile einer der Größe nach geordneten Verteilung. Quantilwerte geben an, welche Ausprägung die Beobachtung an der Grenze eines solchen Anteils der Verteilung hat. Üblicherweise findet man Quantile in Form von Quartilen vor, die die Verteilung in vier gleichgroße Anteile á 25% unterteilen. Die Funktion <code>quantile()</code> gibt standardmäßig Quartile aus.</p>
 <pre class="r"><code>quantile(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>##   0%  25%  50%  75% 100% 
@@ -547,10 +552,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>quantile(gles$alter, probs = seq(0, 1, .1), na.rm = TRUE)</code></pre>
 <pre><code>##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
 ##   16   23   30   38   45   51   56   62   68   77   95</code></pre>
-<p>Die Funktion <code>seq(0, 1, 0.1)</code> (&quot;sequence&quot;) mit der das Argument <code>probs</code> (&quot;probabilities&quot;) spezifiziert wird, erstellt eine Sequenz mit Werten von 0 bis 1 in Schritten á 0,1. Schicken Sie sie einmal einzeln ab, um ihre Funktionsweise zu verstehen.</p>
+<p>Die Funktion <code>seq(0, 1, 0.1)</code> (“sequence”) mit der das Argument <code>probs</code> (“probabilities”) spezifiziert wird, erstellt eine Sequenz mit Werten von 0 bis 1 in Schritten á 0,1. Schicken Sie sie einmal einzeln ab, um ihre Funktionsweise zu verstehen.</p>
 </div>
 <div id="summary" class="section level2">
-<h2>2.6 <code>summary()</code></h2>
+<h2>3.6 <code>summary()</code></h2>
 <p>Um einen ersten Überblick über eine Verteilung zu bekommen, ist die (schon bekannte) <code>summary()</code>-Funktion in der Regel ein hilfreiches Werkzeug. Im Output von <code>summary()</code> finden sich das Minimum, das Maximum, das erste und dritte Quartil, der Median, das arithmetisches Mittel und die Anzahl der fehlenden Werte.</p>
 <pre class="r"><code>summary(gles$alter)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
@@ -559,10 +564,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 </div>
 <div id="streuungsmaße" class="section level1">
-<h1>3. Streuungsmaße</h1>
+<h1>4. Streuungsmaße</h1>
 <p>Streuungsmaße ermöglichen es einzuschätzen, wie sehr die Werte einer Verteilung unterschiedlich sind bzw. wie sehr sie streuen. Verteilungen mit geringer Streuung sind eng um einen zentralen Wert herum angesiedelt. Verteilungen mit großer Streuung sind zu einem großen Teil sehr unterschiedlich von ihrem zentralen Wert. Entsprechend sind die folgenden Streuungsmaße jeweils als Differenzen zu einem zentralen Wert - dem arithmetischen Mittel - (Varianz, Standardabweichung) oder zwischen Werten, die gleich weit von dem zentralen Wert entfernt liegen (Spannweite, IQR), operationalisiert.</p>
 <div id="spannweite" class="section level2">
-<h2>3.1 Spannweite</h2>
+<h2>4.1 Spannweite</h2>
 <p>Die Spannweite ist die Differenz des Minimums und des Maximums und kann so errechnet werden:</p>
 <pre class="r"><code>max(gles$alter, na.rm = TRUE) - min(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 79</code></pre>
@@ -570,14 +575,14 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre><code>## [1] 79</code></pre>
 </div>
 <div id="quartilsabstand" class="section level2">
-<h2>3.2 Quartilsabstand</h2>
-<p>Der Quartilsabstand (&quot;interquartile range&quot;, IQR) ist die Spanne zwischen dem ersten und dritten Quartil und ein übliches Maß, da sich die Streuung der gesamten Verteilung recht gut anhand der Streuung der mittleren 50% der Verteilung einschätzen lässt.</p>
+<h2>4.2 Quartilsabstand</h2>
+<p>Der Quartilsabstand (“interquartile range”, IQR) ist die Spanne zwischen dem ersten und dritten Quartil und ein übliches Maß, da sich die Streuung der gesamten Verteilung recht gut anhand der Streuung der mittleren 50% der Verteilung einschätzen lässt.</p>
 <pre class="r"><code>IQR(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 31</code></pre>
 <p>Die Person, die älter ist als die jüngsten 25% aller Befragten, ist 31 Jahre jünger als die Person, die älter ist als 75% der Befragten.</p>
 </div>
 <div id="varianz" class="section level2">
-<h2>3.3 Varianz</h2>
+<h2>4.3 Varianz</h2>
 <p>Die Varianz und die Standardabweichung werden jeweils über die Differenz jedes einzelnen Wertes zum arithmetischen Mittel berechnet. Wie beim arithmetischen Mittel selbst, werden diese einzelnen Abweichungen addiert und durch die Fallzahl dividiert. Da einige Abweichungen positiv und andere negativ sind, würden sie sich bei der Summierung gegenseitig aufheben. Deshalb werden sie zuvor quadriert:</p>
 <p><span class="math inline">\(\frac1n\sum_{i=1}^n(x_i-\overline{x})^2\)</span>.</p>
 <p>Durch die Quadrierung nimmt die Varianz im Vergleich zu den ursprünglichen Werten meist deutlich größere Werte an.</p>
@@ -589,17 +594,17 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre><code>## [1] 979.3046</code></pre>
 </div>
 <div id="standardabweichung" class="section level2">
-<h2>3.4 Standardabweichung</h2>
-<p>Zur Berechnung der Standardabweichung wird die Wurzel der Varianz gezogen. So wird der Effekt der Quadrierung ausgeglichen und die Werte bleiben vergleichbar groß wie die Ursprungswerte. Die Standardabweichung ist dadurch sinnvoll interpretierbar, etwa als &quot;mittlere Abweichung vom Mittel&quot;. Schließlich wird sie analog zum arithmetischen Mittel berechnet, mit dem Unterschied, dass die zugrundeliegenden Werte die einzelnen Abweichungen sind und diese vor der Summierung quadriert werden sowie nach der Summierung die Wurzel gezogen wird:</p>
+<h2>4.4 Standardabweichung</h2>
+<p>Zur Berechnung der Standardabweichung wird die Wurzel der Varianz gezogen. So wird der Effekt der Quadrierung ausgeglichen und die Werte bleiben vergleichbar groß wie die Ursprungswerte. Die Standardabweichung ist dadurch sinnvoll interpretierbar, etwa als “mittlere Abweichung vom Mittel”. Schließlich wird sie analog zum arithmetischen Mittel berechnet, mit dem Unterschied, dass die zugrundeliegenden Werte die einzelnen Abweichungen sind und diese vor der Summierung quadriert werden sowie nach der Summierung die Wurzel gezogen wird:</p>
 <p><span class="math inline">\(\sqrt{\frac1n\sum_{i=1}^n(x_i-\overline{x})^2}\)</span>.</p>
-<p><code>R</code> berechnet die Standardabweichung mit der Funktion <code>sd()</code> (Abkürzung für &quot;standard deviation&quot;).</p>
+<p><code>R</code> berechnet die Standardabweichung mit der Funktion <code>sd()</code> (Abkürzung für “standard deviation”).</p>
 <pre class="r"><code>sd(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 19.19463</code></pre>
 <p>Anders als bei der im Vergleich zu den zugrunde liegenden Werten deutlich größer ausfallenden Varianz, können wir die Standardabweichung inhaltlich sinnvoll interpretieren: Durchschnittlich weicht das Alter eines Befragten um etwa 19 Jahre vom mittleren Alter ab.</p>
 </div>
 <div id="populations--und-stichprobenvarianz" class="section level2">
-<h2>3.5 Populations- und Stichprobenvarianz</h2>
-<p>Um genau zu sein, werden die Varianz (und die varianzbasierte Standardabweichung) in <code>R</code> als Populationsmaße berechnet. D.h., dass bei ihrer Berechnung nicht (wie in den obigen Formeln gezeigt) durch die Fallzahl <span class="math inline">\(n\)</span>, sondern durch die Freiheitsgrade <span class="math inline">\(n-1\)</span> dividiert wird. Um die Stichprobenvarianz zu berechnen, multiplizieren wir den Output von <code>var()</code> mit <span class="math inline">\((n-1)/n\)</span>. Die Fallzahl <span class="math inline">\(n\)</span> ermitteln wir mit der Funktion <code>nrow()</code> (&quot;number of rows&quot;), also der Anzahl von Beobachtungen (Zeilen) eines Datensatzes.</p>
+<h2>4.5 Populations- und Stichprobenvarianz</h2>
+<p>Um genau zu sein, werden die Varianz (und die varianzbasierte Standardabweichung) in <code>R</code> als Populationsmaße berechnet. D.h., dass bei ihrer Berechnung nicht (wie in den obigen Formeln gezeigt) durch die Fallzahl <span class="math inline">\(n\)</span>, sondern durch die Freiheitsgrade <span class="math inline">\(n-1\)</span> dividiert wird. Um die Stichprobenvarianz zu berechnen, multiplizieren wir den Output von <code>var()</code> mit <span class="math inline">\((n-1)/n\)</span>. Die Fallzahl <span class="math inline">\(n\)</span> ermitteln wir mit der Funktion <code>nrow()</code> (“number of rows”), also der Anzahl von Beobachtungen (Zeilen) eines Datensatzes.</p>
 <pre class="r"><code>var(gles$alter, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles)</code></pre>
 <pre><code>## [1] 368.2592</code></pre>
 <pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
@@ -613,11 +618,11 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 </div>
 <div id="zusammenfassung" class="section level1">
-<h1>4. Zusammenfassung</h1>
+<h1>5. Zusammenfassung</h1>
 <p>Lagemaße zeigen die zentrale Tendenz, Streuungsmaße die Unterschiedlichkeit einer Verteilung. Die meisten univariaten Kennzahlen liegen als einfach zu handhabende Funktionen in <code>R</code> vor. Das arithmetische Mittel wird mit <code>mean()</code>, der Median mit <code>median()</code>, Quantile mit <code>quantile()</code>, eine Zusammenfassung von Lagemaßen mit <code>summary()</code>, der Quartilsabstand mit <code>IQR()</code>, die Varianz mit <code>var()</code> und die Standardabweichung mit <code>sd()</code> berechnet. In der Regel müssen dabei <code>NA</code>s mit <code>na.rm = TRUE</code> ausgeschlossen werden. <code>var()</code> errechnet die Populationsvarianz, sodass bei kleineren Stichproben auf die Stichprobenvarianz zurückgegriffen werden sollte.</p>
 </div>
 <div id="aufgaben" class="section level1">
-<h1>5. Aufgaben</h1>
+<h1>6. Aufgaben</h1>
 <ol style="list-style-type: decimal">
 <li>Lassen Sie sich das arithmetische Mittel, den Median und Quantile für die den Gallagher-Disproportionalitätsindex, den Anteil von Minimal-Gewinnkoalitionen mit einer Partei sowie die Exekutivdominanz ausgeben. Berechnen Sie bei einer Variable Quartile, bei einer Variable 12,5%-Quantile sowie bei einer Variable 5%-Quantile. Runden Sie den Mittelwert jeweils auf die zweite Nachkommastelle.</li>
 <li>Erstellen Sie eine Häufigkeitstabelle des kategorisierten Haushaltseinkommens sowie eine Zusammenfassung der wesentliche Lagemaße des numerisch codierten Haushaltseinkommens. Ermitteln Sie außerdem den Quartilsabstand des numerisch codierten Haushaltseinkommens. Wie hoch ist das Haushaltseinkommen der mittleren 50% der Befragten?</li>
@@ -627,7 +632,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </ol>
 </div>
 <div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
+<h1>7. Lösungen</h1>
 <ol style="list-style-type: decimal">
 <li></li>
 </ol>

@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 10: Multiple Lineare Regression</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,15 +373,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 10: Multiple Lineare Regression</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
 <p>Nachdem wir in der vorletzten Sitzung die bivariate lineare Regression kennengelernt haben, wollen wir nun herausfinden, wie wir mehrere unabhängige Variablen gleichzeitig berücksichtigen können. Bei der multiplen linearen Regression wird eine abhängige Variable durch mehrere unabhängige Variablen erklärt. Damit verlassen wir die bivariate Statistik und stoßen in den Bereich der multivariaten Statistik vor. Mehr als eine einzige unabhängige Variable einzubeziehen ermöglicht es, die Erklärungsleistung des Regressionsmodells zu erhöhen. Wir können die (Varianz der) abhängigen Variable also mit zusätzlich berücksichtigten unabhängigen Variablen besser (zu einem höheren Anteil) erklären. In dieser Sitzung werden wir eine multiple lineare Regression durchführen, die Anwendungsvoraussetzungen von linearen Modellen prüfen und die Ergebnisse angemessen visualisieren.</p>
@@ -388,7 +388,9 @@ div.tocify {
 <div id="datensätze-laden-und-umkodieren" class="section level1">
 <h1>2. Datensätze laden und umkodieren</h1>
 <p>Wie in den vergangenen Sitzungen, müssen wir zunächst die Datensätze laden und die verwendeten Variablen sinnvoll umkodieren.</p>
-<pre class="r"><code>library(foreign)
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
 gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
 lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <pre class="r"><code># GLES
@@ -492,7 +494,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <p>In unserem konkreten Modell erklären wir die Links-Rechts-Selbsteinstufung der Befragten anhand ihres Alters, Geschlechts und Wohnorts. Die Gleichung wäre also wie folgt:</p>
 <p><span class="math inline">\(LiRe_i=b_0+b_{1i}\cdot Alter_i+b_{2i}\cdot Geschlecht_i+b_{3i}\cdot Wohnort_i+e_i\)</span></p>
 <p>Wie in der vorherigen Sitzung gezeigt, berechnen wir die lineare Regression in <code>R</code> mit <code>lm()</code>. Allerdings fügen wir diesmal jeweils mit einem <code>+</code> zusätzliche Variablen hinzu. Dadurch wird nicht mehr bloß der Effekt des Alters auf die Links-Rechts-Selbsteinstufung geschätzt, sondern der Effekt von Alter, Geschlecht und Wohnort parallel. Das geschieht allerdings jeweils unter statistischer Kontrolle der Effekte der anderen unabhängigen Variablen, sodass wir jeweils den Netto-Effekt einer unabhängigen Variablen auf die abhängige Variable berechnen, während die anderen Variablen konstant gehalten werden. Mit dem Argument <code>data</code> bestimmen wir den Datensatz <code>gles</code>.</p>
-<p>Wenn wir die Funktion <code>lm()</code> ausführen, werden uns der Intercept, also der Wert der abhängigen Variable <code>LiRe</code> am Schnittpunkt von Regressionsgerade und Y-Achse, und die Regressionskoeffizienten der Variablen angezeigt. Bei der metrischen Variable <code>alter</code> zeigt dieser die Steigung der Regressionsgeraden, also die Veränderung in der abhängigen Variable <code>LiRe</code>, mit der Veränderung von <code>alter</code> um eine Einheit (also um ein Jahr). Bei der dichotomen Variable <code>geschlecht</code> wird die Veränderung in <code>LiRe</code> berichtet, die mit dem Wechsel der Kategorie &quot;männlich&quot; zur Kategorie &quot;weiblich&quot; einhergeht. Bei der kategorialen Variable <code>wohnort</code> wird die Veränderung in der abhängigen Variable <code>LiRe</code> berichtet, die jeweils im Vergleich zu der nicht gezeigten Referenzkategorie einhergeht. Von den vier Kategorien von <code>wohnort</code> wird die Kategorie Großstadt nicht gezeigt und ist die Referenzkategorie.</p>
+<p>Wenn wir die Funktion <code>lm()</code> ausführen, werden uns der Intercept, also der Wert der abhängigen Variable <code>LiRe</code> am Schnittpunkt von Regressionsgerade und Y-Achse, und die Regressionskoeffizienten der Variablen angezeigt. Bei der metrischen Variable <code>alter</code> zeigt dieser die Steigung der Regressionsgeraden, also die Veränderung in der abhängigen Variable <code>LiRe</code>, mit der Veränderung von <code>alter</code> um eine Einheit (also um ein Jahr). Bei der dichotomen Variable <code>geschlecht</code> wird die Veränderung in <code>LiRe</code> berichtet, die mit dem Wechsel der Kategorie “männlich” zur Kategorie “weiblich” einhergeht. Bei der kategorialen Variable <code>wohnort</code> wird die Veränderung in der abhängigen Variable <code>LiRe</code> berichtet, die jeweils im Vergleich zu der nicht gezeigten Referenzkategorie einhergeht. Von den vier Kategorien von <code>wohnort</code> wird die Kategorie Großstadt nicht gezeigt und ist die Referenzkategorie.</p>
 <pre class="r"><code>lm(LiRe ~ alter + geschlecht + wohnort, data = gles)</code></pre>
 <pre><code>## 
 ## Call:
@@ -503,7 +505,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 ##            4.47512             0.01047            -0.43886             0.47961  
 ##        wohnortLand     wohnortVorstadt  
 ##            0.55996             0.33990</code></pre>
-<p>Die Regressionsgerade schneidet die Y-Achse bei etwa 4,48 &quot;Punkten&quot; auf der <code>LiRe</code>-Skala. Inhaltlich interessanter sind die Koeffizienten: Mit einem zusätzlichen Jahr ist eine Person durchschnittlich um etwa 0,01 Punkte &quot;rechter&quot;. Frauen sind im Mittel etwa 0,44 Punkte &quot;linker&quot; als Männer. Im Vergleich zur Großstadt sind Befragte, die in der Kleinstadt leben, im Mittel etwa 0,48 Punkte &quot;rechter&quot;. Befragte auf dem Land sind durchschnittlich etwa 0,56 und Befragte aus der Vorstadt etwa 0,34 Punkte &quot;rechter&quot; als Befragte aus der Großstadt.</p>
+<p>Die Regressionsgerade schneidet die Y-Achse bei etwa 4,48 “Punkten” auf der <code>LiRe</code>-Skala. Inhaltlich interessanter sind die Koeffizienten: Mit einem zusätzlichen Jahr ist eine Person durchschnittlich um etwa 0,01 Punkte “rechter”. Frauen sind im Mittel etwa 0,44 Punkte “linker” als Männer. Im Vergleich zur Großstadt sind Befragte, die in der Kleinstadt leben, im Mittel etwa 0,48 Punkte “rechter”. Befragte auf dem Land sind durchschnittlich etwa 0,56 und Befragte aus der Vorstadt etwa 0,34 Punkte “rechter” als Befragte aus der Großstadt.</p>
 <p>Einen detaillierteren Regressionsoutput erhalten wir, wenn wir den Output von <code>lm()</code> in einem Objekt speichern, hier <code>modell</code>, und die Funktion <code>summary()</code> darauf anwenden.</p>
 <pre class="r"><code>modell &lt;- lm(LiRe ~ alter + geschlecht + wohnort, data = gles)
 summary(modell)</code></pre>
@@ -530,7 +532,7 @@ summary(modell)</code></pre>
 ##   (149 observations deleted due to missingness)
 ## Multiple R-squared:  0.03567,    Adjusted R-squared:  0.03321 
 ## F-statistic: 14.48 on 5 and 1957 DF,  p-value: 5.932e-14</code></pre>
-<p>Die eben besprochenen Koeffizienten stehen in der ersten Spalte des so erzeugten Outputs. In der zweiten Spalte sind Standardfehler, in der dritten t-Werte und in der vierten p-Werte mit &quot;Signifikanz-Sternchen&quot; (siehe Legende darunter) abgetragen. Unten sehen wir Standardfehler des Modells und Freiheitsgrade sowie das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> und das angepasste <span class="math inline">\(R^2\)</span>. Schließlich wird der F-Test auf Gesamtsignifikanz des Modells mitsamt p-Wert berichtet.</p>
+<p>Die eben besprochenen Koeffizienten stehen in der ersten Spalte des so erzeugten Outputs. In der zweiten Spalte sind Standardfehler, in der dritten t-Werte und in der vierten p-Werte mit “Signifikanz-Sternchen” (siehe Legende darunter) abgetragen. Unten sehen wir Standardfehler des Modells und Freiheitsgrade sowie das Bestimmtheitsmaß <span class="math inline">\(R^2\)</span> und das angepasste <span class="math inline">\(R^2\)</span>. Schließlich wird der F-Test auf Gesamtsignifikanz des Modells mitsamt p-Wert berichtet.</p>
 <p>Das Modell mit seinen unabhängigen Variablen <code>alter</code>, <code>geschlecht</code> und <code>wohnort</code> kann die Varianz in der abhängigen Variable <code>LiRe</code> nur zu einem Anteil von etwas mehr als 3% erklären (<span class="math inline">\(R^2=0,36\)</span>; <span class="math inline">\(adj. R^2=0,033\)</span>). In einer Studienarbeit müssten wir prüfen, ob die Erklärungsleistung des Modells mithilfe zusätzlicher unabhängiger Variablen erhöht werden kann. Der geringe p-Wert der F-Statistik zeigt, dass das Modell insgesamt die abhängige Variabe signifikant besser erklärt als ein Modell ohne unabhängige Variablen. Die von uns berücksichtigten Variablen sind (mit Ausnahme von Wohnort: Vorstadt) statistisch hoch signifikant, d.h. es ist sehr unwahrscheinlich, dass der festgestellte Koeffizient in Wahrheit Null ist (ein 99,9%-Konfidenzintervall um den Koeffizienten beinhaltet die Null nicht). Für Wohnort: Vorstadt beinhaltet zumindest ein 90%-Konfidenzintervall die Null nicht.</p>
 </div>
 <div id="regressionsdiagnostik" class="section level1">
@@ -540,10 +542,10 @@ summary(modell)</code></pre>
 <p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-1.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-2.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-3.png" width="672" /><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-6-4.png" width="672" /></p>
 <div id="linearität" class="section level2">
 <h2>4.1 Linearität</h2>
-<p>Die Linearität des Zusammenhangs prüfen wir anhand des Residuals vs. Fitted Values-Plots, der der erste der Diagnostik-Plots ist. Deshalb fügen wir eine Eins im Input der Funktion an.</p>
+<p>Die Linearität des Zusammenhangs prüfen wir anhand des Residuals vs. Fitted Values-Plots, der der erste der Diagnostik-Plots ist. Deshalb fügen wir eine Eins im Input der Funktion an.</p>
 <pre class="r"><code>plot(modell, 1)</code></pre>
 <p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Wenn wir die Vorhersagewerte (&quot;fitted values&quot;) den Residuen gegenüberstellen, ist kein Muster zu erkennen (mit größeren Vorhersagewerten gehen also z.B. keine größeren Residuen einher). Wir können also von einer Linearität des Zusammenhangs ausgehen, sodass ein lineares Regressionsmodell angemessen ist.</p>
+<p>Wenn wir die Vorhersagewerte (“fitted values”) den Residuen gegenüberstellen, ist kein Muster zu erkennen (mit größeren Vorhersagewerten gehen also z.B. keine größeren Residuen einher). Wir können also von einer Linearität des Zusammenhangs ausgehen, sodass ein lineares Regressionsmodell angemessen ist.</p>
 </div>
 <div id="normalverteilung-der-residuen" class="section level2">
 <h2>4.2 Normalverteilung der Residuen</h2>
@@ -554,19 +556,19 @@ summary(modell)</code></pre>
 </div>
 <div id="homoskedastizität" class="section level2">
 <h2>4.3 Homoskedastizität</h2>
-<p>Außerdem sollten die Varianz der Residuen über Vorhersagewerte hinweg gleichbleibend sein, also sog. <em>Homoskedastizität</em> vorliegen. Wenn im Gegensatz dazu <em>Heteroskedastizität</em> vorliegen würde, würde z.B. für höhere Vorhersagewerte die Streuung der Residuen um die Regressionsgerade herum trichterförmig zunehmen. Die Annahme der Homoskedastizität prüfen wir mit einem ähnlichen Plot wie dem oben bei der Linearität verwendeten Residuals vs. Fitted-Plot: Diesmal wird die Wurzel der standardisierten Residuen geplottet.</p>
+<p>Außerdem sollten die Varianz der Residuen über Vorhersagewerte hinweg gleichbleibend sein, also sog. <em>Homoskedastizität</em> vorliegen. Wenn im Gegensatz dazu <em>Heteroskedastizität</em> vorliegen würde, würde z.B. für höhere Vorhersagewerte die Streuung der Residuen um die Regressionsgerade herum trichterförmig zunehmen. Die Annahme der Homoskedastizität prüfen wir mit einem ähnlichen Plot wie dem oben bei der Linearität verwendeten Residuals vs. Fitted-Plot: Diesmal wird die Wurzel der standardisierten Residuen geplottet.</p>
 <pre class="r"><code>plot(modell, 3)</code></pre>
 <p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Es ist auch hier kein problematischer Trend zu erkennen.</p>
 </div>
 <div id="einflussreiche-werte" class="section level2">
 <h2>4.4 Einflussreiche Werte</h2>
-<p>Weiterhin interessieren uns Ausreißer und extreme Werte, die einen starken Einfluss auf die Steigung der Regressionsgeraden nehmen (wir sprechen hier von leverage, also vom &quot;Hebel&quot;, den diese Werte haben).</p>
+<p>Weiterhin interessieren uns Ausreißer und extreme Werte, die einen starken Einfluss auf die Steigung der Regressionsgeraden nehmen (wir sprechen hier von leverage, also vom “Hebel”, den diese Werte haben).</p>
 <pre class="r"><code>plot(modell, 4)</code></pre>
 <p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>plot(modell, 5)</code></pre>
 <p><img src="Sitzung_10_multiple_lineare_Regression_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
-<p>Der vierte Plot zu Cook's Distance zeigt uns Werte mit großem Einfluss. Der fünfte Plot zeigt, dass eine Gruppe von Fällen eine höhere Leverage aufweist. Exemplarisch können wir die drei einflussreichsten Fälle einmal händisch prüfen. Ihr Index ist in beiden Plots abgetragen: Es sind die Fälle in der 30., 436. und 913. Zeile. Uns interessieren jeweils die Ausprägungen der im Modell beinhalteten Variablen. Dazu spezifizieren wir in den eckigen Klammern, dass wir die Zellen in Zeilen (vor dem Komma) 30, 436 und 913 und Spalten (nach dem Komma) &quot;LiRe&quot;, &quot;alter&quot;, &quot;geschlecht&quot; und &quot;wohnort&quot; ausgeben möchten.</p>
+<p>Der vierte Plot zu Cook’s Distance zeigt uns Werte mit großem Einfluss. Der fünfte Plot zeigt, dass eine Gruppe von Fällen eine höhere Leverage aufweist. Exemplarisch können wir die drei einflussreichsten Fälle einmal händisch prüfen. Ihr Index ist in beiden Plots abgetragen: Es sind die Fälle in der 30., 436. und 913. Zeile. Uns interessieren jeweils die Ausprägungen der im Modell beinhalteten Variablen. Dazu spezifizieren wir in den eckigen Klammern, dass wir die Zellen in Zeilen (vor dem Komma) 30, 436 und 913 und Spalten (nach dem Komma) “LiRe”, “alter”, “geschlecht” und “wohnort” ausgeben möchten.</p>
 <pre class="r"><code>gles[c(30, 436, 913), c(&quot;LiRe&quot;, &quot;alter&quot;, &quot;geschlecht&quot;, &quot;wohnort&quot;)]</code></pre>
 <pre><code>##     LiRe alter geschlecht  wohnort
 ## 30    10    79   weiblich Vorstadt
@@ -597,18 +599,17 @@ summary(modell)</code></pre>
 ggpredict(modell)</code></pre>
 <pre><code>## $alter
 ## # Predicted values of LiRe
-## # x = alter
 ## 
-##   x | Predicted |       95% CI
-## ------------------------------
-##  10 |      5.06 | [4.82, 5.30]
-##  20 |      5.16 | [4.96, 5.37]
-##  30 |      5.27 | [5.09, 5.45]
-##  40 |      5.37 | [5.21, 5.54]
-##  60 |      5.58 | [5.42, 5.75]
-##  70 |      5.69 | [5.50, 5.87]
-##  80 |      5.79 | [5.58, 6.00]
-## 100 |      6.00 | [5.73, 6.28]
+## alter | Predicted |       95% CI
+## --------------------------------
+##    10 |      5.06 | [4.82, 5.30]
+##    20 |      5.16 | [4.96, 5.37]
+##    30 |      5.27 | [5.09, 5.45]
+##    40 |      5.37 | [5.21, 5.54]
+##    60 |      5.58 | [5.42, 5.75]
+##    70 |      5.69 | [5.50, 5.87]
+##    80 |      5.79 | [5.58, 6.00]
+##   100 |      6.00 | [5.73, 6.28]
 ## 
 ## Adjusted for:
 ## * geschlecht =  maennlich
@@ -616,12 +617,11 @@ ggpredict(modell)</code></pre>
 ## 
 ## $geschlecht
 ## # Predicted values of LiRe
-## # x = geschlecht
 ## 
-## x         | Predicted |       95% CI
-## ------------------------------------
-## maennlich |      5.48 | [5.32, 5.64]
-## weiblich  |      5.04 | [4.87, 5.21]
+## geschlecht | Predicted |       95% CI
+## -------------------------------------
+## maennlich  |      5.48 | [5.32, 5.64]
+## weiblich   |      5.04 | [4.87, 5.21]
 ## 
 ## Adjusted for:
 ## *   alter =      50.12
@@ -629,9 +629,8 @@ ggpredict(modell)</code></pre>
 ## 
 ## $wohnort
 ## # Predicted values of LiRe
-## # x = wohnort
 ## 
-## x          | Predicted |       95% CI
+## wohnort    | Predicted |       95% CI
 ## -------------------------------------
 ## Land       |      5.56 | [5.40, 5.72]
 ## Kleinstadt |      5.48 | [5.32, 5.64]

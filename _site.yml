@@ -3,31 +3,31 @@ output_dir: "."
 navbar:
   title: "Politikwissenschaftliche Statistik mit R"
   left:
-    - text: "Einleitung"
+    - text: "(0) Willkommen"
       href: index.html
-    - text: "Einleitung und Grundlagen"
+    - text: "(1) Grundlagen"
       href: Sitzung_1_Einfuehrung.html
-    - text: "Faktoren und zweidimensionale Objekte"
+    - text: "(2) Faktoren & Objekte"
       href: Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html
-    - text: "Datensätze einladen"
+    - text: "(3) Datensätze"
       href: Sitzung_3_Datensaetze_einladen.html
-    - text: "Variablen um-/kodieren"
+    - text: "(4) Variablen"
       href: Sitzung_4_Variablen_Kodieren.html
-    - text: "Univariate Maße"
+    - text: "(5) Univariate Maße"
       href: Sitzung_5_univariate_Maße.html
-    - text: "Visualisierung (1): Univariate Verteilungen"
+    - text: "(6) Visualisierung I"
       href: Sitzung_6_Visualisierung_I.html
-    - text: "Bivariate Zusammenhänge"
+    - text: "(7) Bivariate Maße"
       href: Sitzung_7_bivariate_Zusammenhangsmaße.html
-    - text: "Bivariate lineare Regression"
+    - text: "(8) Lineare Regression"
       href: Sitzung_8_bivariate_OLS.html
-    - text: "Visualisierung (2): Zusammenhangsmaße & Regression"
+    - text: "(9) Visualisierung II"
       href: Sitzung_9_Visualisierung_II.html
-    - text: "Multiple lineare Regression"
+    - text: "(10) Multiple Regression"
       href: Sitzung_10_multiple_lineare_Regression.html
-    - text: "Logistische Regression"
+    - text: "(11) Logistische Regression"
       href: Sitzung_11_LogitReg.html
-    - text: "Faktoranalyse"
+    - text: "(12) Faktoranalyse"
       href: Sitzung_12_Faktoranalyse.html
-    - text: "Visualisierung (3): Übersichtliche Regressionstabellen"
+    - text: "(13) Visualisierung III"
       href: Sitzung_13_Tabellen.html

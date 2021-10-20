@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
 
 
 <title>Politikwissenschaftliche Statistik mit R - Sitzung 4: Variablen um-/kodieren</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -318,46 +319,46 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Einleitung</a>
+  <a href="index.html">(0) Willkommen</a>
 </li>
 <li>
-  <a href="Sitzung_1_Einfuehrung.html">Einleitung und Grundlagen</a>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
 </li>
 <li>
-  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">Faktoren und zweidimensionale Objekte</a>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
 </li>
 <li>
-  <a href="Sitzung_3_Datensaetze_einladen.html">Datensätze einladen</a>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
 </li>
 <li>
-  <a href="Sitzung_4_Variablen_Kodieren.html">Variablen um-/kodieren</a>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
 </li>
 <li>
-  <a href="Sitzung_5_univariate_Maße.html">Univariate Maße</a>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_6_Visualisierung_I.html">Visualisierung (1): Univariate Verteilungen</a>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
 </li>
 <li>
-  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">Bivariate Zusammenhänge</a>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
 </li>
 <li>
-  <a href="Sitzung_8_bivariate_OLS.html">Bivariate lineare Regression</a>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
 </li>
 <li>
-  <a href="Sitzung_9_Visualisierung_II.html">Visualisierung (2): Zusammenhangsmaße &amp; Regression</a>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
 </li>
 <li>
-  <a href="Sitzung_10_multiple_lineare_Regression.html">Multiple lineare Regression</a>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
 </li>
 <li>
-  <a href="Sitzung_11_LogitReg.html">Logistische Regression</a>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
 </li>
 <li>
-  <a href="Sitzung_12_Faktoranalyse.html">Faktoranalyse</a>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
 </li>
 <li>
-  <a href="Sitzung_13_Tabellen.html">Visualisierung (3): Übersichtliche Regressionstabellen</a>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -372,19 +373,21 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 4: Variablen um-/kodieren</h1>
-<h4 class="author">Christoph Garwe, Philipp Meyer und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
 
 </div>
 
 
-<div class="figure">
-<img src="logo_IPW.png" />
-
-</div>
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
 <p>Nachdem wir die Datensätze, mit denen wir in diesem Kurs arbeiten werden, in der vorherigen Sitzung kennengelernt und eingeladen haben, wollen wir in dieser Sitzung die darin enthaltenen Variablen so anpassen, dass wir unsere Analysen durchführen können. Dabei sprechen wir vom Recodieren der Variablen.</p>
+</div>
 <div id="einladen-der-datensätze" class="section level1">
-<h1>1. Einladen der Datensätze</h1>
-<p>Von nun an müssen wir am Beginn jedes Skriptes die Datensätze, die wir verwenden, in den Workspace laden. Andernfalls stünden sie uns nicht zur Bearbeitung zur Verfügung. In dieser Sitzung benötigen wir den Datensatz der GLES zur Bundestagswahl 2017 (<code>gles</code>) und den Datensatz zu &quot;Patterns of Democracy&quot; (<code>lijphart</code>). Wie in der vergangenen Sitzung behandelt, müssen wir zunächst das Verzeichnis prüfen und ggf. auf den Speicherort festlegen, an dem die Datensätze abgespeichert sind.</p>
+<h1>2. Einladen der Datensätze</h1>
+<p>Von nun an müssen wir am Beginn jedes Skriptes die Datensätze, die wir verwenden, in den Workspace laden. Andernfalls stünden sie uns nicht zur Bearbeitung zur Verfügung. In dieser Sitzung benötigen wir den Datensatz der GLES zur Bundestagswahl 2017 (<code>gles</code>) und den Datensatz zu “Patterns of Democracy” (<code>lijphart</code>). Wie in der vergangenen Sitzung behandelt, müssen wir zunächst das Verzeichnis prüfen und ggf. auf den Speicherort festlegen, an dem die Datensätze abgespeichert sind.</p>
 <pre class="r"><code>getwd()
 setwd(&quot;eigener Pfad&quot;)</code></pre>
 <p>Nun werden die Datensätze eingeladen. Da die Funktion zum Einladen des Fremdformats .sav <code>read.spss()</code> aus dem Paket <code>foreign</code> stammt, muss dieses zunächst geladen werden. <code>read.csv2()</code> ist eine Funktion aus dem Paket <code>base</code>, sodass kein besonderes Paket zu seiner Verwendung geladen werden muss.</p>
@@ -394,10 +397,10 @@ lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
 <p>Wenn alles geklappt hat, sehen Sie rechts oben im <code>Global Environment</code> die beiden als Dataframes vorliegenden Datensätze <code>gles</code> mit 2112 Beobachtungen und 602 Variablen und <code>lijphart</code> mit 36 Beobachtungen und 74 Variablen. Variablen, die wir im Folgenden neu bilden, werden die Datensätze erweitern bzw. werden rechts an die Datensätze angehängt. Wenn wir vorliegende Variablen modifizieren, werden die Datensätze lediglich in ihrer bestehenden Form verändert. Beobachten und überwachen Sie also jeweils die Veränderungen der Datensätze im <code>Global Environment</code>. Die Veränderungen der einzelnen Variablen sollten Sie außerdem mittels <code>View()</code> nachvollziehen.</p>
 </div>
 <div id="variablen-der-gles" class="section level1">
-<h1>2. Variablen der <code>gles</code></h1>
+<h1>3. Variablen der <code>gles</code></h1>
 <p>Anhand der Wahlforschungsdaten der GLES wollen wir im weiteren Verlauf des Seminars die Wahlentscheidung der Befragten mittels sozio-demografischer Größen und politischer Einstellungen erklären. Dabei interessiert uns insbesondere, wie die Wahlentscheidung zugunsten der AfD erklärt werden kann. Außerdem werden wir versuchen, die Selbsteinstufung der Befragten entlang einer Links-Rechts-Achse zu erklären. Wir benötigen die folgenden Variablen: das Alter der Befragten, deren Geschlecht, Einkommen, Wohnort, subjektive Links-Rechts-Einstufung und die Angabe, ob sie bei der Bundestagswahl 2017 ihre Stimme für die Partei AfD abgegeben haben. Im Folgenden werden wir uns die Variablen jeweils einmal in der Form anschauen, in der sie im Datensatz vorkommen. Danach werden wir sie zu unseren Zwecken verändern. Wir beginnen mit den unabhängigen Variablen.</p>
 <div id="alter" class="section level2">
-<h2>2.1 Alter</h2>
+<h2>3.1 Alter</h2>
 <p>Das Alter der Befragten könnte einen Einfluss auf die Wahlentscheidung und die Position entlang einer gedachten Links-Rechts-Achse haben. Tatsächlich wurden die Befragten nicht ausdrücklich nach ihrem Alter gefragt, sondern nach ihrem Geburtsdatum (Schauen Sie mal in den Fragebogen, S. 11). Das Geburtsjahr ist dabei in der Variable <code>q2c</code>, einem Faktor, vercodet worden.</p>
 <pre class="r"><code>class(gles$q2c)</code></pre>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
@@ -438,7 +441,7 @@ class(gles$alter)</code></pre>
 <p>Wie die <code>summary()</code> zeigt, sind Personen zwischen 16 und 95 Jahren befragt worden, wobei der Median bei 51 Jahren und das arithmetische Mittel bei 50,15 Jahren liegt. Bei einer Person liegt keine Information über das Alter vor (<code>NA</code>), diese Person hat die Angabe verweigert (s.o.). <code>table()</code> zeigt, wie viele Personen mit einer bestimmten Jahreszahl jeweils enthalten sind, also z.B. 22 16-Jährige, 48 17-Jährige usw. Mit <code>View()</code> können wir die Variable inspizieren.</p>
 </div>
 <div id="geschlecht" class="section level2">
-<h2>2.2 Geschlecht</h2>
+<h2>3.2 Geschlecht</h2>
 <p>Womöglich hat das Geschlecht der Befragten einen Einfluss. Das Geschlecht der Befragten ist direkt erfasst worden und liegt als Faktor vor. Wir vergeben lediglich einen aussagekräftigen Variablennamen.</p>
 <pre class="r"><code>names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
 table(gles$geschlecht)</code></pre>
@@ -448,7 +451,7 @@ table(gles$geschlecht)</code></pre>
 <p>Wie die <code>table()</code> zeigt, sind Männer in unserem Sample leicht überrepräsentiert.</p>
 </div>
 <div id="haushaltseinkommen" class="section level2">
-<h2>2.3 Haushaltseinkommen</h2>
+<h2>3.3 Haushaltseinkommen</h2>
 <p>Auch die wirtschaftliche Situation der Befragten könnte eine Rolle spielen. Das (Netto-)Haushaltseinkommen der Befragten ist in Kategorien abgefragt worden (siehe hierzu die Fragebogendokumentation, S. 206).</p>
 <pre class="r"><code>table(gles$q192)</code></pre>
 <pre><code>## 
@@ -463,14 +466,14 @@ table(gles$geschlecht)</code></pre>
 ##       10000 Euro und mehr 
 ##                        18</code></pre>
 <p>Da diese sehr kleinteilig sind, wollen wir sie neu zuschneiden. Die sieben neuen Kategorien lauten wie folgt: weniger als 1000 Euro, 1000 bis 1999 Euro, 2000 bis 2999 Euro, 3000 bis 3999 Euro, 4000 bis 4999 Euro, 5000 bis 7499 Euro und 7500 Euro und mehr.</p>
-<p>Wir verwenden zur Indizierung wieder eckige Klammern, allerdings diesmal in Kombination mit dem logischen Oder <code>|</code>. Der nachfolgende Code sagt folgendes aus: Wenn <code>q192</code> die Ausprägung &quot;unter 500 Euro&quot; aufweist, <em>oder</em> wenn die Variable &quot;500 bis unter 750 Euro&quot; aufweist, <em>oder</em> wenn sie &quot;750 bis unter 1000 Euro&quot; aufweist, dann ordne <code>einkommen_cat</code> &quot;weniger als 1000 Euro&quot; zu. Für die anderen Kategorien geschieht dies analog. Machen Sie sich bewusst, dass der Inhalt der eckigen Klammern jeweils ein logischer Vektor mit <code>TRUE</code>- und <code>FALSE</code>-Aussagen ist. Wenn <code>TRUE</code>, dann wird <code>einkommen_cat</code> der String rechts von <code>&lt;-</code> zugewiesen.</p>
+<p>Wir verwenden zur Indizierung wieder eckige Klammern, allerdings diesmal in Kombination mit dem logischen Oder <code>|</code>. Der nachfolgende Code sagt folgendes aus: Wenn <code>q192</code> die Ausprägung “unter 500 Euro” aufweist, <em>oder</em> wenn die Variable “500 bis unter 750 Euro” aufweist, <em>oder</em> wenn sie “750 bis unter 1000 Euro” aufweist, dann ordne <code>einkommen_cat</code> “weniger als 1000 Euro” zu. Für die anderen Kategorien geschieht dies analog. Machen Sie sich bewusst, dass der Inhalt der eckigen Klammern jeweils ein logischer Vektor mit <code>TRUE</code>- und <code>FALSE</code>-Aussagen ist. Wenn <code>TRUE</code>, dann wird <code>einkommen_cat</code> der String rechts von <code>&lt;-</code> zugewiesen.</p>
 <p>Führen Sie zu Veranschaulichungszwecken diese Codezeile zunächst einzeln aus.</p>
 <pre class="r"><code>gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
                      gles$q192 == &quot;500 bis unter 750 Euro&quot; |
                      gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;</code></pre>
 <p>Lassen Sie sich dann <code>View(gles$einkommen_cat)</code> ausgeben:</p>
 <pre class="r"><code>View(gles$einkommen_cat)</code></pre>
-<p>Sie sehen, dass <code>einkommen_cat</code> für die meisten Beobachtungen ein <code>NA</code> (&quot;not available&quot;) enthält. Das sind die Personen, deren Haushaltseinkommen 1000 Euro und mehr beträgt. Wenn Sie nun schrittweise die folgenden Codezeilen ausführen, verschwinden die <code>NA</code>s nach und nach.</p>
+<p>Sie sehen, dass <code>einkommen_cat</code> für die meisten Beobachtungen ein <code>NA</code> (“not available”) enthält. Das sind die Personen, deren Haushaltseinkommen 1000 Euro und mehr beträgt. Wenn Sie nun schrittweise die folgenden Codezeilen ausführen, verschwinden die <code>NA</code>s nach und nach.</p>
 <pre class="r"><code>gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
                      gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
                      gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
@@ -488,7 +491,7 @@ gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
 ##              427              512              310              189 
 ##    5000 bis 7499    7500 und mehr weniger als 1000 
 ##              161               56              114</code></pre>
-<p>Dabei fällt uns auf, dass die eigentlich niedrigste Kategorie &quot;weniger als 1000&quot; im Output als letzte erscheint. Um die ursprünglich richtige Ordnung herzustellen, wandeln wir <code>einkommen_cat</code> in einen Faktor um und ordnen die Levels händisch.</p>
+<p>Dabei fällt uns auf, dass die eigentlich niedrigste Kategorie “weniger als 1000” im Output als letzte erscheint. Um die ursprünglich richtige Ordnung herzustellen, wandeln wir <code>einkommen_cat</code> in einen Faktor um und ordnen die Levels händisch.</p>
 <pre class="r"><code>gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
                                 levels = c(&quot;weniger als 1000&quot;,
                                            &quot;1000 bis 1999&quot;,
@@ -520,7 +523,7 @@ table(gles$einkommen_num)</code></pre>
 <p>Wie Sie sehen, entsprechen sich die Kategorien von <code>einkommen_cat</code> und <code>einkommen_num</code> in Bezug auf die Fallzahl pro Kategorie.</p>
 </div>
 <div id="wohnort" class="section level2">
-<h2>2.4 Wohnort</h2>
+<h2>3.4 Wohnort</h2>
 <p>Außerdem könnte der Wohnort der Befragten einen Einfluss auf die politische Position oder die Wahlentscheidung haben. In diesem Fall sind die in der Ursprungsform vorliegenden Kategorien ausreichend. Allerdings sind die Labels recht unhandlich, weshalb wir sie umbenennen.</p>
 <pre class="r"><code>table(gles$q197)</code></pre>
 <pre><code>## 
@@ -539,7 +542,7 @@ table(gles$wohnort)</code></pre>
 <p>Da lediglich die Kategorienamen und nicht die Datenstruktur angepasst wurden, hat sich am Zuschnitt der Kategorien nichts geändert.</p>
 </div>
 <div id="links-rechts-selbsteinstufung" class="section level2">
-<h2>2.5 Links-Rechts-Selbsteinstufung</h2>
+<h2>3.5 Links-Rechts-Selbsteinstufung</h2>
 <p>Schließlich kommen wir zu den unabhängigen Variablen unserer Analysen. Bei der Links-Rechts-Selbsteinstufung wurden die Befragten aufgefordert, ihre Position anhand einer 11-stufigen Links-Rechts-Skala einzuschätzen. Wir schauen uns wieder zunächst mit der <code>table()</code> an, wie sich die Befragten einordnen.</p>
 <pre class="r"><code>table(gles$q32)</code></pre>
 <pre><code>## 
@@ -553,7 +556,7 @@ gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
 gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
 gles$LiRe &lt;- as.numeric(gles$LiRe)</code></pre>
 <p>Auch hier muss der Faktor <code>q32</code> zunächst in einen character-Vektor umgewandelt werden (dabei wird er als neues Objekt <code>LiRe</code> gespeichert), damit man ihn sinnvoll umkodieren und schließlich in einen numerischen Vektor umwandeln kann.</p>
-<p>Die Links-Rechts-Selbsteinstufung wollen wir des Weiteren etwas aggregieren, sodass mehrere ihrer Kategorien zusammengefasst werden. Die Kategorien eins und zwei sollen in der neuen Kategorie &quot;links&quot;, die Kategorien drei und vier in der Kategorie &quot;moderat links&quot;, die Kategorien fünf, sechs und sieben in der Kategorie &quot;mittig&quot;, die Kategorien acht und neun in der Kategorie &quot;moderat rechts&quot; und die Kategorien 10 und 11 in der Kategorie &quot;rechts&quot; zusammengefasst werden. Wir erstellen die aggregierte Variable ausgehend von der eben gebildeten Variable <code>LiRe</code> und verwenden die Vergleichsoperatoren <code>&gt;=</code> (größer-gleich) und <code>&lt;=</code> (kleiner-gleich).</p>
+<p>Die Links-Rechts-Selbsteinstufung wollen wir des Weiteren etwas aggregieren, sodass mehrere ihrer Kategorien zusammengefasst werden. Die Kategorien eins und zwei sollen in der neuen Kategorie “links”, die Kategorien drei und vier in der Kategorie “moderat links”, die Kategorien fünf, sechs und sieben in der Kategorie “mittig”, die Kategorien acht und neun in der Kategorie “moderat rechts” und die Kategorien 10 und 11 in der Kategorie “rechts” zusammengefasst werden. Wir erstellen die aggregierte Variable ausgehend von der eben gebildeten Variable <code>LiRe</code> und verwenden die Vergleichsoperatoren <code>&gt;=</code> (größer-gleich) und <code>&lt;=</code> (kleiner-gleich).</p>
 <pre class="r"><code>gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
                 gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
 gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
@@ -583,7 +586,7 @@ table(gles$LiRe_cat)</code></pre>
 <p>Mit <code>LiRe</code> und <code>LiRe_cat</code> stehen uns nun zwei unabhängige Variablen zur Verfügung anhand derer wir die Links-Rechts-Selbsteinstufung der Befragten messen können.</p>
 </div>
 <div id="afd-wahl" class="section level2">
-<h2>2.6 AfD-Wahl</h2>
+<h2>3.6 AfD-Wahl</h2>
 <p>Schließlich benötigen wir eine Variable, die eine Aussage darüber trifft, ob eine befragte Person die AfD gewählt oder nicht gewählt hat. Bei solchen Variablen, die eine Aussage darüber treffen, ob etwas zutrifft oder nicht, sprechen wir von <em>dichotomen Variablen</em>. Dichotome Variablen vercoden den Wert 1, wenn etwas zutrifft und den Wert 0, wenn etwas nicht zutrifft. Die dichotome abhängige Variable zur AfD-Wahl bilden wir aus der Variable <code>q19ba</code>, die die berichtete Wahlentscheidung der Befragten enthält.</p>
 <pre class="r"><code>table(gles$q19ba)</code></pre>
 <pre><code>## 
@@ -656,8 +659,8 @@ gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0</code></pre>
 </div>
 </div>
 <div id="variablen-aus-lijphart" class="section level1">
-<h1>3. Variablen aus <code>lijphart</code></h1>
-<p>Die Variablen des Datensatzes zu &quot;Patterns of Democracy&quot; werden im weiteren Verlauf dieses Kurses in der Form verwendet, in der sie ursprünglich vorliegen. Wir müssen sie also nicht recodieren. Allerdings liegen sie als character-Vektoren vor und müssen zu numerischen Vektoren umgewandelt werden. Das sei hier beispielhaft für die Variable <code>enpp4510</code> dargestellt, die die Effective Number of Parliamentary Parties in den Jahren 1945 bis 2010 für alle Länder enthält.</p>
+<h1>4. Variablen aus <code>lijphart</code></h1>
+<p>Die Variablen des Datensatzes zu “Patterns of Democracy” werden im weiteren Verlauf dieses Kurses in der Form verwendet, in der sie ursprünglich vorliegen. Wir müssen sie also nicht recodieren. Allerdings liegen sie als character-Vektoren vor und müssen zu numerischen Vektoren umgewandelt werden. Das sei hier beispielhaft für die Variable <code>enpp4510</code> dargestellt, die die Effective Number of Parliamentary Parties in den Jahren 1945 bis 2010 für alle Länder enthält.</p>
 <pre class="r"><code>class(lijphart$enpp4510)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code>table(lijphart$enpp4510)</code></pre>
@@ -676,7 +679,7 @@ gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0</code></pre>
 summary(lijphart$enpp4510)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   1.380   2.277   2.990   3.192   3.890   5.200</code></pre>
-<p>Anders als beim GLES überschreiben wir hier die Ursprungsvariable bzw. bilden keine neue Variable. Das hat damit zu tun, dass die Variable eigentlich numerisch sein müsste, wir sie also &quot;reparieren&quot; anstatt sie für unsere Zwecke anzupassen. So gehen wir mit allen Variablen vor, die wir im Kurs verwenden werden. Für den Gallagher-Index zur Messung der Disproportionalität von Wahlsystemen:</p>
+<p>Anders als beim GLES überschreiben wir hier die Ursprungsvariable bzw. bilden keine neue Variable. Das hat damit zu tun, dass die Variable eigentlich numerisch sein müsste, wir sie also “reparieren” anstatt sie für unsere Zwecke anzupassen. So gehen wir mit allen Variablen vor, die wir im Kurs verwenden werden. Für den Gallagher-Index zur Messung der Disproportionalität von Wahlsystemen:</p>
 <pre class="r"><code>lijphart$disprop4510 &lt;- as.numeric(lijphart$disprop4510)
 summary(lijphart$disprop4510)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -698,22 +701,22 @@ summary(lijphart$exe_dom4510)</code></pre>
 ##   1.000   3.223   4.305   5.348   8.078   9.900</code></pre>
 </div>
 <div id="zusammenfassung" class="section level1">
-<h1>4. Zusammenfassung</h1>
-<p>Variablen der GLES haben wir geprüft und umkodiert. Dabei haben wir die Datenmanipulationen jeweils mit <code>table()</code>, <code>summary()</code> und <code>View()</code> nachvollzogen. Bestehende Variablen wurden in ihrer Ursprungsform belassen, während recodierte Variablen an den Datensatz angehängt wurden. Er beinhaltet nun 609 Variablen. Die Variablen aus dem Datensatz zu &quot;Patterns of Democracy&quot;, die wir in unseren Analysen verwenden werden, wurden lediglich zu numerischen Vektoren umgewandelt. Sie wurden nicht in Form neuer Objekte gespeichert, sondern überschrieben. Dieser Datensatz hat sich in seinem Umfang somit nicht verändert.</p>
+<h1>5. Zusammenfassung</h1>
+<p>Variablen der GLES haben wir geprüft und umkodiert. Dabei haben wir die Datenmanipulationen jeweils mit <code>table()</code>, <code>summary()</code> und <code>View()</code> nachvollzogen. Bestehende Variablen wurden in ihrer Ursprungsform belassen, während recodierte Variablen an den Datensatz angehängt wurden. Er beinhaltet nun 609 Variablen. Die Variablen aus dem Datensatz zu “Patterns of Democracy”, die wir in unseren Analysen verwenden werden, wurden lediglich zu numerischen Vektoren umgewandelt. Sie wurden nicht in Form neuer Objekte gespeichert, sondern überschrieben. Dieser Datensatz hat sich in seinem Umfang somit nicht verändert.</p>
 </div>
 <div id="aufgaben" class="section level1">
-<h1>5. Aufgaben</h1>
+<h1>6. Aufgaben</h1>
 <ol style="list-style-type: decimal">
 <li>Suchen Sie im Fragebogen der GLES nach einer geeigneten Variable zur Messung der schulischen Bildung der Befragten. Diese sollte Information über die Schulabschlüsse der Befragten enthalten.</li>
 <li>Bilden Sie eine Variable <code>schulab</code> mit den folgenden Kategorien: Hochschulreife, Fachhochschulreife, Realschule, Hauptschule, kein Abschluss. Inspizieren Sie die Variable und stellen Sie sicher, dass bei Befragten, die einen anderen oder noch keinen Schulabschluss haben, ein <code>NA</code> vercodet wurde.</li>
-<li>Bilden Sie aus <code>einkommen_num</code> eine Variable <code>einkommen_cat1</code>, die vier Kategorien hat: &quot;weniger als 2000&quot;, &quot;2000 bis unter 4000&quot;, &quot;4000 bis unter 7500&quot;, &quot;7500 und mehr&quot;. Nutzen Sie die Vergleichsoperatoren <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> &amp; <code>&lt;=</code> sowie den logischen Operator <code>&amp;</code>.</li>
+<li>Bilden Sie aus <code>einkommen_num</code> eine Variable <code>einkommen_cat1</code>, die vier Kategorien hat: “weniger als 2000”, “2000 bis unter 4000”, “4000 bis unter 7500”, “7500 und mehr”. Nutzen Sie die Vergleichsoperatoren <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> &amp; <code>&lt;=</code> sowie den logischen Operator <code>&amp;</code>.</li>
 <li>Bilden Sie eine identische Variable <code>einkommen_cat2</code>. Nutzen Sie diesmal die Operatoren <code>==</code> und <code>|</code>. Inspizieren Sie, ob beide tatsächlich identisch sind.</li>
 <li>Suchen Sie per Google eine Funktion, mit der Sie prüfen können, ob Objekte/Variablen identisch sind. Wenden Sie diese Funktion auf <code>einkommen_cat1</code> und <code>einkommen_cat2</code> an.</li>
 <li>Was ist an der Berechnung des Alters der Befragten nicht ganz richtig?</li>
 </ol>
 </div>
 <div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
+<h1>7. Lösungen</h1>
 <ol start="2" style="list-style-type: decimal">
 <li></li>
 </ol>
