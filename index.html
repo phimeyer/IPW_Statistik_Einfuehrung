@@ -382,55 +382,15 @@ div.tocify {
 <p><img src="logo_IPW.png" /></p>
 <p><br /></p>
 <p>Hannover, 20. Oktober 2021</p>
-<div id="herzlich-wilkommen-sehr-geehrte-dozierende" class="section level1">
-<h1>1. Herzlich Wilkommen, sehr geehrte Dozierende!</h1>
-<p>Ein herzliches Willkommen zu dieser Einführung in die politikwissenschaftliche Statistik mit <code>R</code>!</p>
-<div id="motivation-und-ausgangsproblem" class="section level2">
-<h2>1.1 Motivation und Ausgangsproblem</h2>
-<p>Kleinere Institute für Politikwissenschaft stehen oftmals vor der Herausforderung, dass sie keine eigenständige Methoden- bzw Statistikprofessur anbieten, sondern dass die Methoden- und Statistikausbildung aus anderen Fächern zugeliefert wird. Von Seite der Studierenden wird oftmals bemängelt, dass die Statistikkurse entweder zu mathematisch und zu wenig anwendungsorientiert sind, oder die Beispiele nicht aus dem eigenen Fach kommen.</p>
-<p>Die zweite Herausforderung besteht darin, dass innerhalb des politikwissenschaftlichen Studiums die Notwendigkeit immer größer wird, statistische Verfahren nicht nur passiv verstehen zu können, sondern gängige Verfahren mit Statistiksoftware aktiv anzuwenden. Ohne diese Fertigkeiten können letztlich keine eigenständigen empirischen Haus- und Abschlussarbeiten geschrieben werden.</p>
-<p>Die Studierenden sind häufig dadurch überfordert, dass sie zwar statistische Verfahren nutzen sollen, die Ausbildung jedoch oft zu weit von den realen Anforderungen im Studium entfernt ist. Das frustriert und demotiviert Studierende.</p>
-<p>Idealerweise würde man das Erlernen von statistischen Verfahren und ihre Anwendung in einem Statistikprogramm in Form von die Vorlesungen begleitenden Seminaren durchführen. Die dafür notwendigen finanziellen Ressourcen für Mitarbeiter/innen stehen jedoch häufig nicht zur Verfügung.</p>
-</div>
-<div id="zielsetzung-des-selbstlernkurses" class="section level2">
-<h2>1.2 Zielsetzung des Selbstlernkurses</h2>
-<p>Dieser Kurs wurde als Selbstlernkurs konzipiert, der zum Ziel hat, die vorlesungslastige und mathematisch orientierte Statistikausbildung im Fach Politikwissenschaft bei begrenzten Ressourcen zu verbessern. Er wurde bewusst als Online-Kurs konzipiert, sodass die Studierenden auch von zu Hause aus am Material arbeiten können. Er kann durch Tutor/innen begleitet werden, dies ist jedoch nicht zwingend erforderlich.</p>
-<p>Studierende im Bachelor erwerben in diesem Kurs Kenntnisse in der Programmiersprache R und in der eigenständigen Analyse von Daten. In Verbindung mit den theoretischen Hintergründen aus den Statistikvorlesungen können sie somit sowohl selbstständig Analysen vornehmen, als auch gegebene Analysen kritisch durch Replikation hinterfragen. In der Konsequenz können die Studierenden direkt und anwendungsorientiert Fragen der deskriptiven und Inferenzstatistik beantworten. In der praktischen Bearbeitung und eigenständigen Analyse politikwissenschaftlicher Datensätze sollen die Studierenden ein besseres Verständnis der Statistik und ihres praktischen Nutzens erwerben.</p>
-</div>
-<div id="voraussetzungen-der-nutzung" class="section level2">
-<h2>1.3 Voraussetzungen der Nutzung</h2>
-<p>Dieser Kurs hat den Umfang von 2 Semesterwochenstunden (SWS). Er setzt voraus, dass die Studierenden Vorlesungen in Statistik besuchen, die ihnen die mathematischen Grundlagen gängiger statistischer Verfahren vermitteln. Sein Ziel ist es nicht, statistische Grundlagen zu wiederholen.</p>
-<p>Das Ziel des Kurses ist es, die Nutzung von <code>R</code> anhand von gängigen politikwissenschaftlichen Datensätzen zu vermitteln. Er geht dazu wie folgt in jeder Sitzung vor: (1) Es wird nochmals knapp auf das jeweilige statistische Verfahren eingegangen. (2) Es wird der Code für die Anwendung des Verfahrens am Beispiel von zwei politikwissenschaftlichen Datensätzen vorgestellt (inkl. des Outputs). (3) Es werden kleine Aufgaben zur eigenständigen Lösung aus den beiden Datensätzen vorgegeben (inkl. der Lösungen).</p>
-<p>Die ersten drei Sitzungen führen in das Programm <code>R</code> ein. Wie beim Programmieren üblich, hakt es bei den Grundlagen mitunter an kleinen Fehlern im Code, was schnell zu Frustration führen kann. Dieser Kurs beugt der Frustration durch die ausführliche Einführung vor.</p>
-</div>
-<div id="r-als-das-programm-der-wahl" class="section level2">
-<h2>1.4 <code>R</code> als das Programm der Wahl</h2>
-<p>Hinsichtlich des Statistikprogrammes haben wir uns bewusst für <code>R</code> entschieden. Zum Ersten handelt es sich im Gegensatz zu Stata und SPSS um eine Freeware, die nicht zu Lizenzkosten in Abhängigkeit von Rahmenverträgen der jeweiligen Universität führt. Zum Zweiten bietet <code>R</code> große Flexibilität mit nahezu unbegrenzten Anwendungsmöglichkeiten, insbesondere in Hinblick auf moderne Verfahren wie der automatisierten Textanalyse. Klassischen Statistikprogrammen sind hier im Gegensatz zur Programmiersprache <code>R</code> enge Grenzen gesetzt. Insofern ist die Wahl von <code>R</code> auch perspektivisch hinsichtlich einer weitergehenden Vertiefung, z.B. im Rahmen des Master-Studiums, gedacht.</p>
-</div>
-<div id="behandelte-themen" class="section level2">
-<h2>1.5 Behandelte Themen</h2>
-<p>In diesem Kurs werden die Studierenden die Grundlagen des Programms erlernen, Datensatzaufbereitung, deskriptive und multivariate Statistik. Dies geschieht anhand von verbreiteten politikwissenschaftlichen Datensätzen. Konkret werden folgende Themen abgehandelt:</p>
-<p><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a> <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a> <a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a> <a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a> <a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a> <a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a> <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a> <a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a> <a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a> <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a> <a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a> <a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a> <a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></p>
-</div>
-<div id="politikwissenschaftliche-beispiele" class="section level2">
-<h2>1.6 Politikwissenschaftliche Beispiele</h2>
-<p>Didaktisch haben wir uns bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt.</p>
-<ol style="list-style-type: decimal">
-<li><p>Politische Soziologie: Hier nutzen wir den Nachwahl-Querschnitt der German Longitudinal Election Study (GLES) von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle.</p></li>
-<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir den Datensatz zu “Patterns of Democracy” von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle.</p></li>
-</ol>
-<p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze und anhand dessen ein Verständnis für Datenmanagement insgesamt.</p>
-</div>
-</div>
 <div id="herzlich-wilkommen-sehr-geehrte-studierende" class="section level1">
-<h1>2. Herzlich Wilkommen, sehr geehrte Studierende!</h1>
+<h1>1. Herzlich Wilkommen, sehr geehrte Studierende!</h1>
 <p>Ein herzliches Willkommen zu dieser Einführung in die politikwissenschaftliche Statistik mit <code>R</code>!</p>
-<div id="zielsetzung-des-selbstlernkurses-1" class="section level2">
-<h2>2.1. Zielsetzung des Selbstlernkurses</h2>
+<div id="zielsetzung-des-selbstlernkurses" class="section level2">
+<h2>1.1. Zielsetzung des Selbstlernkurses</h2>
 <p>Dieser Kurs wurde als Selbstlernkurs für Sie konzipiert. Sein Ziel ist es, Ihnen die Nutzung der Programmiersprache <code>R</code> in ihrem politikwissenschaftlichen Studium zu ermöglichen. Dieser Kurs ergänzt Ihre bestehenden Statistikvorlesungen anwendungsorientiert, setzt aber auch die Inhalte der Vorlesungen voraus. Er wurde bewusst als Online-Kurs konzipiert, sodass Sie auch von zu Hause aus arbeiten können.</p>
 </div>
 <div id="gründe-für-diesen-kurs" class="section level2">
-<h2>2.2. Gründe für diesen Kurs</h2>
+<h2>1.2. Gründe für diesen Kurs</h2>
 <p>Für den Besuch dieses Kurses spricht eine ganze Reihe von Gründen, die über den Erwerb einer Studienleistung hinaus gehen:</p>
 <ol style="list-style-type: decimal">
 <li><p>Bessere Noten: Innerhalb des politikwissenschaftlichen Studiums wird die Notwendigkeit immer größer, statistische Verfahren nicht nur passiv verstehen zu können, sondern auch gängige Verfahren aktiv anzuwenden. Ohne diese Fertigkeiten können letztlich keine eigenständigen empirischen Haus- und Abschlussarbeiten geschrieben werden. Ein erfolgreicher Besuch dieses Kurses hebt also Ihr potenzielles Notenniveau deutlich an.</p></li>
@@ -439,12 +399,12 @@ div.tocify {
 <li><p>Arbeitsmarkt: Die Fähigkeit zur quantitativen Datenanalyse verbessert Ihre Berufsaussichten deutlich. Sich damit systematisch auseinanderzusetzen, eröffnet Arbeitsmarktperspektiven im Bereich der “Data Science” und “Big Data”. Aber auch in klassischen Arbeitsmärkten für Politikwissenschaftler/innen wie z.B. dem Journalismus, wird dies immer wichtiger.</p></li>
 </ol>
 </div>
-<div id="r-als-das-programm-der-wahl-1" class="section level2">
-<h2>2.3. <code>R</code> als das Programm der Wahl</h2>
+<div id="r-als-das-programm-der-wahl" class="section level2">
+<h2>1.3. <code>R</code> als das Programm der Wahl</h2>
 <p>Hinsichtlich des Statistikprogrammes haben wir uns bewusst für <code>R</code> entschieden. Zum Ersten handelt es sich im Gegensatz zu Stata und SPSS um eine Freeware, die nicht zu Lizenzkosten führt bzw. Sie sich bei Ihrer Universität für eine begrenzte Zeit laufende Lizenzen besorgen müssen. <code>R</code> läuft sowohl auf Windows als auch auf Mac. Zum Zweiten ist R vielseitig anwendbar z.B. bezogen auf die quantitative Textanalyse.</p>
 </div>
 <div id="didaktischer-aufbau" class="section level2">
-<h2>2.4. Didaktischer Aufbau</h2>
+<h2>1.4. Didaktischer Aufbau</h2>
 <p>In den ersten drei Sitzungen führen wir Sie in das Programm <code>R</code> ein. Da es sich um eine Programmiersprache handelt, die deutlich flexibler eingesetzt werden kann als beispielsweise die Statistikprogramme SPSS und Stata, gilt es zuerst die Grundlagen der Nutzung zu vermitteln. Dafür sind drei Sitzungen eingeplant.</p>
 <p>Die fachlichen Sitzungen ab Sitzung 4 sind wie folgt strukturiert:</p>
 <ol style="list-style-type: decimal">
@@ -453,8 +413,8 @@ div.tocify {
 <li><p>Es werden kleine Aufgaben zur eigenständigen Lösung aus den beiden Datensätzen vorgegeben (inkl. der Lösungen).</p></li>
 </ol>
 </div>
-<div id="politikwissenschaftliche-beispiele-1" class="section level2">
-<h2>2.5. Politikwissenschaftliche Beispiele</h2>
+<div id="politikwissenschaftliche-beispiele" class="section level2">
+<h2>1.5. Politikwissenschaftliche Beispiele</h2>
 <p>In der Statistikausbildung wird in Vorlesungen ein Schwerpunkt auf die mathematische Basis gelegt oder wenn Vorlesungen von Professor/innen anderer Fächer unterrichtet werden, sind die Beispiele oft nicht politikwissenschaftlicher Natur. Wir haben in der Vergangenheit festgestellt, dass deshalb Studierenden oft nicht klar ist, wozu sie eigentlich die Statistikvorlesungen in ihrem Studium benötigen.</p>
 <p>Didaktisch haben wir uns in diesem Kurs bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt, um den Nutzen so besser verdeutlichen zu können.</p>
 <ol style="list-style-type: decimal">
@@ -463,22 +423,65 @@ div.tocify {
 </ol>
 <p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt Ihnen der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze, sodass Sie anhand dessen ein Verständnis für Datenmanagement insgesamt erwerben.</p>
 </div>
-<div id="behandelte-themen-1" class="section level2">
-<h2>2.6. Behandelte Themen</h2>
+<div id="behandelte-themen" class="section level2">
+<h2>1.6. Behandelte Themen</h2>
 <p>In diesem Kurs werden Sie die Grundlagen des Programms erlernen sowie Datensatzaufbereitung, deskriptive und multivariate Statistik. Gleichzeitig erlernen Sie Grundlagen der Visualisierung, dem wir drei Sitzungen widmen.</p>
 <p>Konkret werden folgende Themen abgehandelt:</p>
 <p><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a> <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a> <a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a> <a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a> <a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a> <a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a> <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a> <a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a> <a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a> <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a> <a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a> <a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a> <a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></p>
+<p><br /></p>
+</div>
+</div>
+<div id="herzlich-wilkommen-sehr-geehrte-dozierende" class="section level1">
+<h1>2. Herzlich Wilkommen, sehr geehrte Dozierende!</h1>
+<p>Ein herzliches Willkommen zu dieser Einführung in die politikwissenschaftliche Statistik mit <code>R</code>!</p>
+<div id="motivation-und-ausgangsproblem" class="section level2">
+<h2>2.1 Motivation und Ausgangsproblem</h2>
+<p>Kleinere Institute für Politikwissenschaft stehen oftmals vor der Herausforderung, dass sie keine eigenständige Methoden- bzw Statistikprofessur anbieten, sondern dass die Methoden- und Statistikausbildung aus anderen Fächern zugeliefert wird. Von Seite der Studierenden wird oftmals bemängelt, dass die Statistikkurse entweder zu mathematisch und zu wenig anwendungsorientiert sind, oder die Beispiele nicht aus dem eigenen Fach kommen.</p>
+<p>Die zweite Herausforderung besteht darin, dass innerhalb des politikwissenschaftlichen Studiums die Notwendigkeit immer größer wird, statistische Verfahren nicht nur passiv verstehen zu können, sondern gängige Verfahren mit Statistiksoftware aktiv anzuwenden. Ohne diese Fertigkeiten können letztlich keine eigenständigen empirischen Haus- und Abschlussarbeiten geschrieben werden.</p>
+<p>Die Studierenden sind häufig dadurch überfordert, dass sie zwar statistische Verfahren nutzen sollen, die Ausbildung jedoch oft zu weit von den realen Anforderungen im Studium entfernt ist. Das frustriert und demotiviert Studierende.</p>
+<p>Idealerweise würde man das Erlernen von statistischen Verfahren und ihre Anwendung in einem Statistikprogramm in Form von die Vorlesungen begleitenden Seminaren durchführen. Die dafür notwendigen finanziellen Ressourcen für Mitarbeiter/innen stehen jedoch häufig nicht zur Verfügung.</p>
+</div>
+<div id="zielsetzung-des-selbstlernkurses-1" class="section level2">
+<h2>2.2 Zielsetzung des Selbstlernkurses</h2>
+<p>Dieser Kurs wurde als Selbstlernkurs konzipiert, der zum Ziel hat, die vorlesungslastige und mathematisch orientierte Statistikausbildung im Fach Politikwissenschaft bei begrenzten Ressourcen zu verbessern. Er wurde bewusst als Online-Kurs konzipiert, sodass die Studierenden auch von zu Hause aus am Material arbeiten können. Er kann durch Tutor/innen begleitet werden, dies ist jedoch nicht zwingend erforderlich.</p>
+<p>Studierende im Bachelor erwerben in diesem Kurs Kenntnisse in der Programmiersprache R und in der eigenständigen Analyse von Daten. In Verbindung mit den theoretischen Hintergründen aus den Statistikvorlesungen können sie somit sowohl selbstständig Analysen vornehmen, als auch gegebene Analysen kritisch durch Replikation hinterfragen. In der Konsequenz können die Studierenden direkt und anwendungsorientiert Fragen der deskriptiven und Inferenzstatistik beantworten. In der praktischen Bearbeitung und eigenständigen Analyse politikwissenschaftlicher Datensätze sollen die Studierenden ein besseres Verständnis der Statistik und ihres praktischen Nutzens erwerben.</p>
+</div>
+<div id="voraussetzungen-der-nutzung" class="section level2">
+<h2>2.3 Voraussetzungen der Nutzung</h2>
+<p>Dieser Kurs hat den Umfang von 2 Semesterwochenstunden (SWS). Er setzt voraus, dass die Studierenden Vorlesungen in Statistik besuchen, die ihnen die mathematischen Grundlagen gängiger statistischer Verfahren vermitteln. Sein Ziel ist es nicht, statistische Grundlagen zu wiederholen.</p>
+<p>Das Ziel des Kurses ist es, die Nutzung von <code>R</code> anhand von gängigen politikwissenschaftlichen Datensätzen zu vermitteln. Er geht dazu wie folgt in jeder Sitzung vor: (1) Es wird nochmals knapp auf das jeweilige statistische Verfahren eingegangen. (2) Es wird der Code für die Anwendung des Verfahrens am Beispiel von zwei politikwissenschaftlichen Datensätzen vorgestellt (inkl. des Outputs). (3) Es werden kleine Aufgaben zur eigenständigen Lösung aus den beiden Datensätzen vorgegeben (inkl. der Lösungen).</p>
+<p>Die ersten drei Sitzungen führen in das Programm <code>R</code> ein. Wie beim Programmieren üblich, hakt es bei den Grundlagen mitunter an kleinen Fehlern im Code, was schnell zu Frustration führen kann. Dieser Kurs beugt der Frustration durch die ausführliche Einführung vor.</p>
+</div>
+<div id="r-als-das-programm-der-wahl-1" class="section level2">
+<h2>2.4 <code>R</code> als das Programm der Wahl</h2>
+<p>Hinsichtlich des Statistikprogrammes haben wir uns bewusst für <code>R</code> entschieden. Zum Ersten handelt es sich im Gegensatz zu Stata und SPSS um eine Freeware, die nicht zu Lizenzkosten in Abhängigkeit von Rahmenverträgen der jeweiligen Universität führt. Zum Zweiten bietet <code>R</code> große Flexibilität mit nahezu unbegrenzten Anwendungsmöglichkeiten, insbesondere in Hinblick auf moderne Verfahren wie der automatisierten Textanalyse. Klassischen Statistikprogrammen sind hier im Gegensatz zur Programmiersprache <code>R</code> enge Grenzen gesetzt. Insofern ist die Wahl von <code>R</code> auch perspektivisch hinsichtlich einer weitergehenden Vertiefung, z.B. im Rahmen des Master-Studiums, gedacht.</p>
+</div>
+<div id="behandelte-themen-1" class="section level2">
+<h2>2.5 Behandelte Themen</h2>
+<p>In diesem Kurs werden die Studierenden die Grundlagen des Programms erlernen, Datensatzaufbereitung, deskriptive und multivariate Statistik. Dies geschieht anhand von verbreiteten politikwissenschaftlichen Datensätzen. Konkret werden folgende Themen abgehandelt:</p>
+<p><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a> <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a> <a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a> <a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a> <a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a> <a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a> <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a> <a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a> <a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a> <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a> <a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a> <a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a> <a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></p>
+</div>
+<div id="politikwissenschaftliche-beispiele-1" class="section level2">
+<h2>2.6 Politikwissenschaftliche Beispiele</h2>
+<p>Didaktisch haben wir uns bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt.</p>
+<ol style="list-style-type: decimal">
+<li><p>Politische Soziologie: Hier nutzen wir den Nachwahl-Querschnitt der German Longitudinal Election Study (GLES) von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle.</p></li>
+<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir den Datensatz zu “Patterns of Democracy” von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle.</p></li>
+</ol>
+<p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze und anhand dessen ein Verständnis für Datenmanagement insgesamt.</p>
 </div>
 </div>
 <div id="danksagungen" class="section level1">
 <h1>3. Danksagungen</h1>
 <p>Wir danken dem Niedersächsischen Ministerium für Wissenschaft und Kunst (MWK) für die Förderung des Projektes “Digitalisierung in einer Massenveranstaltung: Peer-begleitetes E-Learning in der politikwissenschaftlichen Statistikausbildung mit der Programmiersprache R” aus dem Programm “Innovative Lehr- und Lernkonzepte: Innovation plus (2020/21), Projektnummer 25”.</p>
-<p><img src="logo_MWK.png" /></p>
-<p>Ebenso danken wir Frau Dr. Ines Katenhusen als Referentin des Präsidiums sowie dem Studiendekanat der Philosophischen Fakultät für Kommentare zum Antrag und Laura Brune als studentische Hilfskraft für den ersten Pre-Test und Fehlersuche und -korrektur.</p>
+<p><br /> <img src="logo_MWK.png" /></p>
+<p><br /></p>
+<p>Ebenso danken wir Frau Dr. Ines Katenhusen als Referentin des Präsidiums sowie dem Studiendekanat der Philosophischen Fakultät für Kommentare zum Antrag.</p>
 </div>
 <div id="grundlagenliteratur-und-verwendete-datensätze" class="section level1">
 <h1>4. Grundlagenliteratur und verwendete Datensätze</h1>
 <p>In diesem Kurs basiert die Erläuterung der statistischen Methoden der Politikwissenschaft im wesentlichen auf Kühnel/Krebs (2014) und Diaz-Bone (2019). Als Datensätze werden Lijphart (2012) und GLES (2019) verwendet.</p>
+<p>Literatur:</p>
 <p>Kühnel, Steffen-M./Dagmar Krebs (2014): Statistik für die Sozialwissenschaften. Grundlagen Methoden Anwendungen. 7. Auflage. Reinbek bei Hamburg: Rowohlt.</p>
 <p>Diaz-Bone, Rainer (2019): Statistik für Soziologen. 4. überarbeitete Auflage. München: UVK-Verlag.</p>
 <p>GLES (2019). Nachwahl-Querschnitt (GLES 2017). GESIS Datenarchiv, Köln. ZA6801 Datenfile Version 4.0.1, <a href="https://doi.org/10.4232/1.13235" class="uri">https://doi.org/10.4232/1.13235</a>.</p>
