@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -605,134 +608,6 @@ ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
 <li>Finden Sie heraus, wie Sie die Skalierung der x-Achse und y-Achse verändern und wenden Sie das neue Wissen an einem Ihrer Graphen an.</li>
 <li>Speichern Sie einen Graphen als .jpg und einen als .pdf.</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>7. Lösungen</h1>
-<pre class="r"><code># Aufgabe 1: Graphen mit neuen Variablen replizieren
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point()</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_text(label = lijphart$Country)</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
-<pre class="r"><code># Linienplots
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_smooth(method = lm)</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-3.png" width="672" /></p>
-<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_smooth(method = lm, se = FALSE)</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-4.png" width="672" /></p>
-<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_smooth(method = lm) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0)</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-5.png" width="672" /></p>
-<pre class="r"><code># Graphaussehen verändern
-## Beschriftungen
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_smooth(method = lm) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;)</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-6.png" width="672" /></p>
-<pre class="r"><code>## Hintergrundthemes
-# Minimal Theme
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_smooth(method = lm) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_minimal() </code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-7.png" width="672" /></p>
-<pre class="r"><code># The Economist
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point() +
-  geom_smooth(method = lm) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_economist() </code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-8.png" width="672" /></p>
-<pre class="r"><code>## Farben und Füllungen
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
-  geom_smooth(method = lm) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_minimal() </code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-9.png" width="672" /></p>
-<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point(shape = 18, color = &quot;blue&quot;) +
-  geom_smooth(method = lm,  linetype = &quot;dashed&quot;,
-             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + # Form und Aussehen der Regressionslinie und Füllung der Konfidenzintervalle verändern
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_minimal()</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-17-10.png" width="672" /></p>
-<pre class="r"><code># Aufgabe 2: Loess-Linie 
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point(shape = 18, color = &quot;blue&quot;) +
-  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
-             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_minimal()</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<pre class="r"><code># Aufgabe 3: Ein anderes Hintergrund-Theme als die gezeigten
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point(shape = 18, color = &quot;blue&quot;) +
-  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
-             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_dark() # Willkürliche Verwendung des dark_themes. Natürlich gibt es noch mehr!</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<pre class="r"><code># Aufgabe 4: X- und Y-Achse verändern
-
-ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point(shape = 18, color = &quot;blue&quot;) +
-  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
-             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;) +
-  scale_x_continuous(name=&quot;Kabinettstyp&quot;, limits=c(1, 10)) + # Willkürliche Veränderung der Achsen 
-  scale_y_continuous(name=&quot;Regierungsdauer&quot;, limits=c(1, 10)) + # Auch möglich: expand_limits(x= XX , y=XX)
-  # Auch möglich xlim(XX, XX)+ylim(XX, XX) 
-  theme_minimal()</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<pre class="r"><code># Aufgabe 5: Graphen speichern
-
-# Neues Objekt speichern
-Bicam_Exe &lt;- ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
-  geom_point(shape = 18, color = &quot;blue&quot;) +
-  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
-             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
-  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
-  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
-        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
-  theme_minimal()
-
-# JPG
-ggsave(&quot;fig1-Bicam_Exe.jpg&quot;, Bicam_Exe, device = &quot;jpeg&quot;, width = 4, height = 4)
-
-# PDF
-ggsave(&quot;fig1-Bicam_Exe.pdf&quot;, Bicam_Exe, device = &quot;pdf&quot;, width = 4, height = 4)</code></pre>
 </div>
 
 

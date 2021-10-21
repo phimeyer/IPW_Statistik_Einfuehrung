@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -630,82 +633,6 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <li>Berechnen Sie die Stichprobenvarianz der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes. Berechnen Sie nun die Standardabweichung für beide Variablen auf Grundlage der Stichprobenvarianz. Tipp: Die mathematische Operation dazu ist aus Sitzung 1 bekannt.</li>
 <li>Speichern Sie das Geburtsjahr der Befragten (<code>q2c</code>) in einem numerischen Vektor <code>gj</code>, den Sie nicht an den Datensatz anhängen. Subtrahieren Sie 1900. Berechnen Sie nun die Stichprobenvarianz und auf deren Grundlage die Standardabweichung. Tipp: Wie man Faktoren in numerische Vektoren umwandelt, haben wir in der vergangenen Sitzung behandelt.</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>7. Lösungen</h1>
-<ol style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>round(mean(lijphart$disprop4510, na.rm = TRUE), digits = 2)</code></pre>
-<pre><code>## [1] 8.55</code></pre>
-<pre class="r"><code>median(lijphart$disprop4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 7.14</code></pre>
-<pre class="r"><code>quantile(lijphart$disprop4510, na.rm = TRUE)</code></pre>
-<pre><code>##      0%     25%     50%     75%    100% 
-##  1.2100  3.2525  7.1400 14.3050 21.9700</code></pre>
-<pre class="r"><code>round(mean(lijphart$minwin_one_part4510, na.rm = TRUE), digits = 2)</code></pre>
-<pre><code>## [1] 60.32</code></pre>
-<pre class="r"><code>median(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 55.05</code></pre>
-<pre class="r"><code>quantile(lijphart$minwin_one_part4510, probs = seq(0, 1, .125), na.rm = TRUE)</code></pre>
-<pre><code>##       0%    12.5%      25%    37.5%      50%    62.5%      75%    87.5% 
-##   4.0000  18.4125  37.6750  46.5250  55.0500  80.6625  86.6000  99.2875 
-##     100% 
-## 100.0000</code></pre>
-<pre class="r"><code>round(mean(lijphart$exe_dom4510, na.rm = TRUE), digits = 2)</code></pre>
-<pre><code>## [1] 5.35</code></pre>
-<pre class="r"><code>median(lijphart$exe_dom4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 4.305</code></pre>
-<pre class="r"><code>quantile(lijphart$exe_dom4510, probs = seq(0, 1, .05), na.rm = TRUE)</code></pre>
-<pre><code>##     0%     5%    10%    15%    20%    25%    30%    35%    40%    45%    50% 
-## 1.0000 1.4825 1.9700 2.6550 3.0000 3.2225 3.2950 3.4775 4.0000 4.0300 4.3050 
-##    55%    60%    65%    70%    75%    80%    85%    90%    95%   100% 
-## 4.8075 5.8700 7.7375 8.0000 8.0775 8.1200 8.7025 8.9850 9.4900 9.9000</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>table(gles$einkommen_cat)</code></pre>
-<pre><code>## 
-## weniger als 1000    1000 bis 1999    2000 bis 2999    3000 bis 3999 
-##              114              427              512              310 
-##    4000 bis 4999    5000 bis 7499    7500 und mehr 
-##              189              161               56</code></pre>
-<pre class="r"><code>summary(gles$einkommen_num)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   1.000   2.000   3.000   3.418   4.000   7.000     343</code></pre>
-<pre class="r"><code>IQR(gles$einkommen_num, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 2</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>var(gles$LiRe, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 3.731736</code></pre>
-<pre class="r"><code>sd(gles$LiRe, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 1.93177</code></pre>
-<pre class="r"><code>var(lijphart$disprop4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 37.6197</code></pre>
-<pre class="r"><code>sd(lijphart$disprop4510, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 6.13349</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>var(gles$LiRe, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles)</code></pre>
-<pre><code>## [1] 3.72997</code></pre>
-<pre class="r"><code>var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
-<pre><code>## [1] 36.57471</code></pre>
-<pre class="r"><code>sqrt(var(gles$LiRe, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles))</code></pre>
-<pre><code>## [1] 1.931313</code></pre>
-<pre class="r"><code>sqrt(var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart))</code></pre>
-<pre><code>## [1] 6.047703</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>gj &lt;- as.numeric(as.character(gles$q2c))
-gj &lt;- gj - 1900
-var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj)</code></pre>
-<pre><code>## [1] 368.2592</code></pre>
-<pre class="r"><code>sqrt(var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj))</code></pre>
-<pre><code>## [1] 19.19008</code></pre>
 </div>
 
 

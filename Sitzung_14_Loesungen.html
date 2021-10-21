@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover" />
+
+
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 14: Lösungen zu den Aufgaben</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">(0) Willkommen</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
+</li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 14: Lösungen zu den Aufgaben</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige, Institut für Politikwissenschaft, Leibniz Universität Hannover</h4>
+
+</div>
+
+
+<p><br /></p>
+<p><img src="logo_IPW.png" /></p>
+<p><br /></p>
+<div id="sitzung-einleitung-und-grundlagen-von-r" class="section level1">
+<h1>1. Sitzung: Einleitung und Grundlagen von <code>R</code></h1>
+<div id="aufgaben" class="section level2">
+<h2>1.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Installieren Sie <code>R</code> und <code>R Studio</code> wie unter 2. beschrieben. Führen Sie die Code-Chunks aus 2. aus.</p></li>
+<li><p>Erstellen Sie zwei numerische Vektoren, die je fünf beliebige Werte beinhalten. Summieren Sie die Vektoren und multiplizieren Sie sie miteinander. Bilden Sie einen weiteren Vektor, indem Sie die beiden Vektoren miteinander kombinieren.</p></li>
+<li><p>Erstellen Sie einen character-Vektor, der die Buchstaben des Alphabets beinhaltet. Bilden Sie einen zweiten character-Vektor, der als Subset des ersten nur die Konsonanten beinhaltet.</p></li>
+</ol>
+</div>
+<div id="lösungen" class="section level2">
+<h2>1.2 Lösungen</h2>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>a &lt;- 1:5
+b &lt;- 6:10
+a + b</code></pre>
+<pre><code>## [1]  7  9 11 13 15</code></pre>
+<pre class="r"><code>a * b</code></pre>
+<pre><code>## [1]  6 14 24 36 50</code></pre>
+<pre class="r"><code>c &lt;- c(a, b)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>alphabet &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;)
+
+konsonanten &lt;- alphabet[alphabet != &quot;a&quot; &amp; alphabet != &quot;e&quot; &amp; alphabet != &quot;i&quot; &amp;
+                          alphabet != &quot;o&quot; &amp; alphabet != &quot;u&quot;]
+konsonanten</code></pre>
+<pre><code>##  [1] &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot;
+## [20] &quot;y&quot; &quot;z&quot;</code></pre>
+</div>
+</div>
+<div id="sitzung-faktoren-und-zweidimensionale-objekte-in-r" class="section level1">
+<h1>2. Sitzung: Faktoren und zweidimensionale Objekte in R</h1>
+<div id="aufgaben-1" class="section level2">
+<h2>2.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Erstellen Sie zwei Matrizen, die beliebige zwölf Werte beinhalten: a) mit drei Zeilen und Spalte für Spalte mit Werten versehen; b) mit zwei Spalten und Zeile für Zeile mit Werten versehen. Schreiben Sie effizienten Code, indem Sie jeweils nur die notwendigen Argumente erwähnen.</p></li>
+<li><p>Erstellen Sie einen character-Vektor “p”, der die Namen der im 19. Deutschen Bundestag vertretenen Parteien enthält. Ordnen Sie den Vektor nach dem Mandatsanteil der Parteien beginnend mit dem größten Anteil. Erstellen Sie außerdem einen numerischen Vektor “a”, der die Mandatsanteile (gerundet auf eine Nachkommastelle) der Parteien enthält. Orientieren Sie sich an der Ordnung von “p”. Erstellen Sie eine Matrix, indem Sie beide Vektoren als Spalten verbinden. Inspizieren Sie die erstellte Matrix. Information finden Sie hier: <a href="https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf" class="uri">https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf</a></p></li>
+<li><p>Wandeln Sie die unter 2. erstellte Matrix in einen Dataframe um. Prüfen Sie die Klasse der beiden Variablen des Dataframe. wandeln Sie sie ggf. in ein angemessenes Datenformat um. Geben Sie beiden Variablen sinnvolle Namen.</p></li>
+<li><p>Erstellen Sie Subsets für die folgenden potenziellen Koalitionen und speichern Sie sie in Objekten mit den angegbenen Namen: CDU/CSU-SPD -&gt; “groko”, CDU/CSU-FDP-Grüne -&gt; “jamaika”. Summieren Sie jeweils den Mandatsanteil der möglichen Koalitionen (Tipp: im Tutorial zu Sitzung 1 finden Sie die entsprechende Funktion für das Summieren).</p></li>
+<li><p>Erstellen Sie ein Subset aller Parteien, die mehr als 10 Prozent der Mandate auf sich vereinigen. Erstellen Sie dieses Subset einmal mithilfe eckiger Klammern und einmal mithilfe der Funktion <code>subset()</code>. Erstellen Sie außerdem ein Subset mit allen Parteien, die weniger Mandate auf sich vereinigen als die SPD. (Tipp: für Letzteres benötigen Sie einen logischen Vektor, selbst wenn Sie <code>subset()</code> verwenden.)</p></li>
+<li><p>Erstellen Sie einen Faktor mit den Kategorien “Handy”, “Tablet”, “Laptop”, “PC”. Handys sollen zweimal, Tablets viermal, Laptops dreimal und PCs fünfmal vorkommen. Ordnen Sie den Faktor nach der Größe der Geräte von klein nach groß. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Faktors ausgeben. Wandeln Sie den Faktor in einen numeric-Vektor um. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Vektors ausgeben. Was hat sich im Output dieser Funktionen verändert?</p></li>
+</ol>
+</div>
+<div id="lösungen-1" class="section level2">
+<h2>2.2 Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>matrix(data = 10:21, nrow = 3)</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]   10   13   16   19
+## [2,]   11   14   17   20
+## [3,]   12   15   18   21</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>matrix(data = 10:21, ncol = 2, byrow = TRUE)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   10   11
+## [2,]   12   13
+## [3,]   14   15
+## [4,]   16   17
+## [5,]   18   19
+## [6,]   20   21</code></pre>
+<p>oder:</p>
+<pre class="r"><code>matrix(data = 10:21, nrow = 6, byrow = TRUE)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   10   11
+## [2,]   12   13
+## [3,]   14   15
+## [4,]   16   17
+## [5,]   18   19
+## [6,]   20   21</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>(möglicherweise aktualisiert)</li>
+</ol>
+<pre class="r"><code>p &lt;- c(&quot;CDU/CSU&quot;, &quot;SPD&quot;, &quot;AfD&quot;, &quot;FDP&quot;, &quot;Linke&quot;, &quot;Grüne&quot;)
+a &lt;- c(32.9, 20.5, 12.6, 10.7, 9.2, 8.9)
+pa &lt;- cbind(p, a)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>padf &lt;- as.data.frame(pa)
+class(padf$p)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(padf$a)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>padf$a &lt;- as.numeric(padf$a)
+padf</code></pre>
+<pre><code>##         p    a
+## 1 CDU/CSU 32.9
+## 2     SPD 20.5
+## 3     AfD 12.6
+## 4     FDP 10.7
+## 5   Linke  9.2
+## 6   Grüne  8.9</code></pre>
+<pre class="r"><code>names(padf)[1] &lt;- &quot;parteien&quot;
+names(padf)[2] &lt;- &quot;anteile&quot;
+padf</code></pre>
+<pre><code>##   parteien anteile
+## 1  CDU/CSU    32.9
+## 2      SPD    20.5
+## 3      AfD    12.6
+## 4      FDP    10.7
+## 5    Linke     9.2
+## 6    Grüne     8.9</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>groko &lt;- subset(padf, subset = parteien == &quot;CDU/CSU&quot; | parteien == &quot;SPD&quot;)
+sum(groko$anteile)</code></pre>
+<pre><code>## [1] 53.4</code></pre>
+<pre class="r"><code>jamaika &lt;- subset(padf, subset = parteien == &quot;CDU/CSU&quot; | parteien == &quot;Grüne&quot; |
+                        parteien == &quot;FDP&quot;)
+sum(jamaika$anteile)</code></pre>
+<pre><code>## [1] 52.5</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>padf[padf$anteile &gt; 10, ]</code></pre>
+<pre><code>##   parteien anteile
+## 1  CDU/CSU    32.9
+## 2      SPD    20.5
+## 3      AfD    12.6
+## 4      FDP    10.7</code></pre>
+<pre class="r"><code>subset(padf, subset = anteile &gt; 10)</code></pre>
+<pre><code>##   parteien anteile
+## 1  CDU/CSU    32.9
+## 2      SPD    20.5
+## 3      AfD    12.6
+## 4      FDP    10.7</code></pre>
+<pre class="r"><code>subset(padf, subset = anteile &lt; padf$anteile[padf$parteien == &quot;SPD&quot;])</code></pre>
+<pre><code>##   parteien anteile
+## 3      AfD    12.6
+## 4      FDP    10.7
+## 5    Linke     9.2
+## 6    Grüne     8.9</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>geraete &lt;- factor(c(&quot;Handy&quot;,&quot;Handy&quot;, &quot;Tablet&quot;, &quot;Tablet&quot;, &quot;Tablet&quot;, &quot;Tablet&quot;,
+                   &quot;Laptop&quot;, &quot;Laptop&quot;, &quot;Laptop&quot;, &quot;PC&quot;, &quot;PC&quot;, &quot;PC&quot;, &quot;PC&quot;, &quot;PC&quot;),
+                 levels = c(&quot;Handy&quot;, &quot;Tablet&quot;, &quot;Laptop&quot;, &quot;PC&quot;))
+
+table(geraete)</code></pre>
+<pre><code>## geraete
+##  Handy Tablet Laptop     PC 
+##      2      4      3      5</code></pre>
+<pre class="r"><code>summary(geraete)</code></pre>
+<pre><code>##  Handy Tablet Laptop     PC 
+##      2      4      3      5</code></pre>
+<pre class="r"><code>geraete &lt;- as.numeric(geraete)
+
+table(geraete)</code></pre>
+<pre><code>## geraete
+## 1 2 3 4 
+## 2 4 3 5</code></pre>
+<pre class="r"><code>summary(geraete)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   2.000   3.000   2.786   4.000   4.000</code></pre>
+</div>
+</div>
+<div id="sitzung-variablen-um-kodieren" class="section level1">
+<h1>4. Sitzung: Variablen um-/kodieren</h1>
+<div id="aufgaben-2" class="section level2">
+<h2>4.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Suchen Sie im Fragebogen der GLES nach einer geeigneten Variable zur Messung der schulischen Bildung der Befragten. Diese sollte Information über die Schulabschlüsse der Befragten enthalten.</p></li>
+<li><p>Bilden Sie eine Variable <code>schulab</code> mit den folgenden Kategorien: Hochschulreife, Fachhochschulreife, Realschule, Hauptschule, kein Abschluss. Inspizieren Sie die Variable und stellen Sie sicher, dass bei Befragten, die einen anderen oder noch keinen Schulabschluss haben, ein <code>NA</code> vercodet wurde.</p></li>
+<li><p>Bilden Sie aus <code>einkommen_num</code> eine Variable <code>einkommen_cat1</code>, die vier Kategorien hat: “weniger als 2000”, “2000 bis unter 4000”, “4000 bis unter 7500”, “7500 und mehr”. Nutzen Sie die Vergleichsoperatoren <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> &amp; <code>&lt;=</code> sowie den logischen Operator <code>&amp;</code>.</p></li>
+<li><p>Bilden Sie eine identische Variable <code>einkommen_cat2</code>. Nutzen Sie diesmal die Operatoren <code>==</code> und <code>|</code>. Inspizieren Sie, ob beide tatsächlich identisch sind.</p></li>
+<li><p>Suchen Sie per Google eine Funktion, mit der Sie prüfen können, ob Objekte/Variablen identisch sind. Wenden Sie diese Funktion auf <code>einkommen_cat1</code> und <code>einkommen_cat2</code> an.</p></li>
+<li><p>Was ist an der Berechnung des Alters der Befragten nicht ganz richtig?</p></li>
+</ol>
+</div>
+<div id="lösungen-2" class="section level2">
+<h2>4.2 Lösungen</h2>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code># Bildung/Schulabschluss
+gles$schulab1[gles$q135 == &quot;Abitur bzw. erweiterte Oberschule mit Abschluss 12. Klasse (Hochschulreife)&quot;] &lt;- &quot;Hochschulreife&quot;
+gles$schulab1[gles$q135 == &quot;Fachhochschulreife (Abschluss einer Fachoberschule etc.)&quot;] &lt;- &quot;Fachhochschulreife&quot;
+gles$schulab1[gles$q135 == &quot;Realschulabschluss, Mittlere Reife, Fachschulreife oder Abschluss der polytechnischen Oberschule 10. Klasse&quot;] &lt;- &quot;Realschule&quot;
+gles$schulab1[gles$q135 == &quot;Hauptschulabschluss, Volksschulabschluss, Abschluss der polytechnischen Oberschule 8. oder 9. Klasse&quot;] &lt;- &quot;Hauptschule&quot;
+gles$schulab1[gles$q135 == &quot;Schule beendet ohne Abschluss&quot;] &lt;- &quot;kein Abschluss&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gles$einkommen_cat1[gles$einkommen_num &lt;= 2] &lt;- &quot;weniger als 2000&quot;
+gles$einkommen_cat1[gles$einkommen_num &gt;= 3 &amp;
+                      gles$einkommen_num &lt;= 4] &lt;- &quot;2000 bis unter 4000&quot;
+gles$einkommen_cat1[gles$einkommen_num &gt;= 5 &amp;
+                      gles$einkommen_num &lt;= 6] &lt;- &quot;4000 bis unter 7500&quot;
+gles$einkommen_cat1[gles$einkommen_num &gt; 6] &lt;- &quot;7500 und mehr&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gles$einkommen_cat2[gles$einkommen_num == 1|
+                      gles$einkommen_num == 2] &lt;- &quot;weniger als 2000&quot;
+gles$einkommen_cat2[gles$einkommen_num == 3 |
+                      gles$einkommen_num == 4] &lt;- &quot;2000 bis unter 4000&quot;
+gles$einkommen_cat2[gles$einkommen_num == 5 |
+                      gles$einkommen_num == 6] &lt;- &quot;4000 bis unter 7500&quot;
+gles$einkommen_cat2[gles$einkommen_num == 7] &lt;- &quot;7500 und mehr&quot;
+table(gles$einkommen_cat1)</code></pre>
+<pre><code>## 
+## 2000 bis unter 4000 4000 bis unter 7500       7500 und mehr    weniger als 2000 
+##                 822                 350                  56                 541</code></pre>
+<pre class="r"><code>table(gles$einkommen_cat2)</code></pre>
+<pre><code>## 
+## 2000 bis unter 4000 4000 bis unter 7500       7500 und mehr    weniger als 2000 
+##                 822                 350                  56                 541</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>all.equal(gles$einkommen_cat1, gles$einkommen_cat2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="sitzung-univariate-maße" class="section level1">
+<h1>5. Sitzung: Univariate Maße</h1>
+<div id="aufgaben-3" class="section level2">
+<h2>5.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Lassen Sie sich das arithmetische Mittel, den Median und Quantile für die den Gallagher-Disproportionalitätsindex, den Anteil von Minimal-Gewinnkoalitionen mit einer Partei sowie die Exekutivdominanz ausgeben. Berechnen Sie bei einer Variable Quartile, bei einer Variable 12,5%-Quantile sowie bei einer Variable 5%-Quantile. Runden Sie den Mittelwert jeweils auf die zweite Nachkommastelle.</p></li>
+<li><p>Erstellen Sie eine Häufigkeitstabelle des kategorisierten Haushaltseinkommens sowie eine Zusammenfassung der wesentliche Lagemaße des numerisch codierten Haushaltseinkommens. Ermitteln Sie außerdem den Quartilsabstand des numerisch codierten Haushaltseinkommens. Wie hoch ist das Haushaltseinkommen der mittleren 50% der Befragten?</p></li>
+<li><p>Ermitteln Sie Varianz und Standardabweichung der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes.</p></li>
+<li><p>Berechnen Sie die Stichprobenvarianz der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes. Berechnen Sie nun die Standardabweichung für beide Variablen auf Grundlage der Stichprobenvarianz. Tipp: Die mathematische Operation dazu ist aus Sitzung 1 bekannt.</p></li>
+<li><p>Speichern Sie das Geburtsjahr der Befragten (<code>q2c</code>) in einem numerischen Vektor <code>gj</code>, den Sie nicht an den Datensatz anhängen. Subtrahieren Sie 1900. Berechnen Sie nun die Stichprobenvarianz und auf deren Grundlage die Standardabweichung. Tipp: Wie man Faktoren in numerische Vektoren umwandelt, haben wir in der vergangenen Sitzung behandelt.</p></li>
+</ol>
+</div>
+<div id="lösungen-3" class="section level2">
+<h2>5.2 Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>round(mean(lijphart$disprop4510, na.rm = TRUE), digits = 2)</code></pre>
+<pre><code>## [1] 8.55</code></pre>
+<pre class="r"><code>median(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 7.14</code></pre>
+<pre class="r"><code>quantile(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>##      0%     25%     50%     75%    100% 
+##  1.2100  3.2525  7.1400 14.3050 21.9700</code></pre>
+<pre class="r"><code>round(mean(lijphart$minwin_one_part4510, na.rm = TRUE), digits = 2)</code></pre>
+<pre><code>## [1] 60.32</code></pre>
+<pre class="r"><code>median(lijphart$minwin_one_part4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 55.05</code></pre>
+<pre class="r"><code>quantile(lijphart$minwin_one_part4510, probs = seq(0, 1, .125), na.rm = TRUE)</code></pre>
+<pre><code>##       0%    12.5%      25%    37.5%      50%    62.5%      75%    87.5% 
+##   4.0000  18.4125  37.6750  46.5250  55.0500  80.6625  86.6000  99.2875 
+##     100% 
+## 100.0000</code></pre>
+<pre class="r"><code>round(mean(lijphart$exe_dom4510, na.rm = TRUE), digits = 2)</code></pre>
+<pre><code>## [1] 5.35</code></pre>
+<pre class="r"><code>median(lijphart$exe_dom4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 4.305</code></pre>
+<pre class="r"><code>quantile(lijphart$exe_dom4510, probs = seq(0, 1, .05), na.rm = TRUE)</code></pre>
+<pre><code>##     0%     5%    10%    15%    20%    25%    30%    35%    40%    45%    50% 
+## 1.0000 1.4825 1.9700 2.6550 3.0000 3.2225 3.2950 3.4775 4.0000 4.0300 4.3050 
+##    55%    60%    65%    70%    75%    80%    85%    90%    95%   100% 
+## 4.8075 5.8700 7.7375 8.0000 8.0775 8.1200 8.7025 8.9850 9.4900 9.9000</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>table(gles$einkommen_cat)</code></pre>
+<pre><code>## 
+## weniger als 1000    1000 bis 1999    2000 bis 2999    3000 bis 3999 
+##              114              427              512              310 
+##    4000 bis 4999    5000 bis 7499    7500 und mehr 
+##              189              161               56</code></pre>
+<pre class="r"><code>summary(gles$einkommen_num)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   2.000   3.000   3.418   4.000   7.000     343</code></pre>
+<pre class="r"><code>IQR(gles$einkommen_num, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>var(gles$LiRe, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 3.731736</code></pre>
+<pre class="r"><code>sd(gles$LiRe, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 1.93177</code></pre>
+<pre class="r"><code>var(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 37.6197</code></pre>
+<pre class="r"><code>sd(lijphart$disprop4510, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 6.13349</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>var(gles$LiRe, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles)</code></pre>
+<pre><code>## [1] 3.72997</code></pre>
+<pre class="r"><code>var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
+<pre><code>## [1] 36.57471</code></pre>
+<pre class="r"><code>sqrt(var(gles$LiRe, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles))</code></pre>
+<pre><code>## [1] 1.931313</code></pre>
+<pre class="r"><code>sqrt(var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart))</code></pre>
+<pre><code>## [1] 6.047703</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gj &lt;- as.numeric(as.character(gles$q2c))
+gj &lt;- gj - 1900
+var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj)</code></pre>
+<pre><code>## [1] 368.2592</code></pre>
+<pre class="r"><code>sqrt(var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj))</code></pre>
+<pre><code>## [1] 19.19008</code></pre>
+</div>
+</div>
+<div id="sitzung-visualisierung-1-univariate-verteilungen" class="section level1">
+<h1>6. Sitzung: Visualisierung (1): Univariate Verteilungen</h1>
+<div id="aufgaben-4" class="section level2">
+<h2>6.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Erstellen Sie ausgehend von <code>bicam4510</code> einen Faktor, der die Stärke des Bikameralismus in vier Kategorien misst: schwach, eher schwach, eher stark und stark. Hängen Sie diesen Faktor an den bestehenden Datensatz an. Orientieren Sie sich an der Skalierung von <code>bicam4510</code>. Kodieren Sie die Variable wenn nötig so um, dass Werte, die keiner Kategorie exakt entsprechen, der jeweils nächstgelegenen Kategorie zugeordnet werden. Erzeugen Sie nun ein Balkendiagramm der Stärke des Bikameralismus. Vergeben Sie einen sinnvollen Titel sowie Achsenbeschriftungen.</p></li>
+<li><p>Erstellen Sie zwei Histogramme und zwei Dichteplots des Gallagher-Indizes (<code>disprop4510</code>). Die Balken des Histogramms sollen jeweils weiß gefüllt und schwarz umrandet sein. Zwischen den beiden Histogrammen sollen sichtbare Differenzen bezüglich der Intervallbreite und zwischen den beiden Dichteplots sichtbare Differenzen bezüglich der Bandbreite erkennbar sein.</p></li>
+<li><p>Erstellen Sie einen Boxplot der ENPP (<code>enpp4510</code>). Die Skala soll Markierungen bei jeder halben Zahl innerhalb des Wertebereiches aufweisen.</p></li>
+</ol>
+</div>
+<div id="lösungen-4" class="section level2">
+<h2>6.2 Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>lijphart$bicam[lijphart$bicam4510 &gt;= 1 &amp; lijphart$bicam4510 &lt;= 1.4] &lt;- &quot;schwach&quot;
+lijphart$bicam[lijphart$bicam4510 &gt;= 1.5 &amp; lijphart$bicam4510 &lt;= 2.4] &lt;- &quot;eher schwach&quot;
+lijphart$bicam[lijphart$bicam4510 &gt;= 2.5 &amp; lijphart$bicam4510 &lt;= 3.4] &lt;- &quot;eher stark&quot;
+lijphart$bicam[lijphart$bicam4510 &gt;= 3.5 &amp; lijphart$bicam4510 &lt;= 4] &lt;- &quot;stark&quot;
+
+lijphart$bicam &lt;- factor(lijphart$bicam, levels = c(&quot;schwach&quot;,
+                           &quot;eher schwach&quot;,
+                           &quot;eher stark&quot;,
+                           &quot;stark&quot;))
+
+ggplot(data = lijphart, mapping = aes(bicam)) +
+  geom_bar() +
+  labs(title = &quot;Bikameralismus und die Länder aus &#39;Patterns of Democracy&#39;&quot;,
+       y = &quot;Anzahl&quot;,
+       x = &quot;Stärke des Bikameralimsus&quot;)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code># Histogramme
+ggplot(data = lijphart, mapping = aes(disprop4510)) +
+  geom_histogram(binwidth = 3, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = lijphart, mapping = aes(disprop4510)) +
+  geom_histogram(binwidth = 2, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<pre class="r"><code># Dichteplots
+ggplot(data = lijphart, mapping = aes(disprop4510)) +
+  geom_density(bw = 2)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = lijphart, mapping = aes(disprop4510)) +
+  geom_density(bw = .8)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>ggplot(data = lijphart, mapping = aes(enpp4510)) +
+  geom_boxplot() +
+  scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+</div>
+<div id="sitzung-bivariate-zusammenhangsmaße" class="section level1">
+<h1>7. Sitzung: Bivariate Zusammenhangsmaße</h1>
+<div id="aufgaben-5" class="section level2">
+<h2>7.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Bedeutet unsere Schlussfolgerung in 3.2, dass Menschen mit zunehmendem Alter eine eher rechte politische Einstellung entwickeln?</p></li>
+<li><p>Finden Sie heraus, auf Grundlage welcher Variable wir die <code>AfD.Wahl</code> ursprünglich gebildet haben. Kodieren Sie diese Variable sinnvoll so um, dass sie die Wahlentscheiung der Befragten für die Parteien des Deutschen Bundestages enthält. Setzen Sie andere Antworten auf <code>NA</code>. Erstellen Sie eine Kreuztabelle für die Wahlentscheidung und den Wohnort der Befragten.</p></li>
+<li><p>Errechnen Sie Chi-Quadrat für die Wahlentscheidung und den Wohnort. Interpretieren Sie das Ergebnis. Lassen Sie sich die Tabellen der empirisch beobachteten und erwarteten Häufigkeiten ausgeben und vergleichen Sie sie. Berechnen Sie schließlich Cramer’s V und interpretieren Sie das Ergebnis.</p></li>
+<li><p>Berechnen Sie die Kovarianz des Alters und des (zu einer numerischen Variable umgeformten) Haushaltseinkommens der Befragten. Berechnen Sie außerdem die Kovarianz des Gallagher-Indizes der Disproportionalität und der Effective Number of Parliamentary Parties (ENPP). Interpretieren Sie Ihre Ergebnisse.</p></li>
+<li><p>Replizieren Sie einen Teil der Analyse Lijphart’s aus “Patterns of Democracy”: Berechnen Sie die Korrelation von (1) ENPP und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (2) Exekutivdominanz (Regierungsdauer) und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (3) Gallagher-Index und ENPP. Interpretieren Sie Ihre Ergebnisse. Wenn Sie eine Kopie von “Patterns of Democracy” vorliegen haben, vergleichen Sie Ihre Ergebnisse mit den Ergebnissen Lijpharts. Diese werden in den jeweils letzten Abschnitten der Kapitel 6, 7 und 8 diskutiert.</p></li>
+</ol>
+</div>
+<div id="lösungen-5" class="section level2">
+<h2>7.2 Lösungen</h2>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gles$wahlent[gles$q19ba == &quot;CDU/CSU&quot;] &lt;- &quot;CDU/CSU&quot;
+gles$wahlent[gles$q19ba == &quot;SPD&quot;] &lt;- &quot;SPD&quot;
+gles$wahlent[gles$q19ba == &quot;FDP&quot;] &lt;- &quot;FDP&quot;
+gles$wahlent[gles$q19ba == &quot;GRUENE&quot;] &lt;- &quot;GRUENE&quot;
+gles$wahlent[gles$q19ba == &quot;DIE LINKE&quot;] &lt;- &quot;DIE LINKE&quot;
+gles$wahlent[gles$q19ba == &quot;AfD&quot;] &lt;- &quot;AfD&quot;
+gles$wahlent[gles$q19ba == &quot;andere Partei&quot;] &lt;- NA
+
+table(gles$wahlent, gles$wohnort)</code></pre>
+<pre><code>##            
+##             Großstadt Kleinstadt Land Vorstadt
+##   AfD              27         71   60        4
+##   CDU/CSU          73        183  211       37
+##   DIE LINKE        63         59   55       11
+##   FDP              41         69   71       19
+##   GRUENE           73         70   60       22
+##   SPD              68        127  119       24</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>test_wahlent &lt;- chisq.test(gles$wahlent, gles$wohnort)
+test_wahlent</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  gles$wahlent and gles$wohnort
+## X-squared = 66.724, df = 15, p-value = 1.7e-08</code></pre>
+<pre class="r"><code>test_wahlent$observed</code></pre>
+<pre><code>##             gles$wohnort
+## gles$wahlent Großstadt Kleinstadt Land Vorstadt
+##    AfD              27         71   60        4
+##    CDU/CSU          73        183  211       37
+##    DIE LINKE        63         59   55       11
+##    FDP              41         69   71       19
+##    GRUENE           73         70   60       22
+##    SPD              68        127  119       24</code></pre>
+<pre class="r"><code>test_wahlent$expected</code></pre>
+<pre><code>##             gles$wohnort
+## gles$wahlent Großstadt Kleinstadt      Land Vorstadt
+##    AfD        34.56401   58.00742  57.70686 11.72171
+##    CDU/CSU   107.53247  180.46753 179.53247 36.46753
+##    DIE LINKE  40.11132   67.31725  66.96846 13.60297
+##    FDP        42.67161   71.61410  71.24304 14.47124
+##    GRUENE     48.00557   80.56586  80.14842 16.28015
+##    SPD        72.11503  121.02783 120.40074 24.45640</code></pre>
+<pre class="r"><code>library(rcompanion)
+cramerV(test_wahlent$observed)</code></pre>
+<pre><code>## Cramer V 
+##   0.1173</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>cov(gles$alter, gles$einkommen_num, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] -3.743309</code></pre>
+<pre class="r"><code>cov(lijphart$disprop4510, lijphart$enpp4510)</code></pre>
+<pre><code>## [1] -3.963505</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>cor(lijphart$enpp4510, lijphart$minwin_one_part4510)</code></pre>
+<pre><code>## [1] -0.8502749</code></pre>
+<pre class="r"><code>cor(lijphart$minwin_one_part4510, lijphart$exe_dom4510)</code></pre>
+<pre><code>## [1] 0.7772687</code></pre>
+<pre class="r"><code>cor(lijphart$disprop4510, lijphart$enpp4510)</code></pre>
+<pre><code>## [1] -0.5679062</code></pre>
+</div>
+</div>
+<div id="sitzung-bivariate-lineare-regression-ols" class="section level1">
+<h1>8. Sitzung: Bivariate lineare Regression (OLS)</h1>
+<div id="aufgaben-6" class="section level2">
+<h2>8.1 Aufgaben</h2>
+<p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
+<ol style="list-style-type: decimal">
+<li><p>Untersuchen Sie den Zusammenhang zwischen Kabinettstyp - <strong>bicam4510</strong> - und Regierungsdauer - <strong>exe_dom4510</strong>. Bitte berechnen Sie die Korrelation und eine bivariate lineare Regressionsanalyse.</p></li>
+<li><p>Interepretieren Sie die Korrelationskoeffizizenten, die Effektstärke und die Regressionskoeffizienten. Welche Schlüsse lassen sich ziehen?</p></li>
+</ol>
+</div>
+<div id="lösungen-6" class="section level2">
+<h2>8.2 Lösungen</h2>
+<pre class="r"><code># Korrelation
+lijphart_cor_pear &lt;- cor(lijphart$bicam4510, lijphart$exe_dom4510, method = &quot;pearson&quot;)  
+lijphart_cor_pear</code></pre>
+<pre><code>## [1] 0.0975669</code></pre>
+<pre class="r"><code>lijphart_cor_spear &lt;- cor(lijphart$bicam4510, lijphart$exe_dom4510, method = &quot;spearman&quot;)  
+lijphart_cor_spear</code></pre>
+<pre><code>## [1] 0.1100644</code></pre>
+<pre class="r"><code># Bivariate lineare Regression
+lm_lijphart &lt;- lm(bicam4510 ~ exe_dom4510, data = lijphart)
+lm_lijphart</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = bicam4510 ~ exe_dom4510, data = lijphart)
+## 
+## Coefficients:
+## (Intercept)  exe_dom4510  
+##      2.0176       0.0367</code></pre>
+</div>
+</div>
+<div id="sitzung-visualisierung-2-zusammenhangsmaße-regression" class="section level1">
+<h1>9. Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</h1>
+<div id="aufgaben-7" class="section level2">
+<h2>9.1 Aufgaben</h2>
+<p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
+<ol style="list-style-type: decimal">
+<li><p>Repliziert Sie alle hier gezeigten Graphen mit den Variablen Kabinettstyp - <strong>bicam4510</strong> - und Regierungsdauer - <strong>exe_dom4510</strong>.</p></li>
+<li><p>Erstellten Sie einen Graphen mit einer Loess-Linie anstelle einer Regressionsgeraden.</p></li>
+<li><p>Verwenden Sie andere Hintergrund-Themes als die gezeigten.</p></li>
+<li><p>Finden Sie heraus, wie Sie die Skalierung der x-Achse und y-Achse verändern und wenden Sie das neue Wissen an einem Ihrer Graphen an.</p></li>
+<li><p>Speichern Sie einen Graphen als .jpg und einen als .pdf.</p></li>
+</ol>
+</div>
+<div id="lösungen-7" class="section level2">
+<h2>9.2 Lösungen</h2>
+<pre class="r"><code># Aufgabe 1: Graphen mit neuen Variablen replizieren
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point()</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_text(label = lijphart$Country)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-2.png" width="672" /></p>
+<pre class="r"><code># Linienplots
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-5.png" width="672" /></p>
+<pre class="r"><code># Graphaussehen verändern
+## Beschriftungen
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-6.png" width="672" /></p>
+<pre class="r"><code>## Hintergrundthemes
+# Minimal Theme
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-7.png" width="672" /></p>
+<pre class="r"><code># The Economist
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_economist() </code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-8.png" width="672" /></p>
+<pre class="r"><code>## Farben und Füllungen
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal() </code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-9.png" width="672" /></p>
+<pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = lm,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + # Form und Aussehen der Regressionslinie und Füllung der Konfidenzintervalle verändern
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-10.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 2: Loess-Linie 
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 3: Ein anderes Hintergrund-Theme als die gezeigten
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_dark() # Willkürliche Verwendung des dark_themes. Natürlich gibt es noch mehr!</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 4: X- und Y-Achse verändern
+
+ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;) +
+  scale_x_continuous(name=&quot;Kabinettstyp&quot;, limits=c(1, 10)) + # Willkürliche Veränderung der Achsen 
+  scale_y_continuous(name=&quot;Regierungsdauer&quot;, limits=c(1, 10)) + # Auch möglich: expand_limits(x= XX , y=XX)
+  # Auch möglich xlim(XX, XX)+ylim(XX, XX) 
+  theme_minimal()</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre class="r"><code># Aufgabe 5: Graphen speichern
+
+# Neues Objekt speichern
+Bicam_Exe &lt;- ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
+  geom_point(shape = 18, color = &quot;blue&quot;) +
+  geom_smooth(method = &quot;loess&quot;,  linetype = &quot;dashed&quot;,
+             color = &quot;darkred&quot;, fill = &quot;blue&quot;) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
+        x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
+  theme_minimal()
+
+# JPG
+ggsave(&quot;fig1-Bicam_Exe.jpg&quot;, Bicam_Exe, device = &quot;jpeg&quot;, width = 4, height = 4)
+
+# PDF
+ggsave(&quot;fig1-Bicam_Exe.pdf&quot;, Bicam_Exe, device = &quot;pdf&quot;, width = 4, height = 4)</code></pre>
+</div>
+</div>
+<div id="sitzung-multiple-lineare-regression" class="section level1">
+<h1>10. Sitzung: Multiple lineare Regression</h1>
+<div id="aufgaben-8" class="section level2">
+<h2>10.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Vergleichen Sie drei lineare Modelle, indem Sie mit einem bivariaten Modell mit <code>LiRe</code> und <code>alter</code> beginnen und sukzessive die beiden anderen Variablen des obigen Modells aufnehmen. Speichern Sie die erzeugten linearen Regressionsmodelle jeweils in einem Objekt und lassen Sie sich die <code>summary()</code> ausgeben. Vergleichen Sie die Erklärungsleistung der drei Modelle.</p></li>
+<li><p>Wie kann die geringe Erklärungsleistung unseres Modells erhöht werden? Nehmen Sie zwei bis vier weitere Variablen des Datensatzes <code>gles</code> auf.</p></li>
+<li><p>Überprüfen Sie, ob Ihr Modell die Annahmen linearer Regressionen erfüllt.</p></li>
+<li><p>Visualisieren Sie vorhergesagte Werte der Variablen Ihres Modells.</p></li>
+</ol>
+</div>
+<div id="lösungen-8" class="section level2">
+<h2>10.2 Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>modell1 &lt;- lm(LiRe ~ alter, data = gles)
+summary(modell1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter, data = gles)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.547 -1.279  0.095  1.000  6.063 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 4.662830   0.122925  37.932  &lt; 2e-16 ***
+## alter       0.010529   0.002295   4.588 4.76e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.922 on 1961 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.01062,    Adjusted R-squared:  0.01012 
+## F-statistic: 21.05 on 1 and 1961 DF,  p-value: 4.755e-06</code></pre>
+<pre class="r"><code>modell2 &lt;- lm(LiRe ~ alter + geschlecht, data = gles)
+summary(modell2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7668 -1.3620  0.2407  1.0438  6.3064 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         4.847920   0.127487  38.027  &lt; 2e-16 ***
+## alter               0.010939   0.002282   4.793 1.76e-06 ***
+## geschlechtweiblich -0.438694   0.086459  -5.074 4.26e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.91 on 1960 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.02345,    Adjusted R-squared:  0.02245 
+## F-statistic: 23.53 on 2 and 1960 DF,  p-value: 7.968e-11</code></pre>
+<pre class="r"><code>modell3 &lt;- lm(LiRe ~ alter + geschlecht + wohnort , data = gles)
+summary(modell3)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht + wohnort, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8343 -1.3085  0.1901  1.1156  6.2517 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         4.475121   0.148485  30.139  &lt; 2e-16 ***
+## alter               0.010471   0.002272   4.608 4.33e-06 ***
+## geschlechtweiblich -0.438857   0.085989  -5.104 3.65e-07 ***
+## wohnortKleinstadt   0.479610   0.117138   4.094 4.40e-05 ***
+## wohnortLand         0.559962   0.117634   4.760 2.08e-06 ***
+## wohnortVorstadt     0.339904   0.187732   1.811   0.0704 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.9 on 1957 degrees of freedom
+##   (149 observations deleted due to missingness)
+## Multiple R-squared:  0.03567,    Adjusted R-squared:  0.03321 
+## F-statistic: 14.48 on 5 and 1957 DF,  p-value: 5.932e-14</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>gles$schulab[gles$q135 == &quot;anderen Schulabschluss&quot; |
+               gles$q135 == &quot;bin noch Schueler&quot;] &lt;- NA
+gles$schulab[gles$q135 == &quot;Abitur bzw. erweiterte Oberschule mit Abschluss 12. Klasse (Hochschulreife)&quot;] &lt;- &quot;Hochschulreife&quot;
+gles$schulab[gles$q135 == &quot;Fachhochschulreife (Abschluss einer Fachoberschule etc.)&quot;] &lt;- &quot;Fachhochschulreife&quot;
+gles$schulab[gles$q135 == &quot;Realschulabschluss, Mittlere Reife, Fachschulreife oder Abschluss der polytechnischen Oberschule 10. Klasse&quot;] &lt;- &quot;Realschule&quot;
+gles$schulab[gles$q135 == &quot;Hauptschulabschluss, Volksschulabschluss, Abschluss der polytechnischen Oberschule 8. oder 9. Klasse&quot;] &lt;- &quot;Hauptschule&quot;
+gles$schulab[gles$q135 == &quot;Schule beendet ohne Abschluss&quot;] &lt;- &quot;kein Abschluss&quot;
+
+gles$schulab &lt;- factor(gles$schulab,
+                             levels = c(&quot;kein Abschluss&quot;,
+                                        &quot;Hauptschule&quot;,
+                                        &quot;Realschule&quot;,
+                                        &quot;Fachhochschulreife&quot;,
+                                        &quot;Hochschulreife&quot;))
+
+modell4 &lt;- lm(LiRe ~ alter
+              + geschlecht
+              + wohnort
+              + einkommen_cat
+              + q33
+              + schulab
+              + q83
+              , data = gles)
+summary(modell4)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = LiRe ~ alter + geschlecht + wohnort + einkommen_cat + 
+##     q33 + schulab + q83, data = gles)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.0503 -1.2635  0.1331  1.1805  5.9318 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                    4.001719   0.664264   6.024 2.10e-09 ***
+## alter                          0.006878   0.002888   2.381 0.017363 *  
+## geschlechtweiblich            -0.412404   0.095850  -4.303 1.79e-05 ***
+## wohnortKleinstadt              0.388732   0.128866   3.017 0.002597 ** 
+## wohnortLand                    0.498188   0.133315   3.737 0.000193 ***
+## wohnortVorstadt                0.321118   0.206059   1.558 0.119341    
+## einkommen_cat1000 bis 1999     0.069705   0.218556   0.319 0.749819    
+## einkommen_cat2000 bis 2999     0.270751   0.214336   1.263 0.206698    
+## einkommen_cat3000 bis 3999     0.351593   0.226825   1.550 0.121323    
+## einkommen_cat4000 bis 4999     0.461668   0.244060   1.892 0.058722 .  
+## einkommen_cat5000 bis 7499     0.408671   0.253075   1.615 0.106546    
+## einkommen_cat7500 und mehr     0.987475   0.332719   2.968 0.003043 ** 
+## q33ziemlich zufrieden         -0.197055   0.155259  -1.269 0.204552    
+## q33nicht sehr zufrieden       -0.235111   0.178207  -1.319 0.187253    
+## q33ueberhaupt nicht zufrieden  0.535304   0.259125   2.066 0.039006 *  
+## schulabHauptschule             1.228508   0.620146   1.981 0.047762 *  
+## schulabRealschule              1.114980   0.618206   1.804 0.071486 .  
+## schulabFachhochschulreife      0.740526   0.632130   1.171 0.241581    
+## schulabHochschulreife          0.713295   0.620668   1.149 0.250629    
+## q83wichtig                    -0.493734   0.130496  -3.784 0.000160 ***
+## q83mittelmaessig              -0.705460   0.145107  -4.862 1.28e-06 ***
+## q83nicht so wichtig            0.083128   0.191327   0.434 0.663997    
+## q83ueberhaupt nicht wichtig   -0.283108   0.384540  -0.736 0.461701    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.903 on 1605 degrees of freedom
+##   (484 observations deleted due to missingness)
+## Multiple R-squared:  0.08895,    Adjusted R-squared:  0.07646 
+## F-statistic: 7.123 on 22 and 1605 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>plot(modell4)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-1.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-2.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-3.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-4.png" width="672" /></p>
+<pre class="r"><code>vif(modell4)</code></pre>
+<pre><code>##                   GVIF Df GVIF^(1/(2*Df))
+## alter         1.214028  1        1.101829
+## geschlecht    1.025848  1        1.012842
+## wohnort       1.093004  3        1.014932
+## einkommen_cat 1.329862  6        1.024041
+## q33           1.151355  3        1.023768
+## schulab       1.515948  4        1.053381
+## q83           1.149174  4        1.017532</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;alter&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;geschlecht&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-2.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;wohnort&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-3.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;einkommen_cat&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-4.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;q33&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-5.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;schulab&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-6.png" width="672" /></p>
+<pre class="r"><code>plot(ggpredict(modell4, terms = &quot;q83&quot;))</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-7.png" width="672" /></p>
+</div>
+</div>
+<div id="sitzung-logistische-regression" class="section level1">
+<h1>11. Sitzung: Logistische Regression</h1>
+<div id="aufgaben-9" class="section level2">
+<h2>11.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Berechnen Sie mittels einer logistischen Regression den Effekt des Geschlechts und Alters, des Einkommens und des Wohnortes auf die Wahrscheinlichkeit, dass eine befragte Person die AfD wählt.</p></li>
+<li><p>Berechnet und visualisiert die vorhergesagten Wahrscheinlichkeiten und benutzt dafür das Alter und das Geschlecht</p></li>
+</ol>
+</div>
+<div id="lösungen-9" class="section level2">
+<h2>11.2 Lösungen</h2>
+<pre class="r"><code># Aufgabe 1
+afd_logit &lt;- glm(AfD.Wahl ~ geschlecht
+                 + alter
+                 + wohnort
+                 + einkommen_cat # Kategorische codierung der Einkommens-Variable
+                 , data = gles, family = &quot;binomial&quot;)
+summary(afd_logit)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = AfD.Wahl ~ geschlecht + alter + wohnort + einkommen_cat, 
+##     family = &quot;binomial&quot;, data = gles)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.8198  -0.4918  -0.4041  -0.2751   2.7912  
+## 
+## Coefficients:
+##                              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                 -2.042296   0.490214  -4.166 3.10e-05 ***
+## geschlechtweiblich          -0.971472   0.197664  -4.915 8.89e-07 ***
+## alter                       -0.008611   0.005225  -1.648  0.09938 .  
+## wohnortKleinstadt            0.719550   0.264090   2.725  0.00644 ** 
+## wohnortLand                  0.669802   0.268999   2.490  0.01278 *  
+## wohnortVorstadt             -0.845182   0.630425  -1.341  0.18003    
+## einkommen_cat1000 bis 1999   0.577091   0.442016   1.306  0.19169    
+## einkommen_cat2000 bis 2999   0.434287   0.433630   1.002  0.31658    
+## einkommen_cat3000 bis 3999  -0.487985   0.480085  -1.016  0.30941    
+## einkommen_cat4000 bis 4999  -0.155320   0.492633  -0.315  0.75255    
+## einkommen_cat5000 bis 7499  -0.346296   0.513253  -0.675  0.49986    
+## einkommen_cat7500 und mehr -15.178467 529.858775  -0.029  0.97715    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 939.27  on 1475  degrees of freedom
+## Residual deviance: 869.53  on 1464  degrees of freedom
+##   (636 observations deleted due to missingness)
+## AIC: 893.53
+## 
+## Number of Fisher Scoring iterations: 16</code></pre>
+<pre class="r"><code># Aufgabe 2
+
+afd_preds_age &lt;- ggpredict(afd_logit, terms = &quot;alter&quot;)
+afd_preds_sex &lt;- ggpredict(afd_logit, terms = &quot;geschlecht&quot;)
+
+plot(afd_preds_age)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<pre class="r"><code>plot(afd_preds_sex)</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-2.png" width="672" /></p>
+<pre class="r"><code># Titel und Achsenbeschriftung
+plot(afd_preds_age) + 
+  labs(x = &quot;Alter der befragten Personen&quot;
+       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
+       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Alter&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-3.png" width="672" /></p>
+<pre class="r"><code>plot(afd_preds_sex) + 
+  labs(x = &quot;Geschlecht der befragten Personen&quot;
+       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
+       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Geschlecht&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-4.png" width="672" /></p>
+</div>
+</div>
+<div id="sitzung-faktoranalyse" class="section level1">
+<h1>12. Sitzung: Faktoranalyse</h1>
+<div id="aufgaben-10" class="section level2">
+<h2>12.1 Aufgaben</h2>
+<ol style="list-style-type: decimal">
+<li><p>Verändern Sie die Anzahl der Faktoren zu:</p>
+<ol style="list-style-type: lower-alpha">
+<li>drei Faktoren und</li>
+<li>zu einem Faktor. Wie verändern sich die Ergebnisse? Können Sie Ihre Ergebnisse sinnvoll interpretieren? Vergleichen Sie Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</li>
+</ol></li>
+<li><p>Erstellen Sie ein neues <code>subset</code> mit allen Variablen aus <em>sub_lijphart</em> außer der Variablen der Interessenvertretung. Führen Sie eine Faktorenanalyse mit zwei Faktoren durch. Wie wirkt sich die Reduktion auf Ihre Ergebnisse aus? Ziehen Sie den Vergleich zu Ihrer replizierten Faktorenanalyse. Erstellen Sie dazu auch eine Visualisierung, welche Sie mit der replizierten “Landkarte der Demokratie” vergleichen.</p></li>
+<li><p>Replizieren Sie die Faktorenanalyse erneut. Verwenden Sie dabei alle Untersuchungseinheiten außer die Demokratien Großbritannien und Neuseeland. Erstellen Sie eine Visualisierung. Welche Veränderungen können Sie beobachten? Vergleichen Sie dazu Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</p></li>
+</ol>
+</div>
+<div id="lösungen-10" class="section level2">
+<h2>12.2 Lösungen</h2>
+<ol style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol></li>
+</ol>
+<pre class="r"><code># Faktorenanlyse mit drei Faktoren
+model_fac3 &lt;- factanal(sub_lijphart, 3, rotation = &quot;varimax&quot;)
+print(model_fac3, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 3, rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.12                0.13                0.30                0.53 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                0.49                0.00                0.38                0.42 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.39                0.00 
+## 
+## Loadings:
+##                     Factor1 Factor2 Factor3
+## enpp4510            -0.92                  
+## minwin_one_part4510  0.93                  
+## exe_dom4510          0.83                  
+## disprop4510          0.65                  
+## inter_gr_plural4510  0.71                  
+## fed_unit4510                 0.93    0.37  
+## bicam4510                    0.79          
+## const_rigid4510              0.76          
+## judic_rev4510                0.74          
+## cen_bank_indep4594           0.40    0.91  
+## 
+##                Factor1 Factor2 Factor3
+## SS loadings       3.41    2.80    1.03
+## Proportion Var    0.34    0.28    0.10
+## Cumulative Var    0.34    0.62    0.72
+## 
+## Test of the hypothesis that 3 factors are sufficient.
+## The chi square statistic is 57.01 on 18 degrees of freedom.
+## The p-value is 6.17e-06</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre class="r"><code># Faktorenanalyse mit einem Faktor
+model_fac1 &lt;- factanal(sub_lijphart, 1, rotation = &quot;varimax&quot;)
+print(model_fac1, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 1, rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                1.00                1.00                0.99                0.99 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                1.00                0.00                0.43                0.46 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.50                0.49 
+## 
+## Loadings:
+##                     Factor1
+## enpp4510                   
+## minwin_one_part4510        
+## exe_dom4510                
+## disprop4510                
+## inter_gr_plural4510        
+## fed_unit4510         1.00  
+## bicam4510            0.75  
+## const_rigid4510      0.74  
+## judic_rev4510        0.71  
+## cen_bank_indep4594   0.71  
+## 
+##                Factor1
+## SS loadings       3.13
+## Proportion Var    0.31
+## 
+## Test of the hypothesis that 1 factor is sufficient.
+## The chi square statistic is 187.58 on 35 degrees of freedom.
+## The p-value is 9.09e-23</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code># Neues reduziertes subset erstellen (Variablen)
+sub_lijphart_red1 &lt;- sub_lijphart[ ,c(&quot;enpp4510&quot;,&quot;minwin_one_part4510&quot;,                                               &quot;exe_dom4510&quot;, &quot;disprop4510&quot;,
+                                     &quot;fed_unit4510&quot;, &quot;bicam4510&quot;,                                                    &quot;const_rigid4510&quot;, &quot;judic_rev4510&quot;, 
+                                     &quot;cen_bank_indep4594&quot;)]
+
+# Faktorenanalyse durchführen
+model_red1 &lt;- factanal(sub_lijphart_red1, 2, rotation = &quot;varimax&quot;, scores = &quot;regression&quot;)
+print(model_red1, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart_red1, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.15                0.14                0.28                0.59 
+##        fed_unit4510           bicam4510     const_rigid4510       judic_rev4510 
+##                0.00                0.43                0.45                0.44 
+##  cen_bank_indep4594 
+##                0.49 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510                    -0.92  
+## minwin_one_part4510          0.92  
+## exe_dom4510                  0.85  
+## disprop4510                  0.64  
+## fed_unit4510         1.00          
+## bicam4510            0.75          
+## const_rigid4510      0.74          
+## judic_rev4510        0.71          
+## cen_bank_indep4594   0.71          
+## 
+##                Factor1 Factor2
+## SS loadings       3.13    2.89
+## Proportion Var    0.35    0.32
+## Cumulative Var    0.35    0.67
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 67.65 on 19 degrees of freedom.
+## The p-value is 2.25e-07</code></pre>
+<pre class="r"><code># Dataframe erstellen 
+scores_data_red1 &lt;- as.data.frame(model_red1$scores)
+
+# Visualisierung
+plot_red1 &lt;- ggplot(data = scores_data_red1, aes(x = Factor1, y = Factor2)) + 
+  geom_point(size = 1, shape = 23, fill = &quot;black&quot;) +
+  geom_text(aes(label = lijphart$Country),
+            nudge_y = -.2,
+            check_overlap = T) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  labs(x = &quot;Exekutive-Parteien Dimension&quot;, 
+       y = &quot;Foederalismus-Unitarismus Dimension&quot;, 
+       title = &quot;Die Landkarte der Demokratie&quot;, 
+       subtitle = &quot;Ohne die Variable der Interessensvertretung&quot;) +
+  coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
+  theme_linedraw() 
+plot_red1</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<pre class="r"><code># Vergleich mit der replizierten &quot;Landkarte der Demokratie&quot;
+plot</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-44-2.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
+</ol>
+<pre class="r"><code># Länder anzeigen lassen 
+lijphart$Country</code></pre>
+<pre><code>##  [1] &quot;ARG&quot; &quot;AUL&quot; &quot;AUT&quot; &quot;BAH&quot; &quot;BAR&quot; &quot;BEL&quot; &quot;BOT&quot; &quot;CAN&quot; &quot;CR&quot;  &quot;DEN&quot; &quot;FIN&quot; &quot;FRA&quot;
+## [13] &quot;GER&quot; &quot;GRE&quot; &quot;ICE&quot; &quot;IND&quot; &quot;IRE&quot; &quot;ISR&quot; &quot;ITA&quot; &quot;JAM&quot; &quot;JPN&quot; &quot;KOR&quot; &quot;LUX&quot; &quot;MAL&quot;
+## [25] &quot;MAU&quot; &quot;NET&quot; &quot;NOR&quot; &quot;NZ&quot;  &quot;POR&quot; &quot;SPA&quot; &quot;SWE&quot; &quot;SWI&quot; &quot;TRI&quot; &quot;UK&quot;  &quot;URU&quot; &quot;US&quot;</code></pre>
+<pre class="r"><code># Neues reduziertes subset erstellen (Untersuchungseinheiten)
+sub_lijphart_red2 &lt;- sub_lijphart[c(1:27, 29:33, 35:36), ]
+
+# Reduzierte Liste der Ländernamen erstellen 
+Country_red &lt;- lijphart$Country[c(1:27, 29:33, 35:36)]
+
+# Faktorenanalyse durchführen
+model_red2 &lt;- factanal(sub_lijphart_red2, 2, rotation = &quot;varimax&quot;, scores = &quot;regression&quot;)
+print(model_red2, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart_red2, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.18                0.12                0.30                0.57 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                0.50                0.00                0.41                0.50 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.46                0.52 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510            -0.90          
+## minwin_one_part4510  0.94          
+## exe_dom4510          0.84          
+## disprop4510          0.65          
+## inter_gr_plural4510  0.71          
+## fed_unit4510                 1.00  
+## bicam4510                    0.77  
+## const_rigid4510              0.69  
+## judic_rev4510        0.32    0.66  
+## cen_bank_indep4594           0.69  
+## 
+##                Factor1 Factor2
+## SS loadings       3.44    3.01
+## Proportion Var    0.34    0.30
+## Cumulative Var    0.34    0.64
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 79.4 on 26 degrees of freedom.
+## The p-value is 2.59e-07</code></pre>
+<pre class="r"><code># Dataframe erstellen 
+scores_data_red2 &lt;- as.data.frame(model_red2$scores)
+
+# Visualisierung
+plot_red2 &lt;- ggplot(data = scores_data_red2, aes(x = Factor1, y = Factor2)) + 
+  geom_point(size = 1, shape = 23, fill = &quot;black&quot;) +
+  geom_text(aes(label = Country_red),
+            nudge_y = -.2,
+            check_overlap = T) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  labs(x = &quot;Exekutive-Parteien Dimension&quot;, 
+       y = &quot;Foederalismus-Unitarismus Dimension&quot;, 
+       title = &quot;Die Landkarte der Demokratie&quot;, 
+       subtitle = &quot;Ohne die Demokratien GB und NZ&quot;) +
+  coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
+  theme_linedraw() 
+plot_red2</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<pre class="r"><code># Vergleich mit der replizierten &quot;Landkarte der Demokratie&quot;
+plot</code></pre>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-45-2.png" width="672" /></p>
+<p>Vergleich für alle Aufgaben:</p>
+<pre class="r"><code># Replizierte Faktorenanalyse
+print(model_factanal, digits = 2, cutoff = .3)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = sub_lijphart, factors = 2, scores = &quot;regression&quot;,     rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##            enpp4510 minwin_one_part4510         exe_dom4510         disprop4510 
+##                0.19                0.10                0.31                0.57 
+## inter_gr_plural4510        fed_unit4510           bicam4510     const_rigid4510 
+##                0.48                0.00                0.43                0.45 
+##       judic_rev4510  cen_bank_indep4594 
+##                0.44                0.49 
+## 
+## Loadings:
+##                     Factor1 Factor2
+## enpp4510            -0.90          
+## minwin_one_part4510  0.94          
+## exe_dom4510          0.83          
+## disprop4510          0.65          
+## inter_gr_plural4510  0.72          
+## fed_unit4510                 1.00  
+## bicam4510                    0.75  
+## const_rigid4510              0.74  
+## judic_rev4510                0.71  
+## cen_bank_indep4594           0.71  
+## 
+##                Factor1 Factor2
+## SS loadings       3.41    3.13
+## Proportion Var    0.34    0.31
+## Cumulative Var    0.34    0.65
+## 
+## Test of the hypothesis that 2 factors are sufficient.
+## The chi square statistic is 75.27 on 26 degrees of freedom.
+## The p-value is 1.1e-06</code></pre>
+</div>
+</div>
+<div id="sitzung-visualisierung-3-übersichtliche-regressionstabellen" class="section level1">
+<h1>13. Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</h1>
+<div id="aufgaben-11" class="section level2">
+<h2>13.1 Aufgaben</h2>
+<p>Erstellen Sie eine Regressionstabelle mit <code>stargazer</code> für das binäre logistische Regressionsmodell aus Sitzung 11. Beschriften Sie die Variablen und lassen Sie sich die Konfidenzintervalle ausgeben.</p>
+</div>
+<div id="lösungen-11" class="section level2">
+<h2>13.2 Lösungen</h2>
+<pre class="r"><code># Daten umkodieren 
+
+# Alter
+q2c_num &lt;- as.numeric(as.character(gles$q2c))
+gles$alter &lt;- 2017 - q2c_num
+
+# Geschlecht
+names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
+
+# Einkommen kategorial
+gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
+                     gles$q192 == &quot;500 bis unter 750 Euro&quot; |
+                     gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;
+gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
+                     gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
+                     gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
+gles$einkommen_cat[gles$q192 == &quot;2000 bis unter 2500 Euro&quot; |
+                     gles$q192 == &quot;2500 bis unter 3000 Euro&quot;] &lt;- &quot;2000 bis 2999&quot;
+gles$einkommen_cat[gles$q192 == &quot;3000 bis unter 4000 Euro&quot;] &lt;- &quot;3000 bis 3999&quot;
+gles$einkommen_cat[gles$q192 == &quot;4000 bis unter 5000 Euro&quot;] &lt;- &quot;4000 bis 4999&quot;
+gles$einkommen_cat[gles$q192 == &quot;5000 bis unter 7500 Euro&quot;] &lt;- &quot;5000 bis 7499&quot;
+gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
+                     gles$q192 == &quot;10000 Euro und mehr&quot;] &lt;- &quot;7500 und mehr&quot;
+
+gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
+                                levels = c(&quot;weniger als 1000&quot;,
+                                           &quot;1000 bis 1999&quot;,
+                                           &quot;2000 bis 2999&quot;,
+                                           &quot;3000 bis 3999&quot;,
+                                           &quot;4000 bis 4999&quot;,
+                                           &quot;5000 bis 7499&quot;,
+                                           &quot;7500 und mehr&quot;))
+
+# Einkommen numerisch
+gles$einkommen_num[gles$einkommen_cat == &quot;weniger als 1000&quot;] &lt;- 1
+gles$einkommen_num[gles$einkommen_cat == &quot;1000 bis 1999&quot;] &lt;- 2
+gles$einkommen_num[gles$einkommen_cat == &quot;2000 bis 2999&quot;] &lt;- 3
+gles$einkommen_num[gles$einkommen_cat == &quot;3000 bis 3999&quot;] &lt;- 4
+gles$einkommen_num[gles$einkommen_cat == &quot;4000 bis 4999&quot;] &lt;- 5
+gles$einkommen_num[gles$einkommen_cat == &quot;5000 bis 7499&quot;] &lt;- 6
+gles$einkommen_num[gles$einkommen_cat == &quot;7500 und mehr&quot;] &lt;- 7
+
+# Wohnort
+gles$wohnort[gles$q197 == &quot;Grossstadt&quot;] &lt;- &quot;Großstadt&quot;
+gles$wohnort[gles$q197 == &quot;kleine oder mittelgrosse Stadt&quot;] &lt;- &quot;Kleinstadt&quot;
+gles$wohnort[gles$q197 == &quot;laendliche Gegend oder Dorf&quot;] &lt;- &quot;Land&quot;
+gles$wohnort[gles$q197 == &quot;Vorstadt/ Vorort einer Grossstadt&quot;] &lt;- &quot;Vorstadt&quot;
+
+# Links-Rechts-Selbsteinstufung
+gles$LiRe &lt;- as.character(gles$q32)
+gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
+gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
+gles$LiRe &lt;- as.numeric(gles$LiRe)
+
+# Links-Rechts-Selbsteinstufung aggregiert
+gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
+                gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
+                gles$LiRe &lt;= 4] &lt;- &quot;moderat links&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 5 &amp;
+                gles$LiRe &lt;= 7] &lt;- &quot;mittig&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 8 &amp;
+                gles$LiRe &lt;= 9] &lt;- &quot;moderat rechts&quot;
+gles$LiRe_cat[gles$LiRe &gt;= 10 &amp;
+                gles$LiRe &lt;= 11] &lt;- &quot;rechts&quot;
+
+gles$LiRe_cat &lt;- factor(gles$LiRe_cat,
+                                levels = c(&quot;links&quot;,
+                                           &quot;moderat links&quot;,
+                                           &quot;mittig&quot;,
+                                           &quot;moderat rechts&quot;,
+                                           &quot;rechts&quot;))
+
+# AfD-Wahl
+gles$AfD.Wahl[gles$q19ba == &quot;AfD&quot;] &lt;- 1
+gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0
+
+# Modell berechnen
+afd_logit &lt;- glm(AfD.Wahl ~ LiRe_cat
+                 , data = gles, family = &quot;binomial&quot;)
+
+# Stargazer Tabelle erstellen
+stargazer(afd_logit
+          , type = &quot;text&quot;, ci = TRUE,
+          title            = &quot;Großartige GLES-Ergebnisse&quot;,
+          dep.var.caption  = &quot;Abhängige Variable:&quot;,
+          dep.var.labels   = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;,
+          column.labels = &quot;Model 1&quot;,
+          covariate.labels = c(&quot;Links-Rechts Selbsteinschätzung&quot;, &quot;Mitte&quot;, &quot;Moderat-Rechts&quot;,&quot;Rechs&quot;))</code></pre>
+<pre><code>## 
+## Großartige GLES-Ergebnisse
+## ====================================================================
+##                                         Abhängige Variable:         
+##                                 ------------------------------------
+##                                 Wahrscheinlichkeit die AfD zu wählen
+##                                               Model 1               
+## --------------------------------------------------------------------
+## Links-Rechts Selbsteinschätzung               -1.034*               
+##                                           (-2.237, 0.169)           
+##                                                                     
+## Mitte                                         0.961**               
+##                                            (0.039, 1.884)           
+##                                                                     
+## Moderat-Rechts                                2.528***              
+##                                            (1.569, 3.488)           
+##                                                                     
+## Rechs                                         3.243***              
+##                                            (2.098, 4.387)           
+##                                                                     
+## Constant                                     -3.243***              
+##                                           (-4.136, -2.349)          
+##                                                                     
+## --------------------------------------------------------------------
+## Observations                                   1,607                
+## Log Likelihood                                -430.801              
+## Akaike Inf. Crit.                             871.601               
+## ====================================================================
+## Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

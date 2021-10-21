@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -503,7 +506,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>stargazer(lm_lijphart, type = &quot;latex&quot;)</code></pre>
 <pre><code>## 
 ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Mi, Okt 20, 2021 - 20:38:39
+## % Date and time: Do, Okt 21, 2021 - 17:14:59
 ## \begin{table}[!htbp] \centering 
 ##   \caption{} 
 ##   \label{} 
@@ -903,128 +906,6 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <h1>6. Aufgaben</h1>
 <p>Bearbeiten Sie bitte die folgende Aufgabe:</p>
 <p>Erstellen Sie eine Regressionstabelle mit <code>stargazer</code> für das binäre logistische Regressionsmodell aus Sitzung 11. Beschriften Sie die Variablen und lassen Sie sich die Konfidenzintervalle ausgeben.</p>
-</div>
-<div id="lösungen" class="section level1">
-<h1>7. Lösungen</h1>
-<pre class="r"><code># GLES Daten einlesen und transformieren
-gles &lt;- read.spss(&quot;/Users/Christoph/Seafile/Lehrstuhl/Lehrstuhl Hannover Forschung/Forschung/01 Hönnige/025 MWK_StatistikR/Daten/ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
-
-# Alter
-q2c_num &lt;- as.numeric(as.character(gles$q2c))
-gles$alter &lt;- 2017 - q2c_num
-
-# Geschlecht
-names(gles)[names(gles) == &quot;q1&quot;] &lt;- &quot;geschlecht&quot;
-
-# Einkommen kategorial
-gles$einkommen_cat[gles$q192 == &quot;unter 500 Euro&quot; |
-                     gles$q192 == &quot;500 bis unter 750 Euro&quot; |
-                     gles$q192 == &quot;750 bis unter 1000 Euro&quot;] &lt;- &quot;weniger als 1000&quot;
-gles$einkommen_cat[gles$q192 == &quot;1000 bis unter 1250 Euro&quot; |
-                     gles$q192 == &quot;1250 bis unter 1500 Euro&quot; |
-                     gles$q192 == &quot;1500 bis unter 2000 Euro&quot;] &lt;- &quot;1000 bis 1999&quot;
-gles$einkommen_cat[gles$q192 == &quot;2000 bis unter 2500 Euro&quot; |
-                     gles$q192 == &quot;2500 bis unter 3000 Euro&quot;] &lt;- &quot;2000 bis 2999&quot;
-gles$einkommen_cat[gles$q192 == &quot;3000 bis unter 4000 Euro&quot;] &lt;- &quot;3000 bis 3999&quot;
-gles$einkommen_cat[gles$q192 == &quot;4000 bis unter 5000 Euro&quot;] &lt;- &quot;4000 bis 4999&quot;
-gles$einkommen_cat[gles$q192 == &quot;5000 bis unter 7500 Euro&quot;] &lt;- &quot;5000 bis 7499&quot;
-gles$einkommen_cat[gles$q192 == &quot;7500 bis unter 10000 Euro&quot; |
-                     gles$q192 == &quot;10000 Euro und mehr&quot;] &lt;- &quot;7500 und mehr&quot;
-
-gles$einkommen_cat &lt;- factor(gles$einkommen_cat,
-                                levels = c(&quot;weniger als 1000&quot;,
-                                           &quot;1000 bis 1999&quot;,
-                                           &quot;2000 bis 2999&quot;,
-                                           &quot;3000 bis 3999&quot;,
-                                           &quot;4000 bis 4999&quot;,
-                                           &quot;5000 bis 7499&quot;,
-                                           &quot;7500 und mehr&quot;))
-
-# Einkommen numerisch
-gles$einkommen_num[gles$einkommen_cat == &quot;weniger als 1000&quot;] &lt;- 1
-gles$einkommen_num[gles$einkommen_cat == &quot;1000 bis 1999&quot;] &lt;- 2
-gles$einkommen_num[gles$einkommen_cat == &quot;2000 bis 2999&quot;] &lt;- 3
-gles$einkommen_num[gles$einkommen_cat == &quot;3000 bis 3999&quot;] &lt;- 4
-gles$einkommen_num[gles$einkommen_cat == &quot;4000 bis 4999&quot;] &lt;- 5
-gles$einkommen_num[gles$einkommen_cat == &quot;5000 bis 7499&quot;] &lt;- 6
-gles$einkommen_num[gles$einkommen_cat == &quot;7500 und mehr&quot;] &lt;- 7
-
-# Wohnort
-gles$wohnort[gles$q197 == &quot;Grossstadt&quot;] &lt;- &quot;Großstadt&quot;
-gles$wohnort[gles$q197 == &quot;kleine oder mittelgrosse Stadt&quot;] &lt;- &quot;Kleinstadt&quot;
-gles$wohnort[gles$q197 == &quot;laendliche Gegend oder Dorf&quot;] &lt;- &quot;Land&quot;
-gles$wohnort[gles$q197 == &quot;Vorstadt/ Vorort einer Grossstadt&quot;] &lt;- &quot;Vorstadt&quot;
-
-# Links-Rechts-Selbsteinstufung
-gles$LiRe &lt;- as.character(gles$q32)
-gles$LiRe[gles$LiRe == &quot;1 links&quot;] &lt;- &quot;1&quot;
-gles$LiRe[gles$LiRe == &quot;11 rechts&quot;] &lt;- &quot;11&quot;
-gles$LiRe &lt;- as.numeric(gles$LiRe)
-
-# Links-Rechts-Selbsteinstufung aggregiert
-gles$LiRe_cat[gles$LiRe &gt;= 1 &amp;
-                gles$LiRe &lt;= 2] &lt;- &quot;links&quot;
-gles$LiRe_cat[gles$LiRe &gt;= 3 &amp;
-                gles$LiRe &lt;= 4] &lt;- &quot;moderat links&quot;
-gles$LiRe_cat[gles$LiRe &gt;= 5 &amp;
-                gles$LiRe &lt;= 7] &lt;- &quot;mittig&quot;
-gles$LiRe_cat[gles$LiRe &gt;= 8 &amp;
-                gles$LiRe &lt;= 9] &lt;- &quot;moderat rechts&quot;
-gles$LiRe_cat[gles$LiRe &gt;= 10 &amp;
-                gles$LiRe &lt;= 11] &lt;- &quot;rechts&quot;
-
-gles$LiRe_cat &lt;- factor(gles$LiRe_cat,
-                                levels = c(&quot;links&quot;,
-                                           &quot;moderat links&quot;,
-                                           &quot;mittig&quot;,
-                                           &quot;moderat rechts&quot;,
-                                           &quot;rechts&quot;))
-
-# AfD-Wahl
-gles$AfD.Wahl[gles$q19ba == &quot;AfD&quot;] &lt;- 1
-gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0
-
-# Modell berechnen
-afd_logit &lt;- glm(AfD.Wahl ~ LiRe_cat
-                 , data = gles, family = &quot;binomial&quot;)
-
-# Stargazer Tabelle erstellen
-stargazer(afd_logit
-          , type = &quot;text&quot;, ci = TRUE,
-          title            = &quot;Großartige GLES-Ergebnisse&quot;,
-          dep.var.caption  = &quot;Abhängige Variable:&quot;,
-          dep.var.labels   = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;,
-          column.labels = &quot;Model 1&quot;,
-          covariate.labels = c(&quot;Links-Rechts Selbsteinschätzung&quot;, &quot;Mitte&quot;, &quot;Moderat-Rechts&quot;,&quot;Rechs&quot;))</code></pre>
-<pre><code>## 
-## Großartige GLES-Ergebnisse
-## ====================================================================
-##                                         Abhängige Variable:         
-##                                 ------------------------------------
-##                                 Wahrscheinlichkeit die AfD zu wählen
-##                                               Model 1               
-## --------------------------------------------------------------------
-## Links-Rechts Selbsteinschätzung               -1.034*               
-##                                           (-2.237, 0.169)           
-##                                                                     
-## Mitte                                         0.961**               
-##                                            (0.039, 1.884)           
-##                                                                     
-## Moderat-Rechts                                2.528***              
-##                                            (1.569, 3.488)           
-##                                                                     
-## Rechs                                         3.243***              
-##                                            (2.098, 4.387)           
-##                                                                     
-## Constant                                     -3.243***              
-##                                           (-4.136, -2.349)          
-##                                                                     
-## --------------------------------------------------------------------
-## Observations                                   1,607                
-## Log Likelihood                                -430.801              
-## Akaike Inf. Crit.                             871.601               
-## ====================================================================
-## Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 
 

@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -615,72 +618,8 @@ plot(afd_preds) +
 <p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
 <ol style="list-style-type: decimal">
 <li>Berechnen Sie mittels einer logistischen Regression den Effekt des Geschlechts und Alters, des Einkommens und des Wohnortes auf die Wahrscheinlichkeit, dass eine befragte Person die AfD wählt.</li>
-<li>Berechnet und visualisiert die vorhergesagten Wahrscheinlichkeiten und benutzt dafür das Alter und das Geschlecht</li>
+<li>Berechnet und visualisiert die vorhergesagten Wahrscheinlichkeiten und benutzt dafür das Alter und das Geschlecht.</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>6. Lösungen</h1>
-<pre class="r"><code># Aufgabe 1
-afd_logit &lt;- glm(AfD.Wahl ~ geschlecht
-                 + alter
-                 + wohnort
-                 + einkommen_cat # Kategorische codierung der Einkommens-Variable
-                 , data = gles, family = &quot;binomial&quot;)
-summary(afd_logit)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = AfD.Wahl ~ geschlecht + alter + wohnort + einkommen_cat, 
-##     family = &quot;binomial&quot;, data = gles)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -0.8198  -0.4918  -0.4041  -0.2751   2.7912  
-## 
-## Coefficients:
-##                              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                 -2.042296   0.490214  -4.166 3.10e-05 ***
-## geschlechtweiblich          -0.971472   0.197664  -4.915 8.89e-07 ***
-## alter                       -0.008611   0.005225  -1.648  0.09938 .  
-## wohnortKleinstadt            0.719550   0.264090   2.725  0.00644 ** 
-## wohnortLand                  0.669802   0.268999   2.490  0.01278 *  
-## wohnortVorstadt             -0.845182   0.630425  -1.341  0.18003    
-## einkommen_cat1000 bis 1999   0.577091   0.442016   1.306  0.19169    
-## einkommen_cat2000 bis 2999   0.434287   0.433630   1.002  0.31658    
-## einkommen_cat3000 bis 3999  -0.487985   0.480085  -1.016  0.30941    
-## einkommen_cat4000 bis 4999  -0.155320   0.492633  -0.315  0.75255    
-## einkommen_cat5000 bis 7499  -0.346296   0.513253  -0.675  0.49986    
-## einkommen_cat7500 und mehr -15.178467 529.858775  -0.029  0.97715    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 939.27  on 1475  degrees of freedom
-## Residual deviance: 869.53  on 1464  degrees of freedom
-##   (636 observations deleted due to missingness)
-## AIC: 893.53
-## 
-## Number of Fisher Scoring iterations: 16</code></pre>
-<pre class="r"><code># Aufgabe 2
-
-afd_preds_age &lt;- ggpredict(afd_logit, terms = &quot;alter&quot;)
-afd_preds_sex &lt;- ggpredict(afd_logit, terms = &quot;geschlecht&quot;)
-
-plot(afd_preds_age)</code></pre>
-<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<pre class="r"><code>plot(afd_preds_sex)</code></pre>
-<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
-<pre class="r"><code># Titel und Achsenbeschriftung
-plot(afd_preds_age) + 
-  labs(x = &quot;Alter der befragten Personen&quot;
-       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
-       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Alter&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
-<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
-<pre class="r"><code>plot(afd_preds_sex) + 
-  labs(x = &quot;Geschlecht der befragten Personen&quot;
-       , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
-       , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Geschlecht&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
-<p><img src="Sitzung_11_LogitReg_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
 </div>
 
 

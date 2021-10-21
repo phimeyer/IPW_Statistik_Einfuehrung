@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -714,50 +717,6 @@ summary(lijphart$exe_dom4510)</code></pre>
 <li>Suchen Sie per Google eine Funktion, mit der Sie prüfen können, ob Objekte/Variablen identisch sind. Wenden Sie diese Funktion auf <code>einkommen_cat1</code> und <code>einkommen_cat2</code> an.</li>
 <li>Was ist an der Berechnung des Alters der Befragten nicht ganz richtig?</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>7. Lösungen</h1>
-<ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code># Bildung/Schulabschluss
-gles$schulab1[gles$q135 == &quot;Abitur bzw. erweiterte Oberschule mit Abschluss 12. Klasse (Hochschulreife)&quot;] &lt;- &quot;Hochschulreife&quot;
-gles$schulab1[gles$q135 == &quot;Fachhochschulreife (Abschluss einer Fachoberschule etc.)&quot;] &lt;- &quot;Fachhochschulreife&quot;
-gles$schulab1[gles$q135 == &quot;Realschulabschluss, Mittlere Reife, Fachschulreife oder Abschluss der polytechnischen Oberschule 10. Klasse&quot;] &lt;- &quot;Realschule&quot;
-gles$schulab1[gles$q135 == &quot;Hauptschulabschluss, Volksschulabschluss, Abschluss der polytechnischen Oberschule 8. oder 9. Klasse&quot;] &lt;- &quot;Hauptschule&quot;
-gles$schulab1[gles$q135 == &quot;Schule beendet ohne Abschluss&quot;] &lt;- &quot;kein Abschluss&quot;</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>gles$einkommen_cat1[gles$einkommen_num &lt;= 2] &lt;- &quot;weniger als 2000&quot;
-gles$einkommen_cat1[gles$einkommen_num &gt;= 3 &amp;
-                      gles$einkommen_num &lt;= 4] &lt;- &quot;2000 bis unter 4000&quot;
-gles$einkommen_cat1[gles$einkommen_num &gt;= 5 &amp;
-                      gles$einkommen_num &lt;= 6] &lt;- &quot;4000 bis unter 7500&quot;
-gles$einkommen_cat1[gles$einkommen_num &gt; 6] &lt;- &quot;7500 und mehr&quot;</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>gles$einkommen_cat2[gles$einkommen_num == 1|
-                      gles$einkommen_num == 2] &lt;- &quot;weniger als 2000&quot;
-gles$einkommen_cat2[gles$einkommen_num == 3 |
-                      gles$einkommen_num == 4] &lt;- &quot;2000 bis unter 4000&quot;
-gles$einkommen_cat2[gles$einkommen_num == 5 |
-                      gles$einkommen_num == 6] &lt;- &quot;4000 bis unter 7500&quot;
-gles$einkommen_cat2[gles$einkommen_num == 7] &lt;- &quot;7500 und mehr&quot;
-table(gles$einkommen_cat1)</code></pre>
-<pre><code>## 
-## 2000 bis unter 4000 4000 bis unter 7500       7500 und mehr    weniger als 2000 
-##                 822                 350                  56                 541</code></pre>
-<pre class="r"><code>table(gles$einkommen_cat2)</code></pre>
-<pre><code>## 
-## 2000 bis unter 4000 4000 bis unter 7500       7500 und mehr    weniger als 2000 
-##                 822                 350                  56                 541</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>all.equal(gles$einkommen_cat1, gles$einkommen_cat2)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
 </div>
 
 

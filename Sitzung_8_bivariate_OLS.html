@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -563,26 +566,6 @@ lm_aug_lijphart</code></pre>
 <li>Untersuchen Sie den Zusammenhang zwischen Kabinettstyp - <strong>bicam4510</strong> - und Regierungsdauer - <strong>exe_dom4510</strong>. Bitte berechnen Sie die Korrelation und eine bivariate lineare Regressionsanalyse.</li>
 <li>Interepretieren Sie die Korrelationskoeffizizenten, die Effektstärke und die Regressionskoeffizienten. Welche Schlüsse lassen sich ziehen?</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>7. Lösungen</h1>
-<pre class="r"><code># Korrelation
-lijphart_cor_pear &lt;- cor(lijphart$bicam4510, lijphart$exe_dom4510, method = &quot;pearson&quot;)  
-lijphart_cor_pear</code></pre>
-<pre><code>## [1] 0.0975669</code></pre>
-<pre class="r"><code>lijphart_cor_spear &lt;- cor(lijphart$bicam4510, lijphart$exe_dom4510, method = &quot;spearman&quot;)  
-lijphart_cor_spear</code></pre>
-<pre><code>## [1] 0.1100644</code></pre>
-<pre class="r"><code># Bivariate lineare Regression
-lm_lijphart &lt;- lm(bicam4510 ~ exe_dom4510, data = lijphart)
-lm_lijphart</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = bicam4510 ~ exe_dom4510, data = lijphart)
-## 
-## Coefficients:
-## (Intercept)  exe_dom4510  
-##      2.0176       0.0367</code></pre>
 </div>
 
 

@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -406,7 +409,7 @@ div.tocify {
 <h2>2.1 Die <code>Console</code></h2>
 <p>Nun können wir <code>RStudio</code> öffnen, wodurch <code>R</code> im Hintergrund ebenfalls geöffnet, allerdings mit der vereinfachten Anwenderansicht versehen wird. Code-Input kann links in der <code>Console</code> ausgeführt werden. Geben Sie als Beispiel</p>
 <pre class="r"><code>Sys.time()</code></pre>
-<pre><code>## [1] &quot;2021-10-20 20:30:42 CEST&quot;</code></pre>
+<pre><code>## [1] &quot;2021-10-21 17:08:27 CEST&quot;</code></pre>
 <p>in die <code>Console</code> ein und bestätigen Sie mit Enter, wodurch Datum und Zeit des Systems ausgegeben werden. (Wie Sie vielleicht bemerken, ist die Funktion möglichst intuitiv gehalten. Tipp: Versuchen Sie stets die Intention hinter der Bezeichnung von Funktionen zu erahnen.)</p>
 <p>Haben Sie bemerkt, dass <code>RStudio</code> Ihnen Code-Vorschläge gemacht hat? (wenn nicht, tippen Sie nochmal <code>Sys.</code> ein und schauen Sie mal, welche Informationen zum System Sie sonst noch abrufen können). Wenn wir nur Teile von Funktionen eingeben, versucht <code>RStudio</code> sie zu vervollständigen. <code>R</code> hätte uns in seiner klassischen Version dabei nicht weitergeholfen.</p>
 <p>Nun wollen wir selbst kreativ werden und weisen Objekten Inhalt in Form von Werten oder Strings (Zeichen oder Zeichenabfolgen) zu. Zentral ist dabei der <code>&lt;-</code>-Operator, den Sie jetzt kennenlernen und am besten nie wieder vergessen. Es ist eigentlich ganz einfach: Was rechts von <code>&lt;-</code> steht, wird dem, was links davon steht, zugewiesen (Stichwort: intuitiv). Schreiben Sie in die <code>Console</code></p>
@@ -683,29 +686,6 @@ x * y</code></pre>
 <li>Erstellen Sie zwei numerische Vektoren, die je fünf beliebige Werte beinhalten. Summieren Sie die Vektoren und multiplizieren Sie sie miteinander. Bilden Sie einen weiteren Vektor, indem Sie die beiden Vektoren miteinander kombinieren.</li>
 <li>Erstellen Sie einen character-Vektor, der die Buchstaben des Alphabets beinhaltet. Bilden Sie einen zweiten character-Vektor, der als Subset des ersten nur die Konsonanten beinhaltet.</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>8. Lösungen</h1>
-<ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>a &lt;- 1:5
-b &lt;- 6:10
-a + b</code></pre>
-<pre><code>## [1]  7  9 11 13 15</code></pre>
-<pre class="r"><code>a * b</code></pre>
-<pre><code>## [1]  6 14 24 36 50</code></pre>
-<pre class="r"><code>c &lt;- c(a, b)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>alphabet &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;, &quot;n&quot;, &quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;)
-
-konsonanten &lt;- alphabet[alphabet != &quot;a&quot; &amp; alphabet != &quot;e&quot; &amp; alphabet != &quot;i&quot; &amp;
-                          alphabet != &quot;o&quot; &amp; alphabet != &quot;u&quot;]
-konsonanten</code></pre>
-<pre><code>##  [1] &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot;
-## [20] &quot;y&quot; &quot;z&quot;</code></pre>
 </div>
 
 

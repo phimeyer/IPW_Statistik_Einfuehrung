@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -657,52 +660,6 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <li>Erstellen Sie zwei Histogramme und zwei Dichteplots des Gallagher-Indizes (<code>disprop4510</code>). Die Balken des Histogramms sollen jeweils weiß gefüllt und schwarz umrandet sein. Zwischen den beiden Histogrammen sollen sichtbare Differenzen bezüglich der Intervallbreite und zwischen den beiden Dichteplots sichtbare Differenzen bezüglich der Bandbreite erkennbar sein.</li>
 <li>Erstellen Sie einen Boxplot der ENPP (<code>enpp4510</code>). Die Skala soll Markierungen bei jeder halben Zahl innerhalb des Wertebereiches aufweisen.</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>7. Lösungen</h1>
-<ol style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>lijphart$bicam[lijphart$bicam4510 &gt;= 1 &amp; lijphart$bicam4510 &lt;= 1.4] &lt;- &quot;schwach&quot;
-lijphart$bicam[lijphart$bicam4510 &gt;= 1.5 &amp; lijphart$bicam4510 &lt;= 2.4] &lt;- &quot;eher schwach&quot;
-lijphart$bicam[lijphart$bicam4510 &gt;= 2.5 &amp; lijphart$bicam4510 &lt;= 3.4] &lt;- &quot;eher stark&quot;
-lijphart$bicam[lijphart$bicam4510 &gt;= 3.5 &amp; lijphart$bicam4510 &lt;= 4] &lt;- &quot;stark&quot;
-
-lijphart$bicam &lt;- factor(lijphart$bicam, levels = c(&quot;schwach&quot;,
-                           &quot;eher schwach&quot;,
-                           &quot;eher stark&quot;,
-                           &quot;stark&quot;))
-
-ggplot(data = lijphart, mapping = aes(bicam)) +
-  geom_bar() +
-  labs(title = &quot;Bikameralismus und die Länder aus &#39;Patterns of Democracy&#39;&quot;,
-       y = &quot;Anzahl&quot;,
-       x = &quot;Stärke des Bikameralimsus&quot;)</code></pre>
-<p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code># Histogramme
-ggplot(data = lijphart, mapping = aes(disprop4510)) +
-  geom_histogram(binwidth = 3, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
-<p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(data = lijphart, mapping = aes(disprop4510)) +
-  geom_histogram(binwidth = 2, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
-<p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
-<pre class="r"><code># Dichteplots
-ggplot(data = lijphart, mapping = aes(disprop4510)) +
-  geom_density(bw = 2)</code></pre>
-<p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
-<pre class="r"><code>ggplot(data = lijphart, mapping = aes(disprop4510)) +
-  geom_density(bw = .8)</code></pre>
-<p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>ggplot(data = lijphart, mapping = aes(enpp4510)) +
-  geom_boxplot() +
-  scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5))</code></pre>
-<p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
 
 

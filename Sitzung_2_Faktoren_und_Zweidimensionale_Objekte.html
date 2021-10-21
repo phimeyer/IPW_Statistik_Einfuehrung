@@ -360,6 +360,9 @@ div.tocify {
 <li>
   <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
 </li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -799,127 +802,6 @@ df$geschlecht</code></pre>
 <li>Erstellen Sie ein Subset aller Parteien, die mehr als 10 Prozent der Mandate auf sich vereinigen. Erstellen Sie dieses Subset einmal mithilfe eckiger Klammern und einmal mithilfe der Funktion <code>subset()</code>. Erstellen Sie außerdem ein Subset mit allen Parteien, die weniger Mandate auf sich vereinigen als die SPD. (Tipp: für Letzteres benötigen Sie einen logischen Vektor, selbst wenn Sie <code>subset()</code> verwenden.)</li>
 <li>Erstellen Sie einen Faktor mit den Kategorien “Handy”, “Tablet”, “Laptop”, “PC”. Handys sollen zweimal, Tablets viermal, Laptops dreimal und PCs fünfmal vorkommen. Ordnen Sie den Faktor nach der Größe der Geräte von klein nach groß. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Faktors ausgeben. Wandeln Sie den Faktor in einen numeric-Vektor um. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Vektors ausgeben. Was hat sich im Output dieser Funktionen verändert?</li>
 </ol>
-</div>
-<div id="lösungen" class="section level1">
-<h1>8. Lösungen</h1>
-<ol style="list-style-type: decimal">
-<li></li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li></li>
-</ol>
-<pre class="r"><code>matrix(data = 10:21, nrow = 3)</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]   10   13   16   19
-## [2,]   11   14   17   20
-## [3,]   12   15   18   21</code></pre>
-<ol start="2" style="list-style-type: lower-alpha">
-<li></li>
-</ol>
-<pre class="r"><code>matrix(data = 10:21, ncol = 2, byrow = TRUE)</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]   10   11
-## [2,]   12   13
-## [3,]   14   15
-## [4,]   16   17
-## [5,]   18   19
-## [6,]   20   21</code></pre>
-<p>oder:</p>
-<pre class="r"><code>matrix(data = 10:21, nrow = 6, byrow = TRUE)</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]   10   11
-## [2,]   12   13
-## [3,]   14   15
-## [4,]   16   17
-## [5,]   18   19
-## [6,]   20   21</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>(möglicherweise aktualisiert)</li>
-</ol>
-<pre class="r"><code>p &lt;- c(&quot;CDU/CSU&quot;, &quot;SPD&quot;, &quot;AfD&quot;, &quot;FDP&quot;, &quot;Linke&quot;, &quot;Grüne&quot;)
-a &lt;- c(32.9, 20.5, 12.6, 10.7, 9.2, 8.9)
-pa &lt;- cbind(p, a)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>padf &lt;- as.data.frame(pa)
-class(padf$p)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>class(padf$a)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>padf$a &lt;- as.numeric(padf$a)
-padf</code></pre>
-<pre><code>##         p    a
-## 1 CDU/CSU 32.9
-## 2     SPD 20.5
-## 3     AfD 12.6
-## 4     FDP 10.7
-## 5   Linke  9.2
-## 6   Grüne  8.9</code></pre>
-<pre class="r"><code>names(padf)[1] &lt;- &quot;parteien&quot;
-names(padf)[2] &lt;- &quot;anteile&quot;
-padf</code></pre>
-<pre><code>##   parteien anteile
-## 1  CDU/CSU    32.9
-## 2      SPD    20.5
-## 3      AfD    12.6
-## 4      FDP    10.7
-## 5    Linke     9.2
-## 6    Grüne     8.9</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>groko &lt;- subset(padf, subset = parteien == &quot;CDU/CSU&quot; | parteien == &quot;SPD&quot;)
-sum(groko$anteile)</code></pre>
-<pre><code>## [1] 53.4</code></pre>
-<pre class="r"><code>jamaika &lt;- subset(padf, subset = parteien == &quot;CDU/CSU&quot; | parteien == &quot;Grüne&quot; |
-                        parteien == &quot;FDP&quot;)
-sum(jamaika$anteile)</code></pre>
-<pre><code>## [1] 52.5</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>padf[padf$anteile &gt; 10, ]</code></pre>
-<pre><code>##   parteien anteile
-## 1  CDU/CSU    32.9
-## 2      SPD    20.5
-## 3      AfD    12.6
-## 4      FDP    10.7</code></pre>
-<pre class="r"><code>subset(padf, subset = anteile &gt; 10)</code></pre>
-<pre><code>##   parteien anteile
-## 1  CDU/CSU    32.9
-## 2      SPD    20.5
-## 3      AfD    12.6
-## 4      FDP    10.7</code></pre>
-<pre class="r"><code>subset(padf, subset = anteile &lt; padf$anteile[padf$parteien == &quot;SPD&quot;])</code></pre>
-<pre><code>##   parteien anteile
-## 3      AfD    12.6
-## 4      FDP    10.7
-## 5    Linke     9.2
-## 6    Grüne     8.9</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>geraete &lt;- factor(c(&quot;Handy&quot;,&quot;Handy&quot;, &quot;Tablet&quot;, &quot;Tablet&quot;, &quot;Tablet&quot;, &quot;Tablet&quot;,
-                   &quot;Laptop&quot;, &quot;Laptop&quot;, &quot;Laptop&quot;, &quot;PC&quot;, &quot;PC&quot;, &quot;PC&quot;, &quot;PC&quot;, &quot;PC&quot;),
-                 levels = c(&quot;Handy&quot;, &quot;Tablet&quot;, &quot;Laptop&quot;, &quot;PC&quot;))
-
-table(geraete)</code></pre>
-<pre><code>## geraete
-##  Handy Tablet Laptop     PC 
-##      2      4      3      5</code></pre>
-<pre class="r"><code>summary(geraete)</code></pre>
-<pre><code>##  Handy Tablet Laptop     PC 
-##      2      4      3      5</code></pre>
-<pre class="r"><code>geraete &lt;- as.numeric(geraete)
-
-table(geraete)</code></pre>
-<pre><code>## geraete
-## 1 2 3 4 
-## 2 4 3 5</code></pre>
-<pre class="r"><code>summary(geraete)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   1.000   2.000   3.000   2.786   4.000   4.000</code></pre>
 </div>
 
 
