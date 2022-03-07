@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Politikwissenschaftliche Statistik mit R</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">(0) Willkommen</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
+</li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige</h4>
+<address class="author_afil">
+Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    $head = $('#header');
+    $head.prepend('<div class="knitr source"><img src="logo_IPW.png" width="160px" align="right"   ></div>')
+  });
+</script>
+<hr />
+<p><br /></p>
+<div id="herzlich-wilkommen-liebe-studierende" class="section level1">
+<h1>1. Herzlich Wilkommen, liebe Studierende!</h1>
+<p>Herzlich Willkommen zu dieser Einführung in die politikwissenschaftliche Statistik mit <code>R</code>!</p>
+<div id="zielsetzung-des-selbstlernkurses" class="section level2">
+<h2>1.1. Zielsetzung des Selbstlernkurses</h2>
+<p>Dieser Kurs wurde als Selbstlernkurs für Sie konzipiert. Sein Ziel ist es, Ihnen die Nutzung der Programmiersprache <code>R</code> in ihrem politikwissenschaftlichen Studium zu ermöglichen. Dieser Kurs ergänzt Ihre bestehenden Statistikvorlesungen anwendungsorientiert, setzt aber auch die Inhalte der Vorlesungen voraus. Er wurde bewusst als Online-Kurs konzipiert, sodass Sie auch von zu Hause aus arbeiten können.</p>
+</div>
+<div id="gründe-für-diesen-kurs" class="section level2">
+<h2>1.2. Gründe für diesen Kurs</h2>
+<p>Für den Besuch dieses Kurses spricht eine ganze Reihe von Gründen, die über den Erwerb einer Studienleistung hinaus gehen:</p>
+<ol style="list-style-type: decimal">
+<li><p>Bessere Noten: Innerhalb des politikwissenschaftlichen Studiums wird die Notwendigkeit immer größer, statistische Verfahren nicht nur passiv verstehen zu können, sondern auch gängige Verfahren aktiv anzuwenden. Ohne diese Fertigkeiten können letztlich keine eigenständigen empirischen Haus- und Abschlussarbeiten geschrieben werden. Ein erfolgreicher Besuch dieses Kurses hebt also Ihr potenzielles Notenniveau deutlich an.</p></li>
+<li><p>Eigenständige Analysen: Politikwissenschaft ist auch eine empirische Wissenschaft, in der wir politische Systeme und deren Regeln sowie das Verhalten von Akteuren (z.B. Parteien, Interessengruppen, Politikern und Wählern) verstehen und erklären wollen. Der Besuch dieses Kurses versetzt Sie in die Lage, selbstständige Analysen vorzunehmen und gegebene Analysen kritisch durch Replikation zu hinterfragen und nicht nur passiv die Arbeit anderer zu konsumieren.</p></li>
+<li><p>Moderne Datenanalyse: Innerhalb der Politikwissenschaft, ebenso wie in den Sprachwissenschaften, werden moderne Verfahren der Datenanalyse, wie die automatische Textanalyse, immer wichtiger. In der Politikwissenschaft haben wir Zugang zu einer großen Masse an politischen Dokumenten (z.B. Wahlprogramme, Gesetze, Tweets, Zeitungsartikel, Pressemitteilungen). Diese sind wegen ihrer breiten Verfügbarkeit und großen Masse kaum noch qualitativ auszuwerten, sondern werden mithilfe automatischer Textanalyse ausgewertet. Die Programmiersprache <code>R</code> bietet große Flexibilität und wird laufend erweitert, Dadurch kann sie auch aufwändige moderne Analyseverfahren leisten, während klassischen Statistikprogrammen enge Grenzen gesetzt sind. Der Kurs bietet Ihnen die Grundlage für einen Einstieg in diese Welt.</p></li>
+<li><p>Arbeitsmarkt: Die Fähigkeit zur quantitativen Datenanalyse verbessert Ihre Berufsaussichten deutlich. Sich damit systematisch auseinanderzusetzen, eröffnet Arbeitsmarktperspektiven im Bereich der “Data Science” und “Big Data”. Aber auch in klassischen Arbeitsmärkten für Politikwissenschaftler/innen wie z.B. dem Journalismus, wird dies immer wichtiger.</p></li>
+</ol>
+</div>
+<div id="r-als-das-programm-der-wahl" class="section level2">
+<h2>1.3. <code>R</code> als das Programm der Wahl</h2>
+<p>Hinsichtlich des Statistikprogrammes haben wir uns bewusst für <code>R</code> entschieden. Zum Ersten handelt es sich im Gegensatz zu Stata und SPSS um eine Freeware, die nicht zu Lizenzkosten führt bzw. Sie sich bei Ihrer Universität für eine begrenzte Zeit laufende Lizenzen besorgen müssen. <code>R</code> läuft sowohl auf Windows als auch auf Mac. Zum Zweiten ist R vielseitig anwendbar z.B. bezogen auf die quantitative Textanalyse.</p>
+</div>
+<div id="didaktischer-aufbau" class="section level2">
+<h2>1.4. Didaktischer Aufbau</h2>
+<p>In den ersten drei Sitzungen führen wir Sie in das Programm <code>R</code> ein. Da es sich um eine Programmiersprache handelt, die deutlich flexibler eingesetzt werden kann als beispielsweise die Statistikprogramme SPSS und Stata, gilt es zuerst die Grundlagen der Nutzung zu vermitteln. Dafür sind drei Sitzungen eingeplant.</p>
+<p>Die fachlichen Sitzungen ab Sitzung 4 sind wie folgt strukturiert:</p>
+<ol style="list-style-type: decimal">
+<li><p>Es wird nochmals knapp auf das jeweilige statistische Verfahren eingegangen, das Sie in der Vorlesung erlernt haben.</p></li>
+<li><p>Es wird der Code für die Anwendung des Verfahrens am Beispiel von zwei politikwissenschaftlichen Datensätzen vorgestellt (inkl. des Outputs).</p></li>
+<li><p>Es werden kleine Aufgaben zur eigenständigen Lösung aus den beiden Datensätzen vorgegeben (inkl. der Lösungen).</p></li>
+</ol>
+</div>
+<div id="politikwissenschaftliche-beispiele" class="section level2">
+<h2>1.5. Politikwissenschaftliche Beispiele</h2>
+<p>In der Statistikausbildung wird in Vorlesungen ein Schwerpunkt auf die mathematische Basis gelegt oder wenn Vorlesungen von Professor/innen anderer Fächer unterrichtet werden, sind die Beispiele oft nicht politikwissenschaftlicher Natur. Wir haben in der Vergangenheit festgestellt, dass deshalb Studierenden oft nicht klar ist, wozu sie eigentlich die Statistikvorlesungen in ihrem Studium benötigen.</p>
+<p>Didaktisch haben wir uns in diesem Kurs bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt, um den Nutzen so besser verdeutlichen zu können.</p>
+<ol style="list-style-type: decimal">
+<li><p>Politische Soziologie: Hier nutzen wir den “Nachwahl-Querschnitt der German Longitudinal Election Study (GLES)” von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle. Dieser ist ein Standarddatensatz der deutschen Wahlforschung.</p></li>
+<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir Daten zu “Patterns of Democracy” von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle. Dieser gehört zu den Klassikern der vergleichenden Politikwissenschaft.</p></li>
+</ol>
+<p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt Ihnen der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze, sodass Sie anhand dessen ein Verständnis für Datenmanagement insgesamt erwerben.</p>
+</div>
+<div id="behandelte-themen" class="section level2">
+<h2>1.6. Behandelte Themen</h2>
+<p>In diesem Kurs werden Sie die Grundlagen des Programms erlernen sowie Datensatzaufbereitung, deskriptive und multivariate Statistik. Gleichzeitig erlernen Sie Grundlagen der Visualisierung, dem wir drei Sitzungen widmen.</p>
+<p>Konkret werden folgende Themen abgehandelt:</p>
+<ul>
+<li><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a></li>
+<li><a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a></li>
+<li><a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a></li>
+<li><a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a></li>
+<li><a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a></li>
+<li><a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a></li>
+<li><a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a></li>
+<li><a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a></li>
+<li><a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a></li>
+<li><a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a></li>
+<li><a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a></li>
+<li><a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a></li>
+<li><a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></li>
+</ul>
+<p><br /></p>
+</div>
+</div>
+<div id="herzlich-wilkommen-sehr-geehrte-dozierende" class="section level1">
+<h1>2. Herzlich Wilkommen, sehr geehrte Dozierende!</h1>
+<p>Ein herzliches Willkommen zu dieser Einführung in die politikwissenschaftliche Statistik mit <code>R</code>!</p>
+<div id="motivation-und-ausgangsproblem" class="section level2">
+<h2>2.1 Motivation und Ausgangsproblem</h2>
+<p>Kleinere Institute für Politikwissenschaft stehen oftmals vor der Herausforderung, dass sie keine eigenständige Methoden- bzw Statistikprofessur anbieten, sondern dass die Methoden- und Statistikausbildung aus anderen Fächern zugeliefert wird. Von Seite der Studierenden wird oftmals bemängelt, dass die Statistikkurse entweder zu mathematisch und zu wenig anwendungsorientiert sind, oder die Beispiele nicht aus dem eigenen Fach kommen.</p>
+<p>Die zweite Herausforderung besteht darin, dass innerhalb des politikwissenschaftlichen Studiums die Notwendigkeit immer größer wird, statistische Verfahren nicht nur passiv verstehen zu können, sondern gängige Verfahren mit Statistiksoftware aktiv anzuwenden. Ohne diese Fertigkeiten können letztlich keine eigenständigen empirischen Haus- und Abschlussarbeiten geschrieben werden.</p>
+<p>Die Studierenden sind häufig dadurch überfordert, dass sie zwar statistische Verfahren nutzen sollen, die Ausbildung jedoch oft zu weit von den realen Anforderungen im Studium entfernt ist. Das frustriert und demotiviert Studierende.</p>
+<p>Idealerweise würde man das Erlernen von statistischen Verfahren und ihre Anwendung in einem Statistikprogramm in Form von die Vorlesungen begleitenden Seminaren durchführen. Die dafür notwendigen finanziellen Ressourcen für Mitarbeiter/innen stehen jedoch häufig nicht zur Verfügung.</p>
+</div>
+<div id="zielsetzung-des-selbstlernkurses-1" class="section level2">
+<h2>2.2 Zielsetzung des Selbstlernkurses</h2>
+<p>Dieser Kurs wurde als Selbstlernkurs konzipiert, der zum Ziel hat, die vorlesungslastige und mathematisch orientierte Statistikausbildung im Fach Politikwissenschaft bei begrenzten Ressourcen zu verbessern. Er wurde bewusst als Online-Kurs konzipiert, sodass die Studierenden auch von zu Hause aus am Material arbeiten können. Er kann durch Tutor/innen begleitet werden, dies ist jedoch nicht zwingend erforderlich.</p>
+<p>Studierende im Bachelor erwerben in diesem Kurs Kenntnisse in der Programmiersprache R und in der eigenständigen Analyse von Daten. In Verbindung mit den theoretischen Hintergründen aus den Statistikvorlesungen können sie somit sowohl selbstständig Analysen vornehmen, als auch gegebene Analysen kritisch durch Replikation hinterfragen. In der Konsequenz können die Studierenden direkt und anwendungsorientiert Fragen der deskriptiven und Inferenzstatistik beantworten. In der praktischen Bearbeitung und eigenständigen Analyse politikwissenschaftlicher Datensätze sollen die Studierenden ein besseres Verständnis der Statistik und ihres praktischen Nutzens erwerben.</p>
+</div>
+<div id="voraussetzungen-der-nutzung" class="section level2">
+<h2>2.3 Voraussetzungen der Nutzung</h2>
+<p>Dieser Kurs hat den Umfang von 2 Semesterwochenstunden (SWS). Er setzt voraus, dass die Studierenden Vorlesungen in Statistik besuchen, die ihnen die mathematischen Grundlagen gängiger statistischer Verfahren vermitteln. Sein Ziel ist es nicht, statistische Grundlagen zu wiederholen.</p>
+<p>Das Ziel des Kurses ist es, die Nutzung von <code>R</code> anhand von gängigen politikwissenschaftlichen Datensätzen zu vermitteln. Er geht dazu wie folgt in jeder Sitzung vor: (1) Es wird nochmals knapp auf das jeweilige statistische Verfahren eingegangen. (2) Es wird der Code für die Anwendung des Verfahrens am Beispiel von zwei politikwissenschaftlichen Datensätzen vorgestellt (inkl. des Outputs). (3) Es werden kleine Aufgaben zur eigenständigen Lösung aus den beiden Datensätzen vorgegeben (inkl. der Lösungen).</p>
+<p>Die ersten drei Sitzungen führen in das Programm <code>R</code> ein. Wie beim Programmieren üblich, hakt es bei den Grundlagen mitunter an kleinen Fehlern im Code, was schnell zu Frustration führen kann. Dieser Kurs beugt der Frustration durch die ausführliche Einführung vor.</p>
+</div>
+<div id="r-als-das-programm-der-wahl-1" class="section level2">
+<h2>2.4 <code>R</code> als das Programm der Wahl</h2>
+<p>Hinsichtlich des Statistikprogrammes haben wir uns bewusst für <code>R</code> entschieden. Zum Ersten handelt es sich im Gegensatz zu Stata und SPSS um eine Freeware, die nicht zu Lizenzkosten in Abhängigkeit von Rahmenverträgen der jeweiligen Universität führt. Zum Zweiten bietet <code>R</code> große Flexibilität mit nahezu unbegrenzten Anwendungsmöglichkeiten, insbesondere in Hinblick auf moderne Verfahren wie der automatisierten Textanalyse. Klassischen Statistikprogrammen sind hier im Gegensatz zur Programmiersprache <code>R</code> enge Grenzen gesetzt. Insofern ist die Wahl von <code>R</code> auch perspektivisch hinsichtlich einer weitergehenden Vertiefung, z.B. im Rahmen des Master-Studiums, gedacht.</p>
+</div>
+<div id="behandelte-themen-1" class="section level2">
+<h2>2.5 Behandelte Themen</h2>
+<p>In diesem Kurs werden die Studierenden die Grundlagen des Programms erlernen, Datensatzaufbereitung, deskriptive und multivariate Statistik. Dies geschieht anhand von verbreiteten politikwissenschaftlichen Datensätzen. Konkret werden folgende Themen abgehandelt:</p>
+<ul>
+<li><a href="Sitzung_1_Einfuehrung.html">(1) Sitzung: Einleitung und Grundlagen von <code>R</code></a></li>
+<li><a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Sitzung: Faktoren und zweidimensionale Objekte in <code>R</code></a></li>
+<li><a href="Sitzung_3_Datensätze_einladen.html">(3) Sitzung: Datensätze einladen in <code>R</code></a></li>
+<li><a href="Sitzung_4_Variablen_Kodieren.html">(4) Sitzung: Variablen um-/kodieren</a></li>
+<li><a href="Sitzung_5_univariate_Maße.html">(5) Sitzung: Univariate Maße</a></li>
+<li><a href="Sitzung_6_Visualisierung_I.html">(6) Sitzung: Visualisierung (1): Univariate Verteilungen</a></li>
+<li><a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Sitzung: Bivariate Zusammenhangsmaße</a></li>
+<li><a href="Sitzung_8_bivariate_OLS.html">(8) Sitzung: Bivariate lineare Regression (OLS)</a></li>
+<li><a href="Sitzung_9_Visualisierung_II.html">(9) Sitzung: Visualisierung (2): Zusammenhangsmaße &amp; Regression</a></li>
+<li><a href="Sitzung_10_multiple_lineare_Regression.html">(10) Sitzung: Multiple lineare Regression</a></li>
+<li><a href="Sitzung_11_LogitReg.html">(11) Sitzung: Logistische Regression</a></li>
+<li><a href="Sitzung_12_Faktoranalyse.html">(12) Sitzung: Faktoranalyse</a></li>
+<li><a href="Sitzung_13_Tabellen.html">(13) Sitzung: Visualisierung (3): Übersichtliche Regressionstabellen</a></li>
+</ul>
+</div>
+<div id="politikwissenschaftliche-beispiele-1" class="section level2">
+<h2>2.6 Politikwissenschaftliche Beispiele</h2>
+<p>Didaktisch haben wir uns bei Beispielen und Aufgaben auf zwei Datensätze der politischen Soziologie sowie der vergleichenden Politikwissenschaft gestützt.</p>
+<ol style="list-style-type: decimal">
+<li><p>Politische Soziologie: Hier nutzen wir den Nachwahl-Querschnitt der German Longitudinal Election Study (GLES) von 2017. Der Datensatz umfasst 602 Variablen und 2112 Fälle.</p></li>
+<li><p>Vergleichende Politikwissenschaft: Hier nutzen wir den Datensatz zu “Patterns of Democracy” von Arend Lijphart. Der Datensatz umfasst 74 Variablen und 36 Fälle.</p></li>
+</ol>
+<p>Die Auswahl der beiden Datensätze wurde getroffen, um verschiedene Bereiche der Politikwissenschaft zu bedienen und die beiden üblichen Typen von Datensätzen (Individualdaten und Aggregatdaten) zeigen zu können. Die Datensätze beinhalten Variablen auf unterschiedlichen Skalenniveaus und sind unterschiedlich umfangreich hinsichtlich der Variablen- und Fallzahlen. Gleichzeitig sollen sich die Studierenden mit diesen beiden Datensätze wiederholt und vertieft auseinander setzen, anstatt immer wieder mit unbekannten Daten konfrontiert zu werden. So vermittelt der Kurs ein Gespür für Inhalt und Aufbau dieser Datensätze und anhand dessen ein Verständnis für Datenmanagement insgesamt.</p>
+</div>
+</div>
+<div id="danksagungen" class="section level1">
+<h1>3. Danksagungen</h1>
+<p>Wir danken dem Niedersächsischen Ministerium für Wissenschaft und Kunst (MWK) für die Förderung des Projektes “Digitalisierung in einer Massenveranstaltung: Peer-begleitetes E-Learning in der politikwissenschaftlichen Statistikausbildung mit der Programmiersprache R” aus dem Programm “Innovative Lehr- und Lernkonzepte: Innovation plus (2020/21), Projektnummer 25”.</p>
+<p><br /> <img src="logo_MWK.png" /></p>
+<p><br /></p>
+<p>Ebenso danken wir Frau Dr. Ines Katenhusen als Referentin des Präsidiums sowie dem Studiendekanat der Philosophischen Fakultät, insbesondere Sandra Templin, für Kommentare zum Antrag.</p>
+</div>
+<div id="grundlagenliteratur-und-verwendete-datensätze" class="section level1">
+<h1>4. Grundlagenliteratur und verwendete Datensätze</h1>
+<p>In diesem Kurs basiert die Erläuterung der statistischen Methoden der Politikwissenschaft im wesentlichen auf Kühnel/Krebs (2014) und Diaz-Bone (2019). Als Datensätze werden Lijphart (2012) und GLES (2019) verwendet.</p>
+<p>Literatur:</p>
+<p>Kühnel, Steffen-M./Dagmar Krebs (2014): Statistik für die Sozialwissenschaften. Grundlagen Methoden Anwendungen. 7. Auflage. Reinbek bei Hamburg: Rowohlt.</p>
+<p>Diaz-Bone, Rainer (2019): Statistik für Soziologen. 4. überarbeitete Auflage. München: UVK-Verlag.</p>
+<p>GLES (2019). Nachwahl-Querschnitt (GLES 2017). GESIS Datenarchiv, Köln. ZA6801 Datenfile Version 4.0.1, <a href="https://doi.org/10.4232/1.13235" class="uri">https://doi.org/10.4232/1.13235</a>.</p>
+<p>Lijphart, Arend (2012): Patterns of Democracy. Government Forms and Performance in Thirty-Six Countries. 2nd Edition. New Haven/London: Yale University Press.</p>
+</div>
+<div id="frohes-beginnen" class="section level1">
+<h1>5. Frohes Beginnen!</h1>
+<p>Und nun wünschen wir Ihnen viel Spass und Erfolg bei der Nutzung des Kurses!</p>
+<p>Christoph Garwe, Philipp Meyer, Laura Brune &amp; Christoph Hönnige</p>
+<p>Hannover, 20. Oktober 2021</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
