@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 9: Visualisierung (II) Zusammenhangsmaße</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -362,6 +362,9 @@ div.tocify {
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
 </li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -397,7 +400,6 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 <h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
 <p>Wir laden in einem ersten Schritt die Pakete, die wir für dieses Tutorial brauchen. Da wir uns in diesem Tutorial nur mit der Visualisierung von Zusammenhängen auseinandersetzen, werden wir lediglich das <code>ggplot2</code>-Paket verwenden. Anschließend laden wir den Lijphart-Datensatz und transformieren einige Variablen, damit diese der von uns gewünschten Klasse (numerische Variablen) angehören.</p>
 <pre class="r"><code># Pakete laden
-
 library(ggplot2) # Das Paket wird in Punkt 4 dieses Tutorials verwendet</code></pre>
 <pre class="r"><code># Datensatz laden
 getwd()
@@ -422,7 +424,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="visualisierung-von-zusammenhängen" class="section level1">
 <h1>3. Visualisierung von Zusammenhängen</h1>
 <p>Zusammenhänge lassen sich mit vielen unterschiedlichen Graphen präsentieren. Zwei dieser Möglichkeiten werden wir im Folgenden besprechen: Streudiagramme und Linienplots.</p>
-<p>Wie bereits in Sitzung 6 werden wir unsere Visualisierungen mit dem <code>ggplot2</code>-Paket realisieren. Für die Darstellung von Zusammenhängen werden wir vor allem die <code>ggplot()</code>-Funktion und <code>geom_point()</code> verwenden.</p>
+<p>Wie bereits in Sitzung 6 werden wir unsere Visualisierungen mit dem <code>ggplot2</code>-Paket realisieren. Für die Darstellung von Zusammenhängen werden wir vor allem die <code>ggplot()</code>-Funktion und <code>geom_point()</code> verwenden. Zur Erinnerung: die Grafiken von <code>ggplot2</code> bestehen aus Schichten, welche mit Visualisierungselementen, den <code>geoms</code> gestaltet werden. Mit dem ersten Argument wird der Datensatz definiert. Das zweite Argument <code>mapping</code>legt mit Hilfe von <code>aes()</code> fest, welche Daten genutzt werden.</p>
 <p>Wie bereits oben erwähnt, werden wir unsere Visualisierungen mit den Variablen <em>enpp4510</em> und <em>disprop4510</em> durchführen.</p>
 <div id="streudiagramme" class="section level2">
 <h2>3.1 Streudiagramme</h2>
@@ -464,8 +466,26 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="graphen-verändern" class="section level1">
 <h1>4. Graphen verändern</h1>
 <p>Wollen wir das Aussehen unserer Graphen verändern, dann bietet uns <code>ggplot2</code> nahezu unendlich viele Möglichkeiten. Einige davon werden in den folgenden Unterkapitels präsentiert, andere findet ihr natürlich mittels der help-Funktion <code>?</code> oder aber über die <a href="https://ggplot2.tidyverse.org/">ggplot2-Homepage</a>.</p>
+<div id="skalierung-der-achsen" class="section level2">
+<h2>4.1 Skalierung der Achsen</h2>
+<p>Mit <code>ggplot</code> können wir die Skalierung der Achsen anpassen. Für die Skalierung der x-Achse kann die Funktion <code>xlim()</code> verwendet werden. Hierbei wird der Definitionsbereich durch die Bennung des Anfangswertes und des Endwertes bestimmt. Die Werte werden dabei mit einem Komma getrennt.</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  xlim(0,7)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Das Prinzip ist analog für die y-Achse anwendbar.</p>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point() +
+  geom_smooth(method = lm) + 
+  geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
+  ylim(0,30)</code></pre>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Um die Skalierung der Achsen noch genauer bestimmen zu können, kann die Funktion <code>scale_x_continuous()</code> bzw. <code>scale_y_continuous()</code> genutzt werden. Für die Verwendung dieser Funktionen siehe Kapitel 4.4 der sechsten Sitzung.</p>
+</div>
 <div id="beschriftungen" class="section level2">
-<h2>4.1 Beschriftungen</h2>
+<h2>4.2 Beschriftungen</h2>
 <p><code>ggplot2</code> macht die Benennung eines Graphen sehr einfach. Hierfür verwenden wir die Funktion <code>labs()</code> und setzen unsere gewünschte Beschriftung in Anführungszeichen:</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point() +
@@ -473,10 +493,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
   geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
   labs(title = &quot;Zusammenhang zwischen ENPP und Gallagher-Index&quot;,
         x =&quot;Effektive Parteienanzahl&quot;, y = &quot;Disproportionalität von Wahlsystemen&quot;)</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="hintergrund-themes" class="section level2">
-<h2>4.2 Hintergrund-Themes</h2>
+<h2>4.3 Hintergrund-Themes</h2>
 <p><code>ggplot2</code> bietet unterschiedliche Hintergrund-Themes an. Zusätzlich bietet das Paket <code>ggthemes</code> weitere Möglichkeiten. Die folgende Tabelle bietet einen kleinen Überblick über mögliche Themes.</p>
 <table>
 <thead>
@@ -535,7 +555,7 @@ ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
        , x =&quot;Effektive Parteienanzahl&quot;
        , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
   theme_minimal() </code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code># The Economist
 library(ggthemes) # für dieses Theme brauchen wir ein weiteres Paket
 
@@ -547,10 +567,10 @@ ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
        , x =&quot;Effektive Parteienanzahl&quot;
        , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
   theme_economist() </code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
 </div>
 <div id="farben" class="section level2">
-<h2>4.3 Farben</h2>
+<h2>4.4 Farben</h2>
 <p>Wenn wir die Farben der Datenpunkte verändern wollen, dann müssen wir lediglich das Argument <code>color</code> in die <code>geom_point()</code> Funktion einbauen. Gleiches gilt für die Form der Punkte, wobei wir hier das Argument <code>shape</code> verwenden (die einzelnen Formen können über die Ziffern 1-20 ausgewählt werden):</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
@@ -560,7 +580,7 @@ ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
        , x =&quot;Effektive Parteienanzahl&quot;
        , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
   theme_minimal() </code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Die Schritte sind ähnlich wenn wir die Form, Farbe und Füllung unsere Regressionslinie verändern möchten:</p>
 <pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
   geom_point(shape = 18, color = &quot;blue&quot;) +
@@ -571,10 +591,10 @@ ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
        , x =&quot;Effektive Parteienanzahl&quot;
        , y = &quot;Disproportionalität von Wahlsystemen&quot;) +
   theme_minimal()</code></pre>
-<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="Sitzung_9_Visualisierung_II_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 <div id="einen-plot-speichern" class="section level2">
-<h2>4.4 Einen Plot speichern</h2>
+<h2>4.5 Einen Plot speichern</h2>
 <p>Wenn wir einen Plot erstellt haben, den wir speichern möchten, können wir die Funktion <code>ggsave()</code> verwenden. Die Benennung der Datei bestimmen wir, indem wir Anführungszeichen verwenden. Beachten Sie, dass damit nur die zuletzt erstellte Darstellung gespeichert wird.</p>
 <pre class="r"><code>ggsave(&quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
 <p>Die Abbildung wird in Ihrem Arbeitsverzeichnis gespeichert. Der Dateityp .png kann durch ein beliebiges Format (z.B. .jpg) ersetzt werden.</p>
@@ -601,7 +621,7 @@ ggsave(ENPP_Gallagher, &quot;fig1-ENPP_Gallagher.png&quot;)</code></pre>
 <div id="zusammenfassung" class="section level1">
 <h1>5. Zusammenfassung</h1>
 <p>Das <code>ggplot2</code>-Paket gibt uns eine Vielzahl an unterschiedlichen Möglichkeiten zur Visualisierung von Daten und Analyseergebnissen. In diesem Tutorial haben wir neben dem visualisieren von Linienplots und Streudiagrammen vor allem gelernt, wie wir das Erscheinungsbild unserer Plots (Farben, Achsenbeschriftungen, Hintergrund) verändern können.</p>
-<p>Wenn Sie eigene Grafiken im Rahmen einer Hausarbeit erstellen möchten, werden Sie zusätzliche Funktionen und Argumente recherchieren müssen. Dazu sei auf <code>?ggplot</code> und die Hilfefunktion zu einzelnen (Geom-)Funktionen, sowie auf <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a> und das dort verfügbare “Cheatsheet” hingewiesen.</p>
+<p>Wenn Sie eigene Grafiken im Rahmen einer Hausarbeit erstellen möchten, werden Sie zusätzliche Funktionen und Argumente recherchieren müssen. Dazu sei auf <code>?ggplot</code> und die Hilfefunktion zu einzelnen (Geom-)Funktionen, sowie auf <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a> und das dort verfügbare “Cheatsheet” hingewiesen.</p>
 </div>
 <div id="aufgaben" class="section level1">
 <h1>6. Aufgaben</h1>
@@ -653,6 +673,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Politikwissenschaftliche Statistik mit R. Sitzung 15: Wie bekomme ich Hilfe?</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Politikwissenschaftliche Statistik mit R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">(0) Willkommen</a>
+</li>
+<li>
+  <a href="Sitzung_1_Einfuehrung.html">(1) Grundlagen</a>
+</li>
+<li>
+  <a href="Sitzung_2_Faktoren_und_Zweidimensionale_Objekte.html">(2) Faktoren &amp; Objekte</a>
+</li>
+<li>
+  <a href="Sitzung_3_Datensaetze_einladen.html">(3) Datensätze</a>
+</li>
+<li>
+  <a href="Sitzung_4_Variablen_Kodieren.html">(4) Variablen</a>
+</li>
+<li>
+  <a href="Sitzung_5_univariate_Maße.html">(5) Univariate Maße</a>
+</li>
+<li>
+  <a href="Sitzung_6_Visualisierung_I.html">(6) Visualisierung I</a>
+</li>
+<li>
+  <a href="Sitzung_7_bivariate_Zusammenhangsmaße.html">(7) Bivariate Maße</a>
+</li>
+<li>
+  <a href="Sitzung_8_bivariate_OLS.html">(8) Lineare Regression</a>
+</li>
+<li>
+  <a href="Sitzung_9_Visualisierung_II.html">(9) Visualisierung II</a>
+</li>
+<li>
+  <a href="Sitzung_10_multiple_lineare_Regression.html">(10) Multiple Regression</a>
+</li>
+<li>
+  <a href="Sitzung_11_LogitReg.html">(11) Logistische Regression</a>
+</li>
+<li>
+  <a href="Sitzung_12_Faktoranalyse.html">(12) Faktoranalyse</a>
+</li>
+<li>
+  <a href="Sitzung_13_Tabellen.html">(13) Visualisierung III</a>
+</li>
+<li>
+  <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R. Sitzung 15: Wie bekomme ich Hilfe?</h1>
+<h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige</h4>
+<address class="author_afil">
+Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    $head = $('#header');
+    $head.prepend('<div class="knitr source"><img src="logo_IPW.png" width="160px" align="right"   ></div>')
+  });
+</script>
+<hr />
+<div id="section" class="section level2">
+<h2><br /></h2>
+</div>
+<div id="einleitung" class="section level1">
+<h1>1. Einleitung</h1>
+<p>Das Statistikprogramm <code>R</code> bietet Forschenden viele Möglichkeiten zur Datenverarbeitung und Datenanalyse. <code>R</code> kann bei einfachen deskriptiven Statistiken sowie bei komplexen Algorithmen behilflich sein. Doch so groß die Möglichkeiten an Anwendungen ist, so groß ist auch die Möglichkeit auf Probleme zu stoßen. Das ist ganz normal und liegt in der Natur von <code>R</code>, da es sich um eine Programmiersprache handelt. Am Anfang werden Sie mit vielen Problemen konfrontiert sein. Doch im Laufe der Zeit wird es besser! Bis dahin können Sie sich an diesen Leitfaden orientieren. Wenn Sie ein Problem in dem Selbstlernkurs oder bei einer anderen Datenverarbeitung haben, können Sie in dieses Kapitel schauen und nach einer Lösungsmöglichkeit suchen.</p>
+<pre class="r"><code>getwd()
+setwd(&quot;eigener Pfad&quot;)
+library(foreign)
+gles &lt;- read.spss(file = &quot;ZA6801_de_v4-0-1.sav&quot;, to.data.frame = TRUE)
+lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+</div>
+<div id="problemerkennung" class="section level1">
+<h1>2. Problemerkennung</h1>
+<p>Doch wie identifizieren Sie Probleme in <code>R</code>? Grundsätzlich kommuniziert <code>R</code> mit Ihnen über den Output. Blauer Output zeigt an, dass der Code durchläuft. Schwarzer Output dagegen zeigt Ergebnisse an.</p>
+<pre class="r"><code>1+2</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>Bei diesem einfachen Beispiel zeigt <code>R</code> mit dem blauen Output an, dass 1+2 gerechnet wird. Diesen Output sehen Sie in Ihrer Konsole, wenn Sie den Code in Ihrem Skript durchlaufen lassen. Mit dem schwarzen Output zeigt <code>R</code> Ihnen die Ergebnisse an. In diesem Fall die Lösung der Addition.</p>
+<p>Roter Output ist ein Kommentar von <code>R</code>. Dies ist nur ein Problem, wenn vor dem roten Output „Fehler“ oder „Error“ steht, es sich also um eine <strong>Fehlermeldung</strong> handelt. Bei diesen Fehlermeldungen kann der Code nicht ausgeführt werden. Des Weiteren gibt es <strong>Warnmeldungen</strong>. Dabei kann der Code ausgeführt werden. Es liegt hier kein direktes Problem vor, sondern <code>R</code> erkennt ein Problempotenzial. Teilweise gibt <code>R</code> Ihnen auch ohne Warn- oder Fehlermeldungen roten Output aus.</p>
+<p>Neben den Output können Fehler noch an anderen Stellen erkennt werden. So kommt es häufig vor, dass Objekte zwar in die working directory aufgenommen werden, aber der Inhalt der Objekte leer ist. Ein weiteres Indiz für einen Fehler ist, wenn eine Grafik nicht erscheint.</p>
+</div>
+<div id="problemlösungen" class="section level1">
+<h1>3. Problemlösungen</h1>
+<p>Die Problemlösung fängt in den meisten Fällen dort an, wo die Problemerkennung aufhört. Schließlich beinhalten die Fehlermeldungen in <code>R</code> meistens eine kurze Beschreibung des Problems. Diese Beschreibungen sind manchmal deutlich, meist aber nicht konkret genug, um den Fehler zu verstehen. Wenn Sie die Fehlermeldung nicht verstehen, ist es sinnvoll diese im Internet nach zu schlagen.</p>
+<div id="falsche-schreibweise" class="section level2">
+<h2>3.1 Falsche Schreibweise</h2>
+<p>Bevor Sie sich weitere Hilfe holen, lohnt es sich, dass Sie Ihren Code genau prüfen. Dabei sollten Sie im Hinterkopf behalten, dass <code>R</code> <strong>case sensitiv</strong> ist. Das heißt, dass <code>R</code> zwischen Groß- und Kleinschreibung unterscheidet. Prüfen Sie daher zunächst, ob Sie alles richtig geschrieben haben. Fast alle Wörter werden in <code>R</code> kleingeschrieben. Achten Sie zudem darauf, dass Sie die korrekte Rechtschreibung verwendet haben. Korrekt bedeutet in diesem Fall, dass die Schreibweise mit der Schreibweise der Funktionen und Ihren Objekten übereinstimmt.</p>
+<pre class="r"><code>Table(gles$q1) #falsch</code></pre>
+<pre><code>## Error in Table(gles$q1): konnte Funktion &quot;Table&quot; nicht finden</code></pre>
+<pre class="r"><code>table(gles$q1) #richtig</code></pre>
+<pre><code>## 
+## maennlich  weiblich 
+##      1097      1015</code></pre>
+<p>In diesem Beispiel versuchen wir uns einen Überblick über die Variable Geschlecht ausgeben zu lassen. Allerdings funktioniert der Code nicht, weil in der Regel die Funktionen in <code>R</code> kleingeschrieben werden. So auch die Funktion <code>table()</code>. Daher müssen wir die Schreibweise korrigieren.</p>
+<pre class="r"><code>tabel(gles$q1) #falsch</code></pre>
+<pre><code>## Error in tabel(gles$q1): konnte Funktion &quot;tabel&quot; nicht finden</code></pre>
+<pre class="r"><code>table(gles$q1) #richtig</code></pre>
+<pre><code>## 
+## maennlich  weiblich 
+##      1097      1015</code></pre>
+<p>Ähnlich verhält es sich mit diesem Beispiel. Hier ist das Problem, dass die Rechtschreibung nicht korrekt ist. Daher kann <code>R</code> die Funktion nicht mehr identifizieren. Durch eine Korrektur des Rechtschreib-/Tippfehlers kann das Problem gelöst werden.</p>
+</div>
+<div id="falsche-syntax" class="section level2">
+<h2>3.2 Falsche Syntax</h2>
+<p>Des Weiteren sollten Sie auf die Syntax von <code>R</code> Acht geben. <code>R</code> benötigt bestimmte Zeichen, um verstehen zu können, was Sie möchten. Es macht für das Programm einen großen Unterschied, ob Sie z.B. ein oder zwei Gleichzeichen benutzen. Daher empfehlen wir, dass Sie sich bei einem Problem der Syntax Ihrer Funktion bewusst werden. Dazu können Sie auf unserer Website nachschauen, im Internet suchen oder sich per <code>help()</code>-Funktion informieren.</p>
+<pre class="r"><code>x &lt;- c(1;3) #falsch
+help(c) #Aufrufen der Hilfe-Seite </code></pre>
+<pre><code>## Error: &lt;text&gt;:1:9: Unerwartete(s) &#39;;&#39;
+## 1: x &lt;- c(1;
+##             ^</code></pre>
+<pre class="r"><code>x &lt;- c(1:3) #richtig
+x</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<p>In diesem Beispiel möchten Sie einen Vektor mit den Zahlen von 1 bis 3 definieren. Mit etwas Recherche durch die <code>help()</code>-Funktion können Sie erkennen, dass <code>R</code> einen Doppelpunkt anstatt eines Kommas benötigt.</p>
+</div>
+<div id="fehlende-pakete" class="section level2">
+<h2>3.3 Fehlende Pakete</h2>
+<p>Wenn Sie sowohl Syntax als auch die Schreibweisen geprüft haben, kann es noch helfen Ihren vorherigen Code zu prüfen. Wir empfehlen hierbei, dass Sie jede Zeile Ihres Codes einzeln durchlaufen lassen. Damit können Sie prüfen, ob Sie einen Schritt Ihrer Datenverarbeitung vergessen haben. Ähnliches gilt für die Pakete. Für viele Funktionen ist es wichtig, dass Sie die entsprechenden Pakete installiert und geladen haben.</p>
+<pre class="r"><code>lijphart &lt;- read.csv2(&quot;Lijphart_Data_recode.csv&quot;)</code></pre>
+<pre><code>## Error in file(file, &quot;rt&quot;): kann Verbindung nicht öffnen</code></pre>
+<pre class="r"><code>ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point()</code></pre>
+<pre><code>## Error in ggplot(lijphart, aes(x = enpp4510, y = disprop4510)): konnte Funktion &quot;ggplot&quot; nicht finden</code></pre>
+<p>So ist hier eine Fehlermeldung entstanden, weil das Paket <code>ggplot2()</code> nicht eingeladen war. Wenn Sie sich unsicher sind, ob eine Funktion Pakete benötigt, können Sie im Internet recherchieren.</p>
+<pre class="r"><code>library(ggplot2)
+ggplot(lijphart, aes(x = enpp4510,  y = disprop4510)) +
+  geom_point()</code></pre>
+<p><img src="Sitzung_15_Hilfe_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Ihr Problem löst sich, wenn Sie das richtige Paket eingeladen haben. Achten Sie ebenfalls darauf, dass Sie das entsprechende Paket bereits installiert haben. Falls das nicht der Fall sein sollte, können sich auch Fehlermeldungen ergeben.</p>
+</div>
+<div id="fehlende-objektevariabeln" class="section level2">
+<h2>3.4 Fehlende Objekte/Variabeln</h2>
+<p>Eine weitere Problemursache sind fehlende Objekte. Grund dafür sind neben Rechtschreib- oder Tippfehler, auch dass Sie vergessen haben eine Zeile Code durchlaufen zu lassen.</p>
+<pre class="r"><code>a &lt;- c(1:5)
+#b &lt;- c(5:10)
+c &lt;- a+b</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): Objekt &#39;b&#39; nicht gefunden</code></pre>
+<p>Bei diesem Beispiel wird versucht zwei Vektoren zu definieren <code>a</code> und <code>b</code>. Anschließend sollen die Vektoren addiert werden. Der Fehler liegt darin, dass der Code, in welchem der Vektor <code>b</code> definiert werden soll, in eine Kommentarzeile gesetzt wurde. Das heißt, dass <code>R</code> den Code nicht berücksichtig. Daher wird der Vektor <code>b</code> nicht definiert und die Addition von <code>c</code> ist nicht möglich.</p>
+<pre class="r"><code>a &lt;- c(1:5)
+b &lt;- c(5:10)
+c &lt;- a+b</code></pre>
+<p>Das Problem lässt sich dadurch lösen, dass die Kommentarzeile entfernt wird. Achten Sie darauf, dass Sie jede Zeile von dem Code durchlaufen lassen.</p>
+<p>Zudem ist es möglich, dass Sie einen ähnlichen Fehler bei Variablen begehen. Variablen müssen definiert sein, damit <code>R</code> sie erkennen kann.</p>
+<pre class="r"><code>table(gles, alter)</code></pre>
+<pre><code>## Error in table(gles, alter): Objekt &#39;alter&#39; nicht gefunden</code></pre>
+<p>In diesem Beispiel versuchen Sie sich einen Überblick über das Alter der Befragten in dem gles-Datensatz zu verschaffen. Dies funktioniert nicht, weil Sie die Variable Alter nicht definiert haben.</p>
+<pre class="r"><code>q2c_num &lt;- as.numeric(as.character(gles$q2c))
+gles$alter &lt;- 2022 - q2c_num
+head(table(gles$alter))</code></pre>
+<pre><code>## 
+## 21 22 23 24 25 26 
+## 22 48 32 28 27 25</code></pre>
+<p>Um Ihr Problem zu lösen, müssen Sie das Alter definieren, indem Sie sich die passende Variable aus dem Datensatz heraussuchen und die umkodieren.</p>
+</div>
+<div id="weitere-lösungsstrategien" class="section level2">
+<h2>3.4 Weitere Lösungsstrategien</h2>
+<p>Wenn Sie nun Ihr Problem nicht behoben haben, bleibt Ihnen noch eine Suche im Internet. Dabei ist die Suche auf speziellen Foren am besten geeignet. Folgende Seiten bieten eine gute Hilfe:</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a></li>
+<li><a href="https://stats.stackexchange.com/questions/tagged/r" class="uri">https://stats.stackexchange.com/questions/tagged/r</a></li>
+</ul>
+<p>Falls dies auch ohne Erfolg bleib, können Sie Ihr global environment löschen, das Programm schließen und das Programm neu öffnen.</p>
+<p>Eine Lösung auf Ihr Problem könnten Sie auch finden, wenn Sie Ihre Kommilitonen fragen. Nutzen Sie dazu auch gerne StudIP. Für Fragen steht Ihre Tutorin per Mail ebenfalls bereit. Denken Sie bitte daran, Ihren Code als R-Skript und eine Beschreibung Ihres Problems, Ihren Output sowie Ihre bisherigen Lösungsstrategien mitzuschicken.</p>
+</div>
+</div>
+<div id="vermeidung-von-problemen" class="section level1">
+<h1>4. Vermeidung von Problemen</h1>
+<p>Damit solche Probleme nicht häufig auftreten, lohnt es sich einige Dinge bei der Datenverarbeitung zu beachten. Generell ist es sinnvoll Objekten einen kurzen und prägnanten Namen zu geben. Dieser Name sollte gut unterscheidbar sein von anderen Objektnamen. Zudem bietet es sich an, dass Sie das Objekt kleinschreiben und keine Leerzeichen benutzen. Falls Sie Ihren Objekt einen Namen aus mehreren Wörtern geben möchten, dann können Sie das Leerzeichen durch einen Unterstrich austauschen. Falls Sie doch einmal einen längeren Namen mehrmals eingeben müssen. Können Sie den Namen kopieren. Dadurch vermeiden Sie Fehler.</p>
+<p>Ein weiterer effektiver Mechanismus zur Vermeidung von Problemen ist es, dass Sie ein ordentliches und übersichtliches Skript schreiben. Das bedeutet konkret, dass Sie nur Code speichern, welcher nötig und richtig ist. Löschen Sie unnötige Elemente. Denken Sie aber daran, Elemente zur Kontrolle Ihres Codes beizubehalten. Damit Sie und andere den Code replizieren können, sind Kommentare nötig. Beschreiben Sie mithilfe Ihrer Kommentare was Sie tun, damit Ihr Code nachvollziehbar bleibt.</p>
+</div>
+<div id="zusammenfassung" class="section level1">
+<h1>5. Zusammenfassung</h1>
+<p>Fehler gehören zum Arbeiten mit <code>R</code> dazu. Doch mit einigen Tipps können Sie zum Teil verhindert werden. Denken Sie daran, dass Sie Ihre Objekte sinnvoll benennen und ein übersichtliches Skript mit Kommentaren erstellen. Falls es doch zu einer Fehlermeldung kommt, können Sie sich an diesen Punkten orientieren.</p>
+<ol style="list-style-type: decimal">
+<li>Fehlermeldung verstehen (eventuell mit Suche im Internet)</li>
+<li>Prüfung der Schreibweise (Klein- und Großschreibung und korrekte Schreibweise)</li>
+<li>Prüfung der Syntax</li>
+<li>Prüfung des vorherigen Codes (jede Zeile durchlaufen lassen)</li>
+<li>Prüfung der Pakete</li>
+<li>Ursachensuche im Internet</li>
+<li>Global Environment löschen, Programm schließen und Code neu durchführen</li>
+<li>Kommilitonen/Tutorin fragen</li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

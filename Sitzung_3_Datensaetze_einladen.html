@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 3: Datensätze einladen</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -362,6 +362,9 @@ div.tocify {
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
 </li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -403,7 +406,7 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 <p>Laden Sie sich rechts oben unter “Downloads” -&gt; “Datensätze” die Version “ZA6801_de_v4-0-1.sav deutsch (Datensatz)” mit 2.37 MB herunter. Dazu werden Sie aufgefordert, sich ein Konto bei der Gesis anzulegen. Laden Sie sich bitte außerdem unter “Fragebögen” den Fragebogen “ZA6801_fb.pdf deutsch” und unter “andere Dokumente” die Studienbeschreibung “ZA6801_sb.pdf” herunter und machen Sie sich mit beidem vertraut. Das ist wichtig, um einen Überblick über die Studie, den Datensatz und die vercodete Information bzw. insbesondere die vorhandenen Variablen und damit verbundenen Interviewfragen zu bekommen. Die Variablennamen sind technisch gehalten und an sich wenig aussagekräftig, weshalb die Begleitdokumentation wesentlich ist, um zu verstehen, welche inhaltliche Information dahinter steckt.</p>
 <p>Legen Sie den Datensatz an einer geeigneten Stelle auf ihrem Computer ab. Am besten ist es, wenn Sie sich einen Ordner zu diesem Seminar anlegen, in dem Sie den Datensatz, die Begleitdokumentation und die Kursskripte speichern. Um den Datensatz nun in <code>R</code> zu laden, müssen wir zunächst herausfinden, auf welchen Ordner <code>R</code> zugreift. Mit <code>getwd()</code> wird uns das derzeitige Verzeichnis angezeigt. “wd” steht dabei für “working directory” (etwa: Arbeitsverzeichnis). Im Working Directory “arbeitet” <code>R</code> bzw. liest Daten ein und speichert Skripte, den Workspace (nicht empfohlen) und geschriebene Objekte.</p>
 <pre class="r"><code>getwd()</code></pre>
-<p>Nun zeigt <code>R</code> an, wo es Daten speichert woher es sie einliest. Wir wollen nun erreichen, dass <code>R</code> auf den Ordner zugreift, in dem der Datensatz abgelegt ist. Deshalb legen wir das Verzeichnis mit <code>setwd()</code> fest. Schreiben Sie dazu den Pfad zu dem Verzeichnis, in dem der Datensatz abgelegt ist, in Anführungszeichen in die Funktion und führen Sie sie aus. Ein Dateipfad weist beispielsweise bei Apple die folgende Struktur auf: “/Users/christophgarwe/R_Projekt/Daten”. Bei Windows lautet der Pfad: “C:/Users/christophgarwe/R_Projekt/Daten”, wenn die Daten beim Nutzer “christophgarwe” im Ordner “R_Projekt” im Unterordner “Daten” liegen. Möchten Sie ihr Verzeichnis woanders anlegen bzw. anders benennen, müssen Sie dies anpassen. Nachfolgend müssen Sie also immer wenn von “Eigener Pfad” die Rede ist, dieses Verzeichnis dort hineinschreiben.</p>
+<p>Nun zeigt <code>R</code> an, wo es Daten speichert woher es sie einliest. Wir wollen nun erreichen, dass <code>R</code> auf den Ordner zugreift, in dem der Datensatz abgelegt ist. Deshalb legen wir das Verzeichnis mit <code>setwd()</code> fest. Schreiben Sie dazu den Pfad zu dem Verzeichnis, in dem der Datensatz abgelegt ist, in Anführungszeichen in die Funktion und führen Sie sie aus. Ein Dateipfad weist beispielsweise bei Apple die folgende Struktur auf: “/Users/christophgarwe/R_Projekt/Daten”. Bei Windows lautet der Pfad: “C:/Users/christophgarwe/R_Projekt/Daten”, wenn die Daten beim Nutzer “christophgarwe” im Ordner “R_Projekt” im Unterordner “Daten” liegen. Möchten Sie ihr Verzeichnis woanders anlegen bzw. anders benennen, müssen Sie dies anpassen. Nachfolgend müssen Sie also immer wenn von “Eigener Pfad” die Rede ist, dieses Verzeichnis dort hineinschreiben. Wenn Sie Windows nutzen und Ihren Pfad kopieren, dann müssen sie darauf achten, dass Sie die Schrägstriche anpassen. Das heißt, dass Sie <code>\</code> duch <code>/</code> austauschen müssen.</p>
 <pre class="r"><code>setwd(&quot;eigener Pfad&quot;)</code></pre>
 <p>Prinzipiell können wir den Datensatz nun von <code>R</code> aus ansteuern bzw. laden. Dazu werden üblicherweise Befehle wie <code>read.table()</code> verwendet.</p>
 <pre class="r"><code>?read.table # Machen Sie sich mit den Argumenten von read.table() vertraut</code></pre>
@@ -891,6 +894,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

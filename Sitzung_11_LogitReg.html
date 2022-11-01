@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 11: Logistische Regression</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -362,6 +362,9 @@ div.tocify {
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
 </li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -393,8 +396,8 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 <h1>1. Einleitung</h1>
 <p>In der achten und zehnten Sitzung haben wir eine lineare Regression gerechnet. Lineare Regressionen sind bei einer stetigen abhängigen Variablen angemessen.</p>
 <p>Problematisch wird es jedoch, wenn wir eine dichotom kodierte abhängige Variable haben (mit den Werten 0 und 1). In einem solchen Fall gelten die Grundannahmen von linearen Regressionsmodellen (wie z.B. die Normalverteilung der Residuen oder die Varianzhomogenität) nicht. Eine sehr gängige Möglichkeit sind logistische Regressionsmodelle, die darauf abzielen, die Wahrscheinlichkeiten der Ausprägung (0 oder 1) zu schätzen.</p>
-<p>Im Gegensatz zu Regressionskoeffizienten linearer Regressionsmodelle sind solche von logistischen Regressionsmodellen schwierig zu interpretieren. Aus diesem Grund nutzen wir die Effektkoeffizienten (<strong>Logits</strong> oder <strong>Log odds</strong>), um so die Wahrscheinlichkeit der Veränderung der abhängigen Variable vorherzusagen, wenn die unabhängigen Variablen um eine Einheit erhöht werden. Diese sogenannten <em>predicted probabilities</em> helfen bei der Interpretation der Koeffizienten und werden mit dem Oberbegriff der <em>quantities of interest</em> überschrieben.</p>
-<p>In diesem Tutorial werden wir lernen, wie man eine logistische Regression mit einer binären abhängigen Variable in <code>R</code> berechnet und wie man in einem zweiten Schritt die <em>predicted probabilities</em> berechnet und visualisiert.</p>
+<p>Im Gegensatz zu Regressionskoeffizienten linearer Regressionsmodelle sind solche von logistischen Regressionsmodellen schwierig zu interpretieren. Aus diesem Grund nutzen wir die Effektkoeffizienten (<strong>Logits</strong> oder <strong>Log odds</strong>), um so die Wahrscheinlichkeit der Veränderung der abhängigen Variable vorherzusagen, wenn die unabhängigen Variablen um eine Einheit erhöht werden. Diese sogenannten <strong>predicted probabilities</strong> helfen bei der Interpretation der Koeffizienten und werden mit dem Oberbegriff der <strong>quantities of interest</strong> überschrieben.</p>
+<p>In diesem Tutorial werden wir lernen, wie man eine logistische Regression mit einer binären abhängigen Variable in <code>R</code> berechnet und wie man in einem zweiten Schritt die <strong>predicted probabilities</strong> berechnet und visualisiert.</p>
 </div>
 <div id="pakete-laden-daten-einlesen-und-variablen-transformieren" class="section level1">
 <h1>2. Pakete laden, Daten einlesen und Variablen transformieren</h1>
@@ -525,7 +528,7 @@ gles$AfD.Wahl[gles$q19ba != &quot;AfD&quot;] &lt;- 0</code></pre>
 </div>
 <div id="predicted-probabilities" class="section level2">
 <h2>3.2 Predicted Probabilities</h2>
-<p>Um diese Aussagen zur Stärke des Zusammenhangs treffen zu können, bietet es sich an, auf Grundlage unserer Modellergebnisse vorhergesagte Wahrscheinlichkeiten (<em>predicted probabilities</em>) zu berechnen. Dazu wandeln wir die Logit-Koeffizienten in Quoten und dann in Wahrscheinlichkeiten um. Der einfachste Weg ist die Verwendung der Funktion <code>plogis()</code>. Hierfür verwenden wir die Schätzung des Intercept (Achsenschnittpunkt) des Modells, -3.2426, und setzen diesen in <code>plogis()</code> ein:</p>
+<p>Um diese Aussagen zur Stärke des Zusammenhangs treffen zu können, bietet es sich an, auf Grundlage unserer Modellergebnisse vorhergesagte Wahrscheinlichkeiten (<strong>predicted probabilities</strong>) zu berechnen. Dazu wandeln wir die Logit-Koeffizienten in Quoten und dann in Wahrscheinlichkeiten um. Der einfachste Weg ist die Verwendung der Funktion <code>plogis()</code>. Hierfür verwenden wir die Schätzung des Intercept (Achsenschnittpunkt) des Modells, -3.2426, und setzen diesen in <code>plogis()</code> ein:</p>
 <pre class="r"><code>plogis(-3.2426)</code></pre>
 <pre><code>## [1] 0.03759371</code></pre>
 <p>Da unsere unabhängige Variable <code>LiRe_cat</code> eine kategoriale Variable ist, bildet die erste Kategorie dieser Variable (in diesem Fall die Selbsteinstufung als politisch links) den Intercept. Insofern ist die vorhergesagte Wahrscheinlichkeit, dass eine befragte Person, die sich als links einstuft, die AfD wählt, 0,037, also fast 4 %. Das macht Sinn.</p>
@@ -575,7 +578,7 @@ plogis(-3.2426 + 3.2426)</code></pre>
 </tbody>
 </table>
 <p>Wir sehen also, dass die Wahrscheinlichkeit einer befragten Person, die AfD zu wählen, deutlich steigt, umso “rechter” sich diese Person selbst auf einer Links-Rechts Skala einordnet.</p>
-<p>Glücklicherweise gibt es einfachere Wege, die <em>predicted probabilities</em> zu berechnen. Hierfür können wir zum Beispiel die <code>ggpredict()</code>-Funktion aus dem <code>ggeffects</code>-Paket verwenden.</p>
+<p>Glücklicherweise gibt es einfachere Wege, die <strong>predicted probabilities</strong> zu berechnen. Hierfür können wir zum Beispiel die <code>ggpredict()</code>-Funktion aus dem <code>ggeffects</code>-Paket verwenden.</p>
 <pre class="r"><code>ggpredict(afd_logit, terms = &quot;LiRe_cat&quot;) # für die Vorhersage müssen wir unsere unabhängige Variable nochmals nennen</code></pre>
 <pre><code>## # Predicted probabilities of AfD.Wahl
 ## 
@@ -590,7 +593,7 @@ plogis(-3.2426 + 3.2426)</code></pre>
 </div>
 <div id="visualisierung" class="section level2">
 <h2>3.3 Visualisierung</h2>
-<p>Die Visualisierung von <em>predicted probabilities</em> realisieren wir auch mit dem <code>ggeffects</code>-Paket (welches auf <code>ggplot2</code> basiert, das wir deshalb zu Beginn des Tutorials mittels <code>library()</code> geladen haben). Dafür speichern wir unsere Vorhersage, die wir mit der <code>ggeffects()</code>-Funktion berechnen, als eigenständiges Objekt mit dem Namen <code>afd_preds</code> und nutzen die Funktion <code>plot()</code>.</p>
+<p>Die Visualisierung von <strong>predicted probabilities</strong> realisieren wir auch mit dem <code>ggeffects</code>-Paket (welches auf <code>ggplot2</code> basiert, das wir deshalb zu Beginn des Tutorials mittels <code>library()</code> geladen haben). Dafür speichern wir unsere Vorhersage, die wir mit der <code>ggeffects()</code>-Funktion berechnen, als eigenständiges Objekt mit dem Namen <code>afd_preds</code> und nutzen die Funktion <code>plot()</code>.</p>
 <pre class="r"><code>afd_preds &lt;- ggpredict(afd_logit, terms = &quot;LiRe_cat&quot;)
 
 plot(afd_preds)</code></pre>
@@ -615,7 +618,7 @@ plot(afd_preds) +
 <div id="zusammenfassung" class="section level1">
 <h1>4. Zusammenfassung</h1>
 <p>Logistische Regressionsmodelle helfen uns dabei eine dichotom kodierte abhängige Variable und deren Effekt auf weitere unabhängige Variablen zu erklären. Logit Modelle zielen darauf ab, die Wahrscheinlichkeiten der Ausprägung (0 oder 1) zu schätzen.</p>
-<p>Im Gegensatz zu Regressionskoeffizienten linearer Regressionsmodelle sind solche von logistischen Regressionsmodellen schwierig zu interpretieren. Aus diesem Grund nutzen wir die Effektkoeffizienten (<strong>Logits</strong> oder <strong>Log odds</strong>), um so die Wahrscheinlichkeit der Veränderung der abhängigen Variable vorherzusagen, wenn die unabhängigen Variablen um eine Einheit erhöht werden. Diese sogenannten <em>predicted probabilities</em> helfen bei der Interpretation der Koeffizienten und werden mit dem Oberbegriff der <em>quantities of interest</em> überschrieben.</p>
+<p>Im Gegensatz zu Regressionskoeffizienten linearer Regressionsmodelle sind solche von logistischen Regressionsmodellen schwierig zu interpretieren. Aus diesem Grund nutzen wir die Effektkoeffizienten (<strong>Logits</strong> oder <strong>Log odds</strong>), um so die Wahrscheinlichkeit der Veränderung der abhängigen Variable vorherzusagen, wenn die unabhängigen Variablen um eine Einheit erhöht werden. Diese sogenannten <strong>predicted probabilities</strong> helfen bei der Interpretation der Koeffizienten und werden mit dem Oberbegriff der <strong>quantities of interest</strong> überschrieben.</p>
 <p><code>glm()</code> berechnet ein logistisches Modell, <code>summary()</code> erzeugt einen anschaulichen Output, während <code>ggpredict()</code> und <code>plogis()</code> die Regressionskoeffizienten in Wahrscheinlichkeiten umwandeln. Abschließend lassen sich mit <code>plot()</code> und <code>ggpredict()</code> aus dem Paket <code>ggeffects</code> die Regressionsergebnisse sinnvoll plotten.</p>
 </div>
 <div id="aufgaben" class="section level1">
@@ -623,7 +626,7 @@ plot(afd_preds) +
 <p>Bearbeiten Sie bitte die folgenden Aufgaben bis zur kommenden Sitzung:</p>
 <ol style="list-style-type: decimal">
 <li>Berechnen Sie mittels einer logistischen Regression den Effekt des Geschlechts und Alters, des Einkommens und des Wohnortes auf die Wahrscheinlichkeit, dass eine befragte Person die AfD wählt.</li>
-<li>Berechnet und visualisiert die vorhergesagten Wahrscheinlichkeiten und benutzt dafür das Alter und das Geschlecht.</li>
+<li>Berechnen Sie und visualisieren Sie die vorhergesagten Wahrscheinlichkeiten und benutzen Sie dafür das Alter und das Geschlecht.</li>
 </ol>
 </div>
 
@@ -665,6 +668,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

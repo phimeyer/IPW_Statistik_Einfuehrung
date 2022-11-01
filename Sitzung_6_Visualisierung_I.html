@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 6: Visualisierung (I) Univariate Verteilungen</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -361,6 +361,9 @@ div.tocify {
 </li>
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -495,12 +498,12 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="visualisierung-mit-ggplot2" class="section level1">
 <h1>3. Visualisierung mit <code>ggplot2</code></h1>
-<p>Wir haben das Paket <code>ggplot2</code> bereits in Sitzung 1 heruntergeladen, als es darum ging, die Paketstruktur von <code>R</code> kennenzulernen. <code>ggplot2</code> ist das heute wohl gängigste Grafik-Paket in <code>R</code> und ist Teil des <code>tidyverse</code>, einer Gruppe von Paketen zur Datenanalyse, die eine gemeinsame “Sprache” sprechen. Das <code>tidyverse</code> wurde von einer Gruppe von Statistikern um Hadley Wickam entwickelt und im frei erhältlichen Buch <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> anschaulich erläutert (Tipp für weitergehend Interessierte).</p>
+<p>Wir haben das Paket <code>ggplot2</code> bereits in Sitzung 1 heruntergeladen, als es darum ging, die Paketstruktur von <code>R</code> kennenzulernen. <code>ggplot2</code> ist das heute wohl gängigste Grafik-Paket in <code>R</code> und ist Teil des <code>tidyverse</code>, einer Gruppe von Paketen zur Datenanalyse, die eine gemeinsame “Sprache” sprechen. Das <code>tidyverse</code> wurde von einer Gruppe von Statistikern um Hadley Wickam entwickelt und im frei erhältlichen Buch <a href="https://r4ds.had.co.nz/"><strong>R for Data Science</strong></a> anschaulich erläutert (Tipp für weitergehend Interessierte).</p>
 <p>In <code>ggplot2</code> sind Grafiken in Form von <code>layers</code> (“Schichten”) aufgebaut. Die unterste Schicht ist eine “weiße Leinwand”, die wir schrittweise mit Elementen der Datenvisualisierung (sog. <code>geoms</code>) füllen. Die zentrale Funktion zur Datenvisualisierung mithilfe von <code>ggplot2</code> ist <code>ggplot()</code>. Mit <code>ggplot()</code> beginnen wir eine Grafik, indem wir die verwendeten Daten festlegen (mit dem Argument <code>data</code>) und bestimmen, wie die Daten ästhetisch umgesetzt werden (mit dem Argument <code>mapping</code>). Damit ist die “weiße Leinwand” erstellt. Wie die Grafik genau aussehen soll, legen wir dann mit den <code>geoms</code> fest. Dadurch bestimmen wir den Typ der Visualisierung, also z.B. ob es sich um ein Balkendiagramm oder Histogramm handeln soll.</p>
 </div>
 <div id="anwendungen" class="section level1">
 <h1>4. Anwendungen</h1>
-<p>Im Folgenden erstellen wir mit der Funktion <code>ggplot()</code> Grafiken (englisch: plots), die die Verteilung einzelner Variablen veranschaulichen. Wir erstellen Balkendiagramme, Histogramme, Dichteplots und Boxplots. Wie immer, wenn wir Pakete verwenden, die nicht vorinstalliert sind, müssen wir sie zunächst laden.</p>
+<p>Im Folgenden erstellen wir mit der Funktion <code>ggplot()</code> Grafiken (englisch: plots), die die Verteilung einzelner Variablen veranschaulichen. Wir erstellen Balkendiagramme, Histogramme, Dichteplots und Boxplots. Wie immer, wenn wir Pakete verwenden, die nicht vorinstalliert sind, müssen wir sie zunächst laden. In <code>R</code> kann man auch mehrere Pakete gleichzeitig verwenden.</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <div id="balkendiagramm" class="section level2">
 <h2>4.1 Balkendiagramm</h2>
@@ -512,7 +515,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(einkommen_cat)) +
   geom_bar()</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Dieser Entwurf ist bereits informativ und verschafft uns einen guten Eindruck der Verteilung. Allerdings können wir ihn noch etwas aufhübschen. Zunächst stören die <code>NA</code>s, die keine inhaltliche Interpretation zulassen. Wir entfernen sie, indem wir mittels eckiger Klammern <code>[]</code> nur die Zeilen des Dataframes <code>gles</code> behalten, die in <code>einkommen_cat</code> <em>nicht</em> <code>NA</code> sind. Wir kehren die Aussage von <code>is.na()</code> um, indem wir ein Ausrufezeichen <code>!</code> voranstellen. Wie wir in Sitzung 2 gelernt haben, bezieht sich alles vor dem Komma in den eckigen Klammern auf die Zeilen eines Objekts. Wenn wir also <code>!is.na(gles$einkommen_cat)</code> in die eckigen Klammern vor das Komma schreiben, erstellen wir ein Subset von <code>gles</code>, das nur die Zeilen enthält, für die <code>einkommen_cat</code> nicht <code>NA</code> ist.</p>
+<p>Dieser Entwurf ist bereits informativ und verschafft uns einen guten Eindruck der Verteilung. Allerdings können wir ihn noch etwas aufhübschen. Zunächst stören die <code>NA</code>s, die keine inhaltliche Interpretation zulassen. Wir entfernen sie, indem wir mittels eckiger Klammern <code>[]</code> nur die Zeilen des Dataframes <code>gles</code> behalten, die in <code>einkommen_cat</code> <strong>nicht</strong> <code>NA</code> sind. Wir kehren die Aussage von <code>is.na()</code> um, indem wir ein Ausrufezeichen <code>!</code> voranstellen. Wie wir in Sitzung 2 gelernt haben, bezieht sich alles vor dem Komma in den eckigen Klammern auf die Zeilen eines Objekts. Wenn wir also <code>!is.na(gles$einkommen_cat)</code> in die eckigen Klammern vor das Komma schreiben, erstellen wir ein Subset von <code>gles</code>, das nur die Zeilen enthält, für die <code>einkommen_cat</code> nicht <code>NA</code> ist.</p>
 <pre class="r"><code>ggplot(data = gles[!is.na(gles$einkommen_cat), ], mapping = aes(einkommen_cat)) +
   geom_bar()</code></pre>
 <p><img src="Sitzung_6_Visualisierung_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
@@ -582,7 +585,7 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 </div>
 <div id="dichteplot" class="section level2">
 <h2>4.3 Dichteplot</h2>
-<p>Die Verteilung einer metrischen Variable können wir genauso mit Dichteplots (<em>kernel density plots</em>) darstellen. Im Gegensatz zum Histogramm fällt hier die Einteilung in Intervalle weg. Anstatt dessen wird die empirische Dichte als Kurve für jeden Punkt jeweils ausgehend von der Nähe von Beobachtungen zueinander berechnet. Diese Nähe wird bandwidth (“Bandbreite”) genannt (Kühnel/Krebs 2014: 62). Häufen sich Beobachtungen an einem Punkt, liegen viele von ihnen innerhalb der Bandbreite und die Dichtkurve fällt höher aus. Häufungen von Beobachtungen haben so direkten Einfluss auf den Ausschlag der Dichtekurve. Mit niedrigerer Bandbreite ist die Funktion sensibler für Ausschläge.</p>
+<p>Die Verteilung einer metrischen Variable können wir genauso mit Dichteplots (<strong>kernel density plots</strong>) darstellen. Im Gegensatz zum Histogramm fällt hier die Einteilung in Intervalle weg. Anstatt dessen wird die empirische Dichte als Kurve für jeden Punkt jeweils ausgehend von der Nähe von Beobachtungen zueinander berechnet. Diese Nähe wird bandwidth (“Bandbreite”) genannt (Kühnel/Krebs 2014: 62). Häufen sich Beobachtungen an einem Punkt, liegen viele von ihnen innerhalb der Bandbreite und die Dichtkurve fällt höher aus. Häufungen von Beobachtungen haben so direkten Einfluss auf den Ausschlag der Dichtekurve. Mit niedrigerer Bandbreite ist die Funktion sensibler für Ausschläge.</p>
 <p>Zuerst erzeugen wir den Plot in seiner einfachen Form und zwar wieder für das Alter der Befragten. Wir verwenden diesmal <code>geom_density()</code>:</p>
 <pre class="r"><code>ggplot(data = gles, mapping = aes(alter)) +
   geom_density()</code></pre>
@@ -661,7 +664,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="aufgaben" class="section level1">
 <h1>6. Aufgaben</h1>
 <ol style="list-style-type: decimal">
-<li>Erstellen Sie ausgehend von <code>bicam4510</code> einen Faktor, der die Stärke des Bikameralismus in vier Kategorien misst: schwach, eher schwach, eher stark und stark. Hängen Sie diesen Faktor an den bestehenden Datensatz an. Orientieren Sie sich an der Skalierung von <code>bicam4510</code>. Kodieren Sie die Variable wenn nötig so um, dass Werte, die keiner Kategorie exakt entsprechen, der jeweils nächstgelegenen Kategorie zugeordnet werden. Erzeugen Sie nun ein Balkendiagramm der Stärke des Bikameralismus. Vergeben Sie einen sinnvollen Titel sowie Achsenbeschriftungen.</li>
+<li><ul>
+<li>Erstellen Sie ausgehend von <code>bicam4510</code> einen Faktor, der die Stärke des Bikameralismus in vier Kategorien misst: schwach, eher schwach, eher stark und stark. Hängen Sie diesen Faktor an den bestehenden Datensatz an. Orientieren Sie sich an der Skalierung von <code>bicam4510</code>. Kodieren Sie die Variable wenn nötig so um, dass Werte, die keiner Kategorie exakt entsprechen, der jeweils nächstgelegenen Kategorie zugeordnet werden.</li>
+<li>Erzeugen Sie nun ein Balkendiagramm der Stärke des Bikameralismus. Vergeben Sie einen sinnvollen Titel sowie Achsenbeschriftungen.</li>
+</ul></li>
 <li>Erstellen Sie zwei Histogramme und zwei Dichteplots des Gallagher-Indizes (<code>disprop4510</code>). Die Balken des Histogramms sollen jeweils weiß gefüllt und schwarz umrandet sein. Zwischen den beiden Histogrammen sollen sichtbare Differenzen bezüglich der Intervallbreite und zwischen den beiden Dichteplots sichtbare Differenzen bezüglich der Bandbreite erkennbar sein.</li>
 <li>Erstellen Sie einen Boxplot der ENPP (<code>enpp4510</code>). Die Skala soll Markierungen bei jeder halben Zahl innerhalb des Wertebereiches aufweisen.</li>
 </ol>
@@ -705,6 +711,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

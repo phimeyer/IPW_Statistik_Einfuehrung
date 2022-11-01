@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 8: Bivariate lineare Regression (OLS)</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -362,6 +362,9 @@ div.tocify {
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
 </li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -391,7 +394,7 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 <p><br /></p>
 <div id="einleitung" class="section level1">
 <h1>1. Einleitung</h1>
-<p>In diesem Tutorial werden wir uns mit einer bivariaten OLS (<em>ordinary least squares</em> - Regression der kleinsten Quadrate) Regression beschäftigen. Regressionen dienen dazu, den Zusammenhang zwischen Variablen rechnerisch zu testen. Die OLS Regression ist eine sogenannte lineare Regression, welche für stetige Variablen verwendet wird. Lineare Regressionen sind vor allem bei Querschnittsdaten, die zu einem einzigen Zeitpunkt erhoben wurden, gut geeignet.</p>
+<p>In diesem Tutorial werden wir uns mit einer bivariaten OLS (<strong>ordinary least squares</strong> - Regression der kleinsten Quadrate) Regression beschäftigen. Regressionen dienen dazu, den Zusammenhang zwischen Variablen rechnerisch zu testen. Die OLS Regression ist eine sogenannte lineare Regression, welche für stetige Variablen verwendet wird. Lineare Regressionen sind vor allem bei Querschnittsdaten, die zu einem einzigen Zeitpunkt erhoben wurden, gut geeignet.</p>
 <p>Die OLS nimmt an, dass sich die abhängige Variable als lineare Funktion einer unabhängigen Variable beschreiben lässt. Eine Veränderung um eine Einheit bei der unabhängigen Variable führt zu einer entsprechenden Veränderung bei der abhängigen Variable.</p>
 <p>Im folgenden werden wir eine lineare bivariate Regression durchführen. Beispielhaft werden wir den Zusammenhang zwischen der effektiven Parteienanzahl (ENP) - <strong>enpp4510</strong> - und dem Gallagher-Index - <strong>disprop4510</strong> - berechnen.</p>
 </div>
@@ -512,7 +515,7 @@ lijphart_cor_spear</code></pre>
 <p>Zuerst nutzen wir das <code>broom</code> Paket und die <code>tidy</code>-Funktion und konvertieren das Modell in einen Datensatz, in dem wir unsere Modellschätzungen und Teststatistiken speichern. Die <code>tidy</code>-Funktion fasst Informationen über Regressionsmodell-Komponenten zusammen. Wir speichern den neuen Datensatz in dem Objekt <code>lm_fit_lijphart</code>:</p>
 <pre class="r"><code>lm_fit_lijphart &lt;- tidy(lm_lijphart)
 lm_fit_lijphart</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##   term        estimate std.error statistic  p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 (Intercept)    4.09     0.274      14.9  1.72e-16
@@ -520,7 +523,7 @@ lm_fit_lijphart</code></pre>
 <p>Die Konfidenzintervalle extrahieren wir mit <code>conf.int = TRUE</code>. Konfidenzintervalle geben Auskunft über die Präzision unseres Modells.</p>
 <pre class="r"><code>lm_fit_lijphart &lt;- tidy(lm_lijphart, conf.int = TRUE)
 lm_fit_lijphart</code></pre>
-<pre><code>## # A tibble: 2 x 7
+<pre><code>## # A tibble: 2 × 7
 ##   term        estimate std.error statistic  p.value conf.low conf.high
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 (Intercept)    4.09     0.274      14.9  1.72e-16    3.53     4.65  
@@ -528,15 +531,15 @@ lm_fit_lijphart</code></pre>
 <p>Die Maße zur Interpretation der Modellgüte, wie z.B. das R-Quadrat, können wir uns mittels der <code>glance</code>-Funktion in ein zusätzliches Objekt speichern.</p>
 <pre class="r"><code>lm_glance_lijphart &lt;- glance(lm_lijphart)
 lm_glance_lijphart</code></pre>
-<pre><code>## # A tibble: 1 x 12
+<pre><code>## # A tibble: 1 × 12
 ##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
 ##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     0.323         0.303 0.950      16.2 0.000303     1  -48.2  102.  107.
 ## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
-<p>Zusätzlich können wir auch Modellvorhersagen und Residuen speichern. Diese Metriken helfen uns dabei die Modellgüte zu beurteilen. Sind z.B. die Residuen eines Regressionsmodells <em>nicht</em> normal verteilt (das können wir in einem ersten Schritt mit einem Histogramm graphisch abtesten), dann müssen wir davon ausgehen das unser Modell verzerrt ist. Wir speichern die Modellvorhersagen und Residuen mit der <code>augment()</code>-Funktion und speichern die Informationen in dem neuen Objekt <code>lm_aug_lijphart</code>.</p>
+<p>Zusätzlich können wir auch Modellvorhersagen und Residuen speichern. Diese Metriken helfen uns dabei die Modellgüte zu beurteilen. Sind z.B. die Residuen eines Regressionsmodells <strong>nicht</strong> normal verteilt (das können wir in einem ersten Schritt mit einem Histogramm graphisch abtesten), dann müssen wir davon ausgehen das unser Modell verzerrt ist. Wir speichern die Modellvorhersagen und Residuen mit der <code>augment()</code>-Funktion und speichern die Informationen in dem neuen Objekt <code>lm_aug_lijphart</code>.</p>
 <pre class="r"><code>lm_aug_lijphart &lt;- augment(lm_lijphart)
 lm_aug_lijphart</code></pre>
-<pre><code>## # A tibble: 36 x 8
+<pre><code>## # A tibble: 36 × 8
 ##    enpp4510 disprop4510 .fitted  .resid   .hat .sigma  .cooksd .std.resid
 ##       &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
 ##  1     3.15       18.0     2.20  0.952  0.0954  0.949 0.0585        1.05 
@@ -611,6 +614,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

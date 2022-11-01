@@ -11,10 +11,10 @@
 
 
 
-<title>Politikwissenschaftliche Statistik mit R. Sitzung 1: Einführung und Grundlagen</title>
+<title>Politikwissenschaftliche Statistik mit R - Sitzung 1: Einleitung und Grundlagen von R</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -362,6 +362,9 @@ div.tocify {
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
 </li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -374,7 +377,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R. Sitzung 1: Einführung und Grundlagen</h1>
+<h1 class="title toc-ignore">Politikwissenschaftliche Statistik mit R - Sitzung 1: Einleitung und Grundlagen von <code>R</code></h1>
 <h4 class="author">Christoph Garwe, Philipp Meyer, Laura Brune und Christoph Hönnige</h4>
 <address class="author_afil">
 Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
@@ -409,12 +412,14 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 </div>
 <div id="installation-und-grundlagen-der-bedienung" class="section level1">
 <h1>2. Installation und Grundlagen der Bedienung</h1>
-<p>Damit Sie <code>R</code> auf Ihrem Computer verwenden können, müssen Sie es downloaden und installieren. Gehen Sie dazu auf <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> und laden Sie die aktuellste Version für Ihr Betriebssystem (Linux, MacOS oder Windows) herunter. Wählen Sie dabei einen Standort, der möglichst nahe an Ihrem Aufenthaltsort liegt (in Hannover also die Universitäten Göttingen oder Münster). Installieren Sie R anschließend. Nun kann R geöffnet und bedient werden (es empfiehlt sich es einmal auszuprobieren), allerdings wird die Handhabung durch <code>RStudio</code> deutlich vereinfacht. Gehen Sie also nun auf <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a> und laden Sie die kostenlose Version herunter. Wichtig ist, dass erst <code>R</code> und danach <code>RStudio</code> installiert wird, da <code>RStudio</code> <code>R</code> voraussetzt.</p>
+<p>Damit Sie <code>R</code> auf Ihrem Computer verwenden können, müssen Sie es downloaden und installieren. Gehen Sie dazu auf <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> und laden Sie die aktuellste Version für Ihr Betriebssystem (Linux, MacOS oder Windows) herunter. Wählen Sie dabei einen Standort, der möglichst nahe an Ihrem Aufenthaltsort liegt (in Hannover also die Universitäten Göttingen oder Münster). Installieren Sie <code>R</code> anschließend. Nun kann <code>R</code> geöffnet und bedient werden (es empfiehlt sich es einmal auszuprobieren), allerdings wird die Handhabung durch <code>RStudio</code> deutlich vereinfacht. Gehen Sie also nun auf <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a> und laden Sie die kostenlose Version herunter. Wichtig ist, dass erst <code>R</code> und danach <code>RStudio</code> installiert wird, da <code>RStudio</code> <code>R</code> voraussetzt.</p>
 <div id="die-console" class="section level2">
 <h2>2.1 Die <code>Console</code></h2>
-<p>Nun können wir <code>RStudio</code> öffnen, wodurch <code>R</code> im Hintergrund ebenfalls geöffnet, allerdings mit der vereinfachten Anwenderansicht versehen wird. Code-Input kann links in der <code>Console</code> ausgeführt werden. Geben Sie als Beispiel</p>
+<p>Nun können wir <code>RStudio</code> öffnen, wodurch <code>R</code> im Hintergrund ebenfalls geöffnet, allerdings mit der vereinfachten Anwenderansicht versehen wird. Code-Input kann in der <code>Console</code> ausgeführt werden. Die <code>Console</code> ist in <code>RStudio</code> gewöhnlich auf der linken Seite. Es ist das Fenster unter dem roten Kreis auf dem Bild.</p>
+<p><br /> <img src="Screenshot_1.png" /> <br /></p>
+<p>Geben Sie als Beispiel</p>
 <pre class="r"><code>Sys.time()</code></pre>
-<pre><code>## [1] &quot;2021-10-21 21:04:09 CEST&quot;</code></pre>
+<pre><code>## [1] &quot;2022-11-01 14:47:51 CET&quot;</code></pre>
 <p>in die <code>Console</code> ein und bestätigen Sie mit Enter, wodurch Datum und Zeit des Systems ausgegeben werden. (Wie Sie vielleicht bemerken, ist die Funktion möglichst intuitiv gehalten. Tipp: Versuchen Sie stets die Intention hinter der Bezeichnung von Funktionen zu erahnen.)</p>
 <p>Haben Sie bemerkt, dass <code>RStudio</code> Ihnen Code-Vorschläge gemacht hat? (wenn nicht, tippen Sie nochmal <code>Sys.</code> ein und schauen Sie mal, welche Informationen zum System Sie sonst noch abrufen können). Wenn wir nur Teile von Funktionen eingeben, versucht <code>RStudio</code> sie zu vervollständigen. <code>R</code> hätte uns in seiner klassischen Version dabei nicht weitergeholfen.</p>
 <p>Nun wollen wir selbst kreativ werden und weisen Objekten Inhalt in Form von Werten oder Strings (Zeichen oder Zeichenabfolgen) zu. Zentral ist dabei der <code>&lt;-</code>-Operator, den Sie jetzt kennenlernen und am besten nie wieder vergessen. Es ist eigentlich ganz einfach: Was rechts von <code>&lt;-</code> steht, wird dem, was links davon steht, zugewiesen (Stichwort: intuitiv). Schreiben Sie in die <code>Console</code></p>
@@ -422,44 +427,33 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 <p>und schicken Sie den Code mit Enter ab. Um zu sehen, ob das geklappt hat, lassen wir uns das Objekt <code>x</code> ausgeben (<code>x</code> in die <code>Console</code> schreiben und mit Enter abschicken).</p>
 <pre class="r"><code>x</code></pre>
 <pre><code>## [1] 1</code></pre>
-<p>Wie gesagt, geht das nicht nur mit Werten - wie 1 - sondern auch mit Strings:</p>
+<p>Wie gesagt, geht das nicht nur mit Zahlen - wie 1 - sondern auch mit Strings, also Buchstaben:</p>
 <pre class="r"><code>y &lt;- &quot;Hallo&quot;
 y</code></pre>
 <pre><code>## [1] &quot;Hallo&quot;</code></pre>
-<p>Hinweis: Code wird den gesamten Kurs hindurch in Form solcher sog. Code-Chunks (die leicht gräulich hinterlegten Flächen) im Fließtext präsentiert. Die weiß hinterlegten Flächen zeigen den Output. Schicken Sie die Code-Chunks parallel zur Lektüre ab und prüfen Sie, ob Sie den gleichen Output erhalten.</p>
+<p>Hinweis: Code wird den gesamten Kurs hindurch in Form solcher sog. Code-Chunks (die leicht gräulich hinterlegten Flächen) im Fließtext präsentiert. Die weiß hinterlegten Flächen zeigen den Output. Bei den Zahlen in eckigen Klammern handelt es sich um Orientierungshilfen zur Einordnung des Outputs. Für uns sind sie zumeist nicht relevant. Schicken Sie die Code-Chunks parallel zur Lektüre ab und prüfen Sie, ob Sie den gleichen Output erhalten.</p>
 </div>
 <div id="global-environment-und-history" class="section level2">
 <h2>2.2 <code>Global Environment</code> und <code>History</code></h2>
 <p>Die beiden Objekte <code>x</code> und <code>y</code> sind oben rechts in dem Fenster <code>Global Environment</code> erschienen. Das <code>Global Environment</code> ist der Ort, an dem <code>R</code> erstellte Objekte und eingeladene Daten für die Dauer einer <code>R</code>-Session speichert. Es ist gewissermaßen der Raum, in dem wir arbeiten - daher das Synonym <code>Workspace</code>, das Ihnen begegnen wird. <code>RStudio</code> gibt uns mit dem Fenster oben rechts einen direkten Überblick über alle von uns erstellten Objekte und verfügbaren Daten. Im Gegensatz dazu können wir in der <code>History</code> (der Reiter rechts daneben) den gesamten Code, welchen wir jemals geschrieben haben (nicht nur in der aktuellen Session), nachschlagen (jetzt enthält die <code>History</code> nur den Code zur Erstellung von <code>x</code> und <code>y</code> sowie <code>Sys.time()</code>).</p>
-<p>Es wird dringend empfohlen, das <code>Global Environment</code> mit Beendigung einer Session zu leeren, d.h. den <code>Workspace</code> beim Schließen von R NICHT zu speichern (<code>R Studio</code> fragt Sie danach). Das wirkt ungewohnt, aber so bleiben Änderungen immer nur vorübergehend und wir verändern das <code>Global Environment</code> nicht nachhaltig. Gleichzeitig wollen wir natürlich in der Lage sein, Datenmanipulationen in einer späteren Session zu wiederholen. Deshalb speichern wir den Code als Text (nicht die Veränderungen im <code>Global Environment</code>, die daraus folgen) in einem <code>R Script</code>.</p>
+<p><br /> <img src="Screenshot_2.png" /> <br /></p>
+<p>Es wird dringend empfohlen, das <code>Global Environment</code> mit Beendigung einer Session zu leeren, d.h. den <code>Workspace</code> beim Schließen von <code>R</code> NICHT zu speichern (<code>R Studio</code> fragt Sie danach). Das wirkt ungewohnt, aber so bleiben Änderungen immer nur vorübergehend und wir verändern das <code>Global Environment</code> nicht nachhaltig. Gleichzeitig wollen wir natürlich in der Lage sein, Datenmanipulationen in einer späteren Session zu wiederholen. Deshalb speichern wir den Code als Text (nicht die Veränderungen im <code>Global Environment</code>, die daraus folgen) in einem <code>R Script</code>.</p>
 </div>
 <div id="r-script" class="section level2">
 <h2>2.3 <code>R Script</code></h2>
-<p>Öffnen Sie ein <code>R Script</code> über</p>
-<ul>
-<li><code>Datei -&gt; Neue Datei -&gt; R-Script</code></li>
-</ul>
-<p>oder</p>
-<ul>
-<li><code>Strg+Shift+N</code> bzw. <code>Cmd+Shift+N</code>.</li>
-</ul>
-<p>Von nun an sollten Sie sämtlichen Code in solchen Skripten schreiben. Beginnen Sie damit: Wir können das bestehende Objekt <code>x</code> folgendermaßen überschreiben:</p>
+<p>Öffnen Sie ein <code>R Script</code> über <code>File -&gt; New File -&gt; R-Script</code> oder <code>Strg+Shift+N</code> bzw. <code>Cmd+Shift+N</code>.</p>
+<p><br /> <img src="Screenshot_3.png" /> <br /></p>
+<p>Von nun an sollten Sie sämtlichen Code in solchen Scripten schreiben. Beginnen Sie damit: Wir können das bestehende Objekt <code>x</code> folgendermaßen überschreiben:</p>
 <pre class="r"><code>x &lt;- 2</code></pre>
-<p>Wenn wir nun Enter drücken, verändern wir nichts (siehe <code>Global Environment</code>), wir rutschen bloß in die nächste Codezeile im Skript. Allerdings können wir mit</p>
-<ul>
-<li><code>-&gt; Run</code> (oben rechts über dem Skript)</li>
-</ul>
-<p>oder</p>
-<ul>
-<li><code>Strg+Enter</code> bzw. <code>Cmd+Enter</code></li>
-</ul>
-<p>Codezeilen aus dem Skript an die <code>Console</code> schicken. Ein Blick ins <code>Global Environment</code> bestätigt: <code>x</code> wurde der Wert 2 zugeschrieben (wenn das nicht geklappt hat, stellen Sie sicher, dass sich der Cursor in der Zeile befindet, die an die <code>Console</code> geschickt werden soll, wenn Sie den Code abschicken).</p>
-<p>Skripte speichern also den Code in Textform, damit wir ihn später wiederverwenden und prüfen können. Sie sind nicht nur wichtig, um Code zu konservieren, sondern helfen uns auch die <em>Replizierbarkeit</em> unserer Analyse zu gewährleisten. Wissenschaftliche Fachzeitschriften verlangen heutzutage regelmäßig, dass mit dem Manuskript eines Artikels auch Replikationsmaterial zur Verfügung gestellt wird, anhand dessen die Analyse nachvollzogen werden kann. Genauso wird erwartet, dass empirische Arbeiten im Rahmen des Studiums mit Repikationsmaterial abgegeben werden, damit die dort berichteten Ergebnisse überprüft werden können.</p>
-<p>Damit wir dies erreichen, können wir unser Skript speichern. Wir speichern es manuell, indem wir zunächst <code>File</code> und dann <code>Save As...</code> auswählen. In der 13. Sitzung werden wir lernen, wie man einzelne Objekte speichern kann.</p>
+<p>Wenn wir nun Enter drücken, verändern wir nichts (siehe <code>Global Environment</code>), wir rutschen bloß in die nächste Codezeile im Script. Allerdings können wir mit <code>-&gt; Run</code> (oben rechts über dem Script) oder <code>Strg+Enter</code> bzw. <code>Cmd+Enter</code>.</p>
+<p>Codezeilen aus dem Script an die <code>Console</code> schicken. Ein Blick ins <code>Global Environment</code> bestätigt: <code>x</code> wurde der Wert 2 zugeschrieben (wenn das nicht geklappt hat, stellen Sie sicher, dass sich der Cursor in der Zeile befindet, die an die <code>Console</code> geschickt werden soll, wenn Sie den Code abschicken).</p>
+<p>Scripte speichern also den Code in Textform, damit wir ihn später wiederverwenden und prüfen können. Sie sind nicht nur wichtig, um Code zu konservieren, sondern helfen uns auch die <em>Replizierbarkeit</em> unserer Analyse zu gewährleisten. Wissenschaftliche Fachzeitschriften verlangen heutzutage regelmäßig, dass mit dem Manuskript eines Artikels auch Replikationsmaterial zur Verfügung gestellt wird, anhand dessen die Analyse nachvollzogen werden kann. Genauso wird erwartet, dass empirische Arbeiten im Rahmen des Studiums mit Repikationsmaterial abgegeben werden, damit die dort berichteten Ergebnisse überprüft werden können.</p>
+<p>Damit wir dies erreichen, können wir unser Script speichern. Dies funktioniert über <code>File -&gt; Save As...</code> oder <code>Strg+S</code> bzw. <code>Cmd+S</code>.</p>
+<p>Neben einem Script kann man noch einzelne Objekte speichern. Dies werden wir in der 13. Sitzung lernen.</p>
 </div>
 <div id="hilfe-und-weiteres" class="section level2">
 <h2>2.4 Hilfe und Weiteres</h2>
-<p>Neben dem <code>R Script</code> (oben links), der <code>Console</code> (unten links) und dem <code>Global Environment</code> bzw. der <code>History</code> (oben rechts) gibt es unten rechts noch ein viertes, bisher nicht erwähntes Fenster. Wichtig in der Anwendung sind hier die Reiter <code>Plots</code>, <code>Packages</code> und <code>Help</code>. Unter <code>Plots</code> werden in <code>R</code> erstellte Abbildungen angezeigt (dazu mehr unter 4. und in Sitzungen 6 und 8). Unter <code>Packages</code> erhalten wir einen Überblick über die installierten und geladenen Pakete (dazu mehr unter 4.). Schließlich können wir unter <code>Help</code> auf die Reference Manuals (“Bedienungshandbücher”) für einzelne Funktionen zugreifen. Dazu brauchen wir lediglich den Namen einer Funktion (ohne Klammern) in die Suchleiste einzugeben. Alternativ können wir ein Fragezeichen <code>?</code> zusammen mit der Funktion in die <code>Console</code> eingeben (oder natürlich über das Skript abschicken):</p>
+<p>Neben dem <code>R Script</code> (oben links), der <code>Console</code> (unten links) und dem <code>Global Environment</code> bzw. der <code>History</code> (oben rechts) gibt es unten rechts noch ein viertes, bisher nicht erwähntes Fenster. Wichtig in der Anwendung sind hier die Reiter <code>Plots</code>, <code>Packages</code> und <code>Help</code>. Unter <code>Plots</code> werden in <code>R</code> erstellte Abbildungen angezeigt (dazu mehr unter 4. und in Sitzungen 6 und 8). Unter <code>Packages</code> erhalten wir einen Überblick über die installierten und geladenen Pakete (dazu mehr unter 4.). Schließlich können wir unter <code>Help</code> auf die Reference Manuals (“Bedienungshandbücher”) für einzelne Funktionen zugreifen. Dazu brauchen wir lediglich den Namen einer Funktion (ohne Klammern) in die Suchleiste einzugeben. Alternativ können wir ein Fragezeichen <code>?</code> zusammen mit der Funktion in die <code>Console</code> eingeben (oder natürlich über das Script abschicken):</p>
 <pre class="r"><code>?table</code></pre>
 <p>Schauen Sie sich den Hilfe-Eintrag zu der Funktion <code>table()</code> an, der Ihnen nun angezeigt wird. Die <code>R</code>-Reference Manuals sind in der Regel wie dieser Eintrag aufgebaut mit den Punkten Description, Usage, Arguments usw. Hilfreich ist häufig die Information zu den Argumenten der Funktion (dazu mehr unter 4.), “See Also” zu verwandten oder alternativen Funktionen sowie insbesondere die “Examples”. Diese Anwendungsbeispiele helfen sehr dabei, <code>R</code>-Funktionen und ihre Verwendung zu verstehen.</p>
 </div>
@@ -545,15 +539,15 @@ class(x)</code></pre>
 <div id="vektoren-und-klassen" class="section level2">
 <h2>4.1 Vektoren und Klassen</h2>
 <p>Die Besonderheit der Vektoren: Sie können immer nur ein und dieselbe Klasse von Objekten beinhalten. Z.B. können sie nur numerische Daten oder nur <em>characters</em> enthalten. Wenn wir versuchen, Elemente unterschiedlicher Klassen in einem Vektor zusammenzufassen, werden sie automatisch der weniger voraussetzungsvollen Klasse zugeordnet.</p>
-<pre class="r"><code>x &lt;- c(1, &quot;a&quot;)
+<pre class="r"><code>y &lt;- c(1, &quot;a&quot;)
 class(x)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>x &lt;- c(1, TRUE)
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="r"><code>y &lt;- c(1, TRUE)
 class(x)</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<pre class="r"><code>x &lt;- c(&quot;a&quot;, TRUE)
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="r"><code>y &lt;- c(&quot;a&quot;, TRUE)
 class(x)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
 <p>Dieser Prozess nennt sich <em>implicit coercion</em> (“impliziter Zwang”) und ist tückisch, weil <code>R</code> keine Fehlermeldung über die Veränderung der Klasse ausgibt, obwohl es zu einem Infromationsverlust kommt. Wir müssen also wissen, was wir tun. Deshalb ist es wichtig, über die Klassen der Objekte Bescheid zu wissen.</p>
 </div>
 <div id="auswählen-von-elementen-in-vektoren" class="section level2">
@@ -682,14 +676,22 @@ x * y</code></pre>
 </div>
 <div id="zusammenfassung" class="section level1">
 <h1>6. Zusammenfassung</h1>
-<p>Diese Einführungssitzung bot einen breit angelegten Einstieg in die Datenanalyse mit <code>R</code>. Code wird in <code>R</code> über die <code>Console</code> abgeschickt, während wir ihn im <code>R Script</code> speichern. Über <code>File</code> und <code>Save As...</code> werden Skripte gespeichert. Dies ist notwendig, um unsere Analyse wiederverwendbar, kontrollierbar und replizierbar zu machen. Dabei erstellte und veränderte Objekte werden im <code>Global Environment</code> für die Dauer einer Session gespeichert, während die <code>History</code> allen jemals abgeschickten Code speichert. <em>characters</em>, <em>integers</em>, <em>numerics</em> und <em>logicals</em> sind vier häufig anzutreffende Objektklassen. Die Veränderung von Klassen ist mit Informationsverlust verbunden und gelingt nur, wenn ausreichend Information vorhanden ist, um Objekte in anderen Klassen sinnvoll zu interpretieren. Vektoren beinhalten immer nur Elemente derselben Klasse. Pakete beinhalten Funktionen und sind unterschiedlich spezialisiert. Manche Pakete sind vorinstalliert, andere müssen mit <code>install.packages()</code> installiert und vor jedem Gebrauch mit <code>library()</code> geladen werden. Funktionen beinhalten Argumente, von denen nur manche spezifiziert werden müssen. Solange die Reihenfolge eine eindeutige Zuordnung ermöglicht, müssen Argumente nicht ausdrücklich genannt werden.</p>
+<p>Diese Einführungssitzung bot einen breit angelegten Einstieg in die Datenanalyse mit <code>R</code>. Code wird in <code>R</code> über die <code>Console</code> abgeschickt, während wir ihn im <code>R Script</code> speichern. Über <code>File</code> und <code>Save As...</code> werden Scripte gespeichert. Dies ist notwendig, um unsere Analyse wiederverwendbar, kontrollierbar und replizierbar zu machen. Dabei erstellte und veränderte Objekte werden im <code>Global Environment</code> für die Dauer einer Session gespeichert, während die <code>History</code> allen jemals abgeschickten Code speichert. <em>characters</em>, <em>integers</em>, <em>numerics</em> und <em>logicals</em> sind vier häufig anzutreffende Objektklassen. Die Veränderung von Klassen ist mit Informationsverlust verbunden und gelingt nur, wenn ausreichend Information vorhanden ist, um Objekte in anderen Klassen sinnvoll zu interpretieren. Vektoren beinhalten immer nur Elemente derselben Klasse. Pakete beinhalten Funktionen und sind unterschiedlich spezialisiert. Manche Pakete sind vorinstalliert, andere müssen mit <code>install.packages()</code> installiert und vor jedem Gebrauch mit <code>library()</code> geladen werden. Funktionen beinhalten Argumente, von denen nur manche spezifiziert werden müssen. Solange die Reihenfolge eine eindeutige Zuordnung ermöglicht, müssen Argumente nicht ausdrücklich genannt werden.</p>
 </div>
 <div id="aufgaben" class="section level1">
 <h1>7. Aufgaben</h1>
 <ol style="list-style-type: decimal">
 <li>Installieren Sie <code>R</code> und <code>R Studio</code> wie unter 2. beschrieben. Führen Sie die Code-Chunks aus 2. aus.</li>
-<li>Erstellen Sie zwei numerische Vektoren, die je fünf beliebige Werte beinhalten. Summieren Sie die Vektoren und multiplizieren Sie sie miteinander. Bilden Sie einen weiteren Vektor, indem Sie die beiden Vektoren miteinander kombinieren.</li>
-<li>Erstellen Sie einen character-Vektor, der die Buchstaben des Alphabets beinhaltet. Bilden Sie einen zweiten character-Vektor, der als Subset des ersten nur die Konsonanten beinhaltet.</li>
+<li><ol style="list-style-type: lower-alpha">
+<li>Erstellen Sie zwei numerische Vektoren, die je fünf beliebige Werte beinhalten.</li>
+<li>Summieren Sie die Vektoren.</li>
+<li>Multiplizieren Sie die Vektoren miteinander.</li>
+<li>Bilden Sie einen weiteren Vektor, indem Sie die beiden Vektoren miteinander kombinieren.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>Erstellen Sie einen character-Vektor, der die Buchstaben des Alphabets beinhaltet.</li>
+<li>Bilden Sie einen zweiten character-Vektor, indem Sie eine Auswahl aus dem ersten treffen, welche nur die Konsonanten beinhaltet.</li>
+</ol></li>
 </ol>
 </div>
 
@@ -731,6 +733,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

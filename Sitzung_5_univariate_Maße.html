@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 5: Univariate Maße</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -361,6 +361,9 @@ div.tocify {
 </li>
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -498,10 +501,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <h1>3. Lagemaße</h1>
 <p>Lagemaße vermitteln uns einen Eindruck der zentralen Tendenz einer Verteilung. Wir behandeln hier das arithmetische Mittel, den Median, den Modus, das Maximum und Minimum sowie Quantile.</p>
 <div id="arithmetisches-mittel" class="section level2">
-<h2>3.1 arithmetisches Mittel</h2>
+<h2>3.1 Arithmetisches Mittel</h2>
 <p>Das arithmetische Mittel (“Mittelwert”, “Durchschnitt”) summiert die Merkmalsausprägung jeder Beobachtung und teilt die Summe durch die Fallzahl:</p>
 <p><span class="math inline">\(\frac1n\sum_{i=1}^n(x_i)\)</span>.</p>
-<p>In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. Im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (“rm” für “remove”), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
+<p>Mittelwerte können hierbei nur für numerische oder logische Variablen berechnet werden. In <code>R</code> steht dazu die einfache Funktion <code>mean()</code> im <code>base</code>-Paket zur Verfügung. Im Folgenden spezifizieren wir das Argument <code>na.rm = TRUE</code> (“rm” für “remove”), damit <code>NA</code>s bei der Berechnung außen vor bleiben. <code>R</code> wüsste sonst nicht, wie es mit den <code>NA</code>s rechnerisch umgehen sollte.</p>
 <p>Das mittlere Alter der Befragten der GLES liegt bei</p>
 <pre class="r"><code>mean(gles$alter, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 50.15396</code></pre>
@@ -613,15 +616,15 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="populations--und-stichprobenvarianz" class="section level2">
 <h2>4.5 Populations- und Stichprobenvarianz</h2>
 <p>Um genau zu sein, werden die Varianz (und die varianzbasierte Standardabweichung) in <code>R</code> als Populationsmaße berechnet. D.h., dass bei ihrer Berechnung nicht (wie in den obigen Formeln gezeigt) durch die Fallzahl <span class="math inline">\(n\)</span>, sondern durch die Freiheitsgrade <span class="math inline">\(n-1\)</span> dividiert wird. Um die Stichprobenvarianz zu berechnen, multiplizieren wir den Output von <code>var()</code> mit <span class="math inline">\((n-1)/n\)</span>. Die Fallzahl <span class="math inline">\(n\)</span> ermitteln wir mit der Funktion <code>nrow()</code> (“number of rows”), also der Anzahl von Beobachtungen (Zeilen) eines Datensatzes.</p>
-<pre class="r"><code>var(gles$alter, na.rm = TRUE) * (nrow(gles) - 1) / nrow(gles)</code></pre>
-<pre><code>## [1] 368.2592</code></pre>
-<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
-<pre><code>## [1] 952.1017</code></pre>
+<pre class="r"><code>var(gles$alter, na.rm = TRUE) ** (nrow(gles) - 1) / nrow(gles)</code></pre>
+<pre><code>## [1] Inf</code></pre>
+<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) ** (nrow(lijphart) - 1) / nrow(lijphart)</code></pre>
+<pre><code>## [1] 1.336044e+103</code></pre>
 <p>Im Ergebnis identisch und länger (damit weniger effizient), aber verallgemeinerbar, ist folgender Code. Hier wird die Fallzahl mit <code>length()</code> ermittelt. <code>length()</code> bestimmt die Anzahl der Elemente in eindimensionalen Objekten, also Vektoren. Damit kann diese Berechnung auch für eindimensionale Objekte (außerhalb von Datensätzen) durchgeführt werden. Während die Dataframes <code>gles</code> und <code>lijphart</code> zwei Dimensionen (Zeilen und Spalten) aufweisen, sodass wir <code>nrow()</code> sinnvoll verwenden können, sind einzelne Variablen innerhalb der Dataframes wie <code>alter</code> und <code>minwin_one_part4510</code> eindimensionale Vektoren, sodass <code>length()</code> angemessen ist.</p>
-<pre class="r"><code>var(gles$alter, na.rm = TRUE) * (length(gles$alter) - 1) / length(gles$alter)</code></pre>
-<pre><code>## [1] 368.2592</code></pre>
-<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) * (length(lijphart$minwin_one_part4510) - 1) / length(lijphart$minwin_one_part4510)</code></pre>
-<pre><code>## [1] 952.1017</code></pre>
+<pre class="r"><code>var(gles$alter, na.rm = TRUE) ** (length(gles$alter) - 1) / length(gles$alter)</code></pre>
+<pre><code>## [1] Inf</code></pre>
+<pre class="r"><code>var(lijphart$minwin_one_part4510, na.rm = TRUE) ** (length(lijphart$minwin_one_part4510) - 1) / length(lijphart$minwin_one_part4510)</code></pre>
+<pre><code>## [1] 1.336044e+103</code></pre>
 <p>Je größer die Fallzahl (der Datensatz), desto weniger fällt die Verwendung der Populationsvarianz ins Gewicht. Für das Alter der Befragten im GLES-Datensatz mit 2112 Beobachtungen fällt die Differenz zwischen Stichproben- und Populationsvarianz deutlich geringer aus als für den Anteil von Minimal-Gewinnkoalitionen mit einer Partei aus dem Lijphart-Datensatz mit 36 Beobachtungen.</p>
 </div>
 </div>
@@ -632,11 +635,10 @@ lijphart$exe_dom4510 &lt;- as.numeric(lijphart$exe_dom4510)</code></pre>
 <div id="aufgaben" class="section level1">
 <h1>6. Aufgaben</h1>
 <ol style="list-style-type: decimal">
-<li>Lassen Sie sich das arithmetische Mittel, den Median und Quantile für die den Gallagher-Disproportionalitätsindex, den Anteil von Minimal-Gewinnkoalitionen mit einer Partei sowie die Exekutivdominanz ausgeben. Berechnen Sie bei einer Variable Quartile, bei einer Variable 12,5%-Quantile sowie bei einer Variable 5%-Quantile. Runden Sie den Mittelwert jeweils auf die zweite Nachkommastelle.</li>
+<li>Lassen Sie sich das arithmetische Mittel, den Median und Quantile jeweils für den Gallagher-Disproportionalitätsindex, den Anteil von Minimal-Gewinnkoalitionen mit einer Partei sowie die Exekutivdominanz ausgeben. Berechnen Sie bei einer Variable Quartile, bei einer Variable 12,5%-Quantile sowie bei einer Variable 5%-Quantile. Runden Sie den Mittelwert jeweils auf die zweite Nachkommastelle.</li>
 <li>Erstellen Sie eine Häufigkeitstabelle des kategorisierten Haushaltseinkommens sowie eine Zusammenfassung der wesentliche Lagemaße des numerisch codierten Haushaltseinkommens. Ermitteln Sie außerdem den Quartilsabstand des numerisch codierten Haushaltseinkommens. Wie hoch ist das Haushaltseinkommen der mittleren 50% der Befragten?</li>
 <li>Ermitteln Sie Varianz und Standardabweichung der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes.</li>
-<li>Berechnen Sie die Stichprobenvarianz der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes. Berechnen Sie nun die Standardabweichung für beide Variablen auf Grundlage der Stichprobenvarianz. Tipp: Die mathematische Operation dazu ist aus Sitzung 1 bekannt.</li>
-<li>Speichern Sie das Geburtsjahr der Befragten (<code>q2c</code>) in einem numerischen Vektor <code>gj</code>, den Sie nicht an den Datensatz anhängen. Subtrahieren Sie 1900. Berechnen Sie nun die Stichprobenvarianz und auf deren Grundlage die Standardabweichung. Tipp: Wie man Faktoren in numerische Vektoren umwandelt, haben wir in der vergangenen Sitzung behandelt.</li>
+<li>Berechnen Sie die Stichprobenvarianz der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes. Berechnen Sie nun die Standardabweichung für beide Variablen auf Grundlage der Stichprobenvarianz. Tipp: Die mathematische Operation dazu sollte aus Sitzung 1 bekannt sein.</li>
 </ol>
 </div>
 
@@ -678,6 +680,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

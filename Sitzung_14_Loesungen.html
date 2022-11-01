@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 14: Lösungen zu den Aufgaben</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -361,6 +361,9 @@ div.tocify {
 </li>
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
+</li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -569,8 +572,6 @@ table(geraete)</code></pre>
 <li><p>Bilden Sie eine Variable <code>schulab</code> mit den folgenden Kategorien: Hochschulreife, Fachhochschulreife, Realschule, Hauptschule, kein Abschluss. Inspizieren Sie die Variable und stellen Sie sicher, dass bei Befragten, die einen anderen oder noch keinen Schulabschluss haben, ein <code>NA</code> vercodet wurde.</p></li>
 <li><p>Bilden Sie aus <code>einkommen_num</code> eine Variable <code>einkommen_cat1</code>, die vier Kategorien hat: “weniger als 2000”, “2000 bis unter 4000”, “4000 bis unter 7500”, “7500 und mehr”. Nutzen Sie die Vergleichsoperatoren <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> &amp; <code>&lt;=</code> sowie den logischen Operator <code>&amp;</code>.</p></li>
 <li><p>Bilden Sie eine identische Variable <code>einkommen_cat2</code>. Nutzen Sie diesmal die Operatoren <code>==</code> und <code>|</code>. Inspizieren Sie, ob beide tatsächlich identisch sind.</p></li>
-<li><p>Suchen Sie per Google eine Funktion, mit der Sie prüfen können, ob Objekte/Variablen identisch sind. Wenden Sie diese Funktion auf <code>einkommen_cat1</code> und <code>einkommen_cat2</code> an.</p></li>
-<li><p>Was ist an der Berechnung des Alters der Befragten nicht ganz richtig?</p></li>
 </ol>
 </div>
 <div id="lösungen-2" class="section level2">
@@ -611,11 +612,6 @@ table(gles$einkommen_cat1)</code></pre>
 <pre><code>## 
 ## 2000 bis unter 4000 4000 bis unter 7500       7500 und mehr    weniger als 2000 
 ##                 822                 350                  56                 541</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>all.equal(gles$einkommen_cat1, gles$einkommen_cat2)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
 <div id="sitzung-univariate-maße" class="section level1">
@@ -627,7 +623,6 @@ table(gles$einkommen_cat1)</code></pre>
 <li><p>Erstellen Sie eine Häufigkeitstabelle des kategorisierten Haushaltseinkommens sowie eine Zusammenfassung der wesentliche Lagemaße des numerisch codierten Haushaltseinkommens. Ermitteln Sie außerdem den Quartilsabstand des numerisch codierten Haushaltseinkommens. Wie hoch ist das Haushaltseinkommen der mittleren 50% der Befragten?</p></li>
 <li><p>Ermitteln Sie Varianz und Standardabweichung der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes.</p></li>
 <li><p>Berechnen Sie die Stichprobenvarianz der Links-Rechts-Selbsteinstufung und des Gallagher-Indexes. Berechnen Sie nun die Standardabweichung für beide Variablen auf Grundlage der Stichprobenvarianz. Tipp: Die mathematische Operation dazu ist aus Sitzung 1 bekannt.</p></li>
-<li><p>Speichern Sie das Geburtsjahr der Befragten (<code>q2c</code>) in einem numerischen Vektor <code>gj</code>, den Sie nicht an den Datensatz anhängen. Subtrahieren Sie 1900. Berechnen Sie nun die Stichprobenvarianz und auf deren Grundlage die Standardabweichung. Tipp: Wie man Faktoren in numerische Vektoren umwandelt, haben wir in der vergangenen Sitzung behandelt.</p></li>
 </ol>
 </div>
 <div id="lösungen-3" class="section level2">
@@ -696,15 +691,6 @@ table(gles$einkommen_cat1)</code></pre>
 <pre><code>## [1] 1.931313</code></pre>
 <pre class="r"><code>sqrt(var(lijphart$disprop4510, na.rm = TRUE) * (nrow(lijphart) - 1) / nrow(lijphart))</code></pre>
 <pre><code>## [1] 6.047703</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li></li>
-</ol>
-<pre class="r"><code>gj &lt;- as.numeric(as.character(gles$q2c))
-gj &lt;- gj - 1900
-var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj)</code></pre>
-<pre><code>## [1] 368.2592</code></pre>
-<pre class="r"><code>sqrt(var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj))</code></pre>
-<pre><code>## [1] 19.19008</code></pre>
 </div>
 </div>
 <div id="sitzung-visualisierung-1-univariate-verteilungen" class="section level1">
@@ -712,7 +698,10 @@ var(gj, na.rm = TRUE) * (length(gj) - 1) / length(gj)</code></pre>
 <div id="aufgaben-4" class="section level2">
 <h2>6.1 Aufgaben</h2>
 <ol style="list-style-type: decimal">
-<li><p>Erstellen Sie ausgehend von <code>bicam4510</code> einen Faktor, der die Stärke des Bikameralismus in vier Kategorien misst: schwach, eher schwach, eher stark und stark. Hängen Sie diesen Faktor an den bestehenden Datensatz an. Orientieren Sie sich an der Skalierung von <code>bicam4510</code>. Kodieren Sie die Variable wenn nötig so um, dass Werte, die keiner Kategorie exakt entsprechen, der jeweils nächstgelegenen Kategorie zugeordnet werden. Erzeugen Sie nun ein Balkendiagramm der Stärke des Bikameralismus. Vergeben Sie einen sinnvollen Titel sowie Achsenbeschriftungen.</p></li>
+<li><ul>
+<li>Erstellen Sie ausgehend von <code>bicam4510</code> einen Faktor, der die Stärke des Bikameralismus in vier Kategorien misst: schwach, eher schwach, eher stark und stark. Hängen Sie diesen Faktor an den bestehenden Datensatz an. Orientieren Sie sich an der Skalierung von <code>bicam4510</code>. Kodieren Sie die Variable wenn nötig so um, dass Werte, die keiner Kategorie exakt entsprechen, der jeweils nächstgelegenen Kategorie zugeordnet werden.</li>
+<li>Erzeugen Sie nun ein Balkendiagramm der Stärke des Bikameralismus. Vergeben Sie einen sinnvollen Titel sowie Achsenbeschriftungen.</li>
+</ul></li>
 <li><p>Erstellen Sie zwei Histogramme und zwei Dichteplots des Gallagher-Indizes (<code>disprop4510</code>). Die Balken des Histogramms sollen jeweils weiß gefüllt und schwarz umrandet sein. Zwischen den beiden Histogrammen sollen sichtbare Differenzen bezüglich der Intervallbreite und zwischen den beiden Dichteplots sichtbare Differenzen bezüglich der Bandbreite erkennbar sein.</p></li>
 <li><p>Erstellen Sie einen Boxplot der ENPP (<code>enpp4510</code>). Die Skala soll Markierungen bei jeder halben Zahl innerhalb des Wertebereiches aufweisen.</p></li>
 </ol>
@@ -737,31 +726,31 @@ ggplot(data = lijphart, mapping = aes(bicam)) +
   labs(title = &quot;Bikameralismus und die Länder aus &#39;Patterns of Democracy&#39;&quot;,
        y = &quot;Anzahl&quot;,
        x = &quot;Stärke des Bikameralimsus&quot;)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li></li>
 </ol>
 <pre class="r"><code># Histogramme
 ggplot(data = lijphart, mapping = aes(disprop4510)) +
   geom_histogram(binwidth = 3, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(data = lijphart, mapping = aes(disprop4510)) +
   geom_histogram(binwidth = 2, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
 <pre class="r"><code># Dichteplots
 ggplot(data = lijphart, mapping = aes(disprop4510)) +
   geom_density(bw = 2)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-22-3.png" width="672" /></p>
 <pre class="r"><code>ggplot(data = lijphart, mapping = aes(disprop4510)) +
   geom_density(bw = .8)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-22-4.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li></li>
 </ol>
 <pre class="r"><code>ggplot(data = lijphart, mapping = aes(enpp4510)) +
   geom_boxplot() +
   scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 </div>
 <div id="sitzung-bivariate-zusammenhangsmaße" class="section level1">
@@ -772,7 +761,6 @@ ggplot(data = lijphart, mapping = aes(disprop4510)) +
 <li><p>Bedeutet unsere Schlussfolgerung in 3.2, dass Menschen mit zunehmendem Alter eine eher rechte politische Einstellung entwickeln?</p></li>
 <li><p>Finden Sie heraus, auf Grundlage welcher Variable wir die <code>AfD.Wahl</code> ursprünglich gebildet haben. Kodieren Sie diese Variable sinnvoll so um, dass sie die Wahlentscheiung der Befragten für die Parteien des Deutschen Bundestages enthält. Setzen Sie andere Antworten auf <code>NA</code>. Erstellen Sie eine Kreuztabelle für die Wahlentscheidung und den Wohnort der Befragten.</p></li>
 <li><p>Errechnen Sie Chi-Quadrat für die Wahlentscheidung und den Wohnort. Interpretieren Sie das Ergebnis. Lassen Sie sich die Tabellen der empirisch beobachteten und erwarteten Häufigkeiten ausgeben und vergleichen Sie sie. Berechnen Sie schließlich Cramer’s V und interpretieren Sie das Ergebnis.</p></li>
-<li><p>Berechnen Sie die Kovarianz des Alters und des (zu einer numerischen Variable umgeformten) Haushaltseinkommens der Befragten. Berechnen Sie außerdem die Kovarianz des Gallagher-Indizes der Disproportionalität und der Effective Number of Parliamentary Parties (ENPP). Interpretieren Sie Ihre Ergebnisse.</p></li>
 <li><p>Replizieren Sie einen Teil der Analyse Lijphart’s aus “Patterns of Democracy”: Berechnen Sie die Korrelation von (1) ENPP und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (2) Exekutivdominanz (Regierungsdauer) und Anteil von Minimal-Gewinnkoalitionen mit einer Partei, (3) Gallagher-Index und ENPP. Interpretieren Sie Ihre Ergebnisse. Wenn Sie eine Kopie von “Patterns of Democracy” vorliegen haben, vergleichen Sie Ihre Ergebnisse mit den Ergebnissen Lijpharts. Diese werden in den jeweils letzten Abschnitten der Kapitel 6, 7 und 8 diskutiert.</p></li>
 </ol>
 </div>
@@ -833,13 +821,6 @@ cramerV(test_wahlent$observed)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li></li>
 </ol>
-<pre class="r"><code>cov(gles$alter, gles$einkommen_num, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] -3.743309</code></pre>
-<pre class="r"><code>cov(lijphart$disprop4510, lijphart$enpp4510)</code></pre>
-<pre><code>## [1] -3.963505</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li></li>
-</ol>
 <pre class="r"><code>cor(lijphart$enpp4510, lijphart$minwin_one_part4510)</code></pre>
 <pre><code>## [1] -0.8502749</code></pre>
 <pre class="r"><code>cor(lijphart$minwin_one_part4510, lijphart$exe_dom4510)</code></pre>
@@ -898,26 +879,26 @@ lm_lijphart</code></pre>
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point()</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point() +
   geom_text(label = lijphart$Country)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-2.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
 <pre class="r"><code># Linienplots
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point() +
   geom_smooth(method = lm)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-3.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-3.png" width="672" /></p>
 <pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-4.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-4.png" width="672" /></p>
 <pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point() +
   geom_smooth(method = lm) + 
   geom_text(label = lijphart$Country, hjust = 0, vjust = 0)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-5.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-5.png" width="672" /></p>
 <pre class="r"><code># Graphaussehen verändern
 ## Beschriftungen
 
@@ -927,7 +908,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_text(label = lijphart$Country, hjust = 0, vjust = 0) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-6.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-6.png" width="672" /></p>
 <pre class="r"><code>## Hintergrundthemes
 # Minimal Theme
 
@@ -938,7 +919,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
   theme_minimal() </code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-7.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-7.png" width="672" /></p>
 <pre class="r"><code># The Economist
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
@@ -948,7 +929,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
   theme_economist() </code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-8.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-8.png" width="672" /></p>
 <pre class="r"><code>## Farben und Füllungen
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point(shape = 18, color = &quot;blue&quot;) + # Form und Farbe der Punkte verändern
@@ -957,7 +938,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
   theme_minimal() </code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-9.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-9.png" width="672" /></p>
 <pre class="r"><code>ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   geom_point(shape = 18, color = &quot;blue&quot;) +
   geom_smooth(method = lm,  linetype = &quot;dashed&quot;,
@@ -966,7 +947,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
   theme_minimal()</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-10.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-28-10.png" width="672" /></p>
 <pre class="r"><code># Aufgabe 2: Loess-Linie 
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
@@ -977,7 +958,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
   theme_minimal()</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <pre class="r"><code># Aufgabe 3: Ein anderes Hintergrund-Theme als die gezeigten
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
@@ -988,7 +969,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   labs(title = &quot;Zusammenhang zwischen Kabinettstyp und Regierungsdauer&quot;,
         x =&quot;Kabinettstyp&quot;, y = &quot;Regierungsdauer&quot;) +
   theme_dark() # Willkürliche Verwendung des dark_themes. Natürlich gibt es noch mehr!</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <pre class="r"><code># Aufgabe 4: X- und Y-Achse verändern
 
 ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
@@ -1001,7 +982,7 @@ ggplot(lijphart, aes(x = bicam4510,  y = exe_dom4510)) +
   scale_y_continuous(name=&quot;Regierungsdauer&quot;, limits=c(1, 10)) + # Auch möglich: expand_limits(x= XX , y=XX)
   # Auch möglich xlim(XX, XX)+ylim(XX, XX) 
   theme_minimal()</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <pre class="r"><code># Aufgabe 5: Graphen speichern
 
 # Neues Objekt speichern
@@ -1177,7 +1158,7 @@ summary(modell4)</code></pre>
 <li></li>
 </ol>
 <pre class="r"><code>plot(modell4)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-1.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-2.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-3.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-4.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-35-1.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-35-2.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-35-3.png" width="672" /><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-35-4.png" width="672" /></p>
 <pre class="r"><code>vif(modell4)</code></pre>
 <pre><code>##                   GVIF Df GVIF^(1/(2*Df))
 ## alter         1.214028  1        1.101829
@@ -1191,19 +1172,19 @@ summary(modell4)</code></pre>
 <li></li>
 </ol>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;alter&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;geschlecht&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-2.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;wohnort&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-3.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-3.png" width="672" /></p>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;einkommen_cat&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-4.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-4.png" width="672" /></p>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;q33&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-5.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-5.png" width="672" /></p>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;schulab&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-6.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-6.png" width="672" /></p>
 <pre class="r"><code>plot(ggpredict(modell4, terms = &quot;q83&quot;))</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-39-7.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-36-7.png" width="672" /></p>
 </div>
 </div>
 <div id="sitzung-logistische-regression" class="section level1">
@@ -1264,20 +1245,20 @@ afd_preds_age &lt;- ggpredict(afd_logit, terms = &quot;alter&quot;)
 afd_preds_sex &lt;- ggpredict(afd_logit, terms = &quot;geschlecht&quot;)
 
 plot(afd_preds_age)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <pre class="r"><code>plot(afd_preds_sex)</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-2.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-2.png" width="672" /></p>
 <pre class="r"><code># Titel und Achsenbeschriftung
 plot(afd_preds_age) + 
   labs(x = &quot;Alter der befragten Personen&quot;
        , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
        , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Alter&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-3.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-3.png" width="672" /></p>
 <pre class="r"><code>plot(afd_preds_sex) + 
   labs(x = &quot;Geschlecht der befragten Personen&quot;
        , y = &quot;Wahrscheinlichkeit die AfD zu wählen&quot;
        , title = &quot;Vorhergesagte Wahrscheinlichkeit die AfD zu wählen,\n gruppiert nach Geschlecht&quot;) # &quot;\n&quot; befiehlt R einen Absatz einzufügen</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-4.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-38-4.png" width="672" /></p>
 </div>
 </div>
 <div id="sitzung-faktoranalyse" class="section level1">
@@ -1285,13 +1266,17 @@ plot(afd_preds_age) +
 <div id="aufgaben-10" class="section level2">
 <h2>12.1 Aufgaben</h2>
 <ol style="list-style-type: decimal">
-<li><p>Verändern Sie die Anzahl der Faktoren zu:</p>
-<ol style="list-style-type: lower-alpha">
+<li>Verändern Sie die Anzahl der Faktoren zu:
+<ul>
 <li>drei Faktoren und</li>
 <li>zu einem Faktor. Wie verändern sich die Ergebnisse? Können Sie Ihre Ergebnisse sinnvoll interpretieren? Vergleichen Sie Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</li>
-</ol></li>
-<li><p>Erstellen Sie ein neues <code>subset</code> mit allen Variablen aus <em>sub_lijphart</em> außer der Variablen der Interessenvertretung. Führen Sie eine Faktorenanalyse mit zwei Faktoren durch. Wie wirkt sich die Reduktion auf Ihre Ergebnisse aus? Ziehen Sie den Vergleich zu Ihrer replizierten Faktorenanalyse. Erstellen Sie dazu auch eine Visualisierung, welche Sie mit der replizierten “Landkarte der Demokratie” vergleichen.</p></li>
-<li><p>Replizieren Sie die Faktorenanalyse erneut. Verwenden Sie dabei alle Untersuchungseinheiten außer die Demokratien Großbritannien und Neuseeland. Erstellen Sie eine Visualisierung. Welche Veränderungen können Sie beobachten? Vergleichen Sie dazu Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</p></li>
+</ul></li>
+<li>Erstellen Sie ein neues <code>subset</code> mit allen Variablen aus <strong>sub_lijphart</strong> außer der Variablen der Interessenvertretung.
+<ul>
+<li>Führen Sie eine Faktorenanalyse mit zwei Faktoren durch. Wie wirkt sich die Reduktion auf Ihre Ergebnisse aus? Ziehen Sie den Vergleich zu Ihrer replizierten Faktorenanalyse.</li>
+<li>Erstellen Sie dazu auch eine Visualisierung, welche Sie mit der replizierten “Landkarte der Demokratie” vergleichen.</li>
+</ul></li>
+<li>Replizieren Sie die Faktorenanalyse erneut. Verwenden Sie dabei alle Untersuchungseinheiten außer die Demokratien Großbritannien und Neuseeland. Erstellen Sie eine Visualisierung. Welche Veränderungen können Sie beobachten? Vergleichen Sie dazu Ihre Ergebnisse mit Ihrer replizierten Faktorenanalyse.</li>
 </ol>
 </div>
 <div id="lösungen-10" class="section level2">
@@ -1436,10 +1421,10 @@ plot_red1 &lt;- ggplot(data = scores_data_red1, aes(x = Factor1, y = Factor2)) +
   coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
   theme_linedraw() 
 plot_red1</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <pre class="r"><code># Vergleich mit der replizierten &quot;Landkarte der Demokratie&quot;
 plot</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-44-2.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-41-2.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li></li>
 </ol>
@@ -1508,10 +1493,10 @@ plot_red2 &lt;- ggplot(data = scores_data_red2, aes(x = Factor1, y = Factor2)) +
   coord_cartesian(ylim = c(2.5, -2.5), xlim = c(-2.1, 2.1)) +
   theme_linedraw() 
 plot_red2</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <pre class="r"><code># Vergleich mit der replizierten &quot;Landkarte der Demokratie&quot;
 plot</code></pre>
-<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-45-2.png" width="672" /></p>
+<p><img src="Sitzung_14_Loesungen_files/figure-html/unnamed-chunk-42-2.png" width="672" /></p>
 <p>Vergleich für alle Aufgaben:</p>
 <pre class="r"><code># Replizierte Faktorenanalyse
 print(model_factanal, digits = 2, cutoff = .3)</code></pre>
@@ -1717,6 +1702,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

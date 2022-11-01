@@ -13,8 +13,8 @@
 
 <title>Politikwissenschaftliche Statistik mit R. Sitzung 2: Faktoren und zweidimensionale Objekte</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -362,6 +362,9 @@ div.tocify {
 <li>
   <a href="Sitzung_14_Loesungen.html">(14) Lösungen</a>
 </li>
+<li>
+  <a href="Sitzung_15_Hilfe.html">(15) Hilfe</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -396,7 +399,7 @@ Institut für Politikwissenschaft, Leibniz Universität Hannover<br>
 <div id="matrix" class="section level1">
 <h1>2. <code>matrix</code></h1>
 <p>Matrizen sind Vektoren mit einer Besonderheit: Sie haben zwei Dimensionen (Vektoren besitzen nur eine). Daten in Form von Matrizen sind also in Zeilen und Spalten geordnet, genau wie bei einer klassischen Tabelle. Das hat zur Folge, dass innerhalb einer Matrix jede Zeile, genauso wie jede Spalte, gleich lang sein muss. Wäre eine Spalte oder Zeile länger oder kürzer, käme es zu leeren Zellen innerhalb der Matrix und damit könnte <code>R</code> nicht umgehen.</p>
-<p>Ansonsten verhalten sich Matrizen so wie Vektoren. Das bezieht sich insbesondere darauf, dass sie nur eine Klasse von Objekten gleichzeitig beinhalten können. Die Elemente einer Matrix können also z.B. entweder nur <em>character</em>-Vektoren oder nur numerisch sein.</p>
+<p>Ansonsten verhalten sich Matrizen so wie Vektoren. Das bezieht sich insbesondere darauf, dass sie nur eine Klasse von Objekten gleichzeitig beinhalten können. Die Elemente einer Matrix können also z.B. entweder nur <strong>character</strong>-Vektoren oder nur numerisch sein.</p>
 <div id="eine-matrix-erstellen" class="section level2">
 <h2>2.1 Eine Matrix erstellen</h2>
 <p>Wir bilden eine Matrix in <code>R</code> so:</p>
@@ -411,7 +414,7 @@ m</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<p>Wir sehen, dass <code>R</code> die Matrix Spalte für Spalte mit Werten versehen hat: 1 und 2 stehen in der ersten Spalte, 3 und 4 in der zweiten Spalte und 5 und 6 in der dritten Spalte. Die Art und Weise, wie <code>R</code> beim “Füllen” der Matrix vorgeht, lässt sich über das Argument <code>byrow</code> bestimmen, dessen default (Standardeinstellung) <code>FALSE</code> ist. Wir setzen <code>byrow</code> auf <code>TRUE</code>.</p>
+<p>Die Matrix wurde Spalte für Spalte mit den angegebenen Werten versehen: 1 und 2 stehen in der ersten Spalte, 3 und 4 in der zweiten Spalte und 5 und 6 in der dritten Spalte. Die Art und Weise, wie <code>R</code> beim “Füllen” der Matrix vorgeht, lässt sich über das Argument <code>byrow</code> bestimmen, dessen default (Standardeinstellung) <code>FALSE</code> ist. Wir setzen <code>byrow</code> auf <code>TRUE</code>.</p>
 <pre class="r"><code>m &lt;- matrix(1:6, nrow = 2, byrow = TRUE)
 m</code></pre>
 <pre><code>##      [,1] [,2] [,3]
@@ -467,7 +470,7 @@ z                       # nochmal ausgeben</code></pre>
 <p>Dataframes sind die übliche Form, in der tabellarische Daten in <code>R</code> gespeichert werden und damit ein wichtiger Typ von Objekten. Wenn wir in der nächsten Sitzung die Datensätze, die wir in diesem Kurs untersuchen wollen, einlesen, werden sie in Form von Dataframes vorliegen. Während wir diese Dataframes mit Funktionen zum Einladen von extern verfügbaren Datensätzen erstellen werden (insbesondere <code>read.csv</code>, dazu mehr in der nächsten Sitzung), können wir Dataframes auch direkt mithilfe der Funktion <code>data.frame()</code> bilden.</p>
 <div id="dataframes-händisch-erstellen" class="section level2">
 <h2>3.1 Dataframes händisch erstellen</h2>
-<p>Genau wie bei Matrizen müssen auch bei Dataframes alle Zeilen und Spalten die gleiche Länge aufweisen. Im Gegensatz zur Matrix ist es bei Dataframes allerdings möglich, Elemente unterschiedlicher Klassen miteinander zu kombinieren. Dataframes werden gebildet, indem wir in den Klammern der Funktion <code>data.frame()</code> die in ihnen zusammengefassten Spalten (Variablen) nacheinander mit ihrem Namen und Inhalt nennen. In diesem Beispiel für die Variablen <code>a</code> und <code>b</code>:</p>
+<p>Genau wie bei Matrizen müssen auch bei Dataframes alle Zeilen und Spalten die gleiche Länge aufweisen. Im Gegensatz zu Matrizen ist es bei Dataframes allerdings möglich, Elemente unterschiedlicher Klassen miteinander zu kombinieren. Dies ist insbesondere für komplexere Analysen von Vorteil. Dataframes werden gebildet, indem wir in den Klammern der Funktion <code>data.frame()</code> die in ihnen zusammengefassten Spalten (Variablen) nacheinander mit ihrem Namen und Inhalt nennen. In diesem Beispiel für die Variablen <code>a</code> und <code>b</code>:</p>
 <pre class="r"><code>df &lt;- data.frame(a = 1:4, b = c(TRUE, TRUE, FALSE, FALSE))
 df</code></pre>
 <pre><code>##   a     b
@@ -635,7 +638,7 @@ beispiel  # Zeilennummern nun von sieben bis 12</code></pre>
 <pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE</code></pre>
 <p>Ergebnis: Die Variable “bedingung” nimmt in der ersten, zweiten und sechsten Zeile den Wert “E” an.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Diesen logischen Vektor wenden wir auf den Datensatz <code>df</code> an indem wir ihn in die eckigen Klammern <strong>vor</strong> das Komma schreiben. Also dorthin, wo Information zu den Zeilen abgerufen wird. Die Anweisung an <code>R</code> lautet dann: Nenne mir die Zeilen, für die die Aussage, dass “bedingung” gleich “E” ist, zutrifft.</li>
+<li>Diesen logischen Vektor wenden wir auf den Datensatz <code>df</code> an indem wir ihn in die eckigen Klammern ****vor**** das Komma schreiben. Also dorthin, wo Information zu den Zeilen abgerufen wird. Die Anweisung an <code>R</code> lautet dann: Nenne mir die Zeilen, für die die Aussage, dass “bedingung” gleich “E” ist, zutrifft.</li>
 </ol>
 <pre class="r"><code>df[df$bedingung == &quot;E&quot;, ]</code></pre>
 <pre><code>##   identifikation bedingung geschlecht alter wert_t1 wert_t2
@@ -711,8 +714,8 @@ subset</code></pre>
 <p>Eine zweite gute Nachricht: Wir können uns das aufwendige Subsetten mittels eckiger Klammern vereinfachen. base-<code>R</code> besitzt nämlich eine eigenständige Funktion zum Erstellen von Subsets mit der naheliegenden Bezeichnung <code>subset()</code>. <code>subset()</code> ermöglicht die Reduktion eines Datensatzes auf ausgewählte Zeilen mit dem Argument <code>subset</code> und auf bestimmte Variablen (Spalten) mit dem Argument <code>select</code>.</p>
 <pre class="r"><code>?subset</code></pre>
 <p>Wir verkürzen den Datensatz auf die Variable “alter”:</p>
-<pre class="r"><code>subset &lt;- subset(df, select = alter)
-subset</code></pre>
+<pre class="r"><code>sub &lt;- subset(df, select = alter)
+sub</code></pre>
 <pre><code>##   alter
 ## 1    17
 ## 2    19
@@ -721,8 +724,8 @@ subset</code></pre>
 ## 5    16
 ## 6    21</code></pre>
 <p>… auf die Variablen “identifikation”, “geschlecht” und “alter”:</p>
-<pre class="r"><code>subset &lt;- subset(df, select = c(identifikation, geschlecht, alter))
-subset</code></pre>
+<pre class="r"><code>sub &lt;- subset(df, select = c(identifikation, geschlecht, alter))
+sub</code></pre>
 <pre><code>##   identifikation geschlecht alter
 ## 1              1          M    17
 ## 2              2          M    19
@@ -731,15 +734,15 @@ subset</code></pre>
 ## 5              5          W    16
 ## 6              6          W    21</code></pre>
 <p>… auf die Zeilen vier bis sechs:</p>
-<pre class="r"><code>subset &lt;- subset(df, subset = identifikation &gt;= 4)
-subset</code></pre>
+<pre class="r"><code>sub &lt;- subset(df, subset = identifikation &gt;= 4)
+sub</code></pre>
 <pre><code>##   identifikation bedingung geschlecht alter wert_t1 wert_t2
 ## 4              4         C          M    18     6.8     6.3
 ## 5              5         C          W    16     8.0     7.5
 ## 6              6         E          W    21     6.4     6.4</code></pre>
 <p>… auf die Minderjährigen:</p>
-<pre class="r"><code>subset &lt;- subset(df, alter &lt; 18) # hier wird das Argument &quot;subset&quot; nicht ausdrücklich genannt
-subset</code></pre>
+<pre class="r"><code>sub &lt;- subset(df, alter &lt; 18) # hier wird das Argument &quot;subset&quot; nicht ausdrücklich genannt
+sub</code></pre>
 <pre><code>##   identifikation bedingung geschlecht alter wert_t1 wert_t2
 ## 1              1         E          M    17       8     8.3
 ## 5              5         C          W    16       8     7.5</code></pre>
@@ -775,7 +778,7 @@ unclass(x)</code></pre>
 <pre><code>## [1] klein  mittel mittel groß   groß   groß  
 ## Levels: klein mittel groß</code></pre>
 <p>Jetzt entsprechen sich interne Werte und externe Labels.</p>
-<p>Da Dataframes Variablen unterschiedlicher Klassen enthalten können, können Variablen auch als Faktoren vorliegen. Mit <code>as.factor()</code> können wir Vektoren zu Faktoren umwandeln. Das gilt auch für Variablen innerhalb von Dataframes. Innerhalb des Dataframes <code>df</code> ist das nur für die <em>character</em>-Variablen <code>bedingung</code> und <code>geschlecht</code> sinnvoll, da deren Inhalt als Labels interpretiert werden kann.</p>
+<p>Da Dataframes Variablen unterschiedlicher Klassen enthalten können, können Variablen auch als Faktoren vorliegen. Mit <code>as.factor()</code> können wir Vektoren zu Faktoren umwandeln. Das gilt auch für Variablen innerhalb von Dataframes. Innerhalb des Dataframes <code>df</code> ist das nur für die <strong>character</strong>-Variablen <code>bedingung</code> und <code>geschlecht</code> sinnvoll, da deren Inhalt als Labels interpretiert werden kann.</p>
 <pre class="r"><code>df$geschlecht &lt;- as.factor(df$geschlecht)
 df$geschlecht</code></pre>
 <pre><code>## [1] M M W M W W
@@ -800,12 +803,35 @@ df$geschlecht</code></pre>
 <div id="aufgaben" class="section level1">
 <h1>7. Aufgaben</h1>
 <ol style="list-style-type: decimal">
-<li>Erstellen Sie zwei Matrizen, die beliebige zwölf Werte beinhalten: a) mit drei Zeilen und Spalte für Spalte mit Werten versehen; b) mit zwei Spalten und Zeile für Zeile mit Werten versehen. Schreiben Sie effizienten Code, indem Sie jeweils nur die notwendigen Argumente erwähnen.</li>
-<li>Erstellen Sie einen character-Vektor “p”, der die Namen der im 19. Deutschen Bundestag vertretenen Parteien enthält. Ordnen Sie den Vektor nach dem Mandatsanteil der Parteien beginnend mit dem größten Anteil. Erstellen Sie außerdem einen numerischen Vektor “a”, der die Mandatsanteile (gerundet auf eine Nachkommastelle) der Parteien enthält. Orientieren Sie sich an der Ordnung von “p”. Erstellen Sie eine Matrix, indem Sie beide Vektoren als Spalten verbinden. Inspizieren Sie die erstellte Matrix. Information finden Sie hier: <a href="https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf" class="uri">https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf</a></li>
-<li>Wandeln Sie die unter 2. erstellte Matrix in einen Dataframe um. Prüfen Sie die Klasse der beiden Variablen des Dataframe. wandeln Sie sie ggf. in ein angemessenes Datenformat um. Geben Sie beiden Variablen sinnvolle Namen.</li>
-<li>Erstellen Sie Subsets für die folgenden potenziellen Koalitionen und speichern Sie sie in Objekten mit den angegbenen Namen: CDU/CSU-SPD -&gt; “groko”, CDU/CSU-FDP-Grüne -&gt; “jamaika”. Summieren Sie jeweils den Mandatsanteil der möglichen Koalitionen (Tipp: im Tutorial zu Sitzung 1 finden Sie die entsprechende Funktion für das Summieren).</li>
-<li>Erstellen Sie ein Subset aller Parteien, die mehr als 10 Prozent der Mandate auf sich vereinigen. Erstellen Sie dieses Subset einmal mithilfe eckiger Klammern und einmal mithilfe der Funktion <code>subset()</code>. Erstellen Sie außerdem ein Subset mit allen Parteien, die weniger Mandate auf sich vereinigen als die SPD. (Tipp: für Letzteres benötigen Sie einen logischen Vektor, selbst wenn Sie <code>subset()</code> verwenden.)</li>
-<li>Erstellen Sie einen Faktor mit den Kategorien “Handy”, “Tablet”, “Laptop”, “PC”. Handys sollen zweimal, Tablets viermal, Laptops dreimal und PCs fünfmal vorkommen. Ordnen Sie den Faktor nach der Größe der Geräte von klein nach groß. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Faktors ausgeben. Wandeln Sie den Faktor in einen numeric-Vektor um. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Vektors ausgeben. Was hat sich im Output dieser Funktionen verändert?</li>
+<li>Erstellen Sie zwei Matrizen, die beliebige zwölf Werte beinhalten:
+<ol style="list-style-type: lower-alpha">
+<li>mit drei Zeilen und Spalte für Spalte mit Werten versehen;</li>
+<li>mit zwei Spalten und Zeile für Zeile mit Werten versehen. Schreiben Sie effizienten Code, indem Sie jeweils nur die notwendigen Argumente erwähnen.</li>
+</ol></li>
+<li>Erstellen Sie einen character-Vektor “p”, der die Namen der im 19. Deutschen Bundestag vertretenen Parteien enthält. Information finden Sie hier: <a href="https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf" class="uri">https://www.bundestag.de/resource/blob/196106/b4daa14a76f53a3d58892a6373259a9d/Kapitel_01_16_Stimmenanteil_-_Mandatsanteil-data.pdf</a>
+<ol style="list-style-type: lower-alpha">
+<li>Ordnen Sie den Vektor nach dem Mandatsanteil der Parteien beginnend mit dem größten Anteil.</li>
+<li>Erstellen Sie außerdem einen numerischen Vektor “a”, der die Mandatsanteile (gerundet auf eine Nachkommastelle) der Parteien enthält. Orientieren Sie sich an der Ordnung von “p”.</li>
+<li>Erstellen Sie eine Matrix, indem Sie beide Vektoren als Spalten verbinden. Inspizieren Sie die erstellte Matrix.</li>
+</ol></li>
+<li>Wandeln Sie die unter 2. erstellte Matrix in einen Dataframe um. Prüfen Sie die Klasse der beiden Variablen des Dataframe. Wandeln Sie sie ggf. in ein angemessenes Datenformat um. Geben Sie beiden Variablen sinnvolle Namen.</li>
+<li>Erstellen Sie Subsets für die folgenden potenziellen Koalitionen und speichern Sie sie in Objekten mit den angegbenen Namen:
+<ol style="list-style-type: lower-alpha">
+<li>CDU/CSU-SPD -&gt; “groko”</li>
+<li>CDU/CSU-FDP-Grüne -&gt; “jamaika”. Summieren Sie jeweils den Mandatsanteil der möglichen Koalitionen (Tipp: im Tutorial zu Sitzung 1 finden Sie die entsprechende Funktion für das Summieren).</li>
+</ol></li>
+<li>Erstellen Sie ein Subset aller Parteien, die mehr als 10 Prozent der Mandate auf sich vereinigen.
+<ol style="list-style-type: lower-alpha">
+<li>Erstellen Sie dieses Subset einmal mithilfe eckiger Klammern</li>
+<li>Und einmal mithilfe der Funktion <code>subset()</code>.</li>
+<li>Erstellen Sie außerdem ein Subset mit allen Parteien, die weniger Mandate auf sich vereinigen als die SPD. (Tipp: für Letzteres benötigen Sie einen logischen Vektor, selbst wenn Sie <code>subset()</code> verwenden.)</li>
+</ol></li>
+<li>Erstellen Sie einen Faktor mit den Kategorien “Handy”, “Tablet”, “Laptop”, “PC”. Handys sollen zweimal, Tablets viermal, Laptops dreimal und PCs fünfmal vorkommen.
+<ol style="list-style-type: lower-alpha">
+<li>Ordnen Sie den Faktor nach der Größe der Geräte von klein nach groß.</li>
+<li>Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Faktors ausgeben.</li>
+<li>Wandeln Sie den Faktor in einen numeric-Vektor um. Lassen Sie sich die <code>table()</code>und die <code>summary()</code> des Vektors ausgeben. Was hat sich im Output dieser Funktionen verändert?</li>
+</ol></li>
 </ol>
 </div>
 
@@ -847,6 +873,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

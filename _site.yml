@@ -33,3 +33,5 @@ navbar:
       href: Sitzung_13_Tabellen.html
     - text: "(14) Lösungen"
       href: Sitzung_14_Loesungen.html
+    - text: "(15) Hilfe"
+      href: Sitzung_15_Hilfe.html
